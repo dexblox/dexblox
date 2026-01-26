@@ -1,0 +1,75 @@
+{
+  "name": "roblox-proxy",
+  "version": "1.0.0"
+}
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/*.js", "use": "@vercel/node" }
+  ]
+}
+export default async function handler(req, res) {
+  const { username } = req.query;
+  try {
+    const response = await fetch("https://users.roblox.com/v1/usernames/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usernames: [username] })
+    });
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+export default async function handler(req, res) {
+  const { userId } = req.query;
+  try {
+    const response = await fetch(`https://games.roblox.com/v2/users/${userId}/games`);
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+export default async function handler(req, res) {
+  const { gameId } = req.query;
+  try {
+    const response = await fetch(`https://games.roblox.com/v1/games/${gameId}/game-passes`);
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+export default async function handler(req, res) {
+  const { userId } = req.query;
+  try {
+    const response = await fetch(
+      `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`
+    );
+    const data = await response.json();
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+# Roblox Proxy API
+
+Proxy server untuk ambil data Roblox agar tidak kena CORS saat dipakai di frontend.
+
+## Endpoint
+- `/api/user?username=NamaUser` → Ambil UserId dari username
+- `/api/games?userId=123456` → Ambil daftar game dari user
+- `/api/gamepasses?gameId=987654` → Ambil daftar gamepass dari game
+- `/api/avatar?userId=123456` → Ambil avatar Roblox user
+
+## Deploy ke Vercel
+1. Upload semua file ke repo GitHub.
+2. Buka [vercel.com](https://vercel.com) → login.
+3. Klik **New Project** → pilih repo ini.
+4. Klik **Deploy** → dapat URL publik.
+
+## Contoh URL
+- `https://roblox-proxy.vercel.app/api/user?username=Yuzie123`
+- `https://roblox-proxy.vercel.app/api/avatar?userId=123456`
