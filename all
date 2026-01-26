@@ -1,13 +1,3 @@
-{
-  "name": "roblox-proxy",
-  "version": "1.0.0"
-}
-{
-  "version": 2,
-  "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" }
-  ]
-}
 export default async function handler(req, res) {
   const { username } = req.query;
   try {
@@ -54,22 +44,3 @@ export default async function handler(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
-# Roblox Proxy API
-
-Proxy server untuk ambil data Roblox agar tidak kena CORS saat dipakai di frontend.
-
-## Endpoint
-- `/api/user?username=NamaUser` → Ambil UserId dari username
-- `/api/games?userId=123456` → Ambil daftar game dari user
-- `/api/gamepasses?gameId=987654` → Ambil daftar gamepass dari game
-- `/api/avatar?userId=123456` → Ambil avatar Roblox user
-
-## Deploy ke Vercel
-1. Upload semua file ke repo GitHub.
-2. Buka [vercel.com](https://vercel.com) → login.
-3. Klik **New Project** → pilih repo ini.
-4. Klik **Deploy** → dapat URL publik.
-
-## Contoh URL
-- `https://roblox-proxy.vercel.app/api/user?username=Yuzie123`
-- `https://roblox-proxy.vercel.app/api/avatar?userId=123456`
