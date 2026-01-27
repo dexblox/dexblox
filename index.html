@@ -2,43 +2,90 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dexblox Topup Roblox</title>
+  <title>Dexblox Topup Roblox - Cyber Elegan</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#fff; color:#333; margin:0; padding:0; }
-    header { background:#f5f5f5; padding:20px; text-align:center; border-bottom:2px solid #e0e0e0; }
-    h1 { color:#007BFF; }
-    .container { max-width:800px; margin:40px auto; padding:20px; background:#fff; border:1px solid #ddd; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
-    label,input,select,button { display:block; width:100%; margin:10px 0; padding:10px; font-size:16px; }
-    button { background:#007BFF; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-    button:hover { background:#0056b3; }
-    img { margin-top:10px; border:1px solid #ccc; }
+    body {
+      margin:0; padding:0;
+      font-family: Arial, sans-serif;
+      background:#fff;
+      color:#333;
+      overflow-x:hidden;
+    }
+    header {
+      text-align:center;
+      padding:30px;
+      font-size:28px;
+      color:#007BFF;
+      text-shadow:0 0 8px #00f;
+      border-bottom:2px solid #e0e0e0;
+      position:relative;
+      z-index:2;
+    }
+    .container {
+      max-width:700px;
+      margin:40px auto;
+      padding:20px;
+      background:#fff;
+      border:1px solid #ddd;
+      border-radius:10px;
+      box-shadow:0 0 15px rgba(0,123,255,0.2);
+      position:relative;
+      z-index:2;
+    }
+    label,input,select,button {
+      display:block;
+      width:100%;
+      margin:10px 0;
+      padding:12px;
+      font-size:16px;
+    }
+    button {
+      background:#007BFF;
+      color:#fff;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+    button:hover {
+      background:#0056b3;
+      box-shadow:0 0 10px #00f;
+    }
+    img { margin-top:10px; border:2px solid #007BFF; border-radius:8px; }
     table { width:100%; border-collapse:collapse; margin-top:20px; }
-    th,td { border:1px solid #ccc; padding:8px; text-align:left; }
-    .love { position:fixed; width:20px; height:20px; background:#007BFF; clip-path:polygon(50% 0%,100% 35%,80% 100%,50% 80%,20% 100%,0% 35%); animation:float 5s linear infinite; opacity:0.6; }
-    @keyframes float { 0%{transform:translateY(0) scale(1);opacity:0.6;}50%{transform:translateY(-200px) scale(1.2);opacity:0.8;}100%{transform:translateY(-400px) scale(0.8);opacity:0;} }
+    th,td { border:1px solid #007BFF; padding:8px; text-align:left; }
+    .admin { margin-top:40px; padding:20px; background:#f5f5f5; border-radius:10px; }
+    /* Aurora blue background */
+    .aurora-bg {
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background: radial-gradient(circle at 20% 30%, rgba(0,123,255,0.3), transparent 60%),
+                  radial-gradient(circle at 80% 70%, rgba(0,200,255,0.3), transparent 60%);
+      animation: auroraMove 12s ease-in-out infinite alternate;
+      z-index:1;
+      opacity:0.6;
+    }
+    @keyframes auroraMove {
+      0% { background-position: 0% 0%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 100%; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>💙 Dexblox Topup Roblox</h1>
-    <p>Isi Robux dengan cepat & aman</p>
-  </header>
+  <div class="aurora-bg"></div>
+  <header>⚡ Dexblox Topup Roblox ⚡</header>
 
   <div class="container">
     <label for="username">Username Roblox:</label>
     <input type="text" id="username" placeholder="Masukkan username Roblox">
-
     <button onclick="cekUser()">Cek Username</button>
     <div id="userInfo"></div>
 
-    <label for="amount">Jumlah Robux:</label>
-    <select id="amount">
-      <option value="80">80 Robux</option>
-      <option value="400">400 Robux</option>
-      <option value="800">800 Robux</option>
-      <option value="1700">1700 Robux</option>
-    </select>
+    <label for="package">Pilih Paket Robux:</label>
+    <select id="package" onchange="showPackage()"></select>
+    <p id="paketInfo"></p>
 
     <label for="payment">Metode Pembayaran:</label>
     <select id="payment">
@@ -50,98 +97,130 @@
 
     <button onclick="topup()">Topup Sekarang</button>
     <p id="result"></p>
-
-    <div id="store"></div>
   </div>
 
-  <script>
-    let base = "https://dexblox.vercel.app/api"; // ganti sesuai proxy kamu
-    let currentUserId = null;
-    let currentUniverseId = null;
+  <!-- Admin Panel -->
+  <div class="container admin">
+    <h3>🔑 Admin Panel</h3>
+    <input type="text" id="adminUser" placeholder="Username">
+    <input type="password" id="adminPass" placeholder="Password">
+    <button onclick="adminLogin()">Login</button>
+    <p id="adminResult"></p>
 
-    async function cekUser() {
-      const username = document.getElementById('username').value.trim();
-      if (!username) return alert("Isi dulu username!");
+    <div id="adminPanel" style="display:none;">
+      <label for="editPackage">Pilih Paket:</label>
+      <select id="editPackage"></select>
+      <label for="newPrice">Harga Baru (Rp):</label>
+      <input type="number" id="newPrice">
+      <button onclick="updatePrice()">Update Harga</button>
+    </div>
+  </div>
 
-      const userInfo = document.getElementById('userInfo');
-      userInfo.innerHTML = "Loading...";
+<script>
+  let base = "https://dexblox.vercel.app/api"; 
+  let currentUserId = null;
 
-      try {
-        // 1. Ambil UserId
-        const res = await fetch(`${base}/user?username=${username}`);
-        const data = await res.json();
-        const userId = data.Id || data.id || data.data?.[0]?.id;
-        if (!userId) throw new Error("UserId tidak ditemukan!");
+  // Paket Robux default
+  let packages = [
+    {robux:100, price:11000, setId:143},
+    {robux:200, price:22000, setId:286},
+    {robux:300, price:33000, setId:429},
+    {robux:400, price:44000, setId:572},
+    {robux:500, price:55000, setId:715},
+    {robux:600, price:66000, setId:858},
+    {robux:700, price:77000, setId:1001},
+    {robux:800, price:88000, setId:1144},
+    {robux:900, price:99000, setId:1287},
+    {robux:1000, price:110000, setId:1430}
+  ];
 
-        currentUserId = userId;
+  function renderPackages() {
+    const pkgSelect = document.getElementById('package');
+    pkgSelect.innerHTML = "";
+    packages.forEach(p => {
+      const opt = document.createElement("option");
+      opt.value = p.robux;
+      opt.text = `${p.robux} Robux - Rp${p.price.toLocaleString()}`;
+      pkgSelect.appendChild(opt);
+    });
 
-        // 2. Ambil avatar
-        const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
-        const avatarData = await avatarRes.json();
-        const avatarUrl = avatarData.imageUrl || avatarData.data?.[0]?.imageUrl;
+    const editSelect = document.getElementById('editPackage');
+    editSelect.innerHTML = "";
+    packages.forEach((p,i) => {
+      const opt = document.createElement("option");
+      opt.value = i;
+      opt.text = `${p.robux} Robux (Set ${p.setId})`;
+      editSelect.appendChild(opt);
+    });
+  }
 
-        userInfo.innerHTML = `
-          <p>✅ Username valid: <b>${username}</b> (UserId: ${userId})</p>
-          ${avatarUrl ? `<img src="${avatarUrl}" alt="Avatar" width="150">` : `<p>Avatar tidak ditemukan.</p>`}
-        `;
+  function showPackage() {
+    const robux = document.getElementById('package').value;
+    const pkg = packages.find(p => p.robux == robux);
+    document.getElementById('paketInfo').innerText =
+      `📦 Paket: ${pkg.robux} Robux | 💰 Rp${pkg.price.toLocaleString()} | 🔑 Set ID: ${pkg.setId}`;
+  }
 
-        // 3. Ambil games/universe
-        const gamesRes = await fetch(`${base}/games?userId=${userId}`);
-        const gamesData = await gamesRes.json();
-        const universeId = gamesData.data?.[0]?.id;
-        currentUniverseId = universeId;
+  async function cekUser() {
+    const username = document.getElementById('username').value.trim();
+    if (!username) return alert("Isi dulu username!");
+    const userInfo = document.getElementById('userInfo');
+    userInfo.innerHTML = "Loading...";
 
-        if (universeId) {
-          // 4. Ambil toko gamepasses
-          const gpRes = await fetch(`${base}/gamepasses?universeId=${universeId}`);
-          const gpData = await gpRes.json();
+    try {
+      const res = await fetch(`${base}/user?username=${username}`);
+      const data = await res.json();
+      const userId = data.Id || data.id || data.data?.[0]?.id;
+      if (!userId) throw new Error("UserId tidak ditemukan!");
+      currentUserId = userId;
 
-          const storeDiv = document.getElementById('store');
-          if (gpData && gpData.data?.length > 0) {
-            let html = `<h3>🛒 Toko Gamepasses</h3><table><tr><th>Nama</th><th>Harga</th><th>Creator</th></tr>`;
-            gpData.data.forEach(gp => {
-              html += `
-                <tr>
-                  <td>${gp.name}</td>
-                  <td>${gp.price || "Gratis"}</td>
-                  <td>${gp.creator?.name || "-"}</td>
-                </tr>
-              `;
-            });
-            html += `</table>`;
-            storeDiv.innerHTML = html;
-          } else {
-            storeDiv.innerHTML = `<p>Toko kosong atau gamepass tidak ditemukan.</p>`;
-          }
-        } else {
-          document.getElementById('store').innerHTML = `<p>User tidak punya game/universe.</p>`;
-        }
+      const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
+      const avatarData = await avatarRes.json();
+      const avatarUrl = avatarData.imageUrl || avatarData.data?.[0]?.imageUrl;
 
-      } catch (err) {
-        userInfo.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-      }
+      userInfo.innerHTML = `
+        <p>✅ Username valid: <b>${username}</b> (UserId: ${userId})</p>
+        ${avatarUrl ? `<img src="${avatarUrl}" width="150">` : `<p>Avatar tidak ditemukan.</p>`}
+      `;
+    } catch (err) {
+      userInfo.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
     }
+  }
 
-    function topup() {
-      const username = document.getElementById('username').value.trim();
-      const amount = document.getElementById('amount').value;
-      const payment = document.getElementById('payment').value;
-      if (!currentUserId) return alert("Cek username dulu sebelum topup!");
+  function topup() {
+    const username = document.getElementById('username').value.trim();
+    const robux = document.getElementById('package').value;
+    const pkg = packages.find(p => p.robux == robux);
+    const payment = document.getElementById('payment').value;
+    if (!currentUserId) return alert("Cek username dulu sebelum topup!");
+    document.getElementById('result').innerText =
+      `✅ Topup ${pkg.robux} Robux (Rp${pkg.price.toLocaleString()}, Set ${pkg.setId}) untuk ${username} via ${payment} sedang diproses...`;
+  }
 
-      document.getElementById('result').innerText =
-        `✅ Topup ${amount} Robux untuk ${username} (UserId: ${currentUserId}) via ${payment} sedang diproses...`;
+  function adminLogin() {
+    const user = document.getElementById('adminUser').value;
+    const pass = document.getElementById('adminPass').value;
+    if (user === "admin" && pass === "12345") {
+      document.getElementById('adminResult').innerText = "✅ Login berhasil. Selamat datang Admin!";
+      document.getElementById('adminPanel').style.display = "block";
+    } else {
+      document.getElementById('adminResult').innerText = "❌ Login gagal.";
     }
+  }
 
-    // efek love biru random
-    function createLove() {
-      const love = document.createElement("div");
-      love.className = "love";
-      love.style.left = Math.random() * window.innerWidth + "px";
-      love.style.top = window.innerHeight + "px";
-      document.body.appendChild(love);
-      setTimeout(() => love.remove(), 5000);
-    }
-    setInterval(createLove, 800);
-  </script>
+  function updatePrice() {
+    const idx = document.getElementById('editPackage').value;
+    const newPrice = parseInt(document.getElementById('newPrice').value);
+    if (!newPrice) return alert("Isi harga baru!");
+    packages[idx].price = newPrice;
+    renderPackages();
+    alert(`Harga paket ${packages[idx].robux} Robux diupdate jadi Rp${newPrice.toLocaleString()}`);
+  }
+
+  // init render paket
+  renderPackages();
+  document.getElementById('package').addEventListener("change", showPackage);
+  showPackage();
+</script>
 </body>
 </html>
