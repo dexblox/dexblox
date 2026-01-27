@@ -5,169 +5,56 @@
   <title>DEXBLOX.ID - Topup Roblox</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    body {
-      margin:0; padding:0;
-      background:#000;
-      color:#0ff;
-      font-family: Arial, Helvetica, sans-serif;
-      overflow-x:hidden;
-    }
+    body {margin:0; padding:0; background:#000; color:#0ff; font-family:Arial, sans-serif;}
 
     /* Background kode hacker bergerak */
-    .code-bg {
-      position:fixed; top:0; left:0;
-      width:100%; height:100%;
-      background:#000;
-      overflow:hidden;
-      z-index:-1;
-    }
-    .code-line {
-      position:absolute;
-      top:-100%;
-      width:2px;
-      height:100%;
+    .code-bg {position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;}
+    .code-line {position:absolute; top:-100%; width:2px; height:100%;
       background:linear-gradient(to bottom, rgba(0,255,255,0.8), rgba(0,255,0,0.8), transparent);
-      animation: rain 6s linear infinite;
-    }
-    @keyframes rain {
-      0% { top:-100%; opacity:0; }
-      10% { opacity:1; }
-      100% { top:100%; opacity:0; }
-    }
+      animation:rain 6s linear infinite;}
+    @keyframes rain {0%{top:-100%;opacity:0;}10%{opacity:1;}100%{top:100%;opacity:0;}}
 
-    /* Partikel neon */
-    .particle {
-      position:absolute;
-      width:4px; height:4px;
-      background:#0ff;
-      border-radius:50%;
-      animation: float 10s infinite linear;
-    }
-    @keyframes float {
-      from { transform: translateY(0); }
-      to { transform: translateY(-100vh); }
-    }
+    .particle {position:absolute; width:4px; height:4px; background:#0ff; border-radius:50%; animation:float 10s infinite linear;}
+    @keyframes float {from{transform:translateY(0);}to{transform:translateY(-100vh);}}
 
-    header {
-      text-align:center; padding:20px;
-      border-bottom:1px solid rgba(0,255,255,0.3);
-    }
-    .logo {
-      display:block;
-      margin:0 auto 10px auto;
-      width:80px; height:auto;
-      filter: drop-shadow(0 0 8px #0ff);
-    }
-    header h1 {
-      font-size:32px; font-weight:900;
-      color:#0ff;
-      text-shadow:0 0 10px #0ff, 0 0 20px #0f0;
-      margin:0;
-    }
-    .subtitle {
-      font-size:18px;
-      font-weight:bold;
-      color:#0f0;
-      text-shadow:0 0 8px #0ff, 0 0 12px #0f0;
-      margin-top:8px;
-      overflow:hidden;
-      border-right:.15em solid #0ff;
-      white-space:nowrap;
-      animation: typing 4s steps(40,end), blink .75s step-end infinite;
-    }
-    @keyframes typing {
-      from { width:0 }
-      to { width:100% }
-    }
-    @keyframes blink {
-      from,to { border-color:transparent }
-      50% { border-color:#0ff; }
-    }
+    header{text-align:center; padding:20px; border-bottom:1px solid rgba(0,255,255,0.3);}
+    .logo{display:block; margin:0 auto 10px; width:120px; filter:drop-shadow(0 0 8px #0ff);}
+    header h1{font-size:32px; font-weight:900; color:#0ff; text-shadow:0 0 10px #0ff,0 0 20px #0f0;}
+    .subtitle{font-size:18px; font-weight:bold; color:#0f0; text-shadow:0 0 8px #0ff,0 0 12px #0f0;}
 
-    .container {
-      margin:20px; padding:15px;
-      background:rgba(0,50,50,0.5);
-      border:1px solid rgba(0,255,255,0.5);
-      border-radius:10px;
-      box-shadow:0 0 15px rgba(0,255,255,0.4);
-    }
-    .panel {margin-top:15px; padding-top:10px; border-top:1px solid rgba(0,255,255,0.3);}
-    .panel h3 {font-size:18px; margin-bottom:10px; text-align:center; color:#0ff;}
-    .form-group {text-align:center;}
-    input,select {
-      width:80%; margin:10px auto; padding:10px; font-size:15px;
-      border-radius:6px; display:block;
-      border:1px solid rgba(0,255,255,0.4);
-      background:rgba(0,0,0,0.6); color:#0ff;
-    }
-    /* Tombol putih transparan neon */
-    button {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      border: 1px solid #fff;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 13px;
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: 0.3s;
-      box-shadow: 0 0 8px rgba(255,255,255,0.6);
-    }
-    button:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,0.3);
-      color: #000;
-      box-shadow: 0 0 20px #0ff, 0 0 40px #0f0;
-    }
-    .info-box {
-      background:rgba(0,255,255,0.1);
-      border:1px solid rgba(0,255,255,0.5);
-      border-radius:8px;
-      padding:14px;
-      margin-bottom:18px;
-      text-align:center;
-      font-weight:bold;
-      line-height:1.6;
-    }
-    .info-box span {display:block;}
-    .info-box .main-price {font-size:16px; color:#0ff; text-shadow:0 0 6px #0f0;}
-    .info-box .sub-price {font-size:14px; color:#fff; opacity:0.9;}
-    #notifBox, #gamepassNotif {
-      margin-top:10px; padding:8px 12px; border-radius:6px;
-      font-size:14px; font-weight:bold; text-align:center;
-      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff;
-      text-shadow:0 0 6px #0ff, 0 0 10px #0f0; box-shadow:0 0 12px #0ff;
-    }
-    .avatar {
-      border:2px solid #0ff;
-      border-radius:50%;
-      box-shadow:0 0 15px #0f0;
-      animation:pulseGlow 2s infinite;
-    }
-    @keyframes pulseGlow {
-      0% { box-shadow:0 0 10px #0ff; }
-      50% { box-shadow:0 0 25px #0f0; }
-      100% { box-shadow:0 0 10px #0ff; }
-    }
-    .admin-box {
-      margin:20px; padding:10px;
-      background:rgba(0,50,50,0.6);
-      border:1px solid #0ff;
-      border-radius:8px;
-      text-align:center;
-      transform: scale(0.8);
-      opacity:0.4;
-      transition: all 0.5s ease;
-    }
-    .admin-box.active {
-      transform: scale(1);
-      opacity:1;
-      box-shadow:0 0 15px #0ff;
-    }
-    .admin-box h3 {font-size:14px; color:#0ff;}
-    .admin-box input, .admin-box button {
-      font-size:12px; padding:4px 6px;
-    }
+    .container{margin:20px; padding:15px; background:rgba(0,50,50,0.5); border:1px solid rgba(0,255,255,0.5); border-radius:10px;}
+    .panel{margin-top:15px; padding-top:10px; border-top:1px solid rgba(0,255,255,0.3);}
+    .panel h3{text-align:center; color:#0ff;}
+    .form-group{text-align:center;}
+    input,select{width:80%; margin:10px auto; padding:10px; font-size:15px; border-radius:6px;
+      border:1px solid rgba(0,255,255,0.4); background:rgba(0,0,0,0.6); color:#0ff;}
+    #gamepassLink{background:rgba(0,0,0,0.6); color:#0ff;}
+    #gamepassLink:focus{background:rgba(0,0,0,0.8); outline:none; box-shadow:0 0 10px #0ff,0 0 20px #0f0;}
+
+    button{background:rgba(255,255,255,0.1); color:#fff; border:1px solid #fff; cursor:pointer; font-weight:bold;
+      font-size:13px; padding:6px 12px; border-radius:6px; transition:0.3s;}
+    button:hover{transform:scale(1.05); background:rgba(255,255,255,0.3); color:#000; box-shadow:0 0 20px #0ff,0 0 40px #0f0;}
+
+    .info-box{background:rgba(0,255,255,0.1); border:1px solid rgba(0,255,255,0.5); border-radius:8px; padding:14px; text-align:center;}
+    .main-price{font-size:16px; color:#0ff; text-shadow:0 0 6px #0f0;}
+    .sub-price{font-size:14px; color:#fff; opacity:0.9;}
+
+    #alertBox{margin-top:10px; padding:8px 12px; border-radius:6px; font-size:14px; font-weight:bold; text-align:center;
+      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff; text-shadow:0 0 6px #0ff,0 0 10px #0f0; display:none;}
+    #gamepassNotif{margin-top:10px; padding:8px; border-radius:6px; font-size:14px; font-weight:bold; text-align:center;
+      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff; display:none;}
+
+    .avatar{border:2px solid #0ff; border-radius:50%; box-shadow:0 0 15px #0f0; animation:pulseGlow 2s infinite;}
+    @keyframes pulseGlow{0%{box-shadow:0 0 10px #0ff;}50%{box-shadow:0 0 25px #0f0;}100%{box-shadow:0 0 10px #0ff;}}
+
+    .floating-btn{position:fixed; top:20px; right:20px; background:#0ff; color:#000; border:none; border-radius:50%; width:45px; height:45px;
+      font-size:16px; cursor:pointer; box-shadow:0 0 10px #0ff; z-index:1000;}
+    .admin-panel{position:fixed; top:70px; right:20px; background:rgba(0,50,50,0.9); border:1px solid #0ff; border-radius:8px; padding:10px;
+      width:200px; display:none; box-shadow:0 0 15px #0ff; z-index:1000; font-size:12px;}
+
+    #topupNotif{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,255,255,0.2); border:1px solid #0ff;
+      color:#fff; padding:12px 20px; border-radius:8px; font-size:15px; font-weight:bold; text-align:center;
+      box-shadow:0 0 15px #0ff,0 0 25px #0f0; text-shadow:0 0 8px #0ff,0 0 12px #0f0; display:none;}
   </style>
 </head>
 <body>
@@ -184,13 +71,13 @@
   </div>
 
   <header>
-    <img src="logo.png" alt="Logo Dexblox" class="logo">
+    <img src="https://i.postimg.cc/Qtj2TKZX/copilot-image-1769230951458.png" alt="Logo Dexblox" class="logo">
     <h1>DEXBLOX.ID</h1>
     <h2 class="subtitle">Topup Gamepass 5–7 Hari Termurah di Dunia</h2>
   </header>
 
   <div class="container">
-    <div class="info-box">
+    <div id="infoBox" class="info-box">
       <span class="main-price">💰 Harga Resmi : Rp110 per Robux</span>
       <span class="sub-price">(100 Robux / Rp11.000)</span>
     </div>
@@ -200,22 +87,22 @@
       <h3>👤 Cek Username</h3>
       <input type="text" id="username" placeholder="Masukkan username Roblox">
       <button onclick="cekUser()">Cek Username</button>
-      <div id="notifBox" style="display:none;"></div>
+      <div id="alertBox"></div> <!-- notifikasi di bawah kolom username -->
       <div id="userInfo"></div>
     </div>
 
-    <!-- Panel Custom Robux (otomatis) -->
+    <!-- Panel Custom Robux -->
     <div class="panel form-group">
       <h3>📦 Custom Paket Robux</h3>
       <input type="number" id="customRobux" placeholder="Masukkan jumlah Robux" oninput="hitungHarga()">
       <p id="paketInfo"></p>
     </div>
 
-    <!-- Panel Gamepass (otomatis + validasi) -->
+    <!-- Panel Gamepass -->
     <div class="panel form-group">
       <h3>🎮 Gamepass Resmi</h3>
       <input type="text" id="gamepassLink" placeholder="Masukkan link Gamepass Roblox" oninput="tambahGamepass()">
-      <div id="gamepassNotif" style="display:none;"></div>
+      <div id="gamepassNotif"></div>
       <ul id="gamepassList" style="list-style:none; padding:0; text-align:center;"></ul>
     </div>
 
@@ -232,30 +119,35 @@
     </div>
   </div>
 
-  <!-- Admin Login di bawah -->
-  <div class="admin-box" id="adminBox">
-    <h3>🔑 Admin Login</h3>
-    <input type="password" id="adminPass" placeholder="Password Admin">
+  <!-- Tombol Admin Mengambang -->
+  <button class="floating-btn" onclick="toggleAdmin()">🔑</button>
+
+  <!-- Panel Admin -->
+  <div id="adminPanelBox" class="admin-panel">
+    <h3 style="margin:0; font-size:14px; color:#0ff;">Admin Login</h3>
+    <input type="password" id="adminPass" placeholder="Kode admin">
     <button onclick="adminLogin()">Login</button>
     <p id="adminResult"></p>
-    <div id="adminPanel" style="display:none;">
+    <div id="adminPanel" style="display:none; margin-top:8px;">
       <label for="newPrice">Harga/Robux:</label>
       <input type="number" id="newPrice" placeholder="Rp">
       <button onclick="updatePrice()">Update</button>
     </div>
   </div>
 
+  <!-- Notifikasi Topup -->
+  <div id="topupNotif">🚀 Permintaan Topup dikirim ke Admin Dexblox!</div>
+
 <script>
   let base = "https://dexblox.vercel.app/api"; 
   let currentUserId = null;
   let pricePerRobux = 110;
 
-  // Load harga dari localStorage
   window.onload = () => {
     const savedPrice = localStorage.getItem("pricePerRobux");
     if (savedPrice) {
       pricePerRobux = parseInt(savedPrice);
-      document.querySelector(".info-box").innerHTML =
+      document.getElementById("infoBox").innerHTML =
         `<span class="main-price">💰 Harga Resmi : Rp${pricePerRobux} per Robux</span>
          <span class="sub-price">(100 Robux / Rp${(100*pricePerRobux).toLocaleString()})</span>`;
     }
@@ -263,16 +155,15 @@
 
   async function cekUser() {
     const username = document.getElementById('username').value.trim();
-    const notifBox = document.getElementById('notifBox');
+    const alertBox = document.getElementById('alertBox');
     const userInfo = document.getElementById('userInfo');
 
     if (!username) {
-      notifBox.style.display = "block";
-      notifBox.innerText = "⚠️ Username belum diisi!";
+      alertBox.innerText = "⚠️ Username belum diisi!";
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
       userInfo.innerHTML = "";
       return;
-    } else {
-      notifBox.style.display = "none";
     }
 
     userInfo.innerHTML = "Loading...";
@@ -298,8 +189,11 @@
 
   function hitungHarga() {
     const robux = parseInt(document.getElementById('customRobux').value);
+    const alertBox = document.getElementById('alertBox');
     if (!robux || robux <= 0) {
-      document.getElementById('paketInfo').innerText = "❌ Masukkan jumlah Robux yang valid!";
+      alertBox.innerText = "⚠️ Masukkan jumlah Robux yang valid!";
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
       return;
     }
 
@@ -340,8 +234,20 @@
     const username = document.getElementById('username').value.trim();
     const robux = document.getElementById('customRobux').value;
     const payment = document.getElementById('payment').value;
-    if (!currentUserId) return alert("Cek username dulu sebelum topup!");
-    if (!robux) return alert("Isi jumlah Robux dulu!");
+    const alertBox = document.getElementById('alertBox');
+
+    if (!currentUserId) {
+      alertBox.innerText = "⚠️ Cek username dulu sebelum topup!";
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
+      return;
+    }
+    if (!robux) {
+      alertBox.innerText = "⚠️ Isi jumlah Robux dulu!";
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
+      return;
+    }
 
     const gross = robux * pricePerRobux;
     const setId = Math.round(robux * 1.43);
@@ -359,30 +265,42 @@
     const phone = "6285362187740"; 
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
+
+    const notif = document.getElementById('topupNotif');
+    notif.style.display = "block";
+    notif.innerText = "🚀 Permintaan Topup dikirim ke Admin Dexblox!";
+    setTimeout(() => { notif.style.display = "none"; }, 4000);
+  }
+
+  function toggleAdmin() {
+    const panel = document.getElementById('adminPanelBox');
+    panel.style.display = (panel.style.display === "block") ? "none" : "block";
   }
 
   function adminLogin() {
     const pass = document.getElementById('adminPass').value;
-    const box = document.getElementById('adminBox');
-    if (pass === "12345") {
-      document.getElementById('adminResult').innerText = "✅ Login berhasil. Selamat datang Admin!";
+    if (pass === "300403") {
+      document.getElementById('adminResult').innerText = "✅ Login berhasil!";
       document.getElementById('adminPanel').style.display = "block";
-      box.classList.add("active");
     } else {
-      document.getElementById('adminResult').innerText = "❌ Password salah.";
-    }
+      document.getElementById('adminResult').innerText = "❌ Kode salah.";
+
+  }
   }
 
   function updatePrice() {
     const newPrice = parseInt(document.getElementById('newPrice').value);
+    const alertBox = document.getElementById('alertBox');
     if (!newPrice || newPrice <= 0) {
-      alert("Isi harga baru per Robux!");
+      alertBox.innerText = "⚠️ Isi harga baru per Robux!";
+      alertBox.style.display = "block";
+      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
       return;
     }
     pricePerRobux = newPrice;
     localStorage.setItem("pricePerRobux", pricePerRobux);
 
-    document.querySelector(".info-box").innerHTML =
+    document.getElementById("infoBox").innerHTML =
       `<span class="main-price">💰 Harga Resmi : Rp${pricePerRobux} per Robux</span>
        <span class="sub-price">(100 Robux / Rp${(100*pricePerRobux).toLocaleString()})</span>`;
 
@@ -393,4 +311,4 @@
   }
 </script>
 </body>
-</html>
+  </html>
