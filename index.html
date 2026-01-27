@@ -35,15 +35,53 @@
       100% { top:100%; opacity:0; }
     }
 
+    /* Partikel neon */
+    .particle {
+      position:absolute;
+      width:4px; height:4px;
+      background:#0ff;
+      border-radius:50%;
+      animation: float 10s infinite linear;
+    }
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-100vh); }
+    }
+
     header {
       text-align:center; padding:20px;
       border-bottom:1px solid rgba(0,255,255,0.3);
+    }
+    .logo {
+      display:block;
+      margin:0 auto 10px auto;
+      width:80px; height:auto;
+      filter: drop-shadow(0 0 8px #0ff);
     }
     header h1 {
       font-size:32px; font-weight:900;
       color:#0ff;
       text-shadow:0 0 10px #0ff, 0 0 20px #0f0;
       margin:0;
+    }
+    .subtitle {
+      font-size:18px;
+      font-weight:bold;
+      color:#0f0;
+      text-shadow:0 0 8px #0ff, 0 0 12px #0f0;
+      margin-top:8px;
+      overflow:hidden;
+      border-right:.15em solid #0ff;
+      white-space:nowrap;
+      animation: typing 4s steps(40,end), blink .75s step-end infinite;
+    }
+    @keyframes typing {
+      from { width:0 }
+      to { width:100% }
+    }
+    @keyframes blink {
+      from,to { border-color:transparent }
+      50% { border-color:#0ff; }
     }
 
     .container {
@@ -76,9 +114,10 @@
       box-shadow: 0 0 8px rgba(255,255,255,0.6);
     }
     button:hover {
+      transform: scale(1.05);
       background: rgba(255,255,255,0.3);
       color: #000;
-      box-shadow: 0 0 12px #0ff;
+      box-shadow: 0 0 20px #0ff, 0 0 40px #0f0;
     }
     .info-box {
       background:rgba(0,255,255,0.1);
@@ -98,6 +137,17 @@
       font-size:14px; font-weight:bold; text-align:center;
       background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff;
       text-shadow:0 0 6px #0ff, 0 0 10px #0f0; box-shadow:0 0 12px #0ff;
+    }
+    .avatar {
+      border:2px solid #0ff;
+      border-radius:50%;
+      box-shadow:0 0 15px #0f0;
+      animation:pulseGlow 2s infinite;
+    }
+    @keyframes pulseGlow {
+      0% { box-shadow:0 0 10px #0ff; }
+      50% { box-shadow:0 0 25px #0f0; }
+      100% { box-shadow:0 0 10px #0ff; }
     }
     .admin-box {
       margin:20px; padding:10px;
@@ -127,10 +177,16 @@
     <div class="code-line" style="left:50%; animation-delay:4s;"></div>
     <div class="code-line" style="left:70%; animation-delay:1s;"></div>
     <div class="code-line" style="left:90%; animation-delay:3s;"></div>
+    <div class="particle" style="left:20%; top:80%;"></div>
+    <div class="particle" style="left:40%; top:90%;"></div>
+    <div class="particle" style="left:60%; top:85%;"></div>
+    <div class="particle" style="left:80%; top:95%;"></div>
   </div>
 
   <header>
+    <img src="logo.png" alt="Logo Dexblox" class="logo">
     <h1>DEXBLOX.ID</h1>
+    <h2 class="subtitle">Topup Gamepass 5–7 Hari Termurah di Dunia</h2>
   </header>
 
   <div class="container">
@@ -333,7 +389,7 @@
     document.getElementById('adminResult').innerText =
       `✅ Harga per Robux diupdate jadi Rp${pricePerRobux.toLocaleString()}`;
 
-    hitungHarga();
+    hitungHarga(); // refresh info paket jika ada input
   }
 </script>
 </body>
