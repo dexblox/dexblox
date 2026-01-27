@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dexblox Proxy UI</title>
+  <title>Dexblox Store Viewer</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
     input, button { width: 100%; padding: 10px; margin: 10px 0; }
     table { width: 100%; border-collapse: collapse; margin-top: 20px; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
@@ -13,46 +13,40 @@
   </style>
 </head>
 <body>
-  <h2>🎮 Dexblox Proxy UI</h2>
+  <h2>🛒 Dexblox Store Viewer</h2>
 
   <label for="username">Masukkan Username Roblox:</label>
   <input type="text" id="username" placeholder="Contoh: Roblox">
 
-  <button onclick="fetchAll()">Ambil Data Lengkap</button>
+  <button onclick="fetchStore()">Lihat Toko</button>
 
   <div id="output"></div>
 
   <script>
-    async function fetchAll() {
+    async function fetchStore() {
       const username = document.getElementById('username').value.trim();
       if (!username) return alert("Isi dulu username!");
 
       let base = "https://dexblox.vercel.app/api"; 
-      // kalau ternyata endpoint kamu pakai /app, ganti baris di atas jadi:
-      // let base = "https://dexblox.vercel.app/app";
-
       const output = document.getElementById('output');
       output.innerHTML = "<p>Loading...</p>";
 
       try {
-        // 1. Ambil UserId dari username
+        // 1. Ambil UserId
         const userRes = await fetch(`${base}/user?username=${username}`);
         const userData = await userRes.json();
-
-        console.log("User JSON:", userData); // debug, bisa dihapus kalau sudah yakin
-
-        // cek beberapa kemungkinan field
         const userId = userData.Id || userData.id || userData.data?.[0]?.id;
-        if (!userId) throw new Error("UserId tidak ditemukan, cek username!");
+        if (!userId) throw new Error("UserId tidak ditemukan!");
 
-        // 2. Ambil Avatar
-        const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
-        const avatarData = await avatarRes.json();
-        const avatarUrl = avatarData.data?.[0]?.imageUrl;
+        // 2. Ambil daftar games/universe milik user
+        const gamesRes = await fetch(`${base}/games?userId=${userId}`);
+        const gamesData = await gamesRes.json();
+        const universeId = gamesData.data?.[0]?.id;
+        if (!universeId) throw new Error("UniverseId tidak ditemukan, user mungkin tidak punya game.");
 
-        // 3. Ambil Gamepass (contoh: pakai gamepassId spesifik)
-        const gamepassRes = await fetch(`${base}/gamepasses?gamepassId=1675795729`);
-        const gamepassData = await gamepassRes.json();
+        // 3. Ambil daftar gamepasses (toko)
+        const gpRes = await fetch(`${base}/gamepasses?universeId=${universeId}`);
+        const gpData = await gpRes.json();
 
         // 4. Render hasil
         let html = `
@@ -60,27 +54,24 @@
           <table>
             <tr><th>Username</th><td>${username}</td></tr>
             <tr><th>UserId</th><td>${userId}</td></tr>
+            <tr><th>UniverseId</th><td>${universeId}</td></tr>
           </table>
         `;
 
-        if (avatarUrl) {
-          html += `<h3>🖼️ Avatar</h3><img src="${avatarUrl}" alt="Avatar" width="200">`;
-        }
-
-        if (gamepassData && (gamepassData.name || gamepassData.data)) {
-          const gp = gamepassData.name 
-            ? gamepassData 
-            : gamepassData.data?.[0] || {};
-          html += `
-            <h3>🎟️ Gamepass</h3>
-            <table>
-              <tr><th>Nama</th><td>${gp.name || "-"}</td></tr>
-              <tr><th>Harga</th><td>${gp.price || "Gratis"}</td></tr>
-              <tr><th>Creator</th><td>${gp.creator?.name || "-"}</td></tr>
-            </table>
-          `;
+        if (gpData && gpData.data?.length > 0) {
+          html += `<h3>🛒 Toko Gamepasses</h3><table><tr><th>Nama</th><th>Harga</th><th>Creator</th></tr>`;
+          gpData.data.forEach(gp => {
+            html += `
+              <tr>
+                <td>${gp.name}</td>
+                <td>${gp.price || "Gratis"}</td>
+                <td>${gp.creator?.name || "-"}</td>
+              </tr>
+            `;
+          });
+          html += `</table>`;
         } else {
-          html += `<p>Gamepass tidak ditemukan atau error.</p>`;
+          html += `<p>Toko kosong atau gamepass tidak ditemukan.</p>`;
         }
 
         output.innerHTML = html;
