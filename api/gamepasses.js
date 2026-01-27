@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
-  const { gameId } = req.query;
+  const { gamepassId } = req.query;
   try {
-    const response = await fetch(`https://games.roblox.com/v1/games/${gameId}/game-passes`);
+    const response = await fetch(`https://catalog.roblox.com/v1/game-passes/${gamepassId}`);
     const data = await response.json();
     res.status(200).json(data);
   } catch (err) {
