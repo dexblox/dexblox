@@ -3,83 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dexblox Store Viewer</title>
+  <title>Dexblox Topup Roblox</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: auto; }
-    input, button { width: 100%; padding: 10px; margin: 10px 0; }
-    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    img { margin-top: 10px; border: 1px solid #ccc; }
+    body { font-family: Arial, sans-serif; background:#fff; color:#333; margin:0; padding:0; }
+    header { background:#f5f5f5; padding:20px; text-align:center; border-bottom:2px solid #e0e0e0; }
+    h1 { color:#007BFF; }
+    .container { max-width:800px; margin:40px auto; padding:20px; background:#fff; border:1px solid #ddd; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.05); }
+    label,input,select,button { display:block; width:100%; margin:10px 0; padding:10px; font-size:16px; }
+    button { background:#007BFF; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+    button:hover { background:#0056b3; }
+    img { margin-top:10px; border:1px solid #ccc; }
+    table { width:100%; border-collapse:collapse; margin-top:20px; }
+    th,td { border:1px solid #ccc; padding:8px; text-align:left; }
+    .love { position:fixed; width:20px; height:20px; background:#007BFF; clip-path:polygon(50% 0%,100% 35%,80% 100%,50% 80%,20% 100%,0% 35%); animation:float 5s linear infinite; opacity:0.6; }
+    @keyframes float { 0%{transform:translateY(0) scale(1);opacity:0.6;}50%{transform:translateY(-200px) scale(1.2);opacity:0.8;}100%{transform:translateY(-400px) scale(0.8);opacity:0;} }
   </style>
 </head>
 <body>
-  <h2>🛒 Dexblox Store Viewer</h2>
+  <header>
+    <h1>💙 Dexblox Topup Roblox</h1>
+    <p>Isi Robux dengan cepat & aman</p>
+  </header>
 
-  <label for="username">Masukkan Username Roblox:</label>
-  <input type="text" id="username" placeholder="Contoh: Roblox">
+  <div class="container">
+    <label for="username">Username Roblox:</label>
+    <input type="text" id="username" placeholder="Masukkan username Roblox">
 
-  <button onclick="fetchStore()">Lihat Toko</button>
+    <button onclick="cekUser()">Cek Username</button>
+    <div id="userInfo"></div>
 
-  <div id="output"></div>
+    <label for="amount">Jumlah Robux:</label>
+    <select id="amount">
+      <option value="80">80 Robux</option>
+      <option value="400">400 Robux</option>
+      <option value="800">800 Robux</option>
+      <option value="1700">1700 Robux</option>
+    </select>
+
+    <label for="payment">Metode Pembayaran:</label>
+    <select id="payment">
+      <option value="gopay">GoPay</option>
+      <option value="ovo">OVO</option>
+      <option value="dana">DANA</option>
+      <option value="qris">QRIS</option>
+    </select>
+
+    <button onclick="topup()">Topup Sekarang</button>
+    <p id="result"></p>
+
+    <div id="store"></div>
+  </div>
 
   <script>
-    async function fetchStore() {
+    let base = "https://dexblox.vercel.app/api"; // ganti sesuai proxy kamu
+    let currentUserId = null;
+    let currentUniverseId = null;
+
+    async function cekUser() {
       const username = document.getElementById('username').value.trim();
       if (!username) return alert("Isi dulu username!");
 
-      let base = "https://dexblox.vercel.app/api"; 
-      const output = document.getElementById('output');
-      output.innerHTML = "<p>Loading...</p>";
+      const userInfo = document.getElementById('userInfo');
+      userInfo.innerHTML = "Loading...";
 
       try {
         // 1. Ambil UserId
-        const userRes = await fetch(`${base}/user?username=${username}`);
-        const userData = await userRes.json();
-        const userId = userData.Id || userData.id || userData.data?.[0]?.id;
+        const res = await fetch(`${base}/user?username=${username}`);
+        const data = await res.json();
+        const userId = data.Id || data.id || data.data?.[0]?.id;
         if (!userId) throw new Error("UserId tidak ditemukan!");
 
-        // 2. Ambil daftar games/universe milik user
+        currentUserId = userId;
+
+        // 2. Ambil avatar
+        const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
+        const avatarData = await avatarRes.json();
+        const avatarUrl = avatarData.imageUrl || avatarData.data?.[0]?.imageUrl;
+
+        userInfo.innerHTML = `
+          <p>✅ Username valid: <b>${username}</b> (UserId: ${userId})</p>
+          ${avatarUrl ? `<img src="${avatarUrl}" alt="Avatar" width="150">` : `<p>Avatar tidak ditemukan.</p>`}
+        `;
+
+        // 3. Ambil games/universe
         const gamesRes = await fetch(`${base}/games?userId=${userId}`);
         const gamesData = await gamesRes.json();
         const universeId = gamesData.data?.[0]?.id;
-        if (!universeId) throw new Error("UniverseId tidak ditemukan, user mungkin tidak punya game.");
+        currentUniverseId = universeId;
 
-        // 3. Ambil daftar gamepasses (toko)
-        const gpRes = await fetch(`${base}/gamepasses?universeId=${universeId}`);
-        const gpData = await gpRes.json();
+        if (universeId) {
+          // 4. Ambil toko gamepasses
+          const gpRes = await fetch(`${base}/gamepasses?universeId=${universeId}`);
+          const gpData = await gpRes.json();
 
-        // 4. Render hasil
-        let html = `
-          <h3>📌 Data User</h3>
-          <table>
-            <tr><th>Username</th><td>${username}</td></tr>
-            <tr><th>UserId</th><td>${userId}</td></tr>
-            <tr><th>UniverseId</th><td>${universeId}</td></tr>
-          </table>
-        `;
-
-        if (gpData && gpData.data?.length > 0) {
-          html += `<h3>🛒 Toko Gamepasses</h3><table><tr><th>Nama</th><th>Harga</th><th>Creator</th></tr>`;
-          gpData.data.forEach(gp => {
-            html += `
-              <tr>
-                <td>${gp.name}</td>
-                <td>${gp.price || "Gratis"}</td>
-                <td>${gp.creator?.name || "-"}</td>
-              </tr>
-            `;
-          });
-          html += `</table>`;
+          const storeDiv = document.getElementById('store');
+          if (gpData && gpData.data?.length > 0) {
+            let html = `<h3>🛒 Toko Gamepasses</h3><table><tr><th>Nama</th><th>Harga</th><th>Creator</th></tr>`;
+            gpData.data.forEach(gp => {
+              html += `
+                <tr>
+                  <td>${gp.name}</td>
+                  <td>${gp.price || "Gratis"}</td>
+                  <td>${gp.creator?.name || "-"}</td>
+                </tr>
+              `;
+            });
+            html += `</table>`;
+            storeDiv.innerHTML = html;
+          } else {
+            storeDiv.innerHTML = `<p>Toko kosong atau gamepass tidak ditemukan.</p>`;
+          }
         } else {
-          html += `<p>Toko kosong atau gamepass tidak ditemukan.</p>`;
+          document.getElementById('store').innerHTML = `<p>User tidak punya game/universe.</p>`;
         }
 
-        output.innerHTML = html;
-
       } catch (err) {
-        output.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+        userInfo.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
       }
     }
+
+    function topup() {
+      const username = document.getElementById('username').value.trim();
+      const amount = document.getElementById('amount').value;
+      const payment = document.getElementById('payment').value;
+      if (!currentUserId) return alert("Cek username dulu sebelum topup!");
+
+      document.getElementById('result').innerText =
+        `✅ Topup ${amount} Robux untuk ${username} (UserId: ${currentUserId}) via ${payment} sedang diproses...`;
+    }
+
+    // efek love biru random
+    function createLove() {
+      const love = document.createElement("div");
+      love.className = "love";
+      love.style.left = Math.random() * window.innerWidth + "px";
+      love.style.top = window.innerHeight + "px";
+      document.body.appendChild(love);
+      setTimeout(() => love.remove(), 5000);
+    }
+    setInterval(createLove, 800);
   </script>
 </body>
 </html>
