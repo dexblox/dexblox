@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roblox Proxy UI</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h2>🎮 Roblox Proxy UI</h2>
+
+  <label for="username">Masukkan Username Roblox:</label>
+  <input type="text" id="username" placeholder="Contoh: ExYuzii">
+
+  <button onclick="fetchAll()">Ambil Data Lengkap</button>
+
+  <h3>📦 Hasil:</h3>
+  <pre id="result">...</pre>
+
+  <script>
+    async function fetchAll() {
+      const username = document.getElementById('username').value.trim();
+      if (!username) return alert("Isi dulu username!");
+
+      let base = "https://roblox-proxy-self.vercel.app/api"; 
+      // kalau ternyata endpoint kamu pakai /app, ganti baris di atas jadi:
+      // let base = "https://roblox-proxy-self.vercel.app/app";
+
+      try {
+        // 1. Ambil UserId dari username
+        const userRes = await fetch(`${base}/user?username=${username}`);
+        const userData = await userRes.json();
+
+        let userId = userData.Id || userData.id || userData.data?.[0]?.id;
+        if (!userId) throw new Error("UserId tidak ditemukan");
+
+        // 2. Ambil Avatar
+        const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
+        const avatarData = await avatarRes.json();
+
+        // 3. Ambil Gamepasses (contoh pakai gameId statis, bisa diganti sesuai kebutuhan)
+        const gamepassesRes = await fetch(`${base}/gamepasses?gameId=987654`);
+        const gamepassesData = await gamepassesRes.json();
+
+        // Gabungkan hasil
+        const result = {
+          username: username,
+          userId: userId,
+          avatar: avatarData,
+          gamepasses: gamepassesData
+        };
+
+        document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+
+      } catch (err) {
+        document.getElementById('result').textContent = "Error: " + err.message;
+      }
+    }
+  </script>
+</body>
+</html>
