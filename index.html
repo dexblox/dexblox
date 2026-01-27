@@ -1,9 +1,9 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DEXBLOX.ID - Topup Gamepass</title>
+  <title>Dexblox - Topup Gamepass</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html, body {height:100%;margin:0;padding:0;}
@@ -216,7 +216,7 @@ l<!DOCTYPE html>
     }
     setInterval(draw,33);
 
-    // Cek Username + Avatar
+    // Cek Username + Avatar (via proxy API di Vercel)
     async function cekUsername(){
       const username=document.getElementById("username").value.trim();
       const result=document.getElementById("usernameResult");
@@ -228,10 +228,7 @@ l<!DOCTYPE html>
         return;
       }
       try{
-        const res=await fetch("https://users.roblox.com/v1/usernames/users",{
-          method:"POST",headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({usernames:[username]})
-        });
+        const res=await fetch(`/api/checkUsername?username=${username}`);
         const data=await res.json();
         if(data.data&&data.data.length>0){
           const user=data.data[0];
@@ -323,4 +320,4 @@ l<!DOCTYPE html>
     });
   </script>
 </body>
-  </html>
+      </html>
