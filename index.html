@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Roblox Proxy UI</title>
+  <title>Dexblox Proxy UI</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
     input, button { width: 100%; padding: 10px; margin: 10px 0; }
@@ -13,10 +13,10 @@
   </style>
 </head>
 <body>
-  <h2>🎮 Roblox Proxy UI</h2>
+  <h2>🎮 Dexblox Proxy UI</h2>
 
   <label for="username">Masukkan Username Roblox:</label>
-  <input type="text" id="username" placeholder="Contoh: ExYuzii">
+  <input type="text" id="username" placeholder="Contoh: Roblox">
 
   <button onclick="fetchAll()">Ambil Data Lengkap</button>
 
@@ -27,9 +27,9 @@
       const username = document.getElementById('username').value.trim();
       if (!username) return alert("Isi dulu username!");
 
-      let base = "https://roblox-proxy-self.vercel.app/api"; 
+      let base = "https://dexblox.vercel.app/api"; 
       // kalau ternyata endpoint kamu pakai /app, ganti baris di atas jadi:
-      // let base = "https://roblox-proxy-self.vercel.app/app";
+      // let base = "https://dexblox.vercel.app/app";
 
       const output = document.getElementById('output');
       output.innerHTML = "<p>Loading...</p>";
@@ -38,8 +38,12 @@
         // 1. Ambil UserId dari username
         const userRes = await fetch(`${base}/user?username=${username}`);
         const userData = await userRes.json();
+
+        console.log("User JSON:", userData); // debug, bisa dihapus kalau sudah yakin
+
+        // cek beberapa kemungkinan field
         const userId = userData.Id || userData.id || userData.data?.[0]?.id;
-        if (!userId) throw new Error("UserId tidak ditemukan");
+        if (!userId) throw new Error("UserId tidak ditemukan, cek username!");
 
         // 2. Ambil Avatar
         const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
@@ -63,13 +67,16 @@
           html += `<h3>🖼️ Avatar</h3><img src="${avatarUrl}" alt="Avatar" width="200">`;
         }
 
-        if (gamepassData && gamepassData.name) {
+        if (gamepassData && (gamepassData.name || gamepassData.data)) {
+          const gp = gamepassData.name 
+            ? gamepassData 
+            : gamepassData.data?.[0] || {};
           html += `
             <h3>🎟️ Gamepass</h3>
             <table>
-              <tr><th>Nama</th><td>${gamepassData.name}</td></tr>
-              <tr><th>Harga</th><td>${gamepassData.price || "Gratis"}</td></tr>
-              <tr><th>Creator</th><td>${gamepassData.creator?.name || "-"}</td></tr>
+              <tr><th>Nama</th><td>${gp.name || "-"}</td></tr>
+              <tr><th>Harga</th><td>${gp.price || "Gratis"}</td></tr>
+              <tr><th>Creator</th><td>${gp.creator?.name || "-"}</td></tr>
             </table>
           `;
         } else {
