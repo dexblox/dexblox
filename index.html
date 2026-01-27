@@ -1,323 +1,340 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dexblox - Topup Gamepass</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <title>DEXBLOX.ID - Topup Roblox</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
-    html, body {height:100%;margin:0;padding:0;}
     body {
-      min-height:100vh;
-      background:linear-gradient(135deg,#000000,#001f1f,#003333,#004444);
-      background-attachment:fixed;
-      background-size:cover;
-      font-family:Arial,Helvetica,sans-serif;
+      margin:0; padding:0;
+      background:#000;
+      color:#0ff;
+      font-family: Arial, Helvetica, sans-serif;
+      overflow-x:hidden;
     }
-    canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;pointer-events:none;}
-    .title-font{color:#00f0ff;text-shadow:0 0 10px #00f0ff;}
-    .btn-anim{transition:all 0.3s ease;transform:scale(1);}
-    .btn-anim:hover{transform:scale(1.05);}
-    .btn-anim:active{transform:scale(0.95);}
-    .logo-glitch{position:relative;width:200px;height:200px;border-radius:50%;overflow:hidden;
-      background:url('https://i.postimg.cc/Qtj2TKZX/copilot-image-1769230951458.png') center/cover no-repeat;}
-    .logo-glitch::before,.logo-glitch::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;border-radius:50%;
-      background:inherit;mix-blend-mode:screen;opacity:0.6;}
-    .logo-glitch::before{transform:translateX(-2px);filter:drop-shadow(-2px 0 red);}
-    .logo-glitch::after{transform:translateX(2px);filter:drop-shadow(2px 0 cyan);}
+
+    /* Background kode hacker bergerak */
+    .code-bg {
+      position:fixed; top:0; left:0;
+      width:100%; height:100%;
+      background:#000;
+      overflow:hidden;
+      z-index:-1;
+    }
+    .code-line {
+      position:absolute;
+      top:-100%;
+      width:2px;
+      height:100%;
+      background:linear-gradient(to bottom, rgba(0,255,255,0.8), rgba(0,255,0,0.8), transparent);
+      animation: rain 6s linear infinite;
+    }
+    @keyframes rain {
+      0% { top:-100%; opacity:0; }
+      10% { opacity:1; }
+      100% { top:100%; opacity:0; }
+    }
+
+    header {
+      text-align:center; padding:20px;
+      border-bottom:1px solid rgba(0,255,255,0.3);
+    }
+    header h1 {
+      font-size:32px; font-weight:900;
+      color:#0ff;
+      text-shadow:0 0 10px #0ff, 0 0 20px #0f0;
+      margin:0;
+    }
+
+    .container {
+      margin:20px; padding:15px;
+      background:rgba(0,50,50,0.5);
+      border:1px solid rgba(0,255,255,0.5);
+      border-radius:10px;
+      box-shadow:0 0 15px rgba(0,255,255,0.4);
+    }
+    .panel {margin-top:15px; padding-top:10px; border-top:1px solid rgba(0,255,255,0.3);}
+    .panel h3 {font-size:18px; margin-bottom:10px; text-align:center; color:#0ff;}
+    .form-group {text-align:center;}
+    input,select {
+      width:80%; margin:10px auto; padding:10px; font-size:15px;
+      border-radius:6px; display:block;
+      border:1px solid rgba(0,255,255,0.4);
+      background:rgba(0,0,0,0.6); color:#0ff;
+    }
+    /* Tombol putih transparan neon */
+    button {
+      background: rgba(255,255,255,0.1);
+      color: #fff;
+      border: 1px solid #fff;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: 0.3s;
+      box-shadow: 0 0 8px rgba(255,255,255,0.6);
+    }
+    button:hover {
+      background: rgba(255,255,255,0.3);
+      color: #000;
+      box-shadow: 0 0 12px #0ff;
+    }
+    .info-box {
+      background:rgba(0,255,255,0.1);
+      border:1px solid rgba(0,255,255,0.5);
+      border-radius:8px;
+      padding:14px;
+      margin-bottom:18px;
+      text-align:center;
+      font-weight:bold;
+      line-height:1.6;
+    }
+    .info-box span {display:block;}
+    .info-box .main-price {font-size:16px; color:#0ff; text-shadow:0 0 6px #0f0;}
+    .info-box .sub-price {font-size:14px; color:#fff; opacity:0.9;}
+    #notifBox, #gamepassNotif {
+      margin-top:10px; padding:8px 12px; border-radius:6px;
+      font-size:14px; font-weight:bold; text-align:center;
+      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff;
+      text-shadow:0 0 6px #0ff, 0 0 10px #0f0; box-shadow:0 0 12px #0ff;
+    }
+    .admin-box {
+      margin:20px; padding:10px;
+      background:rgba(0,50,50,0.6);
+      border:1px solid #0ff;
+      border-radius:8px;
+      text-align:center;
+      transform: scale(0.8);
+      opacity:0.4;
+      transition: all 0.5s ease;
+    }
+    .admin-box.active {
+      transform: scale(1);
+      opacity:1;
+      box-shadow:0 0 15px #0ff;
+    }
+    .admin-box h3 {font-size:14px; color:#0ff;}
+    .admin-box input, .admin-box button {
+      font-size:12px; padding:4px 6px;
+    }
   </style>
 </head>
-<body class="flex flex-col items-center min-h-screen relative">
-  <canvas id="matrix"></canvas>
+<body>
+  <div class="code-bg">
+    <div class="code-line" style="left:10%; animation-delay:0s;"></div>
+    <div class="code-line" style="left:30%; animation-delay:2s;"></div>
+    <div class="code-line" style="left:50%; animation-delay:4s;"></div>
+    <div class="code-line" style="left:70%; animation-delay:1s;"></div>
+    <div class="code-line" style="left:90%; animation-delay:3s;"></div>
+  </div>
 
-  <!-- Header -->
-  <header class="z-10 text-center mt-6 mb-6">
-    <div class="logo-glitch mx-auto mb-3"></div>
-    <h1 class="text-4xl font-bold title-font">DEXBLOX.ID</h1>
-    <p class="text-green-400 mt-2">Topup Gamepass 5–7 Hari Termurah di Dunia</p>
+  <header>
+    <h1>DEXBLOX.ID</h1>
   </header>
 
-  <!-- Form Topup -->
-  <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-80 p-6 rounded-xl shadow-lg text-center">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Formulir Topup Gamepass</h2>
-    <form id="topupForm" class="space-y-4">
-      <input type="text" id="username" class="w-full p-2 rounded bg-gray-700 text-white text-center" placeholder="Username Roblox">
-      <div class="mt-4">
-        <button type="button" onclick="cekUsername()" 
-                class="btn-anim w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded shadow-lg">
-          🔍 Cek Username
-        </button>
-        <p id="usernameResult" class="text-yellow-400 mt-2 font-bold"></p>
-        <img id="avatarPreview" class="mx-auto mt-3 rounded-lg hidden w-32 h-32" />
-      </div>
-      <div class="mt-4 mb-2 text-center">
-        <h3 class="text-white text-base font-semibold mb-1">💸 Harga Robux Hari Ini</h3>
-        <div class="flex justify-center items-baseline space-x-2">
-          <span class="text-cyan-400 text-3xl font-extrabold" id="hargaHariIni">10000</span>
-          <span class="text-gray-400 text-sm">/ 100 Robux</span>
-        </div>
-      </div>
-      <div class="mt-2">
-        <label class="block text-cyan-400 font-bold mb-2">Custom Paket Robux (Wajib)</label>
-        <input type="number" id="customRobux" class="w-full p-2 rounded bg-gray-700 text-white text-center" placeholder="Masukkan jumlah Robux">
-        <p id="customResult" class="text-green-400 mt-2 font-bold"></p>
-      </div>
-      <input type="hidden" id="robux">
-      <input type="url" id="gamepass" class="w-full p-2 rounded bg-gray-700 text-white text-center mt-2" placeholder="Link Gamepass Roblox (https://www.roblox.com/game-pass/ID)">
-      <div class="mt-2">
-        <label class="block text-cyan-400 font-bold mb-2">Kode Promo</label>
-        <input type="text" id="promoCode" class="w-full p-2 rounded bg-gray-700 text-white text-center" placeholder="Masukkan kode promo (opsional)">
-        <p id="promoResult" class="text-green-400 mt-2 font-bold"></p>
-      </div>
-      <button type="submit" class="btn-anim w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded shadow-lg mt-3">Topup via WhatsApp</button>
-    </form>
-  </div>
+  <div class="container">
+    <div class="info-box">
+      <span class="main-price">💰 Harga Resmi : Rp110 per Robux</span>
+      <span class="sub-price">(100 Robux / Rp11.000)</span>
+    </div>
 
-  <!-- Tata Cara Pembelian -->
-  <div class="z-10 w-[90%] max-w-md bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg mt-6">
-    <h2 class="text-xl font-bold text-cyan-400 mb-4">📖 Tata Cara Pembelian</h2>
-    <ol class="list-decimal list-inside text-gray-200 text-left space-y-2">
-      <li>Masukkan Username Roblox dengan benar.</li>
-      <li>Pilih paket Robux sesuai kebutuhan.</li>
-      <li>Salin link Gamepass dari Roblox.</li>
-      <li>Tempelkan link Gamepass ke form.</li>
-      <li>Klik tombol <span class="text-cyan-400 font-bold">Topup via WhatsApp</span>.</li>
-      <li>Kirim bukti pembayaran ke Admin dan Admin akan membeli gamepass tersebut.</li>
-      <li>Tunggu sekitar 5–7 hari sesuai ketentuan Roblox.</li>
-      <li>Jika ada kendala, hubungi Admin melalui WhatsApp.</li>
-    </ol>
-  </div>
+    <!-- Panel Cek Username -->
+    <div class="panel form-group">
+      <h3>👤 Cek Username</h3>
+      <input type="text" id="username" placeholder="Masukkan username Roblox">
+      <button onclick="cekUser()">Cek Username</button>
+      <div id="notifBox" style="display:none;"></div>
+      <div id="userInfo"></div>
+    </div>
 
-  <!-- Video Tutorial -->
-  <div class="z-10 w-[90%] max-w-md bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg mt-6 text-center">
-    <h2 class="text-xl font-bold text-cyan-400 mb-4">🎥 Video Tutorial</h2>
-    <div class="space-y-3">
-      <a href="https://vt.tiktok.com/ZSaU3yne9/" target="_blank" class="block btn-anim bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">🎥 Cara Salin Gamepass</a>
-      <a href="https://vt.tiktok.com/ZSaU3NUE4/" target="_blank" class="block btn-anim bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">🎥 Cara Buat Gamepass</a>
-      <a href="https://vt.tiktok.com/ZSaU3Ljjr/" target="_blank" class="block btn-anim bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">🎥 Cara Cek Robux Pending</a>
+    <!-- Panel Custom Robux (otomatis) -->
+    <div class="panel form-group">
+      <h3>📦 Custom Paket Robux</h3>
+      <input type="number" id="customRobux" placeholder="Masukkan jumlah Robux" oninput="hitungHarga()">
+      <p id="paketInfo"></p>
+    </div>
+
+    <!-- Panel Gamepass (otomatis + validasi) -->
+    <div class="panel form-group">
+      <h3>🎮 Gamepass Resmi</h3>
+      <input type="text" id="gamepassLink" placeholder="Masukkan link Gamepass Roblox" oninput="tambahGamepass()">
+      <div id="gamepassNotif" style="display:none;"></div>
+      <ul id="gamepassList" style="list-style:none; padding:0; text-align:center;"></ul>
+    </div>
+
+    <!-- Panel Pembayaran -->
+    <div class="panel form-group">
+      <h3>💳 Pembayaran</h3>
+      <select id="payment">
+        <option value="gopay">GoPay</option>
+        <option value="ovo">OVO</option>
+        <option value="dana">DANA</option>
+        <option value="qris">QRIS</option>
+      </select>
+      <button onclick="topup()">Topup Sekarang</button>
     </div>
   </div>
 
-  <!-- Metode Pembayaran -->
-  <section class="max-w-md mx-auto mt-8 p-6 rounded-lg bg-gray-900 bg-opacity-80 text-center z-10">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Metode Pembayaran</h2>
-    <p class="text-red-400 font-bold mb-2">Penting:</p>
-    <p class="text-gray-300">
-      Bukti pembayaran <span class="text-yellow-400 font-bold">tidak di-upload di website</span>. 
-      Setelah transfer via <span class="text-green-400">QRIS / Dana / OVO / GoPay</span>, 
-      kirim screenshot bukti pembayaran langsung ke Admin melalui WhatsApp.
-    </p>
-  </section>
-
-  <!-- FAQ -->
-  <section class="max-w-md mx-auto mt-8 p-6 rounded-lg bg-gray-900 bg-opacity-80 text-center z-10">
-    <h2 class="text-2xl font-bold mb-6 text-cyan-400">FAQ</h2>
-    <div class="space-y-4 text-left">
-      <div class="border border-cyan-400 rounded-lg p-3">
-        <p class="text-cyan-400 font-bold">❓ Berapa lama proses topup?</p>
-        <p class="text-gray-300 mt-1">Proses membutuhkan waktu 5–7 hari sesuai ketentuan Roblox.</p>
-      </div>
-      <div class="border border-cyan-400 rounded-lg p-3">
-        <p class="text-cyan-400 font-bold">❓ Bagaimana cara upload bukti pembayaran?</p>
-        <p class="text-gray-300 mt-1">Setelah transfer, kirim bukti pembayaran langsung ke Admin melalui WhatsApp.</p>
-      </div>
-      <div class="border border-cyan-400 rounded-lg p-3">
-        <p class="text-cyan-400 font-bold">❓ Apakah aman topup di Dexblox?</p>
-        <p class="text-gray-300 mt-1">Aman, karena semua transaksi diverifikasi dan transparan dengan bukti pembayaran.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Warning Modal -->
-  <div id="warningModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center max-w-sm">
-      <h2 class="text-xl font-bold text-cyan-400 mb-4">⚠️ Periksa Data Anda</h2>
-      <p class="text-gray-300 mb-4">Pastikan Username & Link Gamepass sudah benar sebelum melanjutkan.</p>
-      <div class="flex justify-center space-x-4">
-        <button onclick="closeModal()" class="btn-anim bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Batal</button>
-        <button id="confirmBtn" class="btn-anim bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Lanjutkan</button>
-      </div>
+  <!-- Admin Login di bawah -->
+  <div class="admin-box" id="adminBox">
+    <h3>🔑 Admin Login</h3>
+    <input type="password" id="adminPass" placeholder="Password Admin">
+    <button onclick="adminLogin()">Login</button>
+    <p id="adminResult"></p>
+    <div id="adminPanel" style="display:none;">
+      <label for="newPrice">Harga/Robux:</label>
+      <input type="number" id="newPrice" placeholder="Rp">
+      <button onclick="updatePrice()">Update</button>
     </div>
   </div>
 
-  <!-- Admin Panel -->
-  <div id="adminPanel" style="display:none;" class="z-10 mt-6 mb-6 text-center bg-gray-800 bg-opacity-20 p-4 rounded-lg max-w-md mx-auto">
-    <h3 class="text-cyan-400 font-bold mb-2">Admin Panel</h3>
-    <input type="number" id="baseHarga" value="10000" class="p-2 rounded bg-gray-700 bg-opacity-60 text-white text-center w-48" placeholder="Masukkan base harga">
-    <button onclick="updateHarga()" class="btn-anim bg-green-500 hover:bg-green-600 text-white font-bold px-4 py-2 rounded">Update Harga</button>
-    <button onclick="resetPilihan()" class="btn-anim bg-yellow-500 hover:bg-yellow-600 text-white font-bold px-4 py-2 rounded mt-2">Reset Custom</button>
-  </div>
+<script>
+  let base = "https://dexblox.vercel.app/api"; 
+  let currentUserId = null;
+  let pricePerRobux = 110;
 
-  <!-- Modal Login Admin -->
-  <div id="adminModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
-    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center max-w-sm border border-cyan-500">
-      <h2 class="text-cyan-400 font-bold text-lg mb-4">💻 Secure Access</h2>
-      <label class="block text-gray-300 mb-2">Masukkan password admin:</label>
-      <input type="password" id="adminPassword" 
-             class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" 
-             placeholder="••••••••">
-      <div class="flex justify-center space-x-4">
-        <button onclick="closeAdminModal()" 
-                class="btn-anim bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-          Batal
-        </button>
-        <button onclick="verifyAdmin()" 
-                class="btn-anim bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-          Oke
-        </button>
-      </div>
-      <p id="adminFeedback" class="text-sm text-gray-400 mt-3"></p>
-    </div>
-  </div>
-
-  <!-- Tombol Login Admin -->
-  <button onclick="adminLogin()" 
-          style="position:fixed; top:1rem; right:1rem; width:48px; height:48px; z-index:50; cursor:pointer;"
-          class="rounded-full bg-gray-800 border border-cyan-400 text-cyan-400">
-    ⚙️
-  </button>
-
-  <!-- Footer -->
-  <footer class="z-10 mt-10 mb-6 text-center text-gray-400 text-sm">
-    <p>&copy; <span id="year"></span> Dexblox – Semua Hak Cipta Dilindungi</p>
-  </footer>
-
-  <!-- Script -->
-  <script>
-    document.getElementById("year").textContent=new Date().getFullYear();
-
-    // Matrix Rain Full
-    const canvas=document.getElementById("matrix");
-    const ctx=canvas.getContext("2d");
-    const fontSize=16;
-    let columns, drops;
-    const letters="01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&█▓▒░❤️";
-
-    function resizeCanvas(){
-      canvas.width=window.innerWidth;
-      canvas.height=window.innerHeight;
-      columns=Math.floor(canvas.width/fontSize);
-      drops=Array(columns).fill(1);
+  // Load harga dari localStorage
+  window.onload = () => {
+    const savedPrice = localStorage.getItem("pricePerRobux");
+    if (savedPrice) {
+      pricePerRobux = parseInt(savedPrice);
+      document.querySelector(".info-box").innerHTML =
+        `<span class="main-price">💰 Harga Resmi : Rp${pricePerRobux} per Robux</span>
+         <span class="sub-price">(100 Robux / Rp${(100*pricePerRobux).toLocaleString()})</span>`;
     }
-    resizeCanvas();
-    window.addEventListener("resize",resizeCanvas);
+  };
 
-    function draw(){
-      ctx.fillStyle="rgba(0,0,0,0.05)";
-      ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.font=fontSize+"px monospace";
-      for(let i=0;i<drops.length;i++){
-        const text=letters.charAt(Math.floor(Math.random()*letters.length));
-        ctx.fillStyle=Math.random()>0.5?"#00ff00":"#00f0ff";
-        ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-        if(drops[i]*fontSize>canvas.height&&Math.random()>0.975){drops[i]=0;}
-        drops[i]++;
-      }
-    }
-    setInterval(draw,33);
+  async function cekUser() {
+    const username = document.getElementById('username').value.trim();
+    const notifBox = document.getElementById('notifBox');
+    const userInfo = document.getElementById('userInfo');
 
-    // Cek Username + Avatar (via proxy API di Vercel)
-    async function cekUsername(){
-      const username=document.getElementById("username").value.trim();
-      const result=document.getElementById("usernameResult");
-      const avatar=document.getElementById("avatarPreview");
-      if(!username){
-        result.textContent="⚠️ Username belum diisi";
-        result.className="text-red-400 mt-2 font-bold";
-        avatar.classList.add("hidden");
-        return;
-      }
-      try{
-        const res=await fetch(`/api/checkUsername?username=${username}`);
-        const data=await res.json();
-        if(data.data&&data.data.length>0){
-          const user=data.data[0];
-          result.textContent=`✅ Username valid: ${user.name} (ID: ${user.id})`;
-          result.className="text-green-400 mt-2 font-bold";
-          const avatarRes=await fetch(`https://thumbnails.roblox.com/v1/users/avatar?userIds=${user.id}&size=150x150&format=Png&isCircular=false`);
-          const avatarData=await avatarRes.json();
-          if(avatarData.data&&avatarData.data.length>0){
-            avatar.src=avatarData.data[0].imageUrl;
-            avatar.classList.remove("hidden");
-          }
-        }else{
-          result.textContent="❌ Username tidak ditemukan";
-          result.className="text-red-400 mt-2 font-bold";
-          avatar.classList.add("hidden");
-        }
-      }catch(err){
-        result.textContent="⚠️ Error saat cek username";
-        result.className="text-red-400 mt-2 font-bold";
-        avatar.classList.add("hidden");
-      }
+    if (!username) {
+      notifBox.style.display = "block";
+      notifBox.innerText = "⚠️ Username belum diisi!";
+      userInfo.innerHTML = "";
+      return;
+    } else {
+      notifBox.style.display = "none";
     }
 
-    // Promo 3%
-    const promoInput=document.getElementById("promoCode");
-    const promoResult=document.getElementById("promoResult");
-    promoInput.addEventListener("input",()=>{
-      const code=promoInput.value.trim();
-      if(code.toLowerCase()==="dexblox3"){
-        promoResult.textContent="🎉 Promo 3% aktif!";
-      }else{
-        promoResult.textContent="";
-      }
-    });
+    userInfo.innerHTML = "Loading...";
+    try {
+      const res = await fetch(`${base}/user?username=${username}`);
+      const data = await res.json();
+      const userId = data.Id || data.id || data.data?.[0]?.id;
+      if (!userId) throw new Error("UserId tidak ditemukan!");
+      currentUserId = userId;
 
-    // Admin Panel
-    function adminLogin(){document.getElementById("adminModal").classList.remove("hidden");}
-    function closeAdminModal(){document.getElementById("adminModal").classList.add("hidden");}
-    function verifyAdmin(){
-      const pass=document.getElementById("adminPassword").value;
-      const feedback=document.getElementById("adminFeedback");
-      if(pass==="dexbloxadmin"){ // ganti sesuai password admin kamu
-        document.getElementById("adminModal").classList.add("hidden");
-        document.getElementById("adminPanel").style.display="block";
-        feedback.textContent="";
-      }else{
-        feedback.textContent="❌ Password salah";
-      }
+      const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
+      const avatarData = await avatarRes.json();
+      const avatarUrl = avatarData.imageUrl || avatarData.data?.[0]?.imageUrl;
+
+      userInfo.innerHTML = `
+        <p>✅ Username valid: <b>${username}</b> (UserId: ${userId})</p>
+        ${avatarUrl ? `<img class="avatar" src="${avatarUrl}" width="120">` : `<p>Avatar tidak ditemukan.</p>`}
+      `;
+    } catch (err) {
+      userInfo.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+    }
+  }
+
+  function hitungHarga() {
+    const robux = parseInt(document.getElementById('customRobux').value);
+    if (!robux || robux <= 0) {
+      document.getElementById('paketInfo').innerText = "❌ Masukkan jumlah Robux yang valid!";
+      return;
     }
 
-    function updateHarga(){
-      const newHarga=parseInt(document.getElementById("baseHarga").value);
-      if(!isNaN(newHarga)&&newHarga>0){
-        localStorage.setItem("baseHarga",newHarga);
-        document.getElementById("hargaHariIni").textContent=newHarga;
-        alert("✅ Harga berhasil diupdate");
-      }
+    const gross = robux * pricePerRobux;
+    const setId = Math.round(robux * 1.43);
+
+    document.getElementById('paketInfo').innerText =
+      `📦 Paket: ${robux} Robux 
+       | 💰 Harga User: Rp${gross.toLocaleString()} 
+       | 🔑 Set ID: ${setId}`;
+  }
+
+  function tambahGamepass() {
+    const link = document.getElementById('gamepassLink').value.trim();
+    const list = document.getElementById('gamepassList');
+    const notif = document.getElementById('gamepassNotif');
+
+    if (!link) {
+      list.innerHTML = "";
+      notif.style.display = "none";
+      return;
     }
 
-    function resetPilihan(){
-      document.getElementById("customRobux").value="";
-      document.getElementById("customResult").textContent="";
-      document.getElementById("robux").value="";
-      document.getElementById("promoCode").value="";
-      document.getElementById("promoResult").textContent="";
+    if (link.includes("roblox.com")) {
+      notif.style.display = "block";
+      notif.style.color = "lime";
+      notif.innerText = "✅ Link Gamepass valid dari Roblox.";
+      list.innerHTML = `<li><a href="${link}" target="_blank">${link}</a></li>`;
+    } else {
+      notif.style.display = "block";
+      notif.style.color = "red";
+      notif.innerText = "❌ Link harus dari Roblox!";
+      list.innerHTML = "";
+    }
+  }
+
+  function topup() {
+    const username = document.getElementById('username').value.trim();
+    const robux = document.getElementById('customRobux').value;
+    const payment = document.getElementById('payment').value;
+    if (!currentUserId) return alert("Cek username dulu sebelum topup!");
+    if (!robux) return alert("Isi jumlah Robux dulu!");
+
+    const gross = robux * pricePerRobux;
+    const setId = Math.round(robux * 1.43);
+
+    const gamepassItems = document.querySelectorAll('#gamepassList li a');
+    let gamepassText = "";
+    if (gamepassItems.length > 0) {
+      gamepassText = "\n🎮 Gamepass:\n";
+      gamepassItems.forEach((a) => {
+        gamepassText += `- ${a.href}\n`;
+      });
     }
 
-    // Warning Modal
-    function closeModal(){document.getElementById("warningModal").classList.add("hidden");}
+    const message = `Halo Admin Dexblox, saya ingin topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk username ${username} via ${payment}. (Set ID: ${setId})${gamepassText}`;
+    const phone = "6285362187740"; 
+    const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    window.open(waUrl, "_blank");
+  }
 
-    document.getElementById("topupForm").addEventListener("submit",function(e){
-      e.preventDefault();
-      document.getElementById("warningModal").classList.remove("hidden");
-    });
+  function adminLogin() {
+    const pass = document.getElementById('adminPass').value;
+    const box = document.getElementById('adminBox');
+    if (pass === "12345") {
+      document.getElementById('adminResult').innerText = "✅ Login berhasil. Selamat datang Admin!";
+      document.getElementById('adminPanel').style.display = "block";
+      box.classList.add("active");
+    } else {
+      document.getElementById('adminResult').innerText = "❌ Password salah.";
+    }
+  }
 
-    document.getElementById("confirmBtn").addEventListener("click",function(){
-      const username=document.getElementById("username").value.trim();
-      const robux=document.getElementById("robux").value;
-      const gamepass=document.getElementById("gamepass").value.trim();
-      const promo=document.getElementById("promoCode").value.trim();
-      if(!username||!robux||!gamepass){
-        alert("⚠️ Data belum lengkap");
-        return;
-      }
-      let pesan=`Halo Admin Dexblox,%0AUsername: ${username}%0ARobux: ${robux}%0AGamepass: ${gamepass}`;
-      if(promo){pesan+=`%0APromo: ${promo}`;}
-      window.open(`https://wa.me/6281234567890?text=${pesan}`,"_blank"); // ganti nomor WA admin
-      closeModal();
-    });
-  </script>
+  function updatePrice() {
+    const newPrice = parseInt(document.getElementById('newPrice').value);
+    if (!newPrice || newPrice <= 0) {
+      alert("Isi harga baru per Robux!");
+      return;
+    }
+    pricePerRobux = newPrice;
+    localStorage.setItem("pricePerRobux", pricePerRobux);
+
+    document.querySelector(".info-box").innerHTML =
+      `<span class="main-price">💰 Harga Resmi : Rp${pricePerRobux} per Robux</span>
+       <span class="sub-price">(100 Robux / Rp${(100*pricePerRobux).toLocaleString()})</span>`;
+
+    document.getElementById('adminResult').innerText =
+      `✅ Harga per Robux diupdate jadi Rp${pricePerRobux.toLocaleString()}`;
+
+    hitungHarga();
+  }
+</script>
 </body>
-      </html>
+</html>
