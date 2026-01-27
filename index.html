@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Roblox Proxy UI</title>
   <style>
-    body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 700px; margin: auto; }
     input, button { width: 100%; padding: 10px; margin: 10px 0; }
-    pre { background: #f4f4f4; padding: 10px; overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+    img { margin-top: 10px; border: 1px solid #ccc; }
   </style>
 </head>
 <body>
@@ -18,8 +20,7 @@
 
   <button onclick="fetchAll()">Ambil Data Lengkap</button>
 
-  <h3>📦 Hasil:</h3>
-  <pre id="result">...</pre>
+  <div id="output"></div>
 
   <script>
     async function fetchAll() {
@@ -30,34 +31,55 @@
       // kalau ternyata endpoint kamu pakai /app, ganti baris di atas jadi:
       // let base = "https://roblox-proxy-self.vercel.app/app";
 
+      const output = document.getElementById('output');
+      output.innerHTML = "<p>Loading...</p>";
+
       try {
         // 1. Ambil UserId dari username
         const userRes = await fetch(`${base}/user?username=${username}`);
         const userData = await userRes.json();
-
-        let userId = userData.Id || userData.id || userData.data?.[0]?.id;
+        const userId = userData.Id || userData.id || userData.data?.[0]?.id;
         if (!userId) throw new Error("UserId tidak ditemukan");
 
         // 2. Ambil Avatar
         const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
         const avatarData = await avatarRes.json();
+        const avatarUrl = avatarData.data?.[0]?.imageUrl;
 
-        // 3. Ambil Gamepasses (contoh pakai gameId statis, bisa diganti sesuai kebutuhan)
-        const gamepassesRes = await fetch(`${base}/gamepasses?gameId=987654`);
-        const gamepassesData = await gamepassesRes.json();
+        // 3. Ambil Gamepass (contoh: pakai gamepassId spesifik)
+        const gamepassRes = await fetch(`${base}/gamepasses?gamepassId=1675795729`);
+        const gamepassData = await gamepassRes.json();
 
-        // Gabungkan hasil
-        const result = {
-          username: username,
-          userId: userId,
-          avatar: avatarData,
-          gamepasses: gamepassesData
-        };
+        // 4. Render hasil
+        let html = `
+          <h3>📌 Data User</h3>
+          <table>
+            <tr><th>Username</th><td>${username}</td></tr>
+            <tr><th>UserId</th><td>${userId}</td></tr>
+          </table>
+        `;
 
-        document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        if (avatarUrl) {
+          html += `<h3>🖼️ Avatar</h3><img src="${avatarUrl}" alt="Avatar" width="200">`;
+        }
+
+        if (gamepassData && gamepassData.name) {
+          html += `
+            <h3>🎟️ Gamepass</h3>
+            <table>
+              <tr><th>Nama</th><td>${gamepassData.name}</td></tr>
+              <tr><th>Harga</th><td>${gamepassData.price || "Gratis"}</td></tr>
+              <tr><th>Creator</th><td>${gamepassData.creator?.name || "-"}</td></tr>
+            </table>
+          `;
+        } else {
+          html += `<p>Gamepass tidak ditemukan atau error.</p>`;
+        }
+
+        output.innerHTML = html;
 
       } catch (err) {
-        document.getElementById('result').textContent = "Error: " + err.message;
+        output.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
       }
     }
   </script>
