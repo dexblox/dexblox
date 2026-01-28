@@ -133,22 +133,22 @@
     userInfo.innerHTML = "Loading...";
 
     try {
-      const res = await fetch("/api/roblox", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username })
-      });
-      const data = await res.json();
-
-      if (data.error) {
-        userInfo.innerHTML = `<p style="color:red;">${data.error}</p>`;
+      // Panggil proxy API kamu di Vercel
+      const resUser = await fetch(`https://roblox-proxy.vercel.app/api/user?username=${username}`);
+      const dataUser = await resUser.json();
+      if (!dataUser.id) {
+        userInfo.innerHTML = `<p style="color:red;">Username tidak ditemukan!</p>`;
         return;
       }
+      currentUserId = dataUser.id;
 
-      currentUserId = data.id;
+      // Ambil avatar dari proxy API
+      const resAvatar = await fetch(`https://roblox-proxy.vercel.app/api/avatar?userId=${currentUserId}`);
+      const dataAvatar = await resAvatar.json();
+
       userInfo.innerHTML = `
-        <p>Username ditemukan: <b>${data.username}</b></p>
-        <img class="avatar" src="${data.avatar}" width="120">
+        <p>Username ditemukan: <b>${username}</b></p>
+        <img class="avatar" src="${dataAvatar.imageUrl}" width="120">
       `;
       updateRingkasan();
     } catch (err) {
@@ -297,4 +297,4 @@
   }
 </script>
 </body>
-</html>
+  </html>
