@@ -8,20 +8,19 @@
     body {margin:0;font-family:Arial,sans-serif;background:#f6fff6;color:#222;font-size:14px;}
     header {background:#00c853;color:#fff;padding:12px;text-align:center;border-bottom:2px solid #00e676;}
     header h1 {margin:0;font-size:20px;}
-    .container {max-width:360px;margin:15px auto;background:#fff;border:1px solid #00c853;border-radius:8px;padding:12px;box-shadow:0 0 6px #00c85333;}
+    .container {max-width:95%;margin:12px auto;background:#fff;border:1px solid #00c853;border-radius:8px;padding:10px;box-shadow:0 0 6px #00c85333;}
     .panel {margin-bottom:12px;padding:10px;border:1px solid #00c85333;border-radius:6px;background:#fdfdfd;}
     .panel h3 {margin:0 0 8px;color:#00c853;font-size:14px;text-align:center;border-bottom:1px solid #00c85333;padding-bottom:4px;}
-    label {display:block;margin-top:6px;font-weight:bold;font-size:13px;}
-    input {width:100%;padding:8px;margin-top:4px;border:1px solid #00c853;border-radius:5px;background:#fff;font-size:13px;}
-    .info {margin-top:6px;font-size:12px;color:#00c853;font-weight:bold;}
-    .quick-prices {display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px;}
-    .quick-prices button {flex:1 1 45%;background:#e0f7fa;border:1px solid #00c853;border-radius:6px;padding:8px;font-size:12px;font-weight:bold;cursor:pointer;transition:0.3s;text-align:center;}
-    .quick-prices button:hover {background:#00e676;color:#fff;box-shadow:0 0 6px #00e676;}
+    input, button {width:90%;max-width:250px;padding:6px;font-size:13px;border-radius:6px;margin:6px auto;display:block;}
+    .info {margin-top:6px;font-size:12px;color:#00c853;font-weight:bold;text-align:center;}
+    .quick-prices {display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .quick-prices button {background:#e0f7fa;border:1px solid #00c853;font-size:12px;font-weight:bold;}
+    .quick-prices button:hover {background:#00e676;color:#fff;}
     .deskripsi {font-size:12px;line-height:1.4;}
     .garansi {margin-top:10px;font-size:12px;color:#00c853;text-align:center;}
-    button.submit {margin-top:10px;background:#00c853;color:#fff;border:none;padding:10px;width:100%;font-size:13px;font-weight:bold;border-radius:6px;cursor:pointer;transition:0.3s;}
+    button.submit {background:#00c853;color:#fff;border:none;font-weight:bold;}
     button.submit:hover {background:#00e676;box-shadow:0 0 8px #00e676;}
-    img.qris {width:100%;margin-top:8px;border:1px solid #00c853;border-radius:6px;box-shadow:0 0 6px #00e676;}
+    img.qris {width:100%;border:1px solid #00c853;border-radius:6px;}
     #topupNotif {margin-top:8px;padding:6px;border-radius:5px;font-size:12px;font-weight:bold;text-align:center;background:#e0f7fa;border:1px solid #00c853;color:#222;display:none;}
     .floating-btn {position:fixed;top:15px;right:15px;background:#00c853;color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:16px;z-index:3;}
     .admin-panel {position:fixed;top:60px;right:15px;background:#ffffff;border:1px solid #00c853;border-radius:6px;padding:8px;width:180px;display:none;z-index:3;font-size:12px;}
@@ -34,31 +33,28 @@
     <!-- Username + Avatar -->
     <div class="panel">
       <h3>👤 Username Roblox</h3>
-      <label for="username">Masukkan Username:</label>
-      <input type="text" id="username" placeholder="Username Roblox" onblur="cekUsername()" style="width:90%;max-width:250px;padding:6px;font-size:13px;margin:0 auto;display:block;border:1px solid #00c853;border-radius:5px;">
-      <div id="userInfo" style="margin-top:8px;text-align:center;font-size:12px;color:#00c853;"></div>
+      <input type="text" id="username" placeholder="Username Roblox">
+      <button onclick="cekUsername()">🔍 Cek Username</button>
+      <div id="userInfo" style="margin-top:6px;text-align:center;font-size:12px;color:#00c853;"></div>
     </div>
 
     <!-- Paket Cepat -->
     <div class="panel">
       <h3>⚡ Pilihan Cepat Paket Robux</h3>
       <div class="quick-prices">
-        <button onclick="pilihPaket(100,11000,143)">100 Robux<br>Rp11.000<br>Set 143</button>
-        <button onclick="pilihPaket(300,33000,429)">300 Robux<br>Rp33.000<br>Set 429</button>
-        <button onclick="pilihPaket(500,55000,715)">500 Robux<br>Rp55.000<br>Set 715</button>
-        <button onclick="pilihPaket(1000,110000,1430)">1000 Robux<br>Rp110.000<br>Set 1430</button>
+        <button onclick="pilihPaket(100,11000,143)">100 RBX<br>Rp11.000</button>
+        <button onclick="pilihPaket(300,33000,429)">300 RBX<br>Rp33.000</button>
+        <button onclick="pilihPaket(500,55000,715)">500 RBX<br>Rp55.000</button>
+        <button onclick="pilihPaket(1000,110000,1430)">1000 RBX<br>Rp110.000</button>
       </div>
     </div>
 
     <!-- Jumlah Robux -->
     <div class="panel">
       <h3>💰 Jumlah Robux</h3>
-      <label for="jumlahRobux">Masukkan jumlah Robux:</label>
       <input type="number" id="jumlahRobux" oninput="hitungManual()">
-      <p class="info">Stok Tersedia: 40.261 Robux</p>
-      <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 Robux</p>
+      <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 RBX</p>
       <p class="info" id="setIdInfo">Set ID: -</p>
-      <label for="totalRp">Total Biaya (Rp):</label>
       <input type="text" id="totalRp" readonly>
     </div>
 
@@ -66,7 +62,7 @@
     <div class="panel">
       <h3>📄 Deskripsi Produk</h3>
       <div class="deskripsi">
-        Cari tempat beli Robux (RBX) terpercaya dan termurah? Di sini kamu bisa top up Robux (RBX) dengan berbagai pilihan jumlah. Garansi pembelian 100% aman, harga terjangkau, dan bonus garansi robux pasti masuk ke akun kamu.
+        Top up Robux (RBX) terpercaya dan termurah. Garansi pembelian 100% aman, harga terjangkau, dan robux pasti masuk ke akun kamu.
       </div>
     </div>
 
@@ -107,32 +103,28 @@ async function cekUsername() {
   if (!username) return;
 
   try {
-    const res = await fetch("https://users.roblox.com/v1/usernames/users", {
-      method: "POST",
-      headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({usernames:[username]})
-    });
+    // Gunakan proxy API kamu di Vercel
+    const res = await fetch(`/api/user?username=${encodeURIComponent(username)}`);
     const data = await res.json();
 
-    if (data.data && data.data.length > 0) {
-      const user = data.data[0];
-      const userId = user.id;
-      const displayName = user.displayName;
+    if (data && data.id) {
+      const userId = data.id;
+      const displayName = data.displayName || username;
 
-      const avatarRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`);
+      const avatarRes = await fetch(`/api/avatar?userId=${userId}`);
       const avatarData = await avatarRes.json();
-      const avatarUrl = avatarData.data[0].imageUrl;
+      const avatarUrl = avatarData.imageUrl;
 
       userInfo.innerHTML = `
         ✅ <b>${displayName}</b><br>
-        <img src="${avatarUrl}" alt="Avatar Roblox" 
+        <img src="${avatarUrl}" alt="Avatar Roblox"
              style="margin-top:6px;border:1px solid #00c853;
              border-radius:6px;width:80px;height:80px;">
       `;
     } else {
       userInfo.innerHTML = "❌ Username tidak ditemukan!";
     }
-  } catch {
+  } catch (err) {
     userInfo.innerHTML = "⚠️ Gagal cek username!";
   }
 }
@@ -150,7 +142,7 @@ function hitungManual() {
     document.getElementById('setIdInfo').innerText = "Set ID: -";
     return;
   }
-  const harga = (robux / 100) * 11000;
+  const harga = (robux / 100) * parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const setIdList = [143,286,429,572,715,858,1001,1144,1287,1430];
   let nearest = setIdList[0];
   let minDiff = Math.abs(robux - nearest);
@@ -181,7 +173,7 @@ Topup ${robux} Robux (${total}) untuk ${username}.
 ${setId}
 Pembayaran via QRIS. Bukti pembayaran sudah dikirim user.`;
 
-  const phone = "6285362187740";
+  const phone = "6285362187740"; // nomor WA admin
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, "_blank");
 
