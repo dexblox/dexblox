@@ -122,33 +122,33 @@
     const username = document.getElementById('username').value.trim();
     const alertBox = document.getElementById('alertBox');
     const userInfo = document.getElementById('userInfo');
+
     if (!username) {
       alertBox.innerText = "⚠️ Username belum diisi!";
       alertBox.style.display = "block";
       setTimeout(() => { alertBox.style.display = "none"; }, 4000);
       return;
     }
+
     userInfo.innerHTML = "Loading...";
 
     try {
-      // Ambil userId dari API Roblox
-      const res = await fetch(`https://users.roblox.com/v1/usernames/users`, {
+      const res = await fetch("/api/roblox", {
         method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify({usernames:[username]})
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username })
       });
       const data = await res.json();
-      const userId = data.data[0].id;
-      currentUserId = userId;
 
-      // Ambil avatar dari API Roblox
-      const avatarRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
-      const avatarData = await avatarRes.json();
-      const avatarUrl = avatarData.data[0].imageUrl;
+      if (data.error) {
+        userInfo.innerHTML = `<p style="color:red;">${data.error}</p>`;
+        return;
+      }
 
+      currentUserId = data.id;
       userInfo.innerHTML = `
-        <p>Username ditemukan: <b>${username}</b> (@${username})</p>
-        <img class="avatar" src="${avatarUrl}" width="120">
+        <p>Username ditemukan: <b>${data.username}</b></p>
+        <img class="avatar" src="${data.avatar}" width="120">
       `;
       updateRingkasan();
     } catch (err) {
@@ -193,7 +193,6 @@
     const robux = parseInt(document.getElementById('customRobux').value) || 0;
     const username = document.getElementById('username').value.trim() || "-";
     const gross = robux * pricePerRobux;
-    const setId = Math.round(robux * 1.43);
     const link = document.getElementById('gamepassLink').value.trim();
 
     document.getElementById('ringkasanUsername').innerText = username;
