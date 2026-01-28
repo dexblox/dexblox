@@ -18,49 +18,39 @@
       border:1px solid rgba(0,255,255,0.4); background:rgba(0,0,0,0.6); color:#0ff;}
     button{background:rgba(255,255,255,0.1); color:#fff; border:1px solid #fff; cursor:pointer; font-weight:bold;
       font-size:13px; padding:6px 12px; border-radius:6px;}
-    .info-box{background:rgba(0,255,255,0.1); border:1px solid rgba(0,255,255,0.5); border-radius:8px; padding:14px; text-align:center;}
-    #alertBox{margin-top:10px; padding:8px 12px; border-radius:6px; font-size:14px; font-weight:bold; text-align:center;
-      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff; display:none;}
-    #gamepassNotif{margin-top:10px; padding:8px; border-radius:6px; font-size:14px; font-weight:bold; text-align:center;
-      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff; display:none;}
     .avatar{border:2px solid #0ff; border-radius:50%; box-shadow:0 0 15px #0f0;}
+    #alertBox,#gamepassNotif,#topupNotif{margin-top:10px; padding:8px; border-radius:6px; font-size:14px; font-weight:bold; text-align:center;
+      background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff; display:none;}
     .floating-btn{position:fixed; top:20px; right:20px; background:#0ff; color:#000; border:none; border-radius:50%; width:45px; height:45px;}
     .admin-panel{position:fixed; top:70px; right:20px; background:rgba(0,50,50,0.9); border:1px solid #0ff; border-radius:8px; padding:10px;
       width:200px; display:none;}
-    #topupNotif{position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:rgba(0,255,255,0.2); border:1px solid #0ff;
-      color:#fff; padding:12px 20px; border-radius:8px; font-size:15px; font-weight:bold; text-align:center; display:none;}
   </style>
 </head>
 <body>
   <header>
     <img src="/dexblox.png" alt="Logo Dexblox" class="logo">
     <h1>DEXBLOX.ID</h1>
-    <h2 class="subtitle">Topup Gamepass 5–7 Hari Termurah di Dunia</h2>
+    <h2 class="subtitle">Topup Gamepass Termurah</h2>
   </header>
 
   <div class="container">
-    <div id="infoBox" class="info-box">
-      <span class="main-price">💰 Harga Resmi : Rp110 per Robux</span>
-      <span class="sub-price">(100 Robux / Rp11.000)</span>
-    </div>
-
-    <!-- Panel Username -->
+    <!-- Username -->
     <div class="panel form-group">
-      <h3>👤 Cek Username</h3>
+      <h3>👤 Username Roblox</h3>
       <input type="text" id="username" placeholder="Masukkan username Roblox">
       <button onclick="cekUser()">Cek Username</button>
       <div id="alertBox"></div>
       <div id="userInfo"></div>
     </div>
 
-    <!-- Panel Custom Robux -->
+    <!-- Custom Robux -->
     <div class="panel form-group">
       <h3>📦 Custom Paket Robux</h3>
       <input type="number" id="customRobux" placeholder="Masukkan jumlah Robux" oninput="hitungHarga(); updateRingkasan();">
       <p id="paketInfo"></p>
     </div>
 
-    <!-- Panel Gamepass -->
+    <!-- Gamepass -->
     <div class="panel form-group">
       <h3>🎮 Gamepass Resmi</h3>
       <input type="text" id="gamepassLink" placeholder="Masukkan link Gamepass Roblox" oninput="tambahGamepass(); updateRingkasan();">
@@ -68,7 +58,7 @@
       <ul id="gamepassList" style="list-style:none; padding:0; text-align:center;"></ul>
     </div>
 
-    <!-- Panel Ringkasan -->
+    <!-- Ringkasan -->
     <div class="panel form-group">
       <h3>📄 Ringkasan Pesanan</h3>
       <div id="ringkasanBox" style="font-size:14px; line-height:1.6; background:rgba(0,255,255,0.05); padding:10px; border-radius:8px;">
@@ -78,17 +68,17 @@
       </div>
     </div>
 
-    <!-- Panel QRIS -->
+    <!-- Upload Bukti -->
     <div class="panel form-group">
-      <h3>💳 Pembayaran QRIS</h3>
-      <div id="qrisBox" style="margin-top:10px; display:none;">
-        <img src="/qris.png" alt="QRIS Dexblox"
-             style="width:220px; border:2px solid #0ff; border-radius:8px; display:block; margin:0 auto;">
-        <p style="color:#0ff; font-weight:bold; margin-top:8px;">Scan QRIS untuk pembayaran</p>
-        <input type="file" id="buktiFile" accept="image/*" style="margin-top:10px;">
-        <button onclick="konfirmasiPembayaran()">Konfirmasi Pembayaran</button>
-      </div>
-      <button onclick="topup()">Topup Sekarang</button>
+      <h3>💳 Upload Bukti QRIS</h3>
+      <input type="file" id="buktiFile" accept="image/*">
+    </div>
+
+    <!-- Konfirmasi -->
+    <div class="panel form-group">
+      <h3>🚀 Konfirmasi Topup</h3>
+      <button onclick="uploadDanKirim()">Upload & Kirim ke WhatsApp</button>
+      <div id="topupNotif">🚀 Permintaan Topup dikirim ke Admin Dexblox!</div>
     </div>
   </div>
 
@@ -108,179 +98,159 @@
     </div>
   </div>
 
-  <!-- Notifikasi -->
-  <div id="topupNotif">🚀 Permintaan Topup dikirim ke Admin Dexblox!</div>
-
 <script>
-  let base = "https://dexblox.vercel.app/api";
-  let pricePerRobux = 110;
-  let currentUserId = null;
+let pricePerRobux = 110;
+let currentUserId = null;
 
-  async function cekUser() {
-    const username = document.getElementById('username').value.trim();
-    const alertBox = document.getElementById('alertBox');
-    const userInfo = document.getElementById('userInfo');
+async function cekUser() {
+  const username = document.getElementById('username').value.trim();
+  const alertBox = document.getElementById('alertBox');
+  const userInfo = document.getElementById('userInfo');
 
-    if (!username) {
-      alertBox.innerText = "⚠️ Username belum diisi!";
-      alertBox.style.display = "block";
-      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
-      userInfo.innerHTML = "";
-      return;
-    }
-
-    userInfo.innerHTML = "Loading...";
-    try {
-      const res = await fetch(`${base}/user?username=${username}`);
-      const data = await res.json();
-      const userId = data.Id || data.id || data.data?.[0]?.id;
-      if (!userId) throw new Error("UserId tidak ditemukan!");
-      currentUserId = userId;
-
-      const avatarRes = await fetch(`${base}/avatar?userId=${userId}`);
-      const avatarData = await avatarRes.json();
-      const avatarUrl = avatarData.imageUrl || avatarData.data?.[0]?.imageUrl;
-
-      userInfo.innerHTML = `
-        <p>Username ditemukan: <b>${username}</b></p>
-        ${avatarUrl ? `<img class="avatar" src="${avatarUrl}" width="120">` : `<p>Avatar tidak ditemukan.</p>`}
-      `;
-      updateRingkasan();
-    } catch (err) {
-      userInfo.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
-    }
+  if (!username) {
+    alertBox.innerText = "⚠️ Username belum diisi!";
+    alertBox.style.display = "block";
+    setTimeout(() => { alertBox.style.display = "none"; }, 4000);
+    userInfo.innerHTML = "";
+    return;
   }
 
-  function hitungHarga() {
-    const robux = parseInt(document.getElementById('customRobux').value);
-    const alertBox = document.getElementById('alertBox');
-    if (!robux || robux <= 0) {
-      alertBox.innerText = "⚠️ Masukkan jumlah Robux yang valid!";
-      alertBox.style.display = "block";
-      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
+  userInfo.innerHTML = "Loading...";
+  try {
+    // contoh API Roblox
+    const res = await fetch(`https://users.roblox.com/v1/users/search?keyword=${username}`);
+    const data = await res.json();
+    const userId = data.data?.[0]?.id;
+    if (!userId) throw new Error("UserId tidak ditemukan!");
+    currentUserId = userId;
+
+    const avatarRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
+    const avatarData = await avatarRes.json();
+    const avatarUrl = avatarData.data?.[0]?.imageUrl;
+
+    userInfo.innerHTML = `
+      <img src="${avatarUrl}" alt="Avatar" class="avatar" width="100"><br>
+      ✅ Username ditemukan: ${username}
+    `;
+  } catch (err) {
+    userInfo.innerHTML = "❌ Username tidak ditemukan!";
+  }
+}
+
+function hitungHarga() {
+  const robux = document.getElementById('customRobux').value;
+  if (!robux) {
+    document.getElementById('paketInfo').innerText = "";
+    return;
+  }
+  const gross = robux * pricePerRobux;
+  const setId = Math.round(robux * 1.43);
+  document.getElementById('paketInfo').innerText =
+    `Harga: Rp${gross.toLocaleString()} | Set ID: ${setId}`;
+}
+
+function updateRingkasan() {
+  const username = document.getElementById('username').value.trim();
+  const robux = document.getElementById('customRobux').value;
+  const gross = robux ? robux * pricePerRobux : 0;
+
+  document.getElementById('ringkasanUsername').innerText = username || "-";
+  document.getElementById('ringkasanJumlah').innerText = robux || "-";
+  document.getElementById('ringkasanTotal').innerText = gross ? `Rp${gross.toLocaleString()}` : "-";
+}
+
+function tambahGamepass() {
+  const link = document.getElementById('gamepassLink').value.trim();
+  const notif = document.getElementById('gamepassNotif');
+  if (!link) {
+    notif.style.display = "none";
+    return;
+  }
+  const list = document.getElementById('gamepassList');
+  const li = document.createElement('li');
+  li.innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+  list.appendChild(li);
+  notif.innerText = "✅ Gamepass ditambahkan!";
+  notif.style.display = "block";
+  setTimeout(() => { notif.style.display = "none"; }, 3000);
+  document.getElementById('gamepassLink').value = "";
+}
+
+async function uploadDanKirim() {
+  const username = document.getElementById('username').value.trim();
+  const robux = document.getElementById('customRobux').value;
+  const fileInput = document.getElementById("buktiFile");
+  const file = fileInput.files[0];
+
+  if (!username || !robux || !file) {
+    alert("⚠️ Lengkapi username, jumlah Robux, dan pilih file bukti!");
+    return;
+  }
+
+  // Upload ke Postimages API
+  const formData = new FormData();
+  formData.append("file", file);
+
+  try {
+    const res = await fetch("https://api.postimages.org/1/upload", {
+      method: "POST",
+      body: formData
+    });
+    const data = await res.json();
+    console.log("Response Postimages:", data);
+
+    // Ambil link publik dari response
+    const buktiLink = data.url || data.link || data.data?.url;
+    if (!buktiLink) {
+      alert("❌ Upload ke Postimages gagal! Cek console log untuk detail.");
       return;
     }
+
     const gross = robux * pricePerRobux;
     const setId = Math.round(robux * 1.43);
-    document.getElementById('paketInfo').innerText =
-      `📦 Paket: ${robux} Robux | 💰 Rp${gross.toLocaleString()} | 🔑 Set ID: ${setId}`;
-  }
 
-  function tambahGamepass() {
-    const link = document.getElementById('gamepassLink').value.trim();
-    const list = document.getElementById('gamepassList');
-    const notif = document.getElementById('gamepassNotif');
+    const message = `Halo Admin Dexblox,
+Topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk ${username} via QRIS sukses.
+Set ID: ${setId}
+Bukti pembayaran: ${buktiLink}`;
 
-    if (!link) {
-      list.innerHTML = "";
-      notif.style.display = "none";
-      return;
-    }
-    if (link.includes("roblox.com")) {
-      notif.style.display = "block";
-      notif.style.color = "lime";
-      notif.innerText = "✅ Link Gamepass valid dari Roblox.";
-      list.innerHTML = `<li><a href="${link}" target="_blank">${link}</a></li>`;
-    } else {
-      notif.style.display = "block";
-      notif.style.color = "red";
-      notif.innerText = "❌ Link harus dari Roblox!";
-      list.innerHTML = "";
-    }
-  }
-
-  function updateRingkasan() {
-    const robux = parseInt(document.getElementById('customRobux').value) || 0;
-    const username = document.getElementById('username').value.trim() || "-";
-    const gross = robux * pricePerRobux;
-    document.getElementById('ringkasanUsername').innerText = username;
-    document.getElementById('ringkasanJumlah').innerText = robux ? `${robux} Robux` : "-";
-    document.getElementById('ringkasanTotal').innerText = robux ? `Rp ${gross.toLocaleString()}` : "-";
-  }
-
-  function topup() {
-    const username = document.getElementById('username').value.trim();
-    const robux = document.getElementById('customRobux').value;
-    const alertBox = document.getElementById('alertBox');
-
-    if (!currentUserId) {
-      alertBox.innerText = "⚠️ Cek username dulu sebelum topup!";
-      alertBox.style.display = "block";
-      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
-      return;
-    }
-    if (!robux) {
-      alertBox.innerText = "⚠️ Isi jumlah Robux dulu!";
-      alertBox.style.display = "block";
-      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
-      return;
-    }
-    document.getElementById('qrisBox').style.display = "block";
-  }
-
-  function konfirmasiPembayaran() {
-    const username = document.getElementById('username').value.trim();
-    const robux = document.getElementById('customRobux').value;
-    const gross = robux * pricePerRobux;
-    const setId = Math.round(robux * 1.43);
-
-    const gamepassItems = document.querySelectorAll('#gamepassList li a');
-    let gamepassText = "";
-    if (gamepassItems.length > 0) {
-      gamepassText = "\n🎮 Gamepass:\n";
-      gamepassItems.forEach((a) => { gamepassText += `- ${a.href}\n`; });
-    }
-
-    const message = `Halo Admin Dexblox, topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk ${username} via QRIS sukses. (Set ID: ${setId})${gamepassText}`;
-    const phone = "6285362187740"; 
+    const phone = "6285362187740"; // nomor admin
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
 
     const notif = document.getElementById('topupNotif');
     notif.style.display = "block";
-    notif.innerText = "🚀 Pembayaran sukses, permintaan Topup dikirim ke Admin Dexblox!";
     setTimeout(() => { notif.style.display = "none"; }, 4000);
+
+  } catch (err) {
+    alert("❌ Error upload ke Postimages: " + err.message);
   }
+}
 
-  function toggleAdmin() {
-    const panel = document.getElementById('adminPanelBox');
-    panel.style.display = (panel.style.display === "block") ? "none" : "block";
+function toggleAdmin() {
+  const panel = document.getElementById('adminPanelBox');
+  panel.style.display = panel.style.display === "none" ? "block" : "none";
+}
+
+function adminLogin() {
+  const pass = document.getElementById('adminPass').value;
+  const result = document.getElementById('adminResult');
+  if (pass === "dexblox123") { // contoh kode admin
+    result.innerText = "✅ Login sukses!";
+    document.getElementById('adminPanel').style.display = "block";
+  } else {
+    result.innerText = "❌ Kode salah!";
   }
+}
 
-  function adminLogin() {
-    const pass = document.getElementById('adminPass').value;
-    if (pass === "300403") {
-      document.getElementById('adminResult').innerText = "✅ Login berhasil!";
-      document.getElementById('adminPanel').style.display = "block";
-    } else {
-      document.getElementById('adminResult').innerText = "❌ Kode salah.";
-    }
-  }
-
-  function updatePrice() {
-    const newPrice = parseInt(document.getElementById('newPrice').value);
-    const alertBox = document.getElementById('alertBox');
-
-    if (!newPrice || newPrice <= 0) {
-      alertBox.innerText = "⚠️ Isi harga baru per Robux!";
-      alertBox.style.display = "block";
-      setTimeout(() => { alertBox.style.display = "none"; }, 4000);
-      return;
-    }
-
-    pricePerRobux = newPrice;
-    localStorage.setItem("pricePerRobux", pricePerRobux);
-
-    document.getElementById("infoBox").innerHTML =
-      `<span class="main-price">💰 Harga Resmi : Rp${pricePerRobux} per Robux</span>
-       <span class="sub-price">(100 Robux / Rp${(100*pricePerRobux).toLocaleString()})</span>`;
-
-    document.getElementById('adminResult').innerText =
-      `✅ Harga per Robux diupdate jadi Rp${pricePerRobux.toLocaleString()}`;
-
-    hitungHarga(); 
-    updateRingkasan();
-  }
+function updatePrice() {
+  const newPrice = document.getElementById('newPrice').value;
+  if (!newPrice) return;
+  pricePerRobux = parseInt(newPrice);
+  document.querySelector('.subtitle').innerText = `Harga Resmi : Rp${pricePerRobux} per Robux`;
+  alert("✅ Harga berhasil diupdate!");
+  updateRingkasan();
+}
 </script>
 </body>
 </html>
