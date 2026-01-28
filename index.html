@@ -42,10 +42,10 @@
     <div class="panel">
       <h3>⚡ Pilihan Cepat Paket Robux</h3>
       <div class="quick-prices">
-        <button onclick="pilihPaket(100,11000,143)">100 RBX<br>Rp11.000</button>
-        <button onclick="pilihPaket(300,33000,429)">300 RBX<br>Rp33.000</button>
-        <button onclick="pilihPaket(500,55000,715)">500 RBX<br>Rp55.000</button>
-        <button onclick="pilihPaket(1000,110000,1430)">1000 RBX<br>Rp110.000</button>
+        <button onclick="pilihPaket(100,143)">100 RBX</button>
+        <button onclick="pilihPaket(300,429)">300 RBX</button>
+        <button onclick="pilihPaket(500,715)">500 RBX</button>
+        <button onclick="pilihPaket(1000,1430)">1000 RBX</button>
       </div>
     </div>
 
@@ -98,6 +98,19 @@
 <script>
 const base = "https://dexblox.vercel.app"; // ganti sesuai domain Vercel kamu
 
+// Ambil harga global saat load
+window.onload = async () => {
+  try {
+    const res = await fetch(`${base}/api/price`);
+    const data = await res.json();
+    if (data.hargaPer100) {
+      document.getElementById('hargaPer100').innerText = parseInt(data.hargaPer100).toLocaleString();
+    }
+  } catch {
+    console.log("⚠️ Gagal ambil harga dari server");
+  }
+};
+
 async function cekUsername() {
   const username = document.getElementById('username').value.trim();
   const userInfo = document.getElementById('userInfo');
@@ -126,7 +139,9 @@ async function cekUsername() {
   }
 }
 
-function pilihPaket(robux, harga, setId) {
+function pilihPaket(robux, setId) {
+  const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
+  const harga = (robux / 100) * hargaPer100;
   document.getElementById('jumlahRobux').value = robux;
   document.getElementById('totalRp').value = `Rp${harga.toLocaleString()}`;
   document.getElementById('setIdInfo').innerText = `Set ID: ${setId}`;
@@ -139,7 +154,8 @@ function hitungManual() {
     document.getElementById('setIdInfo').innerText = "Set ID: -";
     return;
   }
-  const harga = (robux / 100) * parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
+  const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
+  const harga = (robux / 100) * hargaPer100;
   const setIdList = [143,286,429,572,715,858,1001,1144,1287,1430];
   let nearest = setIdList[0];
   let minDiff = Math.abs(robux - nearest);
@@ -195,12 +211,23 @@ function adminLogin() {
   }
 }
 
-function updatePrice() {
+async function updatePrice() {
   const newPrice = document.getElementById('newPrice').value;
   if (!newPrice) return;
-  document.getElementById('hargaPer100').innerText = parseInt(newPrice).toLocaleString();
-  alert("✅ Harga berhasil diupdate!");
-  hitungManual();
+
+  try {
+    const res = await fetch(`${base}/api/price`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ hargaPer100: newPrice })
+    });
+    const data = await res.json();
+    document.getElementById('hargaPer100').innerText = parseInt(data.hargaPer100).toLocaleString();
+    alert("✅ Harga berhasil diupdate!");
+    hitungManual();
+  } catch {
+    alert("⚠️ Gagal update harga!");
+  }
 }
 </script>
 </body>
