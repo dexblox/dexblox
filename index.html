@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DEXBLOX.ID - Topup Gamepass</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
     body { background:#000; font-family:monospace; }
     canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
@@ -20,6 +19,7 @@
   <canvas id="matrix"></canvas>
 
   <header class="z-10 text-center mt-6 mb-6">
+    <img src="dexblox.png" alt="Logo DEXBLOX.ID" class="mx-auto w-28 h-28 rounded-full border-2 border-cyan-400 mb-4" />
     <h1 class="text-4xl font-bold title-font">DEXBLOX.ID</h1>
     <p class="text-green-400 mt-2">Topup Gamepass 5-7 Hari Termurah Di Dunia</p>
   </header>
@@ -38,8 +38,8 @@
       <section class="mt-4">
         <label class="block mb-2 text-white">Pilih Paket Robux</label>
         <div id="paketContainer" class="grid grid-cols-2 gap-4">
-          <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold cursor-pointer" data-value="100 Robux - Rp11.000" data-price="11000">100 Robux <br><span class="harga text-green-400 text-sm">Rp11.000</span></div>
-          <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold cursor-pointer" data-value="200 Robux - Rp22.000" data-price="22000">200 Robux <br><span class="harga text-green-400 text-sm">Rp22.000</span></div>
+          <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold cursor-pointer" data-value="100 Robux - Rp11.000">100 Robux <br><span class="harga text-green-400 text-sm">Rp11.000</span></div>
+          <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold cursor-pointer" data-value="200 Robux - Rp22.000">200 Robux <br><span class="harga text-green-400 text-sm">Rp22.000</span></div>
         </div>
         <input type="hidden" id="robux" name="robux">
         <p id="paketMsg" class="mt-3 text-cyan-400 hidden">✅ Paket dipilih!</p>
@@ -48,6 +48,13 @@
       <div>
         <label class="block mb-1 text-white">Link Gamepass</label>
         <input type="url" id="gamepass" class="w-full p-2 rounded bg-gray-700 text-white text-center" placeholder="Tempelkan link gamepass Roblox">
+      </div>
+
+      <!-- QRIS Panel -->
+      <div class="mt-4">
+        <label class="block mb-1 text-white">Bayar via QRIS</label>
+        <img src="qris.png" alt="QRIS" class="mx-auto w-48 h-48 border-2 border-green-400 rounded-lg shadow-lg" />
+        <p class="text-gray-300 mt-2 text-sm">Scan QRIS untuk pembayaran. Upload bukti ke WhatsApp admin.</p>
       </div>
 
       <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded shadow-lg">
