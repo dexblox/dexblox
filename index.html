@@ -7,39 +7,23 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
-    body { background:#000; font-family:monospace; overflow-y:auto; overflow-x:hidden; }
+    body { background:#000; font-family:monospace; }
     canvas { position:fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
-    .title-font { font-family:'Orbitron',sans-serif; color:#00f0ff; text-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff,0 0 40px #00f0ff; animation:pulseGlow 2s infinite alternate; }
-    @keyframes pulseGlow { from{ text-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff; } to{ text-shadow:0 0 20px #00f0ff,0 0 40px #00f0ff,0 0 60px #00f0ff; } }
-    .logo-glow { box-shadow:0 0 15px #00f0ff,0 0 30px #00f0ff; animation:pulseLogo 2s infinite alternate; }
-    @keyframes pulseLogo { from{ box-shadow:0 0 10px #00f0ff,0 0 20px #00f0ff; } to{ box-shadow:0 0 25px #00f0ff,0 0 50px #00f0ff; } }
-    .logo-glitch { opacity:0.2; animation:glitchAnim 3s infinite; clip-path:inset(10% 0 30% 0); transform:translate(2px,-2px); }
-    @keyframes glitchAnim { 0%{opacity:0;} 10%{opacity:0.3;} 20%{opacity:0.1;} 30%{opacity:0.4;} 40%{opacity:0;} 100%{opacity:0;} }
-    .toast-error { background:linear-gradient(90deg,#ff0066,#ffcc00); color:#fff; font-weight:bold; padding:12px 20px; border-radius:10px; box-shadow:0 0 15px #ff0066,0 0 30px #ffcc00; position:fixed; bottom:25px; right:25px; z-index:50; animation:slideIn 0.5s ease, fadeOut 3s ease 2s forwards; }
-    @keyframes slideIn { from { transform:translateX(100%); opacity:0; } to { transform:translateX(0); opacity:1; } }
-    @keyframes fadeOut { to { opacity:0; transform:translateX(100%); } }
+    .title-font { font-family:'Orbitron',sans-serif; color:#00f0ff; text-shadow:0 0 10px #00f0ff; }
+    .toast-error { background:linear-gradient(90deg,#ff0066,#ffcc00); color:#fff; font-weight:bold; padding:12px 20px; border-radius:10px; position:fixed; bottom:25px; right:25px; z-index:50; }
     .paket-card { transition:all 0.3s ease; border:2px solid transparent; }
     .paket-card:hover { transform:scale(1.05); box-shadow:0 0 15px #00f0ff; }
-    .faq-content { transition:max-height 0.3s ease, opacity 0.3s ease; overflow:hidden; max-height:0; opacity:0; }
-    .faq-content.show { max-height:200px; opacity:1; }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
 
-  <!-- Matrix Rain -->
   <canvas id="matrix"></canvas>
 
-  <!-- Header -->
   <header class="z-10 text-center mt-6 mb-6">
-    <div class="relative inline-block mb-4">
-      <img src="LOGO_URL" alt="Logo DEXBLOX.ID" class="mx-auto w-28 h-28 rounded-full border-2 border-cyan-400 logo-glow" />
-      <img src="LOGO_URL" alt="Logo Glitch" class="absolute top-0 left-0 w-28 h-28 rounded-full border-2 border-cyan-400 logo-glitch" />
-    </div>
     <h1 class="text-4xl font-bold title-font">DEXBLOX.ID</h1>
     <p class="text-green-400 mt-2">Topup Gamepass 5-7 Hari Termurah Di Dunia</p>
   </header>
 
-  <!-- Form Topup -->
   <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-80 p-6 rounded-xl shadow-lg text-center">
     <h2 class="text-2xl font-bold text-cyan-400 mb-4">Topup Gamepass</h2>
     <form id="topupForm" class="space-y-4">
@@ -51,13 +35,11 @@
         </div>
       </div>
 
-      <!-- Paket Robux -->
       <section class="mt-4">
         <label class="block mb-2 text-white">Pilih Paket Robux</label>
         <div id="paketContainer" class="grid grid-cols-2 gap-4">
           <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold cursor-pointer" data-value="100 Robux - Rp11.000" data-price="11000">100 Robux <br><span class="harga text-green-400 text-sm">Rp11.000</span></div>
           <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold cursor-pointer" data-value="200 Robux - Rp22.000" data-price="22000">200 Robux <br><span class="harga text-green-400 text-sm">Rp22.000</span></div>
-          <!-- Tambahkan sampai 1000 Robux sesuai kebutuhan -->
         </div>
         <input type="hidden" id="robux" name="robux">
         <p id="paketMsg" class="mt-3 text-cyan-400 hidden">✅ Paket dipilih!</p>
@@ -191,7 +173,6 @@
         showError("Link Gamepass harus dari Roblox!"); return; 
       }
 
-      // Ambil avatar via API proxy di Vercel
       try {
         const res = await fetch(`/api/avatar?username=${encodeURIComponent(username)}`);
         const data = await res.json();
@@ -202,12 +183,10 @@
         }
       } catch(err) { console.error(err); }
 
-      // Isi data ke modal preview
       document.getElementById("previewUsername").textContent = "👤 " + username;
       document.getElementById("previewPaket").textContent = "📦 " + robux;
       document.getElementById("previewModal").classList.remove("hidden");
 
-      // Tombol kirim WA
       document.getElementById("sendWA").onclick = () => {
         const adminNumber = "6285362187740"; // ganti sesuai nomor admin
         const message = `Halo Admin DEXBLOX.ID %0AUsername: ${username}%0APaket: ${robux}%0ALink Gamepass: ${gamepass}`;
@@ -217,12 +196,10 @@
       };
     });
 
-    // Tutup modal preview
     function closePreview() {
       document.getElementById("previewModal").classList.add("hidden");
     }
 
-    // Footer Tahun Dinamis
     document.getElementById("year").textContent = new Date().getFullYear();
   </script>
 </body>
