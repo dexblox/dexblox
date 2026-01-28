@@ -96,6 +96,8 @@
   </div>
 
 <script>
+const base = "https://dexblox.vercel.app"; // ganti sesuai domain Vercel kamu
+
 async function cekUsername() {
   const username = document.getElementById('username').value.trim();
   const userInfo = document.getElementById('userInfo');
@@ -103,28 +105,23 @@ async function cekUsername() {
   if (!username) return;
 
   try {
-    // Gunakan proxy API kamu di Vercel
-    const res = await fetch(`/api/user?username=${encodeURIComponent(username)}`);
+    const res = await fetch(`${base}/api/user?username=${encodeURIComponent(username)}`);
     const data = await res.json();
 
     if (data && data.id) {
-      const userId = data.id;
-      const displayName = data.displayName || username;
-
-      const avatarRes = await fetch(`/api/avatar?userId=${userId}`);
+      const avatarRes = await fetch(`${base}/api/avatar?userId=${data.id}`);
       const avatarData = await avatarRes.json();
-      const avatarUrl = avatarData.imageUrl;
 
       userInfo.innerHTML = `
-        ✅ <b>${displayName}</b><br>
-        <img src="${avatarUrl}" alt="Avatar Roblox"
+        ✅ <b>${data.displayName}</b><br>
+        <img src="${avatarData.imageUrl}" alt="Avatar Roblox"
              style="margin-top:6px;border:1px solid #00c853;
              border-radius:6px;width:80px;height:80px;">
       `;
     } else {
       userInfo.innerHTML = "❌ Username tidak ditemukan!";
     }
-  } catch (err) {
+  } catch {
     userInfo.innerHTML = "⚠️ Gagal cek username!";
   }
 }
