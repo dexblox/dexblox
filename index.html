@@ -71,7 +71,7 @@
   </div>
 
   <header>
-    <img src="https://i.postimg.cc/Qtj2TKZX/copilot-image-1769230951458.png" alt="Logo Dexblox" class="logo">
+    <img src="/dexblox.png" alt="Logo Dexblox" class="logo">
     <h1>DEXBLOX.ID</h1>
     <h2 class="subtitle">Topup Gamepass 5–7 Hari Termurah di Dunia</h2>
   </header>
@@ -87,7 +87,7 @@
       <h3>👤 Cek Username</h3>
       <input type="text" id="username" placeholder="Masukkan username Roblox">
       <button onclick="cekUser()">Cek Username</button>
-      <div id="alertBox"></div> <!-- notifikasi di bawah kolom username -->
+      <div id="alertBox"></div>
       <div id="userInfo"></div>
     </div>
 
@@ -106,15 +106,17 @@
       <ul id="gamepassList" style="list-style:none; padding:0; text-align:center;"></ul>
     </div>
 
-    <!-- Panel Pembayaran -->
+    <!-- Panel Pembayaran QRIS -->
     <div class="panel form-group">
-      <h3>💳 Pembayaran</h3>
-      <select id="payment">
-        <option value="gopay">GoPay</option>
-        <option value="ovo">OVO</option>
-        <option value="dana">DANA</option>
-        <option value="qris">QRIS</option>
-      </select>
+      <h3>💳 Pembayaran QRIS</h3>
+      <div id="qrisBox" style="margin-top:10px;">
+        <img src="/qris.png" alt="QRIS Dexblox"
+             style="width:220px; border:2px solid #0ff; border-radius:8px;
+                    box-shadow:0 0 15px #0f0; display:block; margin:0 auto;">
+        <p style="color:#0ff; font-weight:bold; margin-top:8px;">
+          Scan QRIS untuk pembayaran
+        </p>
+      </div>
       <button onclick="topup()">Topup Sekarang</button>
     </div>
   </div>
@@ -233,7 +235,6 @@
   function topup() {
     const username = document.getElementById('username').value.trim();
     const robux = document.getElementById('customRobux').value;
-    const payment = document.getElementById('payment').value;
     const alertBox = document.getElementById('alertBox');
 
     if (!currentUserId) {
@@ -261,7 +262,7 @@
       });
     }
 
-    const message = `Halo Admin Dexblox, saya ingin topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk username ${username} via ${payment}. (Set ID: ${setId})${gamepassText}`;
+    const message = `Halo Admin Dexblox, saya ingin topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk username ${username} via QRIS. (Set ID: ${setId})${gamepassText}`;
     const phone = "6285362187740"; 
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
@@ -284,8 +285,7 @@
       document.getElementById('adminPanel').style.display = "block";
     } else {
       document.getElementById('adminResult').innerText = "❌ Kode salah.";
-
-  }
+    }
   }
 
   function updatePrice() {
@@ -311,4 +311,4 @@
   }
 </script>
 </body>
-  </html>
+</html>
