@@ -10,7 +10,6 @@
     .logo{display:block; margin:0 auto 10px; width:120px; filter:drop-shadow(0 0 8px #0ff);}
     header h1{font-size:32px; font-weight:900; color:#0ff; text-shadow:0 0 10px #0ff,0 0 20px #0f0;}
     .subtitle{font-size:18px; font-weight:bold; color:#0f0; text-shadow:0 0 8px #0ff,0 0 12px #0f0;}
-
     .container{margin:20px; display:flex; flex-direction:column; gap:20px;}
     .panel{padding:15px; background:rgba(0,50,50,0.5); border:1px solid rgba(0,255,255,0.5); border-radius:10px;}
     .panel h3{text-align:center; color:#0ff; margin-bottom:10px;}
@@ -20,13 +19,11 @@
     button{background:rgba(255,255,255,0.1); color:#fff; border:1px solid #fff; cursor:pointer; font-weight:bold;
       font-size:13px; padding:6px 12px; border-radius:6px; transition:0.3s;}
     button:hover{transform:scale(1.05); background:rgba(255,255,255,0.3); color:#000; box-shadow:0 0 20px #0ff,0 0 40px #0f0;}
-
     .info-box{background:rgba(0,255,255,0.1); border:1px solid rgba(0,255,255,0.5); border-radius:8px; padding:14px; text-align:center;}
     .main-price{font-size:16px; color:#0ff;}
     #alertBox{margin-top:10px; padding:8px; border-radius:6px; font-size:14px; font-weight:bold; text-align:center;
       background:rgba(0,255,255,0.2); border:1px solid #0ff; color:#fff; display:none;}
     .avatar{border:2px solid #0ff; border-radius:50%; box-shadow:0 0 15px #0f0;}
-
     .floating-btn{position:fixed; top:20px; right:20px; background:#0ff; color:#000; border:none; border-radius:50%; width:45px; height:45px;
       font-size:16px; cursor:pointer; box-shadow:0 0 10px #0ff; z-index:1000;}
     .admin-panel{position:fixed; top:70px; right:20px; background:rgba(0,50,50,0.9); border:1px solid #0ff; border-radius:8px; padding:10px;
@@ -61,16 +58,27 @@
     <!-- Panel Custom Robux -->
     <div class="panel form-group">
       <h3>📦 Custom Paket Robux</h3>
-      <input type="number" id="customRobux" placeholder="Masukkan jumlah Robux" oninput="hitungHarga()">
+      <input type="number" id="customRobux" placeholder="Masukkan jumlah Robux" oninput="updateRingkasan(); hitungHarga();">
       <p id="paketInfo"></p>
     </div>
 
     <!-- Panel Gamepass -->
     <div class="panel form-group">
       <h3>🎮 Gamepass Resmi</h3>
-      <input type="text" id="gamepassLink" placeholder="Masukkan link Gamepass Roblox" oninput="tambahGamepass()">
+      <input type="text" id="gamepassLink" placeholder="Masukkan link Gamepass Roblox" oninput="tambahGamepass(); updateRingkasan();">
       <div id="gamepassNotif" style="margin-top:10px; font-weight:bold; display:none;"></div>
       <ul id="gamepassList" style="list-style:none; padding:0; margin-top:10px; text-align:center;"></ul>
+    </div>
+
+    <!-- Panel Ringkasan Pesanan -->
+    <div class="panel form-group">
+      <h3>📄 Ringkasan Pesanan</h3>
+      <div id="ringkasanBox" style="font-size:14px; line-height:1.6; background:rgba(0,255,255,0.05); padding:10px; border-radius:8px;">
+        Username: <span id="ringkasanUsername">-</span><br>
+        Metode: Gamepass Method<br>
+        Jumlah Robux: <span id="ringkasanJumlah">-</span><br>
+        Total: <span id="ringkasanTotal">-</span>
+      </div>
     </div>
 
     <!-- Panel Pembayaran -->
@@ -80,6 +88,7 @@
         <img src="/qris.png" alt="QRIS Dexblox"
              style="width:220px; border:2px solid #0ff; border-radius:8px; display:block; margin:0 auto;">
         <p style="color:#0ff; font-weight:bold; margin-top:8px;">Scan QRIS untuk pembayaran</p>
+        <input type="file" id="buktiFile" accept="image/*" style="margin-top:10px;">
         <button onclick="konfirmasiPembayaran()">Konfirmasi Pembayaran</button>
       </div>
       <button onclick="topup()">Topup Sekarang</button>
@@ -119,8 +128,32 @@
       setTimeout(() => { alertBox.style.display = "none"; }, 4000);
       return;
     }
-    currentUserId = "123456"; // simulasi validasi
-    userInfo.innerHTML = `<p>Username ditemukan: <b>${username}</b> (@${username})</p>`;
+    userInfo.innerHTML = "Loading...";
+
+    try {
+      // Ambil userId dari API Roblox
+      const res = await fetch(`https://users.roblox.com/v1/usernames/users`, {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify({usernames:[username]})
+      });
+      const data = await res.json();
+      const userId = data.data[0].id;
+      currentUserId = userId;
+
+      // Ambil avatar dari API Roblox
+      const avatarRes = await fetch(`https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=true`);
+      const avatarData = await avatarRes.json();
+      const avatarUrl = avatarData.data[0].imageUrl;
+
+      userInfo.innerHTML = `
+        <p>Username ditemukan: <b>${username}</b> (@${username})</p>
+        <img class="avatar" src="${avatarUrl}" width="120">
+      `;
+      updateRingkasan();
+    } catch (err) {
+      userInfo.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+    }
   }
 
   function hitungHarga() {
@@ -156,6 +189,23 @@
     }
   }
 
+  function updateRingkasan() {
+    const robux = parseInt(document.getElementById('customRobux').value) || 0;
+    const username = document.getElementById('username').value.trim() || "-";
+    const gross = robux * pricePerRobux;
+    const setId = Math.round(robux * 1.43);
+    const link = document.getElementById('gamepassLink').value.trim();
+
+    document.getElementById('ringkasanUsername').innerText = username;
+    document.getElementById('ringkasanJumlah').innerText = robux ? `${robux} Robux` : "-";
+    document.getElementById('ringkasanTotal').innerText = robux ? `Rp ${gross.toLocaleString()}` : "-";
+
+    if (link.includes("roblox.com")) {
+      document.getElementById('gamepassList').innerHTML =
+        `<li><a href="${link}" target="_blank">${link}</a></li>`;
+    }
+  }
+
   function topup() {
     const username = document.getElementById('username').value.trim();
     const robux = document.getElementById('customRobux').value;
@@ -174,7 +224,6 @@
       return;
     }
 
-    // QRIS baru muncul setelah klik Topup
     document.getElementById('qrisBox').style.display = "block";
   }
 
@@ -183,6 +232,12 @@
     const robux = document.getElementById('customRobux').value;
     const gross = robux * pricePerRobux;
     const setId = Math.round(robux * 1.43);
+
+    const bukti = document.getElementById('buktiFile').files[0];
+    if (!bukti) {
+      alert("⚠️ Upload bukti pembayaran dulu!");
+      return;
+    }
 
     const gamepassItems = document.querySelectorAll('#gamepassList li a');
     let gamepassText = "";
@@ -193,7 +248,7 @@
       });
     }
 
-    const message = `Halo Admin Dexblox, topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk ${username} via QRIS sukses. (Set ID: ${setId})${gamepassText}`;
+    const message = `Halo Admin Dexblox, topup ${robux} Robux (Rp${gross.toLocaleString()}) untuk ${username} via QRIS sukses. (Set ID: ${setId})${gamepassText}\n\nBukti pembayaran terlampir.`;
     const phone = "6285362187740"; 
     const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
     window.open(waUrl, "_blank");
@@ -238,7 +293,8 @@
     document.getElementById('adminResult').innerText =
       `✅ Harga per Robux diupdate jadi Rp${pricePerRobux.toLocaleString()}`;
 
-    hitungHarga(); // refresh info paket jika ada input
+    hitungHarga();
+    updateRingkasan();
   }
 </script>
 </body>
