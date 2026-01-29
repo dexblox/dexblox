@@ -12,7 +12,6 @@
     .container {max-width:95%;margin:20px auto;padding:15px;}
     .panel {margin-bottom:15px;padding:12px;border-radius:10px;background:transparent;border:1px solid #000;}
     .panel h3 {margin:0 0 10px;color:#000;font-size:15px;text-align:center;font-weight:600;}
-    .admin-panel h3 {color:#fff;}
     input,button {width:90%;max-width:260px;padding:8px;font-size:13px;border-radius:8px;margin:6px auto;
       display:block;border:1px solid #000;background:transparent;color:#000;font-weight:600;}
     button:hover {transform:scale(1.05);box-shadow:0 0 12px #000;background:rgba(0,0,0,0.1);}
@@ -119,7 +118,6 @@ window.onload = () => {
   }
 };
 
-// ⚡ Pilih Paket
 function pilihPaket(robux, gamepassId) {
   const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const harga = (robux / 100) * hargaPer100;
@@ -128,7 +126,7 @@ function pilihPaket(robux, gamepassId) {
   document.getElementById('gamepassInfo').innerText = `Gamepass: ${gamepassId}`;
 }
 
-// 💰 Hitung Manual
+
 function hitungManual() {
   const robux = parseInt(document.getElementById('jumlahRobux').value);
   if (!robux) {
@@ -142,7 +140,7 @@ function hitungManual() {
   document.getElementById('gamepassInfo').innerText = `Gamepass: ${robux}`;
 }
 
-// 👤 Cek Username Roblox dengan fallback avatar
+// 👤 Cek Username Roblox
 async function cekUsername() {
   const username = document.getElementById("username").value.trim();
   const userInfoDiv = document.getElementById("userInfo");
@@ -164,11 +162,14 @@ async function cekUsername() {
       return;
     }
 
-    // Ambil avatar dari backend
     const resAvatar = await fetch(`/api/avatar?userId=${dataUser.userId}`);
     const dataAvatar = await resAvatar.json();
 
-    tampilkanUser(dataUser, dataAvatar.avatarUrl);
+    userInfoDiv.innerHTML = `
+      <p>✅ Username: <b>${dataUser.name}</b></p>
+      <img src="${dataAvatar.avatarUrl}" alt="Avatar Roblox" style="width:100px;border-radius:8px;border:1px solid #000;">
+      <p><a href="${dataUser.profileUrl}" target="_blank">🔗 Lihat Profil</a></p>
+    `;
 
     lastUserProfileUrl = dataUser.profileUrl;
     lastUserName = dataUser.name;
@@ -177,15 +178,6 @@ async function cekUsername() {
     console.error(err);
     userInfoDiv.innerHTML = "⚠️ Error mengambil data user!";
   }
-}
-
-function tampilkanUser(dataUser, avatarUrl) {
-  const userInfoDiv = document.getElementById("userInfo");
-  userInfoDiv.innerHTML = `
-    <p>✅ Username: <b>${dataUser.name}</b></p>
-    <img src="${avatarUrl}" alt="Avatar Roblox" style="width:100px;border-radius:8px;border:1px solid #000;">
-    <p><a href="${dataUser.profileUrl}" target="_blank">🔗 Lihat Profil</a></p>
-  `;
 }
 
 // 🚀 Konfirmasi WA
