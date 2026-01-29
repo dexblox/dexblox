@@ -21,14 +21,12 @@ export default async function handler(req, res) {
     }
 
     const user = data.data[0];
-    const avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=420&height=420&format=png`;
     const profileUrl = `https://www.roblox.com/users/${user.id}/profile`;
 
     res.status(200).json({
       userId: user.id,
       name: user.name,
       displayName: user.displayName,
-      avatarUrl,
       profileUrl
     });
   } catch (err) {
