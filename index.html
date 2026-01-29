@@ -40,14 +40,14 @@
 
   <div class="container">
     <div class="panel">
-      <h3>👤 Username Roblox</h3>
+      <h3> Username Roblox</h3>
       <input type="text" id="username" placeholder="Masukkan Username Roblox">
-      <button onclick="cekUsername()">🔍 Cek Username</button>
+      <button onclick="cekUsername()"> Cek Username</button>
       <div id="userInfo" style="margin-top:6px;text-align:center;font-size:12px;color:#000;"></div>
     </div>
 
     <div class="panel">
-      <h3>⚡ Pilihan Cepat Paket Robux</h3>
+      <h3> Pilihan Cepat Paket Robux</h3>
       <div class="quick-prices">
         <button onclick="pilihPaket(100,'143')">100 RBX</button>
         <button onclick="pilihPaket(300,'429')">300 RBX</button>
@@ -57,12 +57,11 @@
         <button onclick="pilihPaket(5000,'7150')">5000 RBX</button>
         <button onclick="pilihPaket(10000,'14300')">10.000 RBX</button>
         <button onclick="pilihPaket(20000,'28600')">20.000 RBX</button>
-        <button onclick="pilihPaket(50000,'71500')">50.000 RBX</button>
       </div>
     </div>
 
     <div class="panel">
-      <h3>💰 Jumlah Robux</h3>
+      <h3> Custom Robux </h3>
       <input type="number" id="jumlahRobux" oninput="hitungManual()">
       <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 RBX</p>
       <p class="info" id="gamepassInfo">Gamepass: -</p>
@@ -70,31 +69,31 @@
     </div>
 
     <div class="panel">
-      <h3>📄 Deskripsi Produk</h3>
+      <h3> Deskripsi </h3>
       <div class="deskripsi">Top up Robux terpercaya dan termurah. Garansi pembelian 100% aman.</div>
     </div>
 
     <div class="panel">
-      <h3>💳 Pembayaran QRIS</h3>
+      <h3>QRIS</h3>
       <img src="/qris.png" alt="QRIS Dexblox" class="qris">
     </div>
 
     <div class="panel">
-      <h3>🚀 Konfirmasi</h3>
+      <h3>Konfirmasi</h3>
       <button class="submit" onclick="konfirmasiWA()">Lanjutkan Pembelian</button>
-      <div id="topupNotif">✅ Topup kamu sedang diproses!</div>
-      <div id="notifError">🚨 Lengkapi Username dan Jumlah Robux!</div>
+      <div id="topupNotif"> Topup kamu sedang diproses!</div>
+      <div id="notifError"> Lengkapi Username dan Jumlah Robux!</div>
       <div id="notifConfirm">
-        ⚠️ Apakah Username <span id="confirmUser"></span> dan Jumlah Robux <span id="confirmRobux"></span> sudah benar?
+         Apakah Username <span id="confirmUser"></span> dan Jumlah Robux <span id="confirmRobux"></span> sudah benar?
         <br><br>
-        <button onclick="lanjutkanWA()">✅ Ya, lanjutkan</button>
-        <button onclick="batalConfirm()">❌ Batal</button>
+        <button onclick="lanjutkanWA()"> Ya, lanjutkan</button>
+        <button onclick="batalConfirm()"> Batal</button>
       </div>
-      <div class="garansi">✅ Garansi 100% Robux Masuk dan Aman</div>
+      <div class="garansi"> Garansi 100% Robux Masuk dan Aman</div>
     </div>
   </div>
 
-  <button class="floating-btn" onclick="toggleAdmin()">🔑</button>
+  <button class="floating-btn" onclick="toggleAdmin()"></button>
   <div id="adminPanelBox" class="admin-panel">
     <h3 style="margin:0; font-size:13px;">Admin Login</h3>
     <input type="password" id="adminPass" placeholder="Kode admin">
@@ -140,13 +139,13 @@ function hitungManual() {
   document.getElementById('gamepassInfo').innerText = `Gamepass: ${robux}`;
 }
 
-// 👤 Cek Username Roblox
+//  Cek Username Roblox
 async function cekUsername() {
   const username = document.getElementById("username").value.trim();
   const userInfoDiv = document.getElementById("userInfo");
 
   if (!username) {
-    userInfoDiv.innerHTML = "🚨 Masukkan username dulu!";
+    userInfoDiv.innerHTML = " Masukkan username dulu!";
     return;
   }
 
@@ -158,7 +157,7 @@ async function cekUsername() {
     });
     const dataUser = await resUser.json();
     if (dataUser.error) {
-      userInfoDiv.innerHTML = `❌ ${dataUser.error}`;
+      userInfoDiv.innerHTML = ` ${dataUser.error}`;
       return;
     }
 
@@ -166,9 +165,9 @@ async function cekUsername() {
     const dataAvatar = await resAvatar.json();
 
     userInfoDiv.innerHTML = `
-      <p>✅ Username: <b>${dataUser.name}</b></p>
+      <p> Username: <b>${dataUser.name}</b></p>
       <img src="${dataAvatar.avatarUrl}" alt="Avatar Roblox" style="width:100px;border-radius:8px;border:1px solid #000;">
-      <p><a href="${dataUser.profileUrl}" target="_blank">🔗 Lihat Profil</a></p>
+      <p><a href="${dataUser.profileUrl}" target="_blank"> Profil</a></p>
     `;
 
     lastUserProfileUrl = dataUser.profileUrl;
@@ -176,11 +175,11 @@ async function cekUsername() {
 
   } catch (err) {
     console.error(err);
-    userInfoDiv.innerHTML = "⚠️ Error mengambil data user!";
+    userInfoDiv.innerHTML = " Error mengambil data user!";
   }
 }
 
-// 🚀 Konfirmasi WA
+// Topup via WhatsApp 
 function konfirmasiWA() {
   const username = document.getElementById('username').value.trim();
   const robux = document.getElementById('jumlahRobux').value;
@@ -220,12 +219,12 @@ Pembayaran via QRIS. Bukti pembayaran sudah dikirim user.`;
   window.open(waUrl, "_blank");
 
   const notifSuccess = document.getElementById('topupNotif');
-  notifSuccess.innerText = "✅ Topup kamu sedang diproses! Admin Dexblox akan segera kirim Robux.";
+  notifSuccess.innerText = " Topup kamu sedang diproses! Admin Dexblox akan segera kirim Robux.";
   notifSuccess.style.display = "block";
   setTimeout(() => { notifSuccess.style.display = "none"; }, 5000);
 }
 
-// 🔑 Admin Panel
+//  Admin Panel
 function toggleAdmin() {
   const panel = document.getElementById('adminPanelBox');
   panel.style.display = panel.style.display === "none" ? "block" : "none";
@@ -234,10 +233,10 @@ function adminLogin() {
   const pass = document.getElementById('adminPass').value;
   const result = document.getElementById('adminResult');
   if (pass === "dexblox123") {
-    result.innerText = "✅ Login sukses!";
+    result.innerText = " Login sukses!";
     document.getElementById('adminPanel').style.display = "block";
   } else {
-    result.innerText = "❌ Kode salah!";
+    result.innerText = " Kode salah!";
   }
 }
 function updatePrice() {
@@ -245,7 +244,7 @@ function updatePrice() {
   if (!newPrice) return;
   localStorage.setItem("hargaPer100", newPrice);
   document.getElementById('hargaPer100').innerText = parseInt(newPrice).toLocaleString();
-  alert("✅ Harga berhasil diupdate!");
+  alert(" Harga berhasil diupdate!");
   hitungManual();
 }
 
@@ -290,7 +289,7 @@ setInterval(drawParticles, 30);
 </script>
 
 <footer>
-  © 2026 DEXBLOX.ID – Semua Hak Cipta
+  © 2026 DEXBLOX.ID – Semua Hak Cipta Dilindungi 
 </footer>
 </body>
 </html>
