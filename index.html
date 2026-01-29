@@ -2,79 +2,68 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Beli Robux - DEXBLOX.ID</title>
+  <title>Beli Robux   DEXBLOX.ID</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin:0;
-      font-family:'Poppins',sans-serif;
-      background:linear-gradient(to bottom,#fff,#e0e0e0);
-      color:#222;
-      overflow:auto;
-    }
-    header {background:rgba(0,200,83,0.4);color:#fff;padding:15px;text-align:center;
-      border-bottom:2px solid #00e676;box-shadow:0 4px 12px rgba(0,0,0,0.2);
-      position:relative;z-index:2;backdrop-filter:blur(6px);}
-    header h1 {margin:0;font-size:22px;font-weight:600;}
-    .container {max-width:95%;margin:20px auto;background:transparent;border-radius:12px;
-      padding:15px;position:relative;z-index:2;}
-    .panel {margin-bottom:15px;padding:12px;border-radius:10px;background:transparent;
-      box-shadow:none;border:1px solid rgba(0,200,83,0.3);}
-    .panel h3 {margin:0 0 10px;color:#00c853;font-size:15px;text-align:center;font-weight:600;}
-    input,button {width:90%;max-width:260px;padding:8px;font-size:13px;border-radius:8px;
-      margin:6px auto;display:block;border:1px solid #00c853;font-family:'Poppins',sans-serif;
-      background:rgba(255,255,255,0.85);color:#222;}
-    button {background:#e0f7fa;font-weight:600;transition:all 0.3s ease;}
-    button:hover {transform:scale(1.05);box-shadow:0 0 12px #00e676;background:#00e676;color:#fff;}
-    .info {margin-top:6px;font-size:12px;color:#00c853;font-weight:bold;text-align:center;}
+    body {margin:0;font-family:'Poppins',sans-serif;background:#fff;color:#000;overflow:auto;}
+    header {background:rgba(0,0,0,0.8);padding:15px;text-align:center;border-bottom:2px solid #000;}
+    header h1 {margin:0;font-size:22px;font-weight:600;color:#fff;}
+    .container {max-width:95%;margin:20px auto;padding:15px;}
+    .panel {margin-bottom:15px;padding:12px;border-radius:10px;background:transparent;border:1px solid #000;}
+    .panel h3 {margin:0 0 10px;font-size:15px;text-align:center;font-weight:600;}
+    /* judul panel tertentu hitam */
+    .panel h3.username,
+    .panel h3.paket,
+    .panel h3.jumlah,
+    .panel h3.deskripsi,
+    .panel h3.qris,
+    .panel h3.konfirmasi {color:#000;}
+    /* judul admin tetap putih */
+    .panel h3.admin {color:#fff;}
+    input,button {width:90%;max-width:260px;padding:8px;font-size:13px;border-radius:8px;margin:6px auto;
+      display:block;border:1px solid #000;background:transparent;color:#000;font-weight:600;transition:all 0.3s ease;}
+    button:hover {transform:scale(1.05);box-shadow:0 0 12px #000;background:rgba(0,0,0,0.1);}
+    .info {margin-top:6px;font-size:12px;color:#000;font-weight:bold;text-align:center;}
     .quick-prices {display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-    .deskripsi {font-size:12px;line-height:1.5;text-align:center;}
-    .garansi {margin-top:10px;font-size:12px;color:#00c853;text-align:center;font-weight:600;}
-    button.submit {background:#00c853;color:#fff;}
-    button.submit:hover {background:#00e676;box-shadow:0 0 12px #00e676;}
-    img.qris {width:100%;border:1px solid #00c853;border-radius:8px;}
-    #topupNotif {
-      margin-top:8px;
-      padding:10px;
-      border-radius:10px;
-      font-size:13px;
-      font-weight:600;
-      text-align:center;
-      background:linear-gradient(to right,#00c853,#00e676);
-      border:2px solid #00c853;
-      color:#fff;
-      display:none;
-      animation: munculNotif 0.5s ease-out;
-      box-shadow:0 0 12px rgba(0,200,83,0.6);
+    .deskripsi {font-size:12px;line-height:1.5;text-align:center;color:#000;}
+    .garansi {margin-top:10px;font-size:12px;color:#000;text-align:center;font-weight:600;}
+    button.submit {background:transparent;border:2px solid #000;color:#000;}
+    button.submit:hover {background:rgba(0,0,0,0.2);box-shadow:0 0 12px #000;}
+    img.qris {width:100%;border:1px solid #000;border-radius:8px;}
+    #topupNotif,#notifError {
+      margin-top:8px;padding:10px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;
+      background:linear-gradient(to right,#000,#333);border:2px solid #000;color:#fff;
+      display:none;animation:munculNotif 0.5s ease-out;box-shadow:0 0 12px rgba(0,0,0,0.6);
     }
-    @keyframes munculNotif {
-      from {opacity:0; transform:scale(0.9);}
-      to {opacity:1; transform:scale(1);}
+    #notifConfirm {
+      margin-top:8px;padding:12px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;
+      background:#fff;border:2px solid #000;color:#000;display:none;box-shadow:0 0 12px rgba(0,0,0,0.3);
     }
-    .floating-btn {position:fixed;top:15px;right:15px;background:#00c853;color:#fff;border:none;
-      border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;box-shadow:0 4px 12px rgba(0,0,0,0.2);
-      transition:all 0.3s ease;}
-    .floating-btn:hover {transform:scale(1.1);box-shadow:0 0 12px #00e676;}
-    .admin-panel {position:fixed;top:70px;right:15px;background:transparent;border:1px solid #00c853;
-      border-radius:10px;padding:10px;width:200px;display:none;z-index:3;font-size:12px;}
+    @keyframes munculNotif {from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+    .floating-btn {position:fixed;top:15px;right:15px;background:transparent;color:#000;border:1px solid #000;
+      border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;transition:all 0.3s ease;}
+    .floating-btn:hover {transform:scale(1.1);box-shadow:0 0 12px #000;background:rgba(0,0,0,0.1);}
+    .admin-panel {position:fixed;top:70px;right:15px;background:transparent;border:1px solid #000;
+      border-radius:10px;padding:10px;width:200px;display:none;z-index:3;font-size:12px;color:#000;}
     #particles {position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
+    footer {background:rgba(0,0,0,0.8);color:#fff;text-align:center;padding:12px;font-size:12px;border-top:2px solid #000;}
   </style>
 </head>
 <body>
   <canvas id="particles"></canvas>
-  <header><h1>Beli Robux - DEXBLOX.ID</h1></header>
+  <header><h1>Beli Robux   DEXBLOX.ID</h1></header>
 
   <div class="container">
     <div class="panel">
-      <h3>👤 Username Roblox</h3>
+      <h3 class="username"> Username Roblox</h3>
       <input type="text" id="username" placeholder="Masukkan Username Roblox">
-      <button onclick="cekUsername()">🔍 Cek Username</button>
-      <div id="userInfo" style="margin-top:6px;text-align:center;font-size:12px;color:#00c853;"></div>
+      <button onclick="cekUsername()"> Cek Username</button>
+      <div id="userInfo" style="margin-top:6px;text-align:center;font-size:12px;color:#000;"></div>
     </div>
 
     <div class="panel">
-      <h3>⚡ Pilihan Cepat Paket Robux</h3>
+      <h3 class="paket"> Pilihan Cepat Paket Robux</h3>
       <div class="quick-prices">
         <button onclick="pilihPaket(100,'143')">100 RBX</button>
         <button onclick="pilihPaket(300,'429')">300 RBX</button>
@@ -82,11 +71,13 @@
         <button onclick="pilihPaket(1000,'1430')">1000 RBX</button>
         <button onclick="pilihPaket(2000,'2860')">2000 RBX</button>
         <button onclick="pilihPaket(5000,'7150')">5000 RBX</button>
+        <button onclick="pilihPaket(10000,'14300')">10.000 RBX</button>
+        <button onclick="pilihPaket(20000,'28600')">20.000 RBX</button>
       </div>
     </div>
 
     <div class="panel">
-      <h3>💰 Jumlah Robux</h3>
+      <h3 class="jumlah"> Custom Robux</h3>
       <input type="number" id="jumlahRobux" oninput="hitungManual()">
       <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 RBX</p>
       <p class="info" id="gamepassInfo">Gamepass: -</p>
@@ -94,27 +85,35 @@
     </div>
 
     <div class="panel">
-      <h3>📄 Deskripsi Produk</h3>
+      <h3 class="deskripsi"> Deskripsi </h3>
       <div class="deskripsi">
         Top up Robux (RBX) terpercaya dan termurah. Garansi pembelian 100% aman, harga terjangkau, dan robux pasti masuk ke akun kamu.
       </div>
     </div>
 
     <div class="panel">
-      <h3>💳 Pembayaran QRIS</h3>
+      <h3 class="qris">QRIS</h3>
       <img src="/qris.png" alt="QRIS Dexblox" class="qris">
     </div>
 
     <div class="panel">
-      <h3>🚀 Konfirmasi</h3>
-      <div id="topupNotif">🚀 Permintaan Topup dikirim ke Admin Dexblox!</div>
-      <div class="garansi">✅ Garansi 100% Robux Masuk dan Aman</div>
-    </div>
-  </div>
+      <h3 class="konfirmasi"> Konfirmasi</h3>
+      <button class="submit" onclick="konfirmasiWA()">Lanjutkan Pembelian</button>
+      <div id="topupNotif"> Topup kamu sedang diproses!</div>
+      <div id="notifError"> Lengkapi Username dan Jumlah Robux!</div>
+      <div id="notifConfirm">
+         Apakah Username <span id="confirmUser"></span> dan Jumlah Robux <span id="confirmRobux"></span> sudah benar?
+        <br><br>
+        <button onclick="lanjutkanWA()"> Ya, lanjutkan</button>
+        <button onclick="batalConfirm()"> Batal</button>
+      </div>
+      <div class="garansi"> Garansi 100% Robux Masuk dan Aman</div>
+</div>
+</div>
 
-  <button class="floating-btn" onclick="toggleAdmin()">🔑</button>
+  <button class="floating-btn" onclick="toggleAdmin()"></button>
   <div id="adminPanelBox" class="admin-panel">
-    <h3 style="margin:0; font-size:13px; color:#00c853;">Admin Login</h3>
+    <h3 class="admin" style="margin:0; font-size:13px;">Admin Login</h3>
     <input type="password" id="adminPass" placeholder="Kode admin">
     <button onclick="adminLogin()">Login</button>
     <p id="adminResult"></p>
@@ -133,54 +132,7 @@ window.onload = () => {
   }
 };
 
-async function cekUsername() {
-  const username = document.getElementById('username').value.trim();
-  const userInfo = document.getElementById('userInfo');
-  userInfo.innerHTML = "";
-  if (!username) {
-    userInfo.innerHTML = "⚠️ Lengkapi username terlebih dahulu!";
-    return;
-  }
-
-  try {
-    const res = await fetch(`/api/user?username=${encodeURIComponent(username)}`);
-    const data = await res.json();
-
-    if (data && data.id) {
-      const avatarRes = await fetch(`/api/avatar?userId=${data.id}`);
-      const avatarData = await avatarRes.json();
-
-      const gamesRes = await fetch(`/api/games?userId=${data.id}`);
-      const gamesData = await gamesRes.json();
-
-      let gameLinks = "";
-      if (gamesData.games && gamesData.games.length > 0) {
-        gameLinks = gamesData.games.map(g =>
-          `<a href="${g.link}" target="_blank" style="color:#00c853;font-size:12px;">🎮 ${g.name}</a>`
-        ).join("<br>");
-      } else {
-        gameLinks = "❌ User belum punya game.";
-      }
-
-      userInfo.innerHTML = `
-        ✅ <b>${data.displayName}</b><br>
-        <img src="${avatarData.imageUrl}" alt="Avatar Roblox"
-             style="margin-top:6px;width:80px;height:80px;border-radius:6px;"><br>
-        🔗 <a href="https://www.roblox.com/users/${data.id}/profile" 
-              target="_blank" style="color:#00c853;font-size:12px;">
-              Lihat Profile User
-        </a><br>
-        ${gameLinks}
-      `;
-    } else {
-      userInfo.innerHTML = "❌ Username tidak ditemukan!";
-    }
-  } catch {
-    userInfo.innerHTML = "⚠️ Gagal cek username!";
-  }
-}
-
-// ⚡ Pilih Paket
+//  Pilih Paket
 function pilihPaket(robux, gamepassId) {
   const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const harga = (robux / 100) * hargaPer100;
@@ -189,7 +141,7 @@ function pilihPaket(robux, gamepassId) {
   document.getElementById('gamepassInfo').innerText = `Gamepass: ${gamepassId}`;
 }
 
-// 💰 Hitung Manual
+//  Hitung Manual
 function hitungManual() {
   const robux = parseInt(document.getElementById('jumlahRobux').value);
   if (!robux) {
@@ -203,17 +155,38 @@ function hitungManual() {
   document.getElementById('gamepassInfo').innerText = `Gamepass: ${robux}`;
 }
 
-// 🚀 Konfirmasi WA
+//  Konfirmasi WA
 function konfirmasiWA() {
+  const username = document.getElementById('username').value.trim();
+  const robux = document.getElementById('jumlahRobux').value;
+
+  const notifError = document.getElementById('notifError');
+  const notifConfirm = document.getElementById('notifConfirm');
+  const confirmUser = document.getElementById('confirmUser');
+  const confirmRobux = document.getElementById('confirmRobux');
+
+  if (!username || !robux) {
+    notifError.style.display = "block";
+    setTimeout(() => { notifError.style.display = "none"; }, 4000);
+    return;
+  }
+
+  confirmUser.innerText = username;
+  confirmRobux.innerText = robux;
+  notifConfirm.style.display = "block";
+}
+
+function batalConfirm() {
+  document.getElementById('notifConfirm').style.display = "none";
+}
+
+function lanjutkanWA() {
+  document.getElementById('notifConfirm').style.display = "none";
+
   const username = document.getElementById('username').value.trim();
   const robux = document.getElementById('jumlahRobux').value;
   const total = document.getElementById('totalRp').value;
   const gamepass = document.getElementById('gamepassInfo').innerText;
-
-  if (!username || !robux) {
-    alert("⚠️ Lengkapi username dan jumlah Robux!");
-    return;
-  }
 
   const userInfoDiv = document.getElementById('userInfo');
   const profileLinkEl = userInfoDiv.querySelector("a[href*='roblox.com/users']");
@@ -225,18 +198,17 @@ ${gamepass}
 Profil User: ${profileLink}
 Pembayaran via QRIS. Bukti pembayaran sudah dikirim user.`;
 
-  const phone = "6285362187740"; // nomor WA admin
+  const phone = "6285362187740";
   const waUrl = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   window.open(waUrl, "_blank");
 
-  const notif = document.getElementById('topupNotif');
-  notif.innerText = "✅ Topup kamu sedang diproses! Admin Dexblox akan segera kirim Robux.";
-  notif.style.display = "block";
-  notif.style.animation = "munculNotif 0.5s ease-out";
-  setTimeout(() => { notif.style.display = "none"; }, 5000);
+  const notifSuccess = document.getElementById('topupNotif');
+  notifSuccess.innerText = " Topup kamu sedang diproses! Admin Dexblox akan segera kirim Robux.";
+  notifSuccess.style.display = "block";
+  setTimeout(() => { notifSuccess.style.display = "none"; }, 5000);
 }
 
-// 🔑 Admin Panel
+// Admin Panel
 function toggleAdmin() {
   const panel = document.getElementById('adminPanelBox');
   panel.style.display = panel.style.display === "none" ? "block" : "none";
@@ -245,10 +217,10 @@ function adminLogin() {
   const pass = document.getElementById('adminPass').value;
   const result = document.getElementById('adminResult');
   if (pass === "dexblox123") {
-    result.innerText = "✅ Login sukses!";
+    result.innerText = " Login sukses!";
     document.getElementById('adminPanel').style.display = "block";
   } else {
-    result.innerText = "❌ Kode salah!";
+    result.innerText = " Kode salah!";
   }
 }
 function updatePrice() {
@@ -256,11 +228,11 @@ function updatePrice() {
   if (!newPrice) return;
   localStorage.setItem("hargaPer100", newPrice);
   document.getElementById('hargaPer100').innerText = parseInt(newPrice).toLocaleString();
-  alert("✅ Harga berhasil diupdate!");
+  alert(" Harga berhasil diupdate!");
   hitungManual();
 }
 
-// 🌿 Efek Partikel Hijau Bergerak
+// 🌿 Efek Partikel Merah Bergerak
 const canvasParticles = document.getElementById("particles");
 const ctxP = canvasParticles.getContext("2d");
 canvasParticles.width = window.innerWidth;
@@ -279,7 +251,7 @@ function initParticles() {
 }
 function drawParticles() {
   ctxP.clearRect(0, 0, canvasParticles.width, canvasParticles.height);
-  ctxP.fillStyle = "rgba(0, 200, 83, 0.6)";
+  ctxP.fillStyle = "rgba(255,0,0,0.6)"; // partikel merah transparan
   ctxP.beginPath();
   particlesArray.forEach(p => {
     ctxP.moveTo(p.x, p.y);
@@ -299,5 +271,9 @@ function moveParticles() {
 initParticles();
 setInterval(drawParticles, 30);
 </script>
+
+<footer>
+  © 2026 DEXBLOX.ID – Semua Hak Cipta Dilindungi 
+</footer>
 </body>
 </html>
