@@ -6,73 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      margin:0;
-      font-family:'Poppins', sans-serif;
-      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
-      color:#222;
-      overflow:hidden;
-    }
-    header {
-      background: rgba(0,200,83,0.4);
-      color:#fff;
-      padding:15px;
-      text-align:center;
-      border-bottom:2px solid #00e676;
-      box-shadow:0 4px 12px rgba(0,0,0,0.2);
-      position:relative;
-      z-index:2;
-      backdrop-filter: blur(6px);
-    }
+    body {margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(to bottom,#fff,#e0e0e0);color:#222;overflow:hidden;}
+    header {background:rgba(0,200,83,0.4);color:#fff;padding:15px;text-align:center;border-bottom:2px solid #00e676;box-shadow:0 4px 12px rgba(0,0,0,0.2);position:relative;z-index:2;backdrop-filter:blur(6px);}
     header h1 {margin:0;font-size:22px;font-weight:600;}
-    .container {
-      max-width:95%;
-      margin:20px auto;
-      background: transparent;
-      border-radius:12px;
-      padding:15px;
-      position:relative;
-      z-index:2;
-    }
-    .panel {
-      margin-bottom:15px;
-      padding:12px;
-      border-radius:10px;
-      background: transparent;
-      box-shadow:none;
-      border:1px solid rgba(0,200,83,0.3);
-    }
-    .panel h3 {
-      margin:0 0 10px;
-      color:#00c853;
-      font-size:15px;
-      text-align:center;
-      font-weight:600;
-    }
-    input, button {
-      width:90%;
-      max-width:260px;
-      padding:8px;
-      font-size:13px;
-      border-radius:8px;
-      margin:6px auto;
-      display:block;
-      border:1px solid #00c853;
-      font-family:'Poppins', sans-serif;
-      background:rgba(255,255,255,0.85);
-      color:#222;
-    }
-    button {
-      background:#e0f7fa;
-      font-weight:600;
-      transition:all 0.3s ease;
-    }
-    button:hover {
-      transform:scale(1.05);
-      box-shadow:0 0 12px #00e676;
-      background:#00e676;
-      color:#fff;
-    }
+    .container {max-width:95%;margin:20px auto;background:transparent;border-radius:12px;padding:15px;position:relative;z-index:2;}
+    .panel {margin-bottom:15px;padding:12px;border-radius:10px;background:transparent;box-shadow:none;border:1px solid rgba(0,200,83,0.3);}
+    .panel h3 {margin:0 0 10px;color:#00c853;font-size:15px;text-align:center;font-weight:600;}
+    input,button {width:90%;max-width:260px;padding:8px;font-size:13px;border-radius:8px;margin:6px auto;display:block;border:1px solid #00c853;font-family:'Poppins',sans-serif;background:rgba(255,255,255,0.85);color:#222;}
+    button {background:#e0f7fa;font-weight:600;transition:all 0.3s ease;}
+    button:hover {transform:scale(1.05);box-shadow:0 0 12px #00e676;background:#00e676;color:#fff;}
     .info {margin-top:6px;font-size:12px;color:#00c853;font-weight:bold;text-align:center;}
     .quick-prices {display:grid;grid-template-columns:1fr 1fr;gap:10px;}
     .deskripsi {font-size:12px;line-height:1.5;text-align:center;}
@@ -80,30 +22,11 @@
     button.submit {background:#00c853;color:#fff;}
     button.submit:hover {background:#00e676;box-shadow:0 0 12px #00e676;}
     img.qris {width:100%;border:1px solid #00c853;border-radius:8px;}
-    #topupNotif {
-      margin-top:8px;padding:8px;border-radius:8px;font-size:12px;font-weight:600;
-      text-align:center;background:rgba(224,247,250,0.8);border:1px solid #00c853;color:#222;display:none;
-    }
-    .floating-btn {
-      position:fixed;top:15px;right:15px;background:#00c853;color:#fff;border:none;
-      border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;
-      box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.3s ease;
-    }
+    #topupNotif {margin-top:8px;padding:8px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;background:rgba(224,247,250,0.8);border:1px solid #00c853;color:#222;display:none;}
+    .floating-btn {position:fixed;top:15px;right:15px;background:#00c853;color:#fff;border:none;border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.3s ease;}
     .floating-btn:hover {transform:scale(1.1);box-shadow:0 0 12px #00e676;}
-    .admin-panel {
-      position:fixed;top:70px;right:15px;background:transparent;
-      border:1px solid #00c853;border-radius:10px;padding:10px;width:200px;display:none;
-      z-index:3;font-size:12px;
-    }
-    #particles {
-      position:fixed;
-      top:0;
-      left:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:1;
-    }
+    .admin-panel {position:fixed;top:70px;right:15px;background:transparent;border:1px solid #00c853;border-radius:10px;padding:10px;width:200px;display:none;z-index:3;font-size:12px;}
+    #particles {position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
   </style>
 </head>
 <body>
@@ -182,7 +105,7 @@
   </div>
 
 <script>
-const base = "https://dexblox.vercel.app";
+const base = ""; // kosongkan, otomatis pakai domain Vercel project
 
 // Ambil harga dari LocalStorage
 window.onload = () => {
@@ -192,7 +115,7 @@ window.onload = () => {
   }
 };
 
-// 🔍 Cek Username + Avatar
+// 🔍 Cek Username
 async function cekUsername() {
   const username = document.getElementById('username').value.trim();
   const userInfo = document.getElementById('userInfo');
@@ -200,18 +123,26 @@ async function cekUsername() {
   if (!username) return;
 
   try {
-    const res = await fetch(`${base}/api/user?username=${encodeURIComponent(username)}`);
+    const res = await fetch(`/api/user?username=${encodeURIComponent(username)}`);
     const data = await res.json();
 
     if (data && data.id) {
-      const avatarRes = await fetch(`${base}/api/avatar?userId=${data.id}`);
+      const avatarRes = await fetch(`/api/avatar?userId=${data.id}`);
       const avatarData = await avatarRes.json();
 
       userInfo.innerHTML = `
         ✅ <b>${data.displayName}</b><br>
         <img src="${avatarData.imageUrl}" alt="Avatar Roblox"
              style="margin-top:6px;border:1px solid #00c853;
-             border-radius:6px;width:80px;height:80px;">
+             border-radius:6px;width:80px;height:80px;"><br>
+        🔗 <a href="https://www.roblox.com/users/${data.id}/profile" 
+              target="_blank" style="color:#00c853;font-size:12px;">
+              Lihat Profile User
+        </a><br>
+        🎮 <a href="https://www.roblox.com/games/77929287189753/Tempat-Kaen3v" 
+              target="_blank" style="color:#00c853;font-size:12px;">
+              Masuk ke Tempat Topup
+        </a>
       `;
     } else {
       userInfo.innerHTML = "❌ Username tidak ditemukan!";
@@ -323,7 +254,7 @@ function initParticles() {
 }
 function drawParticles() {
   ctxP.clearRect(0, 0, canvasParticles.width, canvasParticles.height);
-  ctxP.fillStyle = "rgba(0, 200, 83, 0.6)"; // hijau transparan
+  ctxP.fillStyle = "rgba(0, 200, 83, 0.6)";
   ctxP.beginPath();
   particlesArray.forEach(p => {
     ctxP.moveTo(p.x, p.y);
