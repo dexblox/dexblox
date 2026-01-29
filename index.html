@@ -4,36 +4,117 @@
   <meta charset="UTF-8">
   <title>Beli Robux - DEXBLOX.ID</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {margin:0;font-family:Arial,sans-serif;background:#f6fff6;color:#222;font-size:14px;}
-    header {background:#00c853;color:#fff;padding:12px;text-align:center;border-bottom:2px solid #00e676;}
-    header h1 {margin:0;font-size:20px;}
-    .container {max-width:95%;margin:12px auto;background:#fff;border:1px solid #00c853;border-radius:8px;padding:10px;box-shadow:0 0 6px #00c85333;}
-    .panel {margin-bottom:12px;padding:10px;border:1px solid #00c85333;border-radius:6px;background:#fdfdfd;}
-    .panel h3 {margin:0 0 8px;color:#00c853;font-size:14px;text-align:center;border-bottom:1px solid #00c85333;padding-bottom:4px;}
-    input, button {width:90%;max-width:250px;padding:6px;font-size:13px;border-radius:6px;margin:6px auto;display:block;}
+    body {
+      margin:0;
+      font-family:'Poppins', sans-serif;
+      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
+      color:#222;
+      overflow:hidden;
+    }
+    header {
+      background: rgba(0,200,83,0.4);
+      color:#fff;
+      padding:15px;
+      text-align:center;
+      border-bottom:2px solid #00e676;
+      box-shadow:0 4px 12px rgba(0,0,0,0.2);
+      position:relative;
+      z-index:2;
+      backdrop-filter: blur(6px);
+    }
+    header h1 {margin:0;font-size:22px;font-weight:600;}
+    .container {
+      max-width:95%;
+      margin:20px auto;
+      background: transparent;
+      border-radius:12px;
+      padding:15px;
+      position:relative;
+      z-index:2;
+    }
+    .panel {
+      margin-bottom:15px;
+      padding:12px;
+      border-radius:10px;
+      background: transparent;
+      box-shadow:none;
+      border:1px solid rgba(0,200,83,0.3);
+    }
+    .panel h3 {
+      margin:0 0 10px;
+      color:#00c853;
+      font-size:15px;
+      text-align:center;
+      font-weight:600;
+    }
+    input, button {
+      width:90%;
+      max-width:260px;
+      padding:8px;
+      font-size:13px;
+      border-radius:8px;
+      margin:6px auto;
+      display:block;
+      border:1px solid #00c853;
+      font-family:'Poppins', sans-serif;
+      background:rgba(255,255,255,0.85);
+      color:#222;
+    }
+    button {
+      background:#e0f7fa;
+      font-weight:600;
+      transition:all 0.3s ease;
+    }
+    button:hover {
+      transform:scale(1.05);
+      box-shadow:0 0 12px #00e676;
+      background:#00e676;
+      color:#fff;
+    }
     .info {margin-top:6px;font-size:12px;color:#00c853;font-weight:bold;text-align:center;}
-    .quick-prices {display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-    .quick-prices button {background:#e0f7fa;border:1px solid #00c853;font-size:12px;font-weight:bold;}
-    .quick-prices button:hover {background:#00e676;color:#fff;}
-    .deskripsi {font-size:12px;line-height:1.4;}
-    .garansi {margin-top:10px;font-size:12px;color:#00c853;text-align:center;}
-    button.submit {background:#00c853;color:#fff;border:none;font-weight:bold;}
-    button.submit:hover {background:#00e676;box-shadow:0 0 8px #00e676;}
-    img.qris {width:100%;border:1px solid #00c853;border-radius:6px;}
-    #topupNotif {margin-top:8px;padding:6px;border-radius:5px;font-size:12px;font-weight:bold;text-align:center;background:#e0f7fa;border:1px solid #00c853;color:#222;display:none;}
-    .floating-btn {position:fixed;top:15px;right:15px;background:#00c853;color:#fff;border:none;border-radius:50%;width:36px;height:36px;font-size:16px;z-index:3;}
-    .admin-panel {position:fixed;top:60px;right:15px;background:#ffffff;border:1px solid #00c853;border-radius:6px;padding:8px;width:180px;display:none;z-index:3;font-size:12px;}
+    .quick-prices {display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+    .deskripsi {font-size:12px;line-height:1.5;text-align:center;}
+    .garansi {margin-top:10px;font-size:12px;color:#00c853;text-align:center;font-weight:600;}
+    button.submit {background:#00c853;color:#fff;}
+    button.submit:hover {background:#00e676;box-shadow:0 0 12px #00e676;}
+    img.qris {width:100%;border:1px solid #00c853;border-radius:8px;}
+    #topupNotif {
+      margin-top:8px;padding:8px;border-radius:8px;font-size:12px;font-weight:600;
+      text-align:center;background:rgba(224,247,250,0.8);border:1px solid #00c853;color:#222;display:none;
+    }
+    .floating-btn {
+      position:fixed;top:15px;right:15px;background:#00c853;color:#fff;border:none;
+      border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;
+      box-shadow:0 4px 12px rgba(0,0,0,0.2);transition:all 0.3s ease;
+    }
+    .floating-btn:hover {transform:scale(1.1);box-shadow:0 0 12px #00e676;}
+    .admin-panel {
+      position:fixed;top:70px;right:15px;background:transparent;
+      border:1px solid #00c853;border-radius:10px;padding:10px;width:200px;display:none;
+      z-index:3;font-size:12px;
+    }
+    #particles {
+      position:fixed;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      pointer-events:none;
+      z-index:1;
+    }
   </style>
 </head>
 <body>
-  <header><h1>Beli Robux</h1></header>
+  <canvas id="particles"></canvas>
+  <header><h1>Beli Robux - DEXBLOX.ID</h1></header>
 
   <div class="container">
     <!-- Username + Avatar -->
     <div class="panel">
       <h3>👤 Username Roblox</h3>
-      <input type="text" id="username" placeholder="Username Roblox">
+      <input type="text" id="username" placeholder="Masukkan Username Roblox">
       <button onclick="cekUsername()">🔍 Cek Username</button>
       <div id="userInfo" style="margin-top:6px;text-align:center;font-size:12px;color:#00c853;"></div>
     </div>
@@ -56,6 +137,11 @@
       <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 RBX</p>
       <p class="info" id="setIdInfo">Set ID: -</p>
       <input type="text" id="totalRp" readonly>
+    </div>
+
+    <!-- Tombol Kirim via WhatsApp -->
+    <div class="panel" style="text-align:center;">
+      <button class="submit" onclick="konfirmasiWA()">📲 Kirim via WhatsApp</button>
     </div>
 
     <!-- Deskripsi -->
@@ -96,21 +182,17 @@
   </div>
 
 <script>
-const base = "https://dexblox.vercel.app"; // ganti sesuai domain Vercel kamu
+const base = "https://dexblox.vercel.app";
 
-// Ambil harga global saat load
-window.onload = async () => {
-  try {
-    const res = await fetch(`${base}/api/price`);
-    const data = await res.json();
-    if (data.hargaPer100) {
-      document.getElementById('hargaPer100').innerText = parseInt(data.hargaPer100).toLocaleString();
-    }
-  } catch {
-    console.log("⚠️ Gagal ambil harga dari server");
+// Ambil harga dari LocalStorage
+window.onload = () => {
+  const savedPrice = localStorage.getItem("hargaPer100");
+  if (savedPrice) {
+    document.getElementById('hargaPer100').innerText = parseInt(savedPrice).toLocaleString();
   }
 };
 
+// 🔍 Cek Username + Avatar
 async function cekUsername() {
   const username = document.getElementById('username').value.trim();
   const userInfo = document.getElementById('userInfo');
@@ -139,6 +221,7 @@ async function cekUsername() {
   }
 }
 
+// ⚡ Pilih Paket
 function pilihPaket(robux, setId) {
   const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const harga = (robux / 100) * hargaPer100;
@@ -147,6 +230,7 @@ function pilihPaket(robux, setId) {
   document.getElementById('setIdInfo').innerText = `Set ID: ${setId}`;
 }
 
+// 💰 Hitung Manual
 function hitungManual() {
   const robux = parseInt(document.getElementById('jumlahRobux').value);
   if (!robux) {
@@ -170,6 +254,7 @@ function hitungManual() {
   document.getElementById('setIdInfo').innerText = `Set ID: ${nearest}`;
 }
 
+// 🚀 Konfirmasi WA
 function konfirmasiWA() {
   const username = document.getElementById('username').value.trim();
   const robux = document.getElementById('jumlahRobux').value;
@@ -195,11 +280,11 @@ Pembayaran via QRIS. Bukti pembayaran sudah dikirim user.`;
   setTimeout(() => { notif.style.display = "none"; }, 4000);
 }
 
+// 🔑 Admin Panel
 function toggleAdmin() {
   const panel = document.getElementById('adminPanelBox');
   panel.style.display = panel.style.display === "none" ? "block" : "none";
 }
-
 function adminLogin() {
   const pass = document.getElementById('adminPass').value;
   const result = document.getElementById('adminResult');
@@ -210,25 +295,53 @@ function adminLogin() {
     result.innerText = "❌ Kode salah!";
   }
 }
-
-async function updatePrice() {
+function updatePrice() {
   const newPrice = document.getElementById('newPrice').value;
   if (!newPrice) return;
+  localStorage.setItem("hargaPer100", newPrice);
+  document.getElementById('hargaPer100').innerText = parseInt(newPrice).toLocaleString();
+  alert("✅ Harga berhasil diupdate!");
+  hitungManual();
+}
 
-  try {
-    const res = await fetch(`${base}/api/price`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ hargaPer100: newPrice })
+// 🌿 Efek Partikel Hijau Bergerak
+const canvasParticles = document.getElementById("particles");
+const ctxP = canvasParticles.getContext("2d");
+canvasParticles.width = window.innerWidth;
+canvasParticles.height = window.innerHeight;
+let particlesArray = [];
+function initParticles() {
+  for (let i = 0; i < 80; i++) {
+    particlesArray.push({
+      x: Math.random() * canvasParticles.width,
+      y: Math.random() * canvasParticles.height,
+      radius: Math.random() * 2 + 1,
+      dx: (Math.random() - 0.5) * 0.5,
+      dy: (Math.random() - 0.5) * 0.5
     });
-    const data = await res.json();
-    document.getElementById('hargaPer100').innerText = parseInt(data.hargaPer100).toLocaleString();
-    alert("✅ Harga berhasil diupdate!");
-    hitungManual();
-  } catch {
-    alert("⚠️ Gagal update harga!");
   }
 }
+function drawParticles() {
+  ctxP.clearRect(0, 0, canvasParticles.width, canvasParticles.height);
+  ctxP.fillStyle = "rgba(0, 200, 83, 0.6)"; // hijau transparan
+  ctxP.beginPath();
+  particlesArray.forEach(p => {
+    ctxP.moveTo(p.x, p.y);
+    ctxP.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+  });
+  ctxP.fill();
+  moveParticles();
+}
+function moveParticles() {
+  particlesArray.forEach(p => {
+    p.x += p.dx;
+    p.y += p.dy;
+    if (p.x < 0 || p.x > canvasParticles.width) p.dx *= -1;
+    if (p.y < 0 || p.y > canvasParticles.height) p.dy *= -1;
+  });
+}
+initParticles();
+setInterval(drawParticles, 30);
 </script>
 </body>
 </html>
