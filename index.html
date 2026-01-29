@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {margin:0;font-family:'Poppins',sans-serif;background:#fff;color:#000;overflow:auto;}
+    body {margin:0;font-family:'Poppins',sans-serif;background:#fff;color:#000;}
     header {background:rgba(0,0,0,0.8);padding:15px;text-align:center;border-bottom:2px solid #000;}
     header h1 {margin:0;font-size:22px;font-weight:600;color:#fff;}
     .container {max-width:95%;margin:20px auto;padding:15px;}
@@ -14,7 +14,7 @@
     .panel h3 {margin:0 0 10px;color:#000;font-size:15px;text-align:center;font-weight:600;}
     .admin-panel h3 {color:#fff;}
     input,button {width:90%;max-width:260px;padding:8px;font-size:13px;border-radius:8px;margin:6px auto;
-      display:block;border:1px solid #000;background:transparent;color:#000;font-weight:600;transition:all 0.3s ease;}
+      display:block;border:1px solid #000;background:transparent;color:#000;font-weight:600;}
     button:hover {transform:scale(1.05);box-shadow:0 0 12px #000;background:rgba(0,0,0,0.1);}
     .info {margin-top:6px;font-size:12px;color:#000;font-weight:bold;text-align:center;}
     .quick-prices {display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -23,19 +23,12 @@
     button.submit {background:transparent;border:2px solid #000;color:#000;}
     button.submit:hover {background:rgba(0,0,0,0.2);box-shadow:0 0 12px #000;}
     img.qris {width:100%;border:1px solid #000;border-radius:8px;}
-    #topupNotif,#notifError {
-      margin-top:8px;padding:10px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;
-      background:linear-gradient(to right,#000,#333);border:2px solid #000;color:#fff;
-      display:none;animation:munculNotif 0.5s ease-out;box-shadow:0 0 12px rgba(0,0,0,0.6);
-    }
-    #notifConfirm {
-      margin-top:8px;padding:12px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;
-      background:#fff;border:2px solid #000;color:#000;display:none;box-shadow:0 0 12px rgba(0,0,0,0.3);
-    }
-    @keyframes munculNotif {from{opacity:0;transform:scale(0.9);}to{opacity:1;transform:scale(1);}}
+    #topupNotif,#notifError {margin-top:8px;padding:10px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;
+      background:linear-gradient(to right,#000,#333);border:2px solid #000;color:#fff;display:none;}
+    #notifConfirm {margin-top:8px;padding:12px;border-radius:10px;font-size:13px;font-weight:600;text-align:center;
+      background:#fff;border:2px solid #000;color:#000;display:none;}
     .floating-btn {position:fixed;top:15px;right:15px;background:transparent;color:#000;border:1px solid #000;
-      border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;transition:all 0.3s ease;}
-    .floating-btn:hover {transform:scale(1.1);box-shadow:0 0 12px #000;background:rgba(0,0,0,0.1);}
+      border-radius:50%;width:40px;height:40px;font-size:18px;z-index:3;}
     .admin-panel {position:fixed;top:70px;right:15px;background:transparent;border:1px solid #000;
       border-radius:10px;padding:10px;width:200px;display:none;z-index:3;font-size:12px;color:#000;}
     #particles {position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;}
@@ -79,9 +72,7 @@
 
     <div class="panel">
       <h3>📄 Deskripsi Produk</h3>
-      <div class="deskripsi">
-        Top up Robux (RBX) terpercaya dan termurah. Garansi pembelian 100% aman, harga terjangkau, dan robux pasti masuk ke akun kamu.
-      </div>
+      <div class="deskripsi">Top up Robux terpercaya dan termurah. Garansi pembelian 100% aman.</div>
     </div>
 
     <div class="panel">
@@ -151,7 +142,7 @@ function hitungManual() {
   document.getElementById('gamepassInfo').innerText = `Gamepass: ${robux}`;
 }
 
-// 👤 Cek Username Roblox
+// 👤 Cek Username Roblox (pakai user.js + avatar.js)
 async function cekUsername() {
   const username = document.getElementById("username").value.trim();
   const userInfoDiv = document.getElementById("userInfo");
@@ -162,24 +153,31 @@ async function cekUsername() {
   }
 
   try {
-    const res = await fetch("/api/cekUsername", {
+    // 1. Ambil data user
+    const resUser = await fetch("/api/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username })
     });
-    const data = await res.json();
-    if (data.error) {
-      userInfoDiv.innerHTML = `❌ ${data.error}`;
+    const dataUser = await resUser.json();
+    if (dataUser.error) {
+      userInfoDiv.innerHTML = `❌ ${dataUser.error}`;
       return;
     }
 
-    lastUserProfileUrl = data.profileUrl;
-    lastUserName = data.name;
+    // 2. Ambil avatar
+    const resAvatar = await fetch(`/api/avatar?userId=${dataUser.userId}`);
+    const dataAvatar = await resAvatar.json();
 
+    // 3. Simpan untuk WA
+    lastUserProfileUrl = dataUser.profileUrl;
+    lastUserName = dataUser.name;
+
+    // 4. Tampilkan
     userInfoDiv.innerHTML = `
-      <p>✅ Username: <b>${data.name}</b></p>
-      <img src="${data.avatarUrl}" alt="Avatar Roblox" style="width:100px;border-radius:8px;border:1px solid #000;">
-      <p><a href="${data.profileUrl}" target="_blank">🔗 Lihat Profil</a></p>
+      <p>✅ Username: <b>${dataUser.name}</b></p>
+      <img src="${dataAvatar.avatarUrl}" alt="Avatar Roblox" style="width:100px;border-radius:8px;border:1px solid #000;">
+      <p><a href="${dataUser.profileUrl}" target="_blank">🔗 Lihat Profil</a></p>
     `;
   } catch (err) {
     console.error(err);
@@ -296,7 +294,7 @@ function moveParticles() {
     p.y += p.dy;
     if (p.x < 0 || p.x > canvasParticles.width) p.dx *= -1;
     if (p.y < 0 || p.y > canvasParticles.height) p.dy *= -1;
-  });
+ });
 }
 initParticles();
 setInterval(drawParticles, 30);
