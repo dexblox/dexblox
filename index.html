@@ -80,6 +80,8 @@
         <button onclick="pilihPaket(300,'429')">300 RBX</button>
         <button onclick="pilihPaket(500,'715')">500 RBX</button>
         <button onclick="pilihPaket(1000,'1430')">1000 RBX</button>
+        <button onclick="pilihPaket(2000,'2860')">2000 RBX</button>
+        <button onclick="pilihPaket(5000,'7150')">5000 RBX</button>
       </div>
     </div>
 
@@ -89,10 +91,6 @@
       <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 RBX</p>
       <p class="info" id="gamepassInfo">Gamepass: -</p>
       <input type="text" id="totalRp" readonly>
-    </div>
-
-    <div class="panel" style="text-align:center;">
-      <button class="submit" onclick="konfirmasiWA()">📲 Kirim via WhatsApp</button>
     </div>
 
     <div class="panel">
@@ -109,7 +107,6 @@
 
     <div class="panel">
       <h3>🚀 Konfirmasi</h3>
-      <button class="submit" onclick="konfirmasiWA()">Lanjutkan Pembelian</button>
       <div id="topupNotif">🚀 Permintaan Topup dikirim ke Admin Dexblox!</div>
       <div class="garansi">✅ Garansi 100% Robux Masuk dan Aman</div>
     </div>
@@ -168,8 +165,7 @@ async function cekUsername() {
       userInfo.innerHTML = `
         ✅ <b>${data.displayName}</b><br>
         <img src="${avatarData.imageUrl}" alt="Avatar Roblox"
-             style="margin-top:6px;border:1px solid #00c853;
-             border-radius:6px;width:80px;height:80px;"><br>
+             style="margin-top:6px;width:80px;height:80px;border-radius:6px;"><br>
         🔗 <a href="https://www.roblox.com/users/${data.id}/profile" 
               target="_blank" style="color:#00c853;font-size:12px;">
               Lihat Profile User
@@ -185,12 +181,12 @@ async function cekUsername() {
 }
 
 // ⚡ Pilih Paket
-function pilihPaket(robux, gamepass) {
+function pilihPaket(robux, gamepassId) {
   const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const harga = (robux / 100) * hargaPer100;
   document.getElementById('jumlahRobux').value = robux;
   document.getElementById('totalRp').value = `Rp${harga.toLocaleString()}`;
-  document.getElementById('gamepassInfo').innerText = `Gamepass: ${gamepass}`;
+  document.getElementById('gamepassInfo').innerText = `Gamepass: ${gamepassId}`;
 }
 
 // 💰 Hitung Manual
