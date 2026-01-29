@@ -30,7 +30,7 @@
       margin:15px auto;
       padding:12px;
       border-radius:10px;
-      background:transparent; /* panel transparan */
+      background:transparent;
       border:1px solid #000;
       max-width:95%;
     }
@@ -166,12 +166,68 @@
   </footer>
 
   <!-- Script API -->
-  <script src="/api/user.js"></script>
-  <script src="/api/avatar.js"></script>
-  <script src="/api/games.js"></script>
-
-  <!-- Script Logika Harga, WA, Admin, Partikel -->
   <script>
+    // cek username + tempat user
+    async function cekUsername() {
+      const username = document.getElementById('username').value.trim();
+      const userInfoDiv = document.getElementById('userInfo');
+      if (!username) {
+        userInfoDiv.innerHTML = "❌ Masukkan username dulu!";
+        return;
+      }
+      try {
+        const response = await fetch("https://users.roblox.com/v1/usernames/users", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({usernames:[username]})
+        });
+        const data = await response.json();
+        if (data.data && data.data.length > 0) {
+          const user = data.data[0];
+          userInfoDiv.innerHTML = `
+            ✅ Username ditemukan: <b>${user.name}</b><br>
+            ID: ${user.id}<br>
+            <a href="https://www.roblox.com/users/${user.id}/profile" target="_blank">🔗 Profil</a><br>
+            <a href="https://www.roblox.com/users/${user.id}/creations" target="_blank">🏠 Tempat User</a><br>
+            <img src="https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=100&height=100&format=png" 
+                 style="border-radius:50%;margin-top:6px;">
+          `;
+        } else {
+          userInfoDiv.innerHTML = "❌ Username tidak ditemukan!";
+        }
+      } catch (err) {
+        userInfoDiv.innerHTML = "⚠️ Error koneksi API Roblox!";
+      }
+    }
+
+    // cek game
+    async function cekGame(gameId) {
+      const gameInfoDiv = document.getElementById('gameInfo');
+      if (!gameId) {
+        gameInfoDiv.innerHTML = "❌ Masukkan Game ID!";
+        return;
+      }
+      try {
+        const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${gameId}`);
+        const data = await response.json();
+        if (data.data && data.data.length > 0) {
+          const game = data.data[0];
+          gameInfoDiv.innerHTML = `
+            🎮 Nama Game: <b>${game.name}</b><br>
+            ID: ${game.id}<br>
+            <a href="https://www.roblox.com/games/${game.id}/${encodeURIComponent(game.name)}" target="_blank">🔗 Lihat Game</a><br>
+            <img src="https://www.roblox.com/asset-thumbnail/image?assetId=${game.id}&width=256&height=256&format=png"
+                 style="border-radius:8px;margin-top:6px;">
+          `;
+        } else {
+          gameInfoDiv.innerHTML = "❌ Game tidak ditemukan!";
+        }
+      } catch (err) {
+        gameInfoDiv.innerHTML = "⚠️ Error koneksi API Roblox!";
+      }
+    }
+
+    // logika harga & konfirmasi WA
     function pilihPaket(robux, gamepassId) {
       const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
       const harga = (robux / 100) * hargaPer100;
@@ -227,6 +283,7 @@
       setTimeout(() => { document.getElementById('topupNotif').style.display = "none"; }, 5000);
     }
 
+    // admin panel
     function adminLogin() {
       const pass = document.getElementById('adminPass').value;
       const result = document.getElementById('adminResult');
@@ -247,7 +304,7 @@
       hitungManual();
     }
 
-    // 🌟 Background Partikel Merah Bergerak
+    // background partikel merah
     const canvasParticles = document.getElementById("particles");
     const ctxP = canvasParticles.getContext("2d");
     canvasParticles.width = window.innerWidth;
