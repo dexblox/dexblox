@@ -1,23 +1,35 @@
 export default async function handler(req, res) {
-  const { userId } = req.query;
-  if (!userId) {
-    return res.status(400).json({ error: "User ID kosong!" });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
   }
 
-  // Gunakan Thumbnail API v1
-  const url = `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`;
+  const { username } = req.body;
+  if (!username) {
+    return res.status(400).json({ error: "Username kosong!" });
+  }
 
   try {
-    const response = await fetch(url);
+    const response = await fetch("https://users.roblox.com/v1/usernames/users", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ usernames: [username] })
+    });
+
     const data = await response.json();
 
+    // cek apakah ada hasil
     if (!data.data || data.data.length === 0) {
-      return res.status(404).json({ error: "Avatar tidak ditemukan!" });
+      return res.status(404).json({ error: "Username tidak ditemukan!" });
     }
 
-    const avatarUrl = data.data[0].imageUrl;
-    res.status(200).json({ avatarUrl });
+    const user = data.data[0];
+    res.status(200).json({
+      userId: user.id,
+      name: user.name,
+      displayName: user.displayName,
+      profileUrl: `https://www.roblox.com/users/${user.id}/profile`
+    });
   } catch (err) {
-    res.status(500).json({ error: "Gagal ambil avatar", detail: err.message });
+    res.status(500).json({ error: "Gagal ambil data dari Roblox", detail: err.message });
   }
 }
