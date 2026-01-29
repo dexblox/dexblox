@@ -76,10 +76,10 @@
     <div class="panel">
       <h3>⚡ Pilihan Cepat Paket Robux</h3>
       <div class="quick-prices">
-        <button onclick="pilihPaket(100,143)">100 RBX</button>
-        <button onclick="pilihPaket(300,429)">300 RBX</button>
-        <button onclick="pilihPaket(500,715)">500 RBX</button>
-        <button onclick="pilihPaket(1000,1430)">1000 RBX</button>
+        <button onclick="pilihPaket(100,'143')">100 RBX</button>
+        <button onclick="pilihPaket(300,'429')">300 RBX</button>
+        <button onclick="pilihPaket(500,'715')">500 RBX</button>
+        <button onclick="pilihPaket(1000,'1430')">1000 RBX</button>
       </div>
     </div>
 
@@ -87,7 +87,7 @@
       <h3>💰 Jumlah Robux</h3>
       <input type="number" id="jumlahRobux" oninput="hitungManual()">
       <p class="info">Harga: Rp<span id="hargaPer100">11.000</span> / 100 RBX</p>
-      <p class="info" id="setIdInfo">Set ID: -</p>
+      <p class="info" id="gamepassInfo">Gamepass: -</p>
       <input type="text" id="totalRp" readonly>
     </div>
 
@@ -185,12 +185,12 @@ async function cekUsername() {
 }
 
 // ⚡ Pilih Paket
-function pilihPaket(robux, setId) {
+function pilihPaket(robux, gamepass) {
   const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const harga = (robux / 100) * hargaPer100;
   document.getElementById('jumlahRobux').value = robux;
   document.getElementById('totalRp').value = `Rp${harga.toLocaleString()}`;
-  document.getElementById('setIdInfo').innerText = `Set ID: ${setId}`;
+  document.getElementById('gamepassInfo').innerText = `Gamepass: ${gamepass}`;
 }
 
 // 💰 Hitung Manual
@@ -198,30 +198,35 @@ function hitungManual() {
   const robux = parseInt(document.getElementById('jumlahRobux').value);
   if (!robux) {
     document.getElementById('totalRp').value = "";
-    document.getElementById('setIdInfo').innerText = "Set ID: -";
+    document.getElementById('gamepassInfo').innerText = "Gamepass: -";
     return;
   }
   const hargaPer100 = parseInt(document.getElementById('hargaPer100').innerText.replace(/\./g,''));
   const harga = (robux / 100) * hargaPer100;
   document.getElementById('totalRp').value = `Rp${harga.toLocaleString()}`;
-  document.getElementById('setIdInfo').innerText = `Set ID: ${robux}`;
+  document.getElementById('gamepassInfo').innerText = `Gamepass: ${robux}`;
 }
 
-// 🚀 Konfirmasi WA + Notifikasi Keren
+// 🚀 Konfirmasi WA
 function konfirmasiWA() {
   const username = document.getElementById('username').value.trim();
   const robux = document.getElementById('jumlahRobux').value;
   const total = document.getElementById('totalRp').value;
-  const setId = document.getElementById('setIdInfo').innerText;
+  const gamepass = document.getElementById('gamepassInfo').innerText;
 
   if (!username || !robux) {
     alert("⚠️ Lengkapi username dan jumlah Robux!");
     return;
   }
 
+  const userInfoDiv = document.getElementById('userInfo');
+  const profileLinkEl = userInfoDiv.querySelector("a[href*='roblox.com/users']");
+  const profileLink = profileLinkEl ? profileLinkEl.href : "";
+
   const message = `Halo Admin Dexblox,
 Topup ${robux} Robux (${total}) untuk ${username}.
-${setId}
+${gamepass}
+Profil User: ${profileLink}
 Pembayaran via QRIS. Bukti pembayaran sudah dikirim user.`;
 
   const phone = "6285362187740"; // nomor WA admin
