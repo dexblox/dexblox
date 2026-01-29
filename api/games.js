@@ -2,8 +2,12 @@
 async function cekGame(gameId) {
   const gameInfoDiv = document.getElementById('gameInfo');
 
+  if (!gameId) {
+    gameInfoDiv.innerHTML = "❌ Masukkan Game ID!";
+    return;
+  }
+
   try {
-    // Panggil API Roblox untuk ambil detail game
     const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${gameId}`);
     const data = await response.json();
 
