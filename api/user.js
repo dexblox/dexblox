@@ -9,7 +9,6 @@ export default async function handler(req, res) {
   }
 
   try {
-    // Ambil userId dari Roblox API
     const response = await fetch("https://users.roblox.com/v1/usernames/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -33,6 +32,6 @@ export default async function handler(req, res) {
       profileUrl
     });
   } catch (err) {
-    res.status(500).json({ error: "Gagal ambil data dari Roblox" });
+    res.status(500).json({ error: "Gagal ambil data dari Roblox", detail: err.message });
   }
 }
