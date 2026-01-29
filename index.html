@@ -164,17 +164,11 @@ async function cekUsername() {
       return;
     }
 
-    let avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${dataUser.userId}&width=420&height=420&format=png`;
-    const testImg = new Image();
-    testImg.src = avatarUrl;
+    // Ambil avatar dari backend
+    const resAvatar = await fetch(`/api/avatar?userId=${dataUser.userId}`);
+    const dataAvatar = await resAvatar.json();
 
-    testImg.onerror = () => {
-      avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${dataUser.userId}&width=150&height=150&format=png`;
-      tampilkanUser(dataUser, avatarUrl);
-    };
-    testImg.onload = () => {
-      tampilkanUser(dataUser, avatarUrl);
-    };
+    tampilkanUser(dataUser, dataAvatar.avatarUrl);
 
     lastUserProfileUrl = dataUser.profileUrl;
     lastUserName = dataUser.name;
