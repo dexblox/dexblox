@@ -1,15 +1,38 @@
-// api/user.js (serverless di Vercel)
 export default async function handler(req, res) {
-  const { username } = req.query;
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
+
+  const { username } = req.body;
+  if (!username) {
+    return res.status(400).json({ error: "Username kosong!" });
+  }
+
   try {
+    // Ambil userId dari Roblox API
     const response = await fetch("https://users.roblox.com/v1/usernames/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ usernames: [username] })
     });
+
     const data = await response.json();
-    res.status(200).json(data);
+    if (!data.data || data.data.length === 0) {
+      return res.status(404).json({ error: "Username tidak ditemukan!" });
+    }
+
+    const user = data.data[0];
+    const avatarUrl = `https://www.roblox.com/headshot-thumbnail/image?userId=${user.id}&width=420&height=420&format=png`;
+    const profileUrl = `https://www.roblox.com/users/${user.id}/profile`;
+
+    res.status(200).json({
+      userId: user.id,
+      name: user.name,
+      displayName: user.displayName,
+      avatarUrl,
+      profileUrl
+    });
   } catch (err) {
-    res.status(500).json({ error: "Gagal koneksi ke API Roblox" });
+    res.status(500).json({ error: "Gagal ambil data dari Roblox" });
   }
 }
