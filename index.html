@@ -26,19 +26,19 @@
       from {transform:translateY(0) translateX(0); opacity:0.7;}
       to {transform:translateY(-100vh) translateX(50vw); opacity:0;}
     }
-    .paket-card {transition:all 0.3s ease; border:2px solid transparent; cursor:pointer;}
-    .paket-card:hover {transform:scale(1.05); box-shadow:0 0 15px #00f0ff;}
+    .paket-card {transition:all 0.3s ease; border:2px solid transparent; cursor:pointer; background-color:#2d3748;}
+    .paket-card:hover {transform:scale(1.03); background-color:#4a5568;}
     .btn-anim {transition:all 0.3s ease;}
-    .btn-anim:hover {transform:scale(1.05); box-shadow:0 0 15px #00f0ff;}
+    .btn-anim:hover {transform:scale(1.05);}
     .glow-title {color:#00ffff; text-shadow:0 0 10px #00ffff,0 0 20px #00ffff,0 0 30px #00ffff; animation:glow 2s ease-in-out infinite alternate;}
     @keyframes glow {from{text-shadow:0 0 10px #00ffff,0 0 20px #00ffff;} to{text-shadow:0 0 20px #00ffff,0 0 40px #00ffff,0 0 60px #00ffff;}}
     .glow-input {box-shadow:0 0 10px #00f0ff; border:2px solid #00f0ff; background-color:#022;}
     .logo-glitch {filter:drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 20px #00ffff); animation:glitch 1.5s infinite;}
     @keyframes glitch {0%{transform:translate(0);}20%{transform:translate(-2px,2px);}40%{transform:translate(-2px,-2px);}60%{transform:translate(2px,2px);}80%{transform:translate(2px,-2px);}100%{transform:translate(0);}}
-    .glow-btn {box-shadow:0 0 10px #00ffff,0 0 20px #00ffff;}
     .notif-error {color:#ff4d6d; font-weight:bold; text-shadow:0 0 5px #ff4d6d,0 0 10px #ff1a4d;}
     .notif-success {color:#00ffcc; font-weight:bold; text-shadow:0 0 5px #00ffcc,0 0 10px #00e6b8;}
     .notif-info {color:#00ffff; font-weight:bold; text-shadow:0 0 5px #00ffff,0 0 10px #00cccc;}
+    .neon-green {text-shadow:0 0 10px #00ff00,0 0 20px #00ff00,0 0 30px #00ff00;}
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
@@ -54,14 +54,14 @@
 
   <!-- Header -->
   <header class="z-10 text-center mt-6 mb-6">
-    <img src="/dexblox.png" alt="Logo DEXBLOX" class="logo-glitch mx-auto mb-4 w-28 h-28">
-    <h1 class="text-4xl font-bold glow-title">DEXBLOX.ID</h1>
-    <p class="text-green-400 mt-2">Topup Robux Termurah Di Indonesia</p>
+    <img src="/dexblox.png" alt="Logo DEXBLOX" class="logo-glitch mx-auto mb-4 w-40 h-40">
+    <h1 class="text-5xl font-extrabold glow-title">DEXBLOX.ID</h1>
+    <p class="text-green-400 mt-2">Topup Robux Termurah & Transparan</p>
   </header>
 
   <!-- Form Topup -->
   <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Topup Gamepass 5hari</h2>
+    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Formulir Topup Robux</h2>
     <form id="topupForm" class="space-y-6">
       
       <!-- Username -->
@@ -80,7 +80,9 @@
       <!-- Panel Harga Hari Ini -->
       <section>
         <h3 class="text-lg font-bold text-cyan-400 mb-2">Harga Hari Ini</h3>
-        <p class="text-white mb-4">Rp<span id="hargaHariIni">11.000</span> / 100 Robux</p>
+        <p class="text-white mb-4">
+          Rp <span id="hargaHariIni" class="text-2xl font-extrabold text-green-400 neon-green">12.000</span> / 100 Robux
+        </p>
         <div id="paketContainerDefault" class="grid grid-cols-2 gap-4">
           <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="100">100 Robux</div>
           <div onclick="selectPaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="200">200 Robux</div>
@@ -92,7 +94,7 @@
 
       <!-- Custom Paket -->
       <section>
-        <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Robux</h3>
+        <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Paket Robux</h3>
         <div class="flex flex-col items-center space-y-2">
           <input type="number" id="customRobux" class="p-2 rounded bg-gray-700 text-white text-center w-48" placeholder="Jumlah Robux">
         </div>
@@ -118,9 +120,22 @@
       <!-- Submit -->
       <button type="submit" 
               class="btn-anim w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded shadow-lg">
-        Topup
+        Topup via WhatsApp
       </button>
     </form>
+  </div>
+
+  <!-- Tata Cara Pembelian -->
+  <div class="z-10 w-[90%] max-w-md bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg mt-6 text-left">
+    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Tata Cara Pembelian</h2>
+    <ol class="list-decimal list-inside space-y-2 text-white text-sm">
+      <li>Masukkan <span class="text-cyan-300 font-bold">Username Roblox</span> dengan benar.</li>
+      <li>Pilih <span class="text-cyan-300 font-bold">paket Robux</span> sesuai kebutuhan.</li>
+      <li>Klik tombol <span class="text-green-400 font-bold">Topup via WhatsApp</span>.</li>
+      <li>Kirim bukti pembayaran ke Admin dan Admin akan membeli gamepass tersebut.</li>
+      <li>Tunggu sekitar <span class="text-yellow-300 font-bold">5–7 hari</span> sesuai ketentuan Roblox.</li>
+      <li>Jika ada kendala, hubungi Admin melalui WhatsApp.</li>
+    </ol>
   </div>
 
   <!-- Konfirmasi WhatsApp -->
@@ -170,7 +185,7 @@
       }
     }
 
-    let hargaPer100=parseInt(localStorage.getItem("hargaPer100"))||11000;
+    let hargaPer100=parseInt(localStorage.getItem("hargaPer100"))||12000;
     document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
 
     let promoActive=false;
@@ -186,14 +201,19 @@
     }
 
     function selectPaket(el){
-      const isActive=el.classList.contains("ring-2");
+      const isActive = el.classList.contains("bg-gray-800");
+      document.querySelectorAll(".paket-card").forEach(card=>{
+        card.classList.remove("bg-gray-800");
+        card.classList.add("bg-gray-700");
+      });
       if(isActive){
-        el.classList.remove("ring-2","ring-cyan-400","bg-cyan-900");
+        el.classList.remove("bg-gray-800");
+        el.classList.add("bg-gray-700");
         document.getElementById("paketInfo").textContent="";
         document.getElementById("robux").value="";
       }else{
-        document.querySelectorAll(".paket-card").forEach(card=>card.classList.remove("ring-2","ring-cyan-400","bg-cyan-900"));
-        el.classList.add("ring-2","ring-cyan-400","bg-cyan-900");
+        el.classList.remove("bg-gray-700");
+        el.classList.add("bg-gray-800");
         const robux=parseInt(el.dataset.value);
         updateHargaInfo(robux);
         document.getElementById("customRobux").classList.remove("glow-input");
@@ -205,7 +225,7 @@
       updateHargaInfo(robux);
       if(robux>0){
         this.classList.add("glow-input");
-        document.querySelectorAll(".paket-card").forEach(card=>card.classList.remove("ring-2","ring-cyan-400","bg-cyan-900"));
+        document.querySelectorAll(".paket-card").forEach(card=>card.classList.remove("bg-gray-800"));
       }else{this.classList.remove("glow-input");}
     });
 
@@ -213,12 +233,12 @@
       const input=document.getElementById("promoInput").value.trim().toUpperCase();
       if(input==="DEX10OFF"){
         promoActive=true;
-        showFieldNotif("notifPromo"," Kode Promo Valid! Diskon 4% aktif.","success");
+        showFieldNotif("notifPromo","✅ Kode Promo Valid! Diskon 4% aktif.","success");
         const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
         if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
       }else{
         promoActive=false;
-        showFieldNotif("notifPromo"," Kode Promo Salah.","error");
+        showFieldNotif("notifPromo","❌ Kode Promo Salah.","error");
         const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
         if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
       }
@@ -226,12 +246,12 @@
 
     async function cekUsername(){
       const username=document.getElementById("username").value.trim();
-      if(!username){showFieldNotif("notifUsername"," Harap isi Username Roblox!","error");return;}
+      if(!username){showFieldNotif("notifUsername","⚠️ Harap isi Username Roblox!","error");return;}
       try{
         const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
         const dataUser=await resUser.json();
         if(resUser.ok){
-          showFieldNotif("notifUsername",` Username ditemukan: ${dataUser.name}`,"success");
+          showFieldNotif("notifUsername",`✅ Username ditemukan: ${dataUser.name}`,"success");
           userProfileUrl=dataUser.profileUrl;
           const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
           const dataAvatar=await resAvatar.json();
@@ -239,8 +259,8 @@
             document.getElementById("avatarPreview").src=dataAvatar.avatarUrl;
             document.getElementById("avatarPreview").classList.remove("hidden");
           }
-        }else{showFieldNotif("notifUsername"," "+dataUser.error,"error");}
-      }catch(err){showFieldNotif("notifUsername"," Gagal cek username","error");}
+        }else{showFieldNotif("notifUsername","❌ "+dataUser.error,"error");}
+      }catch(err){showFieldNotif("notifUsername","⚠️ Gagal cek username","error");}
     }
 
     document.getElementById("topupForm").addEventListener("submit",function(e){
@@ -249,8 +269,19 @@
       let robux=document.getElementById("robux").value;
       const adminNumber="6285362187740";
 
-      if(!username){showFieldNotif("notifUsername"," Harap isi Username Roblox!","error");return;}
-      if(!robux){showFieldNotif("notifPaket"," Harap pilih paket Robux!","error");return;}
+      if(!username){
+        showFieldNotif("notifUsername","⚠️ Harap isi Username Roblox!","error");
+        return;
+      }
+      if(document.getElementById("avatarPreview").classList.contains("hidden")){
+        showFieldNotif("notifUsername","⚠️ Harap klik 'Cek Username' dulu!","error");
+        return;
+      }
+
+      if(!robux){
+        showFieldNotif("notifPaket","⚠️ Harap pilih paket Robux!","error");
+        return;
+      }
 
       const panel=document.getElementById("notifPanel");
       const content=document.getElementById("notifContent");
@@ -270,32 +301,29 @@
     function confirmWA(username,robux,adminNumber){
       const message=`Halo Admin DEXBLOX.ID %0AUsername: ${username}%0APaket: ${robux}%0AProfile: ${userProfileUrl}`;
       const waLink=`https://wa.me/${adminNumber}?text=${message}`;
-      window.open(waLink,"_blank");
-      cancelWA();
+      window.scrollBy({ top: 200, behavior: "smooth" });
+      setTimeout(() => {
+        window.open(waLink,"_blank");
+        cancelWA();
+      }, 600);
     }
-    function cancelWA(){
-      document.getElementById("notifContent").innerHTML="";
-    }
+    function cancelWA(){document.getElementById("notifContent").innerHTML="";}
 
-    function adminLogin(){
-      document.getElementById("adminModal").classList.remove("hidden");
-    }
-    function closeAdminModal(){
-      document.getElementById("adminModal").classList.add("hidden");
-    }
+    function adminLogin(){document.getElementById("adminModal").classList.remove("hidden");}
+    function closeAdminModal(){document.getElementById("adminModal").classList.add("hidden");}
     function verifyAdmin(){
       const pass=document.getElementById("adminPassword").value;
       if(pass==="dexblox123"){
-        showFieldNotif("notifCustom"," ACCESS GRANTED – Welcome Admin","success");
-        document.getElementById("adminTools").classList.remove("hidden"); // tampilkan tools update harga
+        showFieldNotif("notifCustom","🔓 ACCESS GRANTED – Welcome Admin","success");
+        document.getElementById("adminTools").classList.remove("hidden");
       }else{
-        showFieldNotif("notifCustom"," ACCESS DENIED – Wrong Password","error");
+        showFieldNotif("notifCustom","⛔ ACCESS DENIED – Wrong Password","error");
       }
     }
     function updateHarga(){
       const baseHarga=parseInt(document.getElementById("baseHarga").value);
       if(isNaN(baseHarga)||baseHarga<=0){
-        showFieldNotif("notifCustom"," Harga tidak valid!","error");
+        showFieldNotif("notifCustom","⚠️ Harga tidak valid!","error");
         return;
       }
       hargaPer100=baseHarga;
@@ -305,7 +333,7 @@
       const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
       if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
 
-      showFieldNotif("notifCustom",`Harga diperbarui: Rp${hargaPer100.toLocaleString("id-ID")} per 100 Robux`,"success");
+      showFieldNotif("notifCustom",`✅ Harga diperbarui: Rp${hargaPer100.toLocaleString("id-ID")} per 100 Robux`,"success");
     }
     function toggleAdminGlow(){
       const btn=document.getElementById("adminToggleBtn");
