@@ -6,7 +6,34 @@
   <title>DEXBLOX.ID - Topup Robux</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background:#000; font-family:monospace; }
+    body {
+      background: linear-gradient(-45deg, #000000, #001f1f, #003333, #000000);
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      font-family: monospace;
+    }
+    @keyframes gradientMove {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    .background-particles {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow: hidden; z-index: -1;
+    }
+    .background-particles span {
+      position: absolute;
+      width: 4px; height: 4px;
+      background: #00ffff;
+      border-radius: 50%;
+      animation: moveParticle 20s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes moveParticle {
+      from { transform: translateY(0) translateX(0); opacity: 0.7; }
+      to   { transform: translateY(-100vh) translateX(50vw); opacity: 0; }
+    }
     .paket-card { transition:all 0.3s ease; border:2px solid transparent; cursor:pointer; }
     .paket-card:hover { transform:scale(1.05); box-shadow:0 0 15px #00f0ff; }
     .btn-anim {transition:all 0.3s ease;}
@@ -15,19 +42,45 @@
       padding:12px 20px; border-radius:10px; font-weight:bold; background:rgba(255,255,255,0.85); color:#000;}
     .toast-success { border:2px solid #00ff88; }
     .toast-error { border:2px solid #ff0066; }
+    .glow-title {
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff,
+                   0 0 20px #00ffff,
+                   0 0 30px #00ffff;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+      to   { text-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, 0 0 60px #00ffff; }
+    }
+    .glow-input {
+      box-shadow: 0 0 10px #00f0ff;
+      border: 2px solid #00f0ff;
+      background-color: #022;
+    }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
 
+  <!-- Partikel Background -->
+  <div class="background-particles">
+    <span style="top:90%; left:10%; animation-delay:0s;"></span>
+    <span style="top:95%; left:30%; animation-delay:5s;"></span>
+    <span style="top:85%; left:50%; animation-delay:10s;"></span>
+    <span style="top:92%; left:70%; animation-delay:15s;"></span>
+    <span style="top:88%; left:90%; animation-delay:20s;"></span>
+  </div>
+
   <!-- Header -->
   <header class="z-10 text-center mt-6 mb-6">
-    <h1 class="text-4xl font-bold text-cyan-400">DEXBLOX.ID</h1>
-    <p class="text-green-400 mt-2">Topup Robux Termurah & Transparan</p>
+    <img src="/dexblox.png" alt="Logo DEXBLOX" class="mx-auto mb-4 w-20 h-20">
+    <h1 class="text-4xl font-bold glow-title">DEXBLOX.ID</h1>
+    <p class="text-green-400 mt-2">Topup 5-7hari Termurah Di Indonesia</p>
   </header>
 
   <!-- Form Topup -->
-  <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-80 p-6 rounded-xl shadow-lg text-center">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Formulir Topup Robux</h2>
+  <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
+    <h2 class="text-2xl font-bold text-cyan-400 mb-4"> Topup Gamepass</h2>
     <form id="topupForm" class="space-y-6">
       
       <!-- Username -->
@@ -56,16 +109,13 @@
 
       <!-- Custom Paket -->
       <section>
-        <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Paket Robux</h3>
+        <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Robux</h3>
         <div class="flex flex-col items-center space-y-2">
           <input type="number" id="customRobux" class="p-2 rounded bg-gray-700 text-white text-center w-48" placeholder="Jumlah Robux">
         </div>
       </section>
 
-      <!-- Satu baris untuk semua hasil harga -->
       <p id="paketInfo" class="text-green-400 font-bold mt-2"></p>
-
-      <!-- Hidden input -->
       <input type="hidden" id="robux" name="robux">
 
       <!-- Promo -->
@@ -85,22 +135,29 @@
   </div>
 
   <!-- Admin Panel -->
-  <div class="z-10 mt-6 mb-6 text-center bg-gray-800 bg-opacity-20 p-4 rounded-lg max-w-md mx-auto">
-    <button onclick="adminLogin()" class="btn-anim bg-white bg-opacity-20 text-transparent font-bold px-6 py-2 rounded">Admin Login</button>
+  <div class="z-10 mt-6 mb-6 text-center bg-gray-800 bg-opacity-60 p-4 rounded-lg max-w-md mx-auto">
+    <button onclick="adminLogin()" class="btn-anim bg-white bg-opacity-20 text-transparent font-bold px-3 py-1 text-sm rounded">Admin Login</button>
     <div id="adminPanel" style="display:none;" class="mt-4 space-y-2">
       <input type="number" id="baseHarga" value="11000" class="p-2 rounded bg-gray-700 text-white text-center w-48" placeholder="Harga per 100 Robux">
-      <button onclick="updateHarga()" class="btn-anim bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded">Update Harga</button>
+      <button onclick="updateHarga()" 
+              class="btn-anim bg-red-500 hover:bg-red-600 text-white font-bold px-4 py-2 rounded">
+        Update Harga
+      </button>
     </div>
   </div>
 
   <!-- Modal Admin -->
-  <div id="adminModal" class="hidden fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
-    <div class="bg-gray-900 p-6 rounded-lg shadow-lg text-center max-w-sm border border-green-400">
+  <div id="adminModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+    <div class="bg-gray-900 bg-opacity-70 p-6 rounded-lg shadow-lg text-center max-w-sm border border-green-400">
       <h2 class="text-green-400 font-bold text-lg mb-4">Admin Login</h2>
-      <input type="password" id="adminPassword" class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" placeholder="••••••••">
+      <input type="password" id="adminPassword" 
+             class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" 
+             placeholder="••••••••">
       <div class="flex justify-center space-x-4">
-        <button onclick="closeAdminModal()" class="btn-anim bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Batal</button>
-        <button onclick="verifyAdmin()" class="btn-anim bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Oke</button>
+        <button onclick="closeAdminModal()" 
+                class="btn-anim bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Batal</button>
+        <button onclick="verifyAdmin()" 
+                class="btn-anim bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Oke</button>
       </div>
     </div>
   </div>
@@ -121,54 +178,60 @@
     let promoActive=false;
     let userProfileUrl="";
 
+    function updateHargaInfo(robux){
+      if(!robux || robux<=0){
+        document.getElementById("paketInfo").textContent="";
+        return;
+      }
+      let harga=(robux/100)*hargaPer100;
+      const gamepassId=Math.round((robux/100)*143);
+      if(promoActive){harga=Math.round(harga*0.96);}
+      document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass ID: ${gamepassId})`;
+      document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (ID:${gamepassId})`;
+    }
+
     function selectPaket(el){
       document.querySelectorAll(".paket-card").forEach(card=>card.classList.remove("ring-2","ring-cyan-400","bg-cyan-900"));
       el.classList.add("ring-2","ring-cyan-400","bg-cyan-900");
       const robux=parseInt(el.dataset.value);
-      const harga=(robux/100)*hargaPer100;
-      const gamepassId=Math.round((robux/100)*143);
-      document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (ID:${gamepassId})`;
-      document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass ID: ${gamepassId})`;
+      updateHargaInfo(robux);
+      document.getElementById("customRobux").classList.remove("glow-input");
     }
 
-    // Custom Paket
     document.getElementById("customRobux").addEventListener("input", function(){
       const robux=parseInt(this.value);
-      const info=document.getElementById("paketInfo"); // satu baris untuk semua
-
-      if(!robux || robux<=0){
-        info.textContent="";
-        return;
+      updateHargaInfo(robux);
+      if(robux>0){
+        this.classList.add("glow-input");
+        document.querySelectorAll(".paket-card").forEach(card=>card.classList.remove("ring-2","ring-cyan-400","bg-cyan-900"));
+      }else{
+        this.classList.remove("glow-input");
       }
-
-      const harga=(robux/100)*hargaPer100;
-      const gamepassId=Math.round((robux/100)*143);
-
-      info.textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass ID: ${gamepassId})`;
-      document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (ID:${gamepassId})`;
     });
 
-    // Promo
     function checkPromo(){
       const input=document.getElementById("promoInput").value.trim().toUpperCase();
       if(input==="DEX10OFF"){
         promoActive=true;
-        showToast("✅ Kode Promo Valid! Diskon 4% aktif.","success");
+        showToast(" Kode Promo Valid! Diskon 4% aktif.","success");
+        const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
+        if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
       }else{
         promoActive=false;
-        showToast("❌ Kode Promo Salah.","error");
+        showToast(" Kode Promo Salah.","error");
+        const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
+        if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
       }
     }
 
-    // Cek Username + Avatar
     async function cekUsername(){
       const username=document.getElementById("username").value.trim();
-      if(!username){showToast("⚠️ Harap isi Username Roblox!","error");return;}
+      if(!username){showToast(" Harap isi Username Roblox!","error");return;}
       try{
         const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
         const dataUser=await resUser.json();
         if(resUser.ok){
-          showToast(`✅ Username ditemukan: ${dataUser.name}`,"success");
+          showToast(` Username ditemukan: ${dataUser.name}`,"success");
           userProfileUrl=dataUser.profileUrl;
           const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
           const dataAvatar=await resAvatar.json();
@@ -177,50 +240,38 @@
             document.getElementById("avatarPreview").classList.remove("hidden");
           }
         }else{
-          showToast("❌ "+dataUser.error,"error");
+          showToast(" "+dataUser.error,"error");
         }
       }catch(err){
-        showToast("⚠️ Gagal cek username","error");
+        showToast(" Gagal cek username","error");
       }
     }
 
-    // WhatsApp Redirect
     document.getElementById("topupForm").addEventListener("submit",function(e){
       e.preventDefault();
       const username=document.getElementById("username").value.trim();
       let robux=document.getElementById("robux").value;
       const adminNumber="6285362187740";
 
-      if(!username){showToast("⚠️ Harap isi Username Roblox!","error");return;}
-      if(!robux){showToast("⚠️ Harap pilih paket Robux!","error");return;}
-
-      // Promo diskon
-      if(promoActive){
-        const match=robux.match(/Rp([\d\.]+)/);
-        if(match){
-          const basePrice=parseInt(match[1].replace(/\./g,""));
-          const discounted=Math.round(basePrice*0.96);
-          robux=robux.replace(/Rp[\d\.]+/,"Rp"+discounted.toLocaleString("id-ID"));
-        }
-      }
+      if(!username){showToast(" Harap isi Username Roblox!","error");return;}
+      if(!robux){showToast(" Harap pilih paket Robux!","error");return;}
 
       const message=`Halo Admin DEXBLOX.ID %0AUsername: ${username}%0APaket: ${robux}%0AProfile: ${userProfileUrl}`;
       const waLink=`https://wa.me/${adminNumber}?text=${message}`;
-      showToast("✅ Data lengkap, kirim ke WhatsApp","success");
+      showToast(" Data lengkap, kirim ke WhatsApp","success");
       setTimeout(()=>{window.open(waLink,"_blank");},2000);
     });
 
-    // Admin Login
     function adminLogin(){document.getElementById("adminModal").classList.remove("hidden");}
     function closeAdminModal(){document.getElementById("adminModal").classList.add("hidden");}
     function verifyAdmin(){
       const pass=document.getElementById("adminPassword").value;
       if(pass==="dexblox123"){
         document.getElementById("adminPanel").style.display="block";
-        showToast("🔓 ACCESS GRANTED – Welcome Admin","success");
+        showToast(" ACCESS GRANTED – Welcome Admin","success");
         closeAdminModal();
       }else{
-        showToast("⛔ ACCESS DENIED – Wrong Password","error");
+        showToast(" ACCESS DENIED – Wrong Password","error");
       }
     }
     function updateHarga(){
@@ -229,8 +280,20 @@
       hargaPer100=baseHarga;
       localStorage.setItem("hargaPer100",hargaPer100);
       document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
-      showToast(`✅ Harga diperbarui: Rp${hargaPer100.toLocaleString("id-ID")} per 100 Robux`,"success");
+      const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
+      if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
+      showToast(` Harga diperbarui: Rp${hargaPer100.toLocaleString("id-ID")} per 100 Robux`,"success");
     }
   </script>
+
+  <!-- Footer -->
+  <footer class="z-10 text-center mt-8 mb-4 text-sm text-cyan-400 bg-gray-900 bg-opacity-50 p-2 rounded">
+    © <span id="year"></span> DEXBLOX.ID — Semua hak cipta dilindungi
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
 </body>
-</html>
+  </html>
