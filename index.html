@@ -244,21 +244,13 @@
         </div>`;
     });
 
-    function confirmWA(username, adminNumber, promoCode, hargaText, gamepassId){
-    let message = `DEXBLOX.ID saya ingin topup gamepass\n\n` +
-                  `Username: ${username}\n` +
-                  `Harga: ${hargaText} (Gamepass ID: ${gamepassId})\n` +
-                  `Profile: ${userProfileUrl}\n`;
-    
-    if(promoCode){
-        message += `Kode Promo: ${promoCode}\n`;
-    }
-    
-    message += `\nMohon diproses Admin.`;
-    
-    const waLink = `https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
-    window.location.href = waLink;
-    cancelWA();
+    function confirmWA(username,robux,adminNumber,promoCode,hargaText){
+      let message=`DEXBLOX.ID saya ingin topup gamepass\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nProfile: ${userProfileUrl}\n`;
+      if(promoCode){message+=`Kode Promo: ${promoCode}\n`;}
+      message+=`\nMohon diproses Admin.`;
+      const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+      window.location.href=waLink;
+      cancelWA();
     }
     function cancelWA(){
       document.getElementById("notifPanel").style.display="none";
@@ -338,4 +330,4 @@
   </script>
 
 </body>
-  </html>
+</html>
