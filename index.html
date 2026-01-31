@@ -39,9 +39,18 @@
       box-shadow:0 0 20px #00ffff,0 0 40px #00ffff;
       padding:20px; border-radius:12px; text-align:center; max-width:320px;
     }
+    .glow-price {text-shadow:0 0 10px #00ff00,0 0 20px #00ff00;}
+    #avatarPreview {box-shadow:0 0 15px #00ffff,0 0 30px #00ffff;}
+    #particleCanvas {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      z-index:0; pointer-events:none;
+    }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
+
+  <!-- Background Partikel -->
+  <canvas id="particleCanvas"></canvas>
 
   <!-- Header -->
   <header class="z-10 text-center mt-6 mb-6">
@@ -52,7 +61,7 @@
 
   <!-- Form Topup -->
   <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Formulir Topup Robux</h2>
+    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Topup Gamepass 5hari</h2>
     <form id="topupForm" class="space-y-6">
       
       <!-- Username -->
@@ -72,7 +81,7 @@
       <section>
         <h3 class="text-lg font-bold text-cyan-400 mb-2">Harga Hari Ini</h3>
         <p class="text-white mb-4">
-          Rp <span id="hargaHariIni" class="text-2xl font-extrabold text-green-400">12.000</span> / 100 Robux
+          Rp <span id="hargaHariIni" class="text-2xl font-extrabold text-green-400 glow-price">12.000</span> / 100 Robux
         </p>
         <div class="grid grid-cols-2 gap-4">
           <div onclick="togglePaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="100">100 Robux</div>
@@ -105,22 +114,9 @@
 
       <!-- Submit -->
       <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded shadow-lg">
-        Topup via WhatsApp
+        Topup
       </button>
     </form>
-  </div>
-
-  <!-- Tata Cara Pembelian -->
-  <div class="z-10 w-[90%] max-w-md bg-gray-800 bg-opacity-70 p-6 rounded-xl shadow-lg mt-6 text-left">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Tata Cara Pembelian</h2>
-    <ol class="list-decimal list-inside space-y-2 text-white text-sm">
-      <li>Masukkan Username Roblox dengan benar.</li>
-      <li>Pilih paket Robux sesuai kebutuhan.</li>
-      <li>Klik tombol Topup via WhatsApp.</li>
-      <li>Kirim bukti pembayaran ke Admin.</li>
-      <li>Tunggu sekitar 5–7 hari sesuai ketentuan Roblox.</li>
-      <li>Jika ada kendala, hubungi Admin melalui WhatsApp.</li>
-    </ol>
   </div>
 
   <!-- Konfirmasi WhatsApp Modal -->
@@ -159,18 +155,18 @@
 
   <script>
     // Helper notifikasi
-    function showFieldNotif(fieldId, msg, type="error"){
+    function showFieldNotif(fieldId,msg,type="error"){
       const el=document.getElementById(fieldId);
-      if(el){
-        el.textContent=msg;
-        el.style.color=(type==="success"?"lime":"red");
-        el.style.fontWeight="bold";
-      }
+      if(el){el.textContent=msg;el.style.color=(type==="success"?"lime":"red");}
     }
 
-    let hargaPer100=localStorage.getItem("hargaPer100")?parseInt(localStorage.getItem("hargaPer100")):12000;
-    document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
-    let promoActive=false; let userProfileUrl="";
+    let hargaPer100=12000; let promoActive=false; let userProfileUrl="";
+
+    document.getElementById("username").addEventListener("input",()=>{
+      document.getElementById("avatarPreview").classList.add("hidden");
+      document.getElementById("avatarPreview").src="";
+      showFieldNotif("notifUsername","","error");
+    });
 
     function updateHargaInfo(robux){
       if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
@@ -188,23 +184,32 @@
       });
       if(isActive){
         el.classList.remove("bg-gray-800"); el.classList.add("bg-gray-700");
-        document.getElementById("robux").value=""; document.getElementById("paketInfo").textContent="";
+        document.getElementById("robux").value=""; 
+        document.getElementById("paketInfo").textContent="";
+        showFieldNotif("notifPaket","","error");
       }else{
         el.classList.remove("bg-gray-700"); el.classList.add("bg-gray-800");
         const robux=parseInt(el.dataset.value);
         updateHargaInfo(robux);
+        showFieldNotif("notifPaket","","error");
       }
     }
 
     document.getElementById("customRobux").addEventListener("input",function(){
       const robux=parseInt(this.value);
       updateHargaInfo(robux);
+      showFieldNotif("notifCustom","","error");
     });
 
     function checkPromo(){
       const input=document.getElementById("promoInput").value.trim().toUpperCase();
-      if(input==="DEX10OFF"){promoActive=true;showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");}
-      else{promoActive=false;showFieldNotif("notifPromo","Kode Promo Salah.","error");}
+      if(input==="DEX10OFF"){
+        promoActive=true;
+        showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");
+      } else {
+        promoActive=false;
+        showFieldNotif("notifPromo","Kode Promo Salah.","error");
+      }
       const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
       if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
     }
@@ -265,6 +270,7 @@
       document.getElementById("notifContent").innerHTML="";
     }
 
+    // Admin Panel functions
     function adminLogin(){document.getElementById("adminModal").classList.remove("hidden");}
     function closeAdminModal(){document.getElementById("adminModal").classList.add("hidden");}
     function verifyAdmin(){
@@ -281,6 +287,44 @@
       const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
       if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
     }
+
+    // Background Particles
+    const canvas = document.getElementById("particleCanvas");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particles = [];
+    function createParticle(){
+      const x = Math.random() * canvas.width;
+      const y = canvas.height + 10;
+      const size = Math.random() * 3 + 2;
+      const speed = Math.random() * 1 + 0.5;
+      const color = Math.random() > 0.5 ? "rgba(0,255,255,0.7)" : "rgba(0,255,100,0.7)";
+      particles.push({x,y,size,speed,color});
+    }
+    function drawParticles(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particles.forEach((p,i)=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fillStyle=p.color;
+        ctx.shadowColor=p.color;
+        ctx.shadowBlur=15;
+        ctx.fill();
+        p.y -= p.speed;
+        if(p.y < -10){particles.splice(i,1);}
+      });
+    }
+    function animate(){
+      requestAnimationFrame(animate);
+      if(particles.length < 50){createParticle();}
+      drawParticles();
+    }
+    animate();
+    window.addEventListener("resize",()=>{
+      canvas.width=window.innerWidth;
+      canvas.height=window.innerHeight;
+    });
 
     // Set tahun otomatis di footer
     document.getElementById("year").textContent = new Date().getFullYear();
