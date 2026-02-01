@@ -165,8 +165,8 @@
       let harga=(robux/100)*hargaPer100;
       if(promoActive){harga=Math.round(harga*0.96);}
       const gamepassId=Math.round((robux/100)*143);
-      document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass ID: ${gamepassId})`;
-      document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (ID:${gamepassId})`;
+      document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
+      document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
     }
 
     // Paket toggle
@@ -244,10 +244,10 @@
         </div>`;
     });
 
+    // Format pesan WA sesuai template
     function confirmWA(username,robux,adminNumber,promoCode,hargaText){
-      let message=`DEXBLOX.ID saya ingin topup gamepass\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nProfile: ${userProfileUrl}\n`;
-      if(promoCode){message+=`Kode Promo: ${promoCode}\n`;}
-      message+=`\nMohon diproses Admin.`;
+      let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nProfile: ${userProfileUrl}\n\nMohon diproses Admin.`;
+      if(promoCode){message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nKode Promo: ${promoCode}\nProfile: ${userProfileUrl}\n\nMohon diproses Admin.`;}
       const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
       window.location.href=waLink;
       cancelWA();
@@ -280,10 +280,12 @@
       if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
     }
     window.addEventListener("load",()=>{
-      if(localStorage.getItem("adminLoggedIn")==="true"){document.getElementById("adminTools").classList.remove("hidden");}
+      if(localStorage.getItem("adminLoggedIn")==="true"){
+        document.getElementById("adminTools").classList.remove("hidden");
+      }
     });
 
-    // Background Particles
+    // Background Particles (biru neon saja)
     const canvas = document.getElementById("particleCanvas");
     const ctx = canvas.getContext("2d");
     canvas.width = window.innerWidth;
@@ -295,7 +297,7 @@
       const y = canvas.height + 10;
       const size = Math.random() * 3 + 2;
       const speed = Math.random() * 1 + 0.5;
-      const color = Math.random() > 0.5 ? "rgba(0,255,255,0.7)" : "rgba(0,255,100,0.7)";
+      const color = "rgba(0,255,255,0.7)"; // biru neon
       particles.push({x,y,size,speed,color});
     }
 
