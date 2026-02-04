@@ -37,12 +37,22 @@
     #notifContent {
       background:#1a202c; border:2px solid #00ffff;
       box-shadow:0 0 20px #00ffff,0 0 40px #00ffff;
-      padding:20px; border-radius:12px; text-align:center; max-width:320px;
+      padding:20px; border-radius:12px; text-align:center; max-width:340px;
     }
     .glow-price {text-shadow:0 0 10px #00ff00,0 0 20px #00ff00;}
     #avatarPreview {box-shadow:0 0 15px #00ffff,0 0 30px #00ffff;}
     #particleCanvas {position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;}
     .glow-footer {text-shadow:0 0 6px rgba(255,255,255,0.6),0 0 12px rgba(255,255,255,0.4);}
+    .section-title {
+      color:#fff;
+      text-shadow:0 0 8px rgba(255,255,255,0.7),0 0 16px rgba(255,255,255,0.5);
+      font-weight:700;
+      letter-spacing:1px;
+    }
+    .notif-glow {
+      text-shadow:0 0 6px rgba(0,255,255,0.8),0 0 12px rgba(0,255,255,0.6);
+      font-weight:600;
+    }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
@@ -54,12 +64,12 @@
   <header class="z-10 text-center mt-6 mb-6">
     <img src="/dexblox.png" alt="Logo DEXBLOX" class="logo-glitch mx-auto mb-4 w-40 h-40">
     <h1 class="text-5xl font-extrabold glow-title">DEXBLOX.ID</h1>
-    <p class="text-green-400 mt-2">Topup Robux Gamepass 5hari Termurah</p>
+    <p class="text-green-400 mt-2">Topup Robux Termurah & Transparan</p>
   </header>
 
   <!-- Form Topup -->
   <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Topup Gamepass 5hari</h2>
+    <h2 class="section-title mb-4">Topup Gamepass 5hari</h2>
     <form id="topupForm" class="space-y-6">
       <!-- Username -->
       <div>
@@ -74,7 +84,7 @@
 
       <!-- Harga Hari Ini -->
       <section>
-        <h3 class="text-lg font-bold text-cyan-400 mb-2">Harga Hari Ini</h3>
+        <h3 class="section-title mb-2">Harga Hari Ini</h3>
         <p class="text-white mb-4">
           Rp <span id="hargaHariIni" class="text-2xl font-extrabold text-green-400 glow-price">12.000</span> / 100 Robux
         </p>
@@ -89,7 +99,7 @@
 
       <!-- Custom Paket -->
       <section>
-        <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Paket Robux</h3>
+        <h3 class="section-title mb-2">Custom Paket Robux</h3>
         <input type="number" id="customRobux" class="p-2 rounded bg-gray-700 text-white text-center w-48" placeholder="Jumlah Robux">
         <p id="notifCustom" class="text-xs mt-1"></p>
       </section>
@@ -124,11 +134,9 @@
         <label class="block mb-2 text-white">Update Harga per 100 Robux</label>
         <input type="number" id="baseHarga" class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" placeholder="Masukkan harga baru">
         <button onclick="updateHarga()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded">Simpan Harga</button>
-        <button onclick="logoutAdmin()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mt-2">Logout</button>
       </div>
-      <div class="flex justify-center space-x-4 mt-4">
-        <button onclick="closeAdminModal()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tutup</button>
-        <button onclick="verifyAdmin()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Login</button>
+      <div class="flex justify-center mt-4">
+        <button onclick="verifyAdmin()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Masuk</button>
       </div>
     </div>
   </div>
@@ -146,10 +154,14 @@
   </footer>
 
   <script>
-    // Helper notifikasi
+    // Helper notifikasi dengan glow
     function showFieldNotif(fieldId,msg,type="error"){
       const el=document.getElementById(fieldId);
-      if(el){el.textContent=msg;el.style.color=(type==="success"?"lime":"red");}
+      if(el){
+        el.textContent=msg;
+        el.classList.add("notif-glow");
+        el.style.color=(type==="success"?"#00ff7f":"#ff4d4d");
+      }
     }
 
     // Harga default dari localStorage
@@ -247,14 +259,24 @@
       const panel=document.getElementById("notifPanel");
       const content=document.getElementById("notifContent");
       panel.style.display="flex";
+      const hargaText=document.getElementById("paketInfo").textContent;
+      const promoCode=document.getElementById("promoInput").value.trim();
+      const gamepassId=document.getElementById("paketInfo").textContent.match(/Gamepass : (\d+)/)[1];
       content.innerHTML=`
         <h3 class="text-cyan-400 font-bold mb-4">Konfirmasi Topup</h3>
+        <div class="flex flex-col items-center mb-4">
+          <img src="${document.getElementById("avatarPreview").src}" 
+               class="rounded-full border-2 border-cyan-400 mb-2" width="100" height="100">
+          <p class="text-white">Username: <span class="text-green-400">${username}</span></p>
+        </div>
         <p class="text-white mb-4">
-          Username: <span class="text-green-400">${username}</span><br>
-          Paket: <span class="text-green-400">${robux.split(" - ")[0]}</span>
+          Paket: <span class="text-green-400">${robux}</span><br>
+          Harga: ${hargaText}<br>
+          Gamepass: <span class="text-green-400">${gamepassId}</span>
+          ${promoCode?`<br>Kode Promo: ${promoCode}`:""}
         </p>
         <div class="flex justify-center space-x-4">
-          <button onclick="confirmWA('${username}','${robux}','${adminNumber}')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
+          <button onclick="confirmWA('${username}','${robux}','${adminNumber}','${promoCode}','${hargaText}')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
           <button onclick="cancelWA()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tidak</button>
         </div>`;
     });
@@ -277,9 +299,14 @@
     function closeAdminModal(){document.getElementById("adminModal").classList.add("hidden");}
     function verifyAdmin(){
       const pass=document.getElementById("adminPassword").value;
-      if(pass==="dexblox123"){document.getElementById("adminTools").classList.remove("hidden");localStorage.setItem("adminLoggedIn","true");document.getElementById("baseHarga").focus();}
+      if(pass==="dexblox123"){
+        document.getElementById("adminTools").classList.remove("hidden");
+        localStorage.setItem("adminLoggedIn","true");
+        document.getElementById("baseHarga").focus();
+      }
       else{alert("Password salah!");}
     }
+
     function logoutAdmin(){
       localStorage.removeItem("adminLoggedIn");
       document.getElementById("adminTools").classList.add("hidden");
@@ -287,7 +314,10 @@
 
     function updateHarga(){
       const baseHarga=parseInt(document.getElementById("baseHarga").value);
-      if(isNaN(baseHarga)||baseHarga<=0){alert("Harga tidak valid!");return;}
+      if(isNaN(baseHarga)||baseHarga<=0){
+        showFieldNotif("notifCustom","Harga tidak valid!","error");
+        return;
+      }
       hargaPer100=baseHarga;
       localStorage.setItem("hargaPer100",hargaPer100);
       document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
@@ -296,7 +326,7 @@
       // Auto logout setelah update harga
       logoutAdmin();
       closeAdminModal();
-      alert("Harga berhasil diperbarui. Admin otomatis logout.");
+      alert("Harga berhasil diperbarui. Admin otomatis logout, silakan login kembali.");
     }
 
     window.addEventListener("load",()=>{
