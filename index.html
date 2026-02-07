@@ -218,25 +218,27 @@
     const promoCode=document.getElementById("promoInput").value.trim();
     const avatarSrc=document.getElementById("avatarPreview").src;
 
-    content.innerHTML=`
-      <h3 class="text-cyan-400 font-bold mb-4">Konfirmasi Topup</h3>
-      <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border-2 border-cyan-400" width="120" height="120">
-      <p class="text-white mb-4">
-        Username: <span class="text-green-400">${username}</span><br>
-        Paket: <span class="text-green-400">${robux}</span><br>
-        Harga: ${hargaText}${promoCode?`<br>Kode Promo: ${promoCode}`:""}
-      </p>
-      <div class="flex justify-center space-x-4">
-        <button id="btnConfirmWA" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
-        <button id="btnCancelWA" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tidak</button>
-      </div>`;
+    const now = new Date().toLocaleString("id-ID");
+content.innerHTML=`
+  <h3 class="text-cyan-400 font-bold mb-4">Konfirmasi Topup</h3>
+  <p class="text-white mb-4">
+    Username: <span class="text-green-400">${username}</span><br>
+    Paket: <span class="text-green-400">${robux}</span><br>
+    Profile: <a href="${userProfileUrl}" target="_blank" class="text-cyan-400 underline">Lihat Profil</a><br>
+    Waktu: ${now}
+    ${promoCode ? `<br>Kode Promo: <span class="text-yellow-400">${promoCode}</span>` : ""}
+  </p>
+  <div class="flex justify-center space-x-4">
+    <button id="btnConfirmWA" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
+    <button id="btnCancelWA" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tidak</button>
+  </div>`;
     document.getElementById("btnConfirmWA").addEventListener("click",()=>confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc));
     document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
   });
 
   function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
     const now = new Date().toLocaleString("id-ID");
-    let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nProfile: ${userProfileUrl}\nAvatar: ${avatarSrc}\nWaktu: ${now}\n\nMohon diproses Admin.`;
+    let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nProfile: ${userProfileUrl}\nWaktu: ${now}\n\nMohon diproses Admin.`;
     if(promoCode){
       message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nKode Promo: ${promoCode}\nProfile: ${userProfileUrl}\nAvatar: ${avatarSrc}\nWaktu: ${now}\n\nMohon diproses Admin.`;
     }
