@@ -328,7 +328,7 @@ function kirimBuktiAdmin(){
   const future=new Date();
   future.setDate(now.getDate()+5);
 
-  const message=`Halo ,
+  const message=`Halo ${username},
 
 Bukti pembayaran Anda sudah kami terima.
 
@@ -337,11 +337,11 @@ Paket: ${robux} Robux
 Metode: ${metode}
 Waktu Transaksi: ${formatDate(now)}
 Estimasi Selesai: ${formatDate(future)}
-Profil: ${avatar}
+Profil: ${userProfileUrl}
 
 Robux akan masuk sesuai estimasi.
 
-Terima kasih telah topup di DEXBLOX.ID 🙏`;
+Terima kasih sudah topup di DEXBLOX.ID `;
 
   const waLink=`https://wa.me/${userWA}?text=${encodeURIComponent(message)}`;
   window.open(waLink,"_blank");
