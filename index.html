@@ -221,6 +221,7 @@
     const now = new Date().toLocaleString("id-ID");
 content.innerHTML=`
   <h3 class="text-cyan-400 font-bold mb-4">Konfirmasi Topup</h3>
+  <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border-2 border-cyan-400" width="120" height="120">
   <p class="text-white mb-4">
     Username: <span class="text-green-400">${username}</span><br>
     Paket: <span class="text-green-400">${robux}</span><br>
@@ -232,20 +233,18 @@ content.innerHTML=`
     <button id="btnConfirmWA" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
     <button id="btnCancelWA" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tidak</button>
   </div>`;
-    document.getElementById("btnConfirmWA").addEventListener("click",()=>confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc));
-    document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
+document.getElementById("btnConfirmWA").addEventListener("click",()=>confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc));
+document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
   });
 
-  function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
-    const now = new Date().toLocaleString("id-ID");
-    let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nProfile: ${userProfileUrl}\nWaktu: ${now}\n\nMohon diproses Admin.`;
-    if(promoCode){
-      message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nKode Promo: ${promoCode}\nProfile: ${userProfileUrl}\nAvatar: ${avatarSrc}\nWaktu: ${now}\n\nMohon diproses Admin.`;
-    }
-    const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
-    window.open(waLink,"_blank");
-    cancelWA();
-  }
+  function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc,gamepassId){
+  const now = new Date().toLocaleString("id-ID");
+  let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux} Robux Rp.${hargaText} Gamepass ${gamepassId}\nProfile: ${userProfileUrl}\nWaktu: ${now}${promoCode ? `\nKode Promo: ${promoCode}` : ""}\n\nMohon diproses Admin.`;
+
+  const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+  window.open(waLink,"_blank");
+  cancelWA();
+}
 
   function cancelWA(){
     document.getElementById("notifPanel").style.display="none";
