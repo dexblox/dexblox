@@ -6,353 +6,392 @@
   <title>DEXBLOX.ID - Topup Robux</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      background: linear-gradient(-45deg, #000000, #001f1f, #003333, #000000);
-      background-size: 400% 400%;
-      animation: gradientMove 15s ease infinite;
-      font-family: monospace;
-    }
-    @keyframes gradientMove {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
-    }
-    .paket-card {transition:all 0.3s ease; cursor:pointer; background-color:#2d3748;}
-    .paket-card:hover {transform:scale(1.03);}
-    .glow-title {color:#00ffff; text-shadow:0 0 10px #00ffff,0 0 20px #00ffff;}
-    .logo-glitch {filter:drop-shadow(0 0 10px #00ffff) drop-shadow(0 0 20px #00ffff); animation: glitch 1.2s infinite;}
-    @keyframes glitch {
-      0% {transform: translate(0);}
-      20% {transform: translate(-1px, 1px);}
-      40% {transform: translate(-1px, -1px);}
-      60% {transform: translate(1px, 1px);}
-      80% {transform: translate(1px, -1px);}
-      100% {transform: translate(0);}
-    }
-    #notifPanel {
-      position: fixed; top:0; left:0; width:100%; height:100%;
-      background: rgba(0,0,0,0.7); display:none;
-      align-items:center; justify-content:center; z-index:50;
-    }
-    #notifContent {
-      background:#1a202c; border:2px solid #00ffff;
-      box-shadow:0 0 20px #00ffff,0 0 40px #00ffff;
-      padding:20px; border-radius:12px; text-align:center; max-width:320px;
-    }
-    .glow-price {text-shadow:0 0 10px #00ff00,0 0 20px #00ff00;}
-    #avatarPreview {box-shadow:0 0 15px #00ffff,0 0 30px #00ffff;}
-    #particleCanvas {position: fixed; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;}
-    .glow-footer {text-shadow:0 0 6px rgba(255,255,255,0.6),0 0 12px rgba(255,255,255,0.4);}
+    body {background: linear-gradient(-45deg,#000,#001f1f,#003333,#000);background-size:400% 400%;animation:gradientMove 15s ease infinite;font-family:monospace;}
+    @keyframes gradientMove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    .paket-card{transition:.3s;cursor:pointer;background:#2d3748}.paket-card:hover{transform:scale(1.03)}
+    .glow-title{color:#0ff;text-shadow:0 0 10px #0ff,0 0 20px #0ff}
+    .logo-glitch{filter:drop-shadow(0 0 10px #0ff) drop-shadow(0 0 20px #0ff);animation:glitch 1.2s infinite}
+    @keyframes glitch{0%{transform:translate(0)}20%{transform:translate(-1px,1px)}40%{transform:translate(-1px,-1px)}60%{transform:translate(1px,1px)}80%{transform:translate(1px,-1px)}100%{transform:translate(0)}}
+    #notifPanel{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:50}
+    #notifContent{background:#1a202c;border:2px solid #0ff;box-shadow:0 0 20px #0ff,0 0 40px #0ff;padding:20px;border-radius:12px;text-align:center;max-width:320px}
+    .glow-price{text-shadow:0 0 10px #0f0,0 0 20px #0f0}
+    #avatarPreview{box-shadow:0 0 15px #0ff,0 0 30px #0ff}
+    #particleCanvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+    .glow-footer{text-shadow:0 0 6px rgba(255,255,255,.6),0 0 12px rgba(255,255,255,.4)}
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
 
-  <!-- Background Partikel -->
-  <canvas id="particleCanvas"></canvas>
+<canvas id="particleCanvas"></canvas>
 
-  <!-- Header -->
-  <header class="z-10 text-center mt-6 mb-6">
-    <img src="/dexblox.png" alt="Logo DEXBLOX" class="logo-glitch mx-auto mb-4 w-40 h-40">
-    <h1 class="text-5xl font-extrabold glow-title">DEXBLOX.ID</h1>
-    <p class="text-green-400 mt-2">Topup Robux Termurah & Transparan</p>
-  </header>
+<header class="z-10 text-center mt-6 mb-6">
+  <img src="/dexblox.png" alt="Logo DEXBLOX" class="logo-glitch mx-auto mb-4 w-40 h-40">
+  <h1 class="text-5xl font-extrabold glow-title">DEXBLOX.ID</h1>
+  <p class="text-green-400 mt-2">Topup Robux Termurah & Transparan</p>
+</header>
 
-  <!-- Form Topup -->
-  <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
-    <h2 class="text-2xl font-bold text-cyan-400 mb-4">Topup Gamepass 5hari</h2>
-    <form id="topupForm" class="space-y-6">
-      <!-- Username -->
-      <div>
-        <label class="block mb-1 text-white">Username Roblox</label>
-        <input type="text" id="username" class="w-full p-2 rounded bg-gray-700 text-white text-center" placeholder="Masukkan Username Roblox">
-        <p id="notifUsername" class="text-xs mt-1"></p>
-        <div class="mt-4 text-center">
-          <img id="avatarPreview" class="hidden mx-auto rounded-full border-2 border-cyan-400" width="120" height="120" alt="Avatar Roblox">
-        </div>
-        <button type="button" onclick="cekUsername()" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded mt-2">Cek Username</button>
+<!-- Form Topup -->
+<div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
+  <h2 class="text-2xl font-bold text-cyan-400 mb-4">Topup Gamepass 5hari</h2>
+  <form id="topupForm" class="space-y-6">
+    <div>
+      <label class="block mb-1 text-white">Username Roblox</label>
+      <input type="text" id="username" class="w-full p-2 rounded bg-gray-700 text-white text-center" placeholder="Masukkan Username Roblox">
+      <p id="notifUsername" class="text-xs mt-1"></p>
+      <div class="mt-4 text-center">
+        <img id="avatarPreview" class="hidden mx-auto rounded-full border-2 border-cyan-400" width="120" height="120" alt="Avatar Roblox">
       </div>
+      <button type="button" id="btnCekUser" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded mt-2">Cek Username</button>
+    </div>
 
-      <!-- Harga Hari Ini -->
-      <section>
-        <h3 class="text-lg font-bold text-cyan-400 mb-2">Harga Hari Ini</h3>
-        <p class="text-white mb-4">
-          Rp <span id="hargaHariIni" class="text-2xl font-extrabold text-green-400 glow-price">12.000</span> / 100 Robux
-        </p>
-        <div class="grid grid-cols-2 gap-4">
-          <div onclick="togglePaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="100">100 Robux</div>
-          <div onclick="togglePaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="200">200 Robux</div>
-          <div onclick="togglePaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="500">500 Robux</div>
-          <div onclick="togglePaket(this)" class="paket-card p-4 rounded-lg text-white font-bold" data-value="1000">1000 Robux</div>
-        </div>
-        <p id="notifPaket" class="text-xs mt-1"></p>
-      </section>
-
-      <!-- Custom Paket -->
-      <section>
-        <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Paket Robux</h3>
-        <input type="number" id="customRobux" class="p-2 rounded bg-gray-700 text-white text-center w-48" placeholder="Jumlah Robux">
-        <p id="notifCustom" class="text-xs mt-1"></p>
-      </section>
-
-      <p id="paketInfo" class="text-green-400 font-bold mt-2"></p>
-      <input type="hidden" id="robux" name="robux">
-
-      <!-- Promo -->
-      <div>
-        <label class="block mb-1 text-white">Kode Promo</label>
-        <div class="flex space-x-2">
-          <input type="text" id="promoInput" class="flex-1 p-2 rounded bg-gray-700 text-white text-center" placeholder="Masukkan kode promo">
-          <button type="button" onclick="checkPromo()" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 rounded">Cek</button>
-        </div>
-        <p id="notifPromo" class="text-xs mt-1"></p>
+    <section>
+      <h3 class="text-lg font-bold text-cyan-400 mb-2">Harga Hari Ini</h3>
+      <p class="text-white mb-4">
+        Rp <span id="hargaHariIni" class="text-2xl font-extrabold text-green-400 glow-price">12.000</span> / 100 Robux
+      </p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="paket-card p-4 rounded-lg text-white font-bold" data-value="100">100 Robux</div>
+        <div class="paket-card p-4 rounded-lg text-white font-bold" data-value="200">200 Robux</div>
+        <div class="paket-card p-4 rounded-lg text-white font-bold" data-value="500">500 Robux</div>
+        <div class="paket-card p-4 rounded-lg text-white font-bold" data-value="1000">1000 Robux</div>
       </div>
+      <p id="notifPaket" class="text-xs mt-1"></p>
+    </section>
 
-      <!-- Submit -->
-      <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded shadow-lg">Topup</button>
-    </form>
-  </div>
+    <section>
+      <h3 class="text-lg font-bold text-cyan-400 mb-2">Custom Paket Robux</h3>
+      <input type="number" id="customRobux" class="p-2 rounded bg-gray-700 text-white text-center w-48" placeholder="Jumlah Robux">
+      <p id="notifCustom" class="text-xs mt-1"></p>
+    </section>
 
-  <!-- Konfirmasi WhatsApp Modal -->
-  <div id="notifPanel"><div id="notifContent"></div></div>
+    <p id="paketInfo" class="text-green-400 font-bold mt-2"></p>
+    <input type="hidden" id="robux" name="robux">
 
-  <!-- Admin Panel -->
-  <div id="adminModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-    <div class="bg-gray-900 bg-opacity-70 p-6 rounded-lg shadow-lg text-center max-w-sm border border-green-400">
-      <h2 class="text-green-400 font-bold text-lg mb-4">Admin Panel</h2>
-      <input type="password" id="adminPassword" class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" placeholder="••••••••">
-      <div id="adminTools" class="hidden">
-        <label class="block mb-2 text-white">Update Harga per 100 Robux</label>
-        <input type="number" id="baseHarga" class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" placeholder="Masukkan harga baru">
-        <button onclick="updateHarga()" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded">Simpan Harga</button>
-        <button onclick="logoutAdmin()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mt-2">Logout</button>
+    <div>
+      <label class="block mb-1 text-white">Kode Promo</label>
+      <div class="flex space-x-2">
+        <input type="text" id="promoInput" class="flex-1 p-2 rounded bg-gray-700 text-white text-center" placeholder="Masukkan kode promo">
+        <button type="button" id="btnPromo" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 rounded">Cek</button>
       </div>
-      <div class="flex justify-center space-x-4 mt-4">
-        <button onclick="closeAdminModal()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tutup</button>
-        <button onclick="verifyAdmin()" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Login</button>
-      </div>
+      <p id="notifPromo" class="text-xs mt-1"></p>
+    </div>
+
+    <button type="submit" class="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded shadow-lg">Topup</button>
+  </form>
+</div>
+
+<div id="notifPanel"><div id="notifContent"></div></div>
+
+<!-- Admin Panel -->
+<div id="adminModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+  <div class="bg-gray-900 bg-opacity-70 p-6 rounded-lg shadow-lg text-center max-w-sm border border-green-400">
+    <h2 class="text-green-400 font-bold text-lg mb-4">Admin Panel</h2>
+    <input type="password" id="adminPassword" class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" placeholder="••••••••">
+    <div id="adminTools" class="hidden">
+      <label class="block mb-2 text-white">Update Harga per 100 Robux</label>
+      <input type="number" id="baseHarga" class="w-full p-2 rounded bg-gray-800 text-white text-center mb-4" placeholder="Masukkan harga baru">
+      <button id="btnUpdateHarga" class="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded">Simpan Harga</button>
+      <button id="btnLogoutAdmin" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded mt-2">Logout</button>
+
+      <h3 class="text-cyan-400 font-bold mt-6 mb-2">Kirim Bukti ke User</h3>
+      <input type="text" id="adminUser" placeholder="Username Roblox" class="w-full p-2 rounded bg-gray-800 text-white mb-2">
+      <button id="btnAdminCekUser" class="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-4 py-2 rounded mb-2">Cek Username</button>
+      <img id="adminAvatar" class="hidden mx-auto mb-2 rounded-full border-2 border-cyan-400" width="100" height="100" alt="Avatar Roblox">
+      <p id="adminNotifUser" class="text-xs mb-2"></p>
+
+      <input type="text" id="adminRobux" placeholder="Jumlah Robux" class="w-full p-2 rounded bg-gray-800 text-white mb-2">
+
+      <select id="adminMetode" class="w-full p-2 rounded bg-gray-800 text-white mb-2">
+        <option value="">-- Pilih Metode Pembayaran --</option>
+        <option value="DANA">DANA</option>
+        <option value="GoPay">GoPay</option>
+        <option value="QRIS">QRIS</option>
+        <option value="OVO">OVO</option>
+        <option value="ShopeePay">ShopeePay</option>
+      </select>
+
+      <input type="text" id="adminWA" placeholder="Nomor WhatsApp User (62...)" class="w-full p-2 rounded bg-gray-800 text-white mb-2">
+      <button id="btnKirimBukti" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Kirim Bukti</button>
+    </div>
+    <div class="flex justify-center space-x-4 mt-4">
+      <button id="btnCloseAdmin" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tutup</button>
+      <button id="btnLoginAdmin" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Login</button>
     </div>
   </div>
+</div>
 
-  <!-- Mini Admin Button -->
-  <div class="fixed bottom-2 right-2 bg-gray-800 bg-opacity-60 p-2 rounded-lg shadow-lg">
-    <button id="adminToggleBtn" onclick="adminLogin()" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold px-2 py-1 text-xs rounded">
-      Admin
-    </button>
-  </div>
+<!-- Mini Admin Button -->
+<div class="fixed bottom-2 right-2 bg-gray-800 bg-opacity-60 p-2 rounded-lg shadow-lg">
+  <button id="adminToggleBtn" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold px-2 py-1 text-xs rounded">
+    Admin
+  </button>
+</div>
 
-  <!-- Footer -->
-  <footer class="text-center mt-12 mb-4 text-sm text-white glow-footer w-full">
-    © <span id="fullDate"></span> DEXBLOX.ID — Semua hak cipta dilindungi
-  </footer>
+<!-- Footer -->
+<footer class="text-center mt-12 mb-4 text-sm text-white glow-footer w-full">
+  © <span id="fullDate"></span> DEXBLOX.ID — Semua hak cipta dilindungi
+</footer>
 
-  <script>
-    // Helper notifikasi
-    function showFieldNotif(fieldId,msg,type="error"){
-      const el=document.getElementById(fieldId);
-      if(el){el.textContent=msg;el.style.color=(type==="success"?"lime":"red");}
-    }
+<script>
+  // Helper notifikasi
+  function showFieldNotif(fieldId,msg,type="error"){
+    const el=document.getElementById(fieldId);
+    if(el){el.textContent=msg;el.style.color=(type==="success"?"lime":"red");}
+  }
 
-    // Harga default dari localStorage
-    let hargaPer100 = localStorage.getItem("hargaPer100") 
-      ? parseInt(localStorage.getItem("hargaPer100")) 
-      : 12000;
-    document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
+  // Harga default
+  let hargaPer100 = localStorage.getItem("hargaPer100") ? parseInt(localStorage.getItem("hargaPer100")) : 12000;
+  document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
 
-    let promoActive=false; let userProfileUrl="";
+  let promoActive=false; let userProfileUrl="";
 
-    // Update harga info
-    function updateHargaInfo(robux){
-      if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
-      let harga=(robux/100)*hargaPer100;
-      if(promoActive){harga=Math.round(harga*0.96);}
-      const gamepassId=Math.round((robux/100)*143);
-      document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
-      document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
-    }
+  // Update harga info
+  function updateHargaInfo(robux){
+    if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
+    let harga=(robux/100)*hargaPer100;
+    if(promoActive){harga=Math.round(harga*0.96);}
+    const gamepassId=Math.round((robux/100)*143);
+    document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
+    document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
+  }
 
-    // Paket toggle
-    function togglePaket(el){
-      document.getElementById("customRobux").value = "";
-      document.querySelectorAll(".paket-card").forEach(card=>{
-        card.classList.remove("bg-gray-800"); card.classList.add("bg-gray-700");
-      });
-      el.classList.remove("bg-gray-700"); el.classList.add("bg-gray-800");
-      const robux=parseInt(el.dataset.value);
-      updateHargaInfo(robux);
-    }
-
-    // Custom paket
-    document.getElementById("customRobux").addEventListener("input",function(){
-      const robux=parseInt(this.value);
-      updateHargaInfo(robux);
+  // Paket toggle
+  document.querySelectorAll(".paket-card").forEach(card=>{
+    card.addEventListener("click",()=>{
+      document.getElementById("customRobux").value="";
+      document.querySelectorAll(".paket-card").forEach(c=>c.classList.remove("bg-gray-800"));
+      card.classList.add("bg-gray-800");
+      updateHargaInfo(parseInt(card.dataset.value));
     });
+  });
 
-    // Promo
-    function checkPromo(){
-      const input=document.getElementById("promoInput").value.trim().toUpperCase();
-      if(input==="DEX10OFF"){
-        promoActive=true;
-        showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");
+  // Custom paket
+  document.getElementById("customRobux").addEventListener("input",function(){
+    updateHargaInfo(parseInt(this.value));
+  });
+
+  // Promo
+  document.getElementById("btnPromo").addEventListener("click",()=>{
+    const input=document.getElementById("promoInput").value.trim().toUpperCase();
+    if(input==="DEX10OFF"){promoActive=true;showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");}
+    else{promoActive=false;showFieldNotif("notifPromo","Kode Promo Salah.","error");}
+    const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
+    if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
+  });
+
+  // Cek Username
+  document.getElementById("btnCekUser").addEventListener("click",cekUsername);
+  async function cekUsername(){
+    const username=document.getElementById("username").value.trim();
+    if(!username){showFieldNotif("notifUsername","Harap isi Username Roblox!","error");return;}
+    try{
+      const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
+      const dataUser=await resUser.json();
+      if(resUser.ok){
+        showFieldNotif("notifUsername",`Username ditemukan: ${dataUser.name}`,"success");
+        userProfileUrl=dataUser.profileUrl;
+        const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
+        const dataAvatar=await resAvatar.json();
+        if(resAvatar.ok && dataAvatar.avatarUrl){
+          document.getElementById("avatarPreview").src=dataAvatar.avatarUrl;
+          document.getElementById("avatarPreview").classList.remove("hidden");
+        }
+      }else{showFieldNotif("notifUsername","Error: "+dataUser.error,"error");}
+    }catch(err){showFieldNotif("notifUsername","Gagal cek username","error");}
+  }
+
+  // Submit form
+  document.getElementById("topupForm").addEventListener("submit",function(e){
+    e.preventDefault();
+    const username=document.getElementById("username").value.trim();
+    let robux=document.getElementById("robux").value;
+    const adminNumber="6285362187740";
+    if(!username){showFieldNotif("notifUsername","Harap isi Username Roblox!","error");return;}
+    if(document.getElementById("avatarPreview").classList.contains("hidden")){
+      showFieldNotif("notifUsername","Harap klik 'Cek Username' dulu!","error");return;}
+    if(!robux){showFieldNotif("notifPaket","Harap pilih paket Robux!","error");return;}
+
+    const panel=document.getElementById("notifPanel");
+    const content=document.getElementById("notifContent");
+    panel.style.display="flex";
+    const hargaText=document.getElementById("paketInfo").textContent;
+    const promoCode=document.getElementById("promoInput").value.trim();
+    const avatarSrc=document.getElementById("avatarPreview").src;
+
+    content.innerHTML=`
+      <h3 class="text-cyan-400 font-bold mb-4">Konfirmasi Topup</h3>
+      <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border-2 border-cyan-400" width="120" height="120">
+      <p class="text-white mb-4">
+        Username: <span class="text-green-400">${username}</span><br>
+        Paket: <span class="text-green-400">${robux}</span><br>
+        Harga: ${hargaText}${promoCode?`<br>Kode Promo: ${promoCode}`:""}
+      </p>
+      <div class="flex justify-center space-x-4">
+        <button id="btnConfirmWA" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
+        <button id="btnCancelWA" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tidak</button>
+      </div>`;
+    document.getElementById("btnConfirmWA").addEventListener("click",()=>confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc));
+    document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
+  });
+
+  function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
+    const now = new Date().toLocaleString("id-ID");
+    let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nProfile: ${userProfileUrl}\nAvatar: ${avatarSrc}\nWaktu: ${now}\n\nMohon diproses Admin.`;
+    if(promoCode){
+      message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nKode Promo: ${promoCode}\nProfile: ${userProfileUrl}\nAvatar: ${avatarSrc}\nWaktu: ${now}\n\nMohon diproses Admin.`;
+    }
+    const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+    window.open(waLink,"_blank");
+    cancelWA();
+  }
+
+  function cancelWA(){
+    document.getElementById("notifPanel").style.display="none";
+  }
+
+  // Admin Panel binding
+  document.getElementById("adminToggleBtn").addEventListener("click",()=>{document.getElementById("adminModal").classList.remove("hidden");});
+  document.getElementById("btnCloseAdmin").addEventListener("click",()=>{document.getElementById("adminModal").classList.add("hidden");});
+  document.getElementById("btnLoginAdmin").addEventListener("click",verifyAdmin);
+  document.getElementById("btnLogoutAdmin").addEventListener("click",logoutAdmin);
+  document.getElementById("btnUpdateHarga").addEventListener("click",updateHarga);
+  document.getElementById("btnAdminCekUser").addEventListener("click",cekUserAdmin);
+  document.getElementById("btnKirimBukti").addEventListener("click",kirimBuktiAdmin);
+
+  function verifyAdmin(){
+    const pass=document.getElementById("adminPassword").value;
+    if(pass==="dexblox123"){
+      document.getElementById("adminTools").classList.remove("hidden");
+      document.getElementById("adminToggleBtn").textContent="Admin (ON)";
+    } else { alert("Password salah!"); }
+  }
+  function logoutAdmin(){
+    document.getElementById("adminTools").classList.add("hidden");
+    document.getElementById("adminToggleBtn").textContent="Admin";
+  }
+  function updateHarga(){
+    const baseHarga=parseInt(document.getElementById("baseHarga").value);
+    if(isNaN(baseHarga)||baseHarga<=0){alert("Harga tidak valid!");return;}
+    hargaPer100=baseHarga;
+    localStorage.setItem("hargaPer100",hargaPer100);
+    document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
+    alert("Harga berhasil diperbarui!");
+  }
+
+  async function cekUserAdmin(){
+    const username=document.getElementById("adminUser").value.trim();
+    if(!username){document.getElementById("adminNotifUser").textContent="Harap isi Username!";return;}
+    try{
+      const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
+      const dataUser=await resUser.json();
+      if(resUser.ok){
+        document.getElementById("adminNotifUser").textContent=`Username ditemukan: ${dataUser.name}`;
+        const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
+        const dataAvatar=await resAvatar.json();
+        if(resAvatar.ok && dataAvatar.avatarUrl){
+          document.getElementById("adminAvatar").src=dataAvatar.avatarUrl;
+          document.getElementById("adminAvatar").classList.remove("hidden");
+        }
       } else {
-        promoActive=false;
-        showFieldNotif("notifPromo","Kode Promo Salah.","error");
+        document.getElementById("adminNotifUser").textContent="Error: "+dataUser.error;
       }
-      const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
-      if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
+    }catch(err){
+      document.getElementById("adminNotifUser").textContent="Gagal cek username";
     }
+  }
 
-    // Cek Username (proxy API)
-    async function cekUsername(){
-      const username=document.getElementById("username").value.trim();
-      if(!username){showFieldNotif("notifUsername","Harap isi Username Roblox!","error");return;}
-      try{
-        const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
-        const dataUser=await resUser.json();
-        if(resUser.ok){
-          showFieldNotif("notifUsername",`Username ditemukan: ${dataUser.name}`,"success");
-          userProfileUrl=dataUser.profileUrl;
-          const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
-          const dataAvatar=await resAvatar.json();
-          if(resAvatar.ok && dataAvatar.avatarUrl){
-            document.getElementById("avatarPreview").src=dataAvatar.avatarUrl;
-            document.getElementById("avatarPreview").classList.remove("hidden");
-          } else {
-            showFieldNotif("notifUsername","Avatar tidak tersedia","error");
-          }
-        }else{showFieldNotif("notifUsername","Error: "+dataUser.error,"error");}
-      }catch(err){showFieldNotif("notifUsername","Gagal cek username","error");}
-    }
+  function formatDate(dateObj) {
+  return dateObj.toLocaleString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
 
-    // Hapus avatar jika username dikosongkan
-    document.getElementById("username").addEventListener("input", function(){
-      if(this.value.trim() === ""){
-        document.getElementById("avatarPreview").src = "";
-        document.getElementById("avatarPreview").classList.add("hidden");
-        userProfileUrl = "";
-        showFieldNotif("notifUsername","","error");
-      }
+function kirimBuktiAdmin(){
+  const username=document.getElementById("adminUser").value.trim();
+  const robux=document.getElementById("adminRobux").value.trim();
+  const metode=document.getElementById("adminMetode").value.trim();
+  const userWA=document.getElementById("adminWA").value.trim();
+  const avatar=document.getElementById("adminAvatar").src;
+
+  if(!username||!robux||!metode||!userWA){
+    alert("Lengkapi semua data!");
+    return;
+  }
+
+  // Waktu sekarang
+  const now=new Date();
+  // Waktu 5 hari ke depan
+  const future=new Date();
+  future.setDate(now.getDate()+5);
+
+  const message=`Halo ,
+
+Bukti pembayaran Anda sudah kami terima.
+
+Username: ${username}
+Paket: ${robux} Robux
+Metode: ${metode}
+Waktu Transaksi: ${formatDate(now)}
+Estimasi Selesai: ${formatDate(future)}
+Profil: ${avatar}
+
+Robux akan masuk sesuai estimasi.
+
+Terima kasih telah topup di DEXBLOX.ID 🙏`;
+
+  const waLink=`https://wa.me/${userWA}?text=${encodeURIComponent(message)}`;
+  window.open(waLink,"_blank");
+}
+
+  // Background Particles
+  const canvas = document.getElementById("particleCanvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  let particles = [];
+  function createParticle(){
+    const x = Math.random() * canvas.width;
+    const y = canvas.height + 10;
+    const size = Math.random() * 3 + 2;
+    const speed = Math.random() * 1 + 0.5;
+    const dx = (Math.random()-0.5)*0.5;
+    const color = "rgba(0,255,255,0.7)";
+    particles.push({x,y,size,speed,color,dx});
+  }
+  function drawParticles(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach((p,i)=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      ctx.fillStyle=p.color;
+      ctx.shadowColor=p.color;
+      ctx.shadowBlur=15;
+      ctx.fill();
+      p.y -= p.speed;
+      p.x += p.dx;
+      if(p.y < -10){particles.splice(i,1);}
     });
+  }
+  function animate(){
+    requestAnimationFrame(animate);
+    if(particles.length < 50){createParticle();}
+    drawParticles();
+  }
+  animate();
+  window.addEventListener("resize",()=>{
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+  });
 
-    // Submit form
-    document.getElementById("topupForm").addEventListener("submit",function(e){
-      e.preventDefault();
-      const username=document.getElementById("username").value.trim();
-      let robux=document.getElementById("robux").value;
-      const adminNumber="6285362187740";
-      if(!username){showFieldNotif("notifUsername","Harap isi Username Roblox!","error");return;}
-      if(document.getElementById("avatarPreview").classList.contains("hidden")){
-        showFieldNotif("notifUsername","Harap klik 'Cek Username' dulu!","error");return;}
-      if(!robux){showFieldNotif("notifPaket","Harap pilih paket Robux!","error");return;}
-
-      const panel=document.getElementById("notifPanel");
-      const content=document.getElementById("notifContent");
-      panel.style.display="flex";
-      const hargaText=document.getElementById("paketInfo").textContent;
-      const promoCode=document.getElementById("promoInput").value.trim();
-      content.innerHTML=`
-        <h3 class="text-cyan-400 font-bold mb-4">Konfirmasi Topup</h3>
-        <p class="text-white mb-4">Username: <span class="text-green-400">${username}</span><br>Paket: <span class="text-green-400">${robux}</span><br>Harga: ${hargaText}${promoCode?`<br>Kode Promo: ${promoCode}`:""}</p>
-        <div class="flex justify-center space-x-4">
-          <button onclick="confirmWA('${username}','${robux}','${adminNumber}','${promoCode}','${hargaText}')" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Ya</button>
-          <button onclick="cancelWA()" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Tidak</button>
-        </div>`;
-    });
-
-    // Format pesan WA sesuai template
-    function confirmWA(username,robux,adminNumber,promoCode,hargaText){
-      let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nProfile: ${userProfileUrl}\n\nMohon diproses Admin.`;
-      if(promoCode){message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nHarga: ${hargaText}\nKode Promo: ${promoCode}\nProfile: ${userProfileUrl}\n\nMohon diproses Admin.`;}
-      const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
-      window.location.href=waLink;
-      cancelWA();
-    }
-    function cancelWA(){
-      document.getElementById("notifPanel").style.display="none";
-      document.getElementById("notifContent").innerHTML="";
-    }
-
-    // Admin Panel functions
-    function adminLogin(){document.getElementById("adminModal").classList.remove("hidden");}
-    function closeAdminModal(){document.getElementById("adminModal").classList.add("hidden");}
-    function verifyAdmin(){
-      const pass=document.getElementById("adminPassword").value;
-      if(pass==="dexblox123"){document.getElementById("adminTools").classList.remove("hidden");localStorage.setItem("adminLoggedIn","true");document.getElementById("baseHarga").focus();}
-      else{alert("Password salah!");}
-    }
-    function logoutAdmin(){
-      localStorage.removeItem("adminLoggedIn");
-      document.getElementById("adminTools").classList.add("hidden");
-    }
-
-    function updateHarga(){
-      const baseHarga=parseInt(document.getElementById("baseHarga").value);
-      if(isNaN(baseHarga)||baseHarga<=0){alert("Harga tidak valid!");return;}
-      hargaPer100=baseHarga;
-      localStorage.setItem("hargaPer100",hargaPer100);
-      document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
-      const robuxVal=document.getElementById("robux").value.match(/(\d+) Robux/);
-      if(robuxVal){updateHargaInfo(parseInt(robuxVal[1]));}
-      // Auto logout setelah update harga
-      logoutAdmin();
-      closeAdminModal();
-      alert("Harga berhasil diperbarui. Admin otomatis logout.");
-    }
-
-    window.addEventListener("load",()=>{
-      if(localStorage.getItem("adminLoggedIn")==="true"){
-        document.getElementById("adminTools").classList.remove("hidden");
-      }
-    });
-
-    // Background Particles (biru neon)
-    const canvas = document.getElementById("particleCanvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    let particles = [];
-
-    function createParticle(){
-      const x = Math.random() * canvas.width;
-      const y = canvas.height + 10;
-      const size = Math.random() * 3 + 2;
-      const speed = Math.random() * 1 + 0.5;
-      const dx = (Math.random()-0.5)*0.5;
-      const color = "rgba(0,255,255,0.7)"; // biru neon
-      particles.push({x,y,size,speed,color,dx});
-    }
-
-    function drawParticles(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particles.forEach((p,i)=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-        ctx.fillStyle=p.color;
-        ctx.shadowColor=p.color;
-        ctx.shadowBlur=15;
-        ctx.fill();
-        p.y -= p.speed;
-        p.x += p.dx;
-        if(p.y < -10){particles.splice(i,1);}
-      });
-    }
-
-    function animate(){
-      requestAnimationFrame(animate);
-      if(particles.length < 50){createParticle();}
-      drawParticles();
-    }
-    animate();
-
-    window.addEventListener("resize",()=>{
-      canvas.width=window.innerWidth;
-      canvas.height=window.innerHeight;
-    });
-
-    // Set tanggal, bulan, tahun otomatis di footer
-    const today = new Date();
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    document.getElementById("fullDate").textContent = today.toLocaleDateString("id-ID", options);
-  </script>
+  // Set tanggal otomatis di footer
+  const today = new Date();
+  const options = { day: 'numeric', month: 'long', year: 'numeric' };
+  document.getElementById("fullDate").textContent = today.toLocaleDateString("id-ID", options);
+</script>
 
 </body>
-</html>
+        </html>
