@@ -237,9 +237,9 @@ document.getElementById("btnConfirmWA").addEventListener("click",()=>confirmWA(u
 document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
   });
 
-  function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc,gamepassId){
+  function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
   const now = new Date().toLocaleString("id-ID");
-  let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux} Robux Rp.${hargaText} Gamepass ${gamepassId}\nProfile: ${userProfileUrl}\nWaktu: ${now}${promoCode ? `\nKode Promo: ${promoCode}` : ""}\n\nMohon diproses Admin.`;
+  let message=`Min Dex saya ingin topup gamepass.\n\nUsername: ${username}\nPaket: ${robux}\nProfile: ${userProfileUrl}\nWaktu: ${now}${promoCode ? `\nKode Promo: ${promoCode}` : ""}\n\nMohon diproses Admin.`;
 
   const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
   window.open(waLink,"_blank");
