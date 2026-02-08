@@ -74,7 +74,7 @@
 
 <!-- Form Topup -->
 <div class="z-10 w-[90%] max-w-md bg-gray-900 bg-opacity-70 p-6 rounded-xl shadow-lg text-center">
-  <h2 class="text-2xl font-bold text-white mb-4">Topup Gamepass 5hari</h2>
+   <h2 class="text-2xl font-bold text-white mb-4">Topup Gamepass 5hari</h2>
   <form id="topupForm" class="space-y-6">
     <div>
       <label class="block mb-1 text-white">Username Roblox</label>
@@ -163,9 +163,16 @@
 </div>
 
 <!-- Mini Admin Button -->
-<div class="fixed bottom-2 right-2 bg-gray-800 bg-opacity-60 p-2 rounded-lg shadow-lg">
-  <button id="adminToggleBtn" class="bg-cyan-500 hover:bg-cyan-600 text-white font-bold px-2 py-1 text-xs rounded">
-    Admin
+<div class="fixed bottom-2 right-2 bg-gray-800 bg-opacity-60 p-1 rounded-lg shadow-lg">
+  <button id="adminToggleBtn" 
+    class="relative bg-blue-600 hover:bg-blue-700 text-white px-2 py-1 rounded-full transition duration-300 ease-in-out shadow-lg">
+    <!-- Ikon Gear -->
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+        d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4
+           4-1.79 4-4-1.79-4-4-4zm0-6v2m0 16v2m8-10h2M2 12H0m16.95-6.95l1.41 1.41M5.64 18.36l-1.41 1.41M18.36 18.36l1.41-1.41M5.64 5.64L4.23 4.23"/>
+    </svg>
+    <span class="absolute inset-0 rounded-full bg-blue-400 opacity-30 blur-sm animate-pulse"></span>
   </button>
 </div>
 
@@ -303,7 +310,7 @@ document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
 
   function verifyAdmin(){
     const pass=document.getElementById("adminPassword").value;
-    if(pass==="dexblox123"){
+    if(pass==="54321"){
       document.getElementById("adminTools").classList.remove("hidden");
       document.getElementById("adminToggleBtn").textContent="Admin (ON)";
     } else { alert("Password salah!"); }
