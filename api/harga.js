@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 
-let hargaPer100 = 11000; // default global
+let hargaPer100 = 12000; // default global
 
 // Ambil harga
 router.get("/", (req,res)=>{
