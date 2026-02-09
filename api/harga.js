@@ -1,22 +1,16 @@
-// dexblox/api/harga.js
-const express = require("express");
-const router = express.Router();
+export default function handler(req, res) {
+  let hargaPer100 = 12000; // default
 
-let hargaPer100 = 12000; // default global
-
-// Ambil harga
-router.get("/", (req,res)=>{
-  res.json({hargaPer100});
-});
-
-// Update harga (admin)
-router.post("/", (req,res)=>{
-  const {harga} = req.body;
-  if(!harga || harga <= 0){
-    return res.status(400).json({error:"Harga tidak valid"});
+  if (req.method === "GET") {
+    res.status(200).json({ hargaPer100 });
+  } else if (req.method === "POST") {
+    const { harga } = req.body;
+    if (!harga || harga <= 0) {
+      return res.status(400).json({ error: "Harga tidak valid" });
+    }
+    hargaPer100 = harga;
+    res.status(200).json({ success: true, hargaPer100 });
+  } else {
+    res.status(405).json({ error: "Method not allowed" });
   }
-  hargaPer100 = harga;
-  res.json({success:true,hargaPer100});
-});
-
-module.exports = router;
+}
