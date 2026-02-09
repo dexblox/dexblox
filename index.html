@@ -165,48 +165,52 @@
     const el=document.getElementById(fieldId);
     if(el){el.textContent=msg;el.style.color=(type==="success"?"lime":"red");}
   }
+let hargaPer100 = 12000; // fallback default
+  let promoActive = false;
+  let userProfileUrl = "";
 
-  let hargaPer100=12000; // fallback
-  let promoActive=false; 
-  let userProfileUrl="";
-
-  // Fetch harga dari API ENV
+  // Ambil harga dari API ENV
   async function fetchHarga(){
-    try{
-      const res=await fetch("/api/harga");
-      const data=await res.json();
+    try {
+      const res = await fetch("/api/harga");
+      const data = await res.json();
       if(res.ok && data.hargaPer100){
-        hargaPer100=data.hargaPer100;
-        document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
+        hargaPer100 = data.hargaPer100;
+        document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
       }
-    }catch(err){
-      document.getElementById("hargaHariIni").textContent=hargaPer100.toLocaleString("id-ID");
+    } catch(err){
+      document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
     }
   }
   fetchHarga();
 
+  // Hitung harga sesuai Robux
   function updateHargaInfo(robux){
-    if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
-    let harga=(robux/100)*hargaPer100;
-    if(promoActive){harga=Math.round(harga*0.96);}
-    const gamepassId=Math.round((robux/100)*143);
-    document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
-    document.getElementById("robux").value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
+    if(!robux || robux <= 0){
+      document.getElementById("paketInfo").textContent = "";
+      return;
+    }
+    let harga = (robux/100) * hargaPer100;
+    if(promoActive){ harga = Math.round(harga * 0.96); } // diskon 4%
+    const gamepassId = Math.round((robux/100) * 143);
+    document.getElementById("paketInfo").textContent =
+      `${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
+    document.getElementById("robux").value =
+      `${robux} Robux - Rp${harga.toLocaleString("id-ID")} (Gamepass : ${gamepassId})`;
   }
 
-  // Paket toggle
+  // Pilih paket
   document.querySelectorAll(".paket-card").forEach(card=>{
     card.addEventListener("click",()=>{
-      document.getElementById("customRobux").value="";
-      document.querySelectorAll(".paket-card").forEach(c=>c.classList.remove("bg-gray-800"));
-      card.classList.add("bg-gray-800");
-      updateHargaInfo(parseInt(card.dataset.value));
+      const robux = parseInt(card.dataset.value);
+      updateHargaInfo(robux);
     });
   });
 
   // Custom paket
-  document.getElementById("customRobux").addEventListener("input",function(){
-    updateHargaInfo(parseInt(this.value));
+  document.getElementById("customRobux").addEventListener("input",(e)=>{
+    const robux = parseInt(e.target.value);
+    updateHargaInfo(robux);
   });
 
   // Promo
@@ -335,4 +339,4 @@
 </script>
 
 </body>
-  </html>
+        </html>
