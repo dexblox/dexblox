@@ -31,6 +31,8 @@
       filter:drop-shadow(0 0 10px #0ff) drop-shadow(0 0 20px #0ff);
       animation: glitch 1.2s infinite, spin 4s linear infinite;
       transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: transform 0.3s ease;
     }
     @keyframes glitch {
       0%{transform:translate(0) rotateY(0deg)}
