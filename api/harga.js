@@ -1,24 +1,34 @@
-import { get, set } from '@vercel/edge-config';
+import fs from "fs";
+import path from "path";
+import express from "express";
 
-export default async function handler(req, res) {
-  if (req.method === "GET") {
-    // Ambil harga dari Edge Config
-    const harga = await get("HARGA_PER100");
-    return res.status(200).json({ hargaPer100: parseInt(harga || 12000) });
+const router = express.Router();
+const configPath = path.join(process.cwd(), "config.json");
+
+// GET harga terbaru
+router.get("/", (req, res) => {
+  try {
+    const data = fs.readFileSync(configPath, "utf-8");
+    const config = JSON.parse(data);
+    res.json({ hargaPer100: config.hargaPer100 });
+  } catch (err) {
+    res.status(500).json({ error: "Gagal membaca config" });
   }
+});
 
-  if (req.method === "POST") {
-    const { password, harga } = req.body;
-
-    // Validasi password admin
-    if (password !== process.env.ADMIN_PASS) {
-      return res.status(403).json({ error: "Unauthorized" });
-    }
-
-    // Update harga di Edge Config
-    await set("HARGA_PER100", harga);
-    return res.status(200).json({ success: true, harga });
+// POST update harga
+router.post("/", (req, res) => {
+  const { hargaPer100 } = req.body;
+  if (!hargaPer100 || hargaPer100 <= 0) {
+    return res.status(400).json({ error: "Harga tidak valid" });
   }
+  try {
+    const config = { hargaPer100 };
+    fs.writeFileSync(configPath, JSON.stringify(config, null, 2));
+    res.json({ success: true, hargaPer100 });
+  } catch (err) {
+    res.status(500).json({ error: "Gagal menyimpan config" });
+  }
+});
 
-  return res.status(405).json({ error: "Method not allowed" });
-}
+export default router;
