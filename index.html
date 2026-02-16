@@ -12,31 +12,31 @@
        font-weight:bold;font-size:clamp(2rem,6vw,3rem);margin:30px 0 12px}
     .rating{text-align:center;margin-bottom:20px;font-size:14px;color:#555}
     .panel-buttons{display:flex;gap:10px;margin:0 20px 20px}
-    .panel-buttons button{flex:1;padding:12px;border:none;border-radius:8px;
-       background:#0077cc;color:#fff;font-weight:bold;cursor:pointer;font-size:14px}
+    .panel-buttons button{flex:1;padding:10px;border:none;border-radius:8px;
+       background:#0077cc;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
     .panel-buttons button.active{background:linear-gradient(135deg,#00aa55,#00ffaa);
        box-shadow:0 0 8px rgba(0,255,170,.6)}
-    .form-section{display:none;padding:20px;border-top:1px solid #ddd;background:#fff;
+    .form-section{display:none;padding:15px;border-top:1px solid #ddd;background:#fff;
        border-radius:8px;margin:0 20px 20px;box-shadow:0 2px 6px rgba(0,0,0,.1)}
     .form-section.active{display:block}
-    form{max-width:100%;margin:auto}
-    form label{display:block;margin-top:12px;font-size:13px;font-weight:bold;color:#444}
-    form input{width:100%;padding:10px;margin-top:6px;border-radius:6px;border:1px solid #ccc}
-    #notifHarga{margin-top:10px;font-size:13px;color:#0077cc;text-align:center}
-    button.submit{margin-top:20px;width:100%;padding:12px;border:none;border-radius:8px;
-       background:#0077cc;color:#fff;font-weight:bold;cursor:pointer}
+    form{max-width:320px;margin:auto}
+    form label{display:block;margin-top:10px;font-size:12px;font-weight:bold;color:#444}
+    form input{width:100%;padding:8px;margin-top:4px;border-radius:6px;border:1px solid #ccc;font-size:12px}
+    #notifHarga{margin-top:8px;font-size:12px;color:#0077cc;text-align:center}
+    button.submit{margin-top:15px;width:100%;padding:10px;border:none;border-radius:8px;
+       background:#0077cc;color:#fff;font-weight:bold;cursor:pointer;font-size:13px}
     button.submit:disabled{background:#aaa;cursor:not-allowed}
-    .paket-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:15px}
-    .deal{padding:12px;border:none;border-radius:6px;background:#eee;cursor:pointer;
-       text-align:center;font-size:13px}
+    .paket-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .deal{padding:10px;border:none;border-radius:6px;background:#eee;cursor:pointer;
+       text-align:center;font-size:12px}
     .deal.active{background:#00aa55;color:#fff;box-shadow:0 0 6px rgba(0,170,85,.6)}
     .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
        background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:50}
-    .modal-content{background:#fff;padding:20px;border-radius:12px;max-width:360px;
+    .modal-content{background:#fff;padding:15px;border-radius:12px;max-width:320px;
        text-align:center;box-shadow:0 0 20px rgba(0,0,0,.3)}
-    footer{text-align:center;font-size:12px;color:#555;margin:20px}
-    #avatarPreview,#adminAvatar{display:none;margin:15px auto;border-radius:50%;
-       border:2px solid #00ffaa;width:100px;height:100px}
+    footer{text-align:center;font-size:11px;color:#555;margin:15px}
+    #avatarPreview,#adminAvatar{display:none;margin:10px auto;border-radius:50%;
+       border:2px solid #00ffaa;width:80px;height:80px}
   </style>
 </head>
 <body>
@@ -55,14 +55,14 @@
         <label>Username</label>
         <input type="text" id="username5" placeholder="Masukkan Username">
         <button type="button" id="btnCekUser">Cek Username</button>
-        <p id="notifUsername" style="font-size:12px;color:red"></p>
+        <p id="notifUsername" style="font-size:11px;color:red"></p>
         <img id="avatarPreview" alt="Avatar Roblox">
         <label>Jumlah Robux</label>
         <input type="number" id="jumlah5" placeholder="Masukkan Jumlah Rbx">
         <div id="notifHarga">Harga hari ini: -</div>
         <label>Kode Promo</label>
         <input type="text" id="promoInput" placeholder="Masukkan kode promo">
-        <p id="notifPromo" style="font-size:12px;color:red"></p>
+        <p id="notifPromo" style="font-size:11px;color:red"></p>
         <button type="submit" class="submit" id="btnTopup" disabled>Topup Sekarang</button>
       </form>
       <div class="paket-grid">
@@ -86,7 +86,7 @@
 
     <!-- Panel Via Komunitas -->
     <div id="formKomunitas" class="form-section">
-      <p class="info">Fitur Via Komunitas akan segera hadir.</p>
+      <p style="font-size:12px;text-align:center;color:#555">Fitur Via Komunitas akan segera hadir.</p>
     </div>
   </div>
 
@@ -119,7 +119,7 @@
   <footer>© <span id="fullDate"></span> DEXBLOX All Rights Reserved</footer>
 
 <script>
-let userProfileUrl="", gameUrl="https://www.roblox.com/games/123456789/DEXBLOX";
+let userProfileUrl="", gameUrl="https://www.roblox.com/id/games/123565133175965";
 
 // Toggle panels
 btn5hari.onclick=()=>{btn5hari.classList.add("active");btnLangsung.classList.remove("active");btnKomunitas.classList.remove("active");form5hari.classList.add("active");formLangsung.classList.remove("active");formKomunitas.classList.remove("active");};
@@ -172,15 +172,29 @@ function showModal(pesan,url){
   };
 }
 
-// Cek Username User (dummy API simulasi)
-document.getElementById("btnCekUser").onclick=()=>{
+// Cek Username User via API user.js + avatar.js
+document.getElementById("btnCekUser").onclick=async ()=>{
   const u=document.getElementById("username5").value.trim();
   if(!u){document.getElementById("notifUsername").textContent="Harap isi Username!";return;}
-  document.getElementById("notifUsername").textContent="Username ditemukan: "+u;
-  document.getElementById("notifUsername").style.color="green";
-  userProfileUrl="https://www.roblox.com/users/"+u;
-  document.getElementById("avatarPreview").src="https://placehold.co/100x100?text="+u;
-  document.getElementById("avatarPreview").style.display="block";
+  try{
+    const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u})});
+    const dataUser=await resUser.json();
+    if(resUser.ok){
+      document.getElementById("notifUsername").textContent="Username ditemukan: "+dataUser.name;
+      document.getElementById("notifUsername").style.color="green";
+      userProfileUrl=dataUser.profileUrl;
+      const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
+      const dataAvatar=await resAvatar.json();
+      if(resAvatar.ok){
+        document.getElementById("avatarPreview").src=dataAvatar.avatarUrl;
+        document.getElementById("avatarPreview").style.display="block";
+      }
+    } else {
+      document.getElementById("notifUsername").textContent=dataUser.error;
+    }
+  }catch(err){
+    document.getElementById("notifUsername").textContent="Gagal cek username.";
+  }
 };
 
 // Submit Robux 5 Hari
@@ -222,7 +236,7 @@ document.getElementById("topupFormLangsung").onsubmit=e=>{
 🔑 Password: ${p}
 🎮 Paket: ${paket}
 💰 Harga: ${harga}
-🌐 Profil: https://www.roblox.com/users/${u}
+🌐 Profil: https://www.roblox.com/users/${u}/profile
 🎲 Game: ${gameUrl}`;
   let url=`https://wa.me/6285362187740?text=${encodeURIComponent(pesan)}`;
   showModal(pesan,url);
@@ -231,13 +245,27 @@ document.getElementById("topupFormLangsung").onsubmit=e=>{
 // Admin Panel hanya konfirmasi
 document.getElementById("adminToggleBtn").onclick=()=>{document.getElementById("adminModal").style.display="flex";};
 document.getElementById("btnCloseAdmin").onclick=()=>{document.getElementById("adminModal").style.display="none";};
-document.getElementById("btnAdminCekUser").onclick=()=>{
+document.getElementById("btnAdminCekUser").onclick=async ()=>{
   const u=document.getElementById("adminUser").value.trim();
   if(!u){document.getElementById("adminNotifUser").textContent="Harap isi Username!";return;}
-  document.getElementById("adminNotifUser").textContent="Username ditemukan: "+u;
-  document.getElementById("adminNotifUser").style.color="green";
-  document.getElementById("adminAvatar").src="https://placehold.co/100x100?text="+u;
-  document.getElementById("adminAvatar").style.display="block";
+  try{
+    const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u})});
+    const dataUser=await resUser.json();
+    if(resUser.ok){
+      document.getElementById("adminNotifUser").textContent="Username ditemukan: "+dataUser.name;
+      document.getElementById("adminNotifUser").style.color="green";
+      const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
+      const dataAvatar=await resAvatar.json();
+      if(resAvatar.ok){
+        document.getElementById("adminAvatar").src=dataAvatar.avatarUrl;
+        document.getElementById("adminAvatar").style.display="block";
+      }
+    } else {
+      document.getElementById("adminNotifUser").textContent=dataUser.error;
+    }
+  }catch(err){
+    document.getElementById("adminNotifUser").textContent="Gagal cek username.";
+  }
 };
 
 // Footer date
