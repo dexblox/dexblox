@@ -36,7 +36,7 @@
 
 <header class="z-10 text-center mt-6 mb-6">
   <h1 class="text-5xl font-extrabold">DEXBLOX</h1>
-  <div class="rating mt-2">тнР 9.3 Rating | Total 10.000+ | Top Rank</div>
+  <div class="rating mt-2">Topup Robux Termurah Di Indonesia</div>
 </header>
 
 <!-- Panel Buttons -->
@@ -48,7 +48,7 @@
 
 <!-- Panel Content -->
 <div id="panel5hari" class="panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
-  <h2 class="text-2xl font-bold mb-4">Topup Gamepass 5hari</h2>
+  <h2 class="text-2xl font-bold mb-4">Robux 5 hari</h2>
   <form id="topupForm" class="space-y-6">
     <!-- Username -->
     <div>
@@ -63,7 +63,7 @@
 
     <!-- WA -->
     <div>
-      <label class="block mb-1">Nomor WhatsApp User</label>
+      <label class="block mb-1">Nomor WhatsApp</label>
       <input type="text" id="userWA" class="w-full p-2 rounded border text-center" placeholder="62xxxxxxxxxx">
       <p id="notifWA" class="text-xs mt-1"></p>
     </div>
@@ -108,13 +108,13 @@
 </div>
 
 <div id="panelLogin" class="hidden panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
-  <h2 class="text-2xl font-bold mb-4">Topup Via Login</h2>
-  <p>Panel untuk metode login...</p>
+  <h2 class="text-2xl font-bold mb-4">Via Login</h2>
+  <p>COMING SOON</p>
 </div>
 
 <div id="panelKomunitas" class="hidden panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
-  <h2 class="text-2xl font-bold mb-4">Topup Via Komunitas</h2>
-  <p>Panel untuk komunitas...</p>
+  <h2 class="text-2xl font-bold mb-4">Via Komunitas</h2>
+  <p>COMING SOON</p>
 </div>
 
 <!-- Admin Panel -->
@@ -289,12 +289,12 @@ document.getElementById("topupForm").addEventListener("submit",function(e){
 
 function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc,userWA){
   const now = new Date().toLocaleString("id-ID");
-  let message=`🔔 Topup Request
-👤 Username: ${username}
-💎 Paket: ${robux}
-🌐 Profile: ${userProfileUrl}
-📱 WA User: ${userWA}
-🕒 Waktu: ${now}${promoCode ? `\n🎟️ Promo: ${promoCode}` : ""}
+  let message=` Halo Min Dex saya ingin topup
+ Username: ${username}
+ Paket: ${robux}
+ Profile: ${userProfileUrl}
+ WA User: ${userWA}
+ Waktu: ${now}${promoCode ? `\n Promo: ${promoCode}` : ""}
 
 Mohon diproses Admin.`;
   const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
@@ -404,17 +404,17 @@ function kirimBuktiAdmin(){
   const userWA=document.getElementById("adminWA").value.trim();
   if(!username||!robux||!metode||!userWA){alert("Lengkapi semua data!");return;}
   const now=new Date();const future=new Date();future.setDate(now.getDate()+5);
-  const message=`✅ Bukti Pembayaran DEXBLOX.ID
+  const message=` Bukti Pembayaran DEXBLOX
 
-👤 Username: ${username}
-💎 Paket: ${robux} Robux
-💳 Metode: ${metode}
-🕒 Waktu Transaksi: ${formatDate(now)}
-📅 Estimasi Selesai: ${formatDate(future)}
-🌐 Profil: ${userProfileUrl}
+ Username: ${username}
+ Paket: ${robux} Robux
+ Metode: ${metode}
+ Waktu Transaksi: ${formatDate(now)}
+ Estimasi Selesai: ${formatDate(future)}
+ Profil: ${userProfileUrl}
 
 Robux akan masuk sesuai estimasi.
-Terima kasih sudah topup di DEXBLOX.ID ✨`;
+Terima kasih sudah topup di DEXBLOX.ID `;
   const waLink=`https://wa.me/${userWA}?text=${encodeURIComponent(message)}`;
   if(confirm("Kirim bukti ke user via WhatsApp?")){
     window.open(waLink,"_blank");
@@ -428,4 +428,4 @@ document.getElementById("fullDate").textContent = today.toLocaleDateString("id-I
 </script>
 
 </body>
-</html>
+  </html>
