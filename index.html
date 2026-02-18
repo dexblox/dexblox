@@ -2,19 +2,45 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
   <title>DEXBLOX - Topup Robux</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background:#fff;font-family:Arial,sans-serif;color:#000; }
     h1,h2,h3,p,label { color:#000;text-shadow:none; }
-    .paket-card {transition:.3s;cursor:pointer;background:rgba(0,0,0,0.05);color:#000;}
-    .paket-card:hover {transform:scale(1.03);background:rgba(0,0,0,0.1);}
+    .paket-card {
+      transition:.3s;
+      cursor:pointer;
+      background:rgba(0,0,0,0.05);
+      color:#000;
+      border:2px solid transparent;
+      border-radius:8px;
+    }
+    .paket-card:hover {
+      transform:scale(1.03);
+      background:rgba(0,0,0,0.1);
+    }
+    .paket-card.active {
+      background:#000;
+      color:#fff;
+      border:2px solid #000;
+    }
     #notifPanel {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:50}
     #notifContent {background:rgba(255,255,255,0.9);border:2px solid #000;box-shadow:0 0 20px #aaa;padding:20px;border-radius:12px;text-align:center;max-width:320px;color:#000;}
     .panel-buttons button.active {background:#000;color:#fff;}
     .panel-box {background:rgba(255,255,255,0.9);}
     footer {color:#000;}
+    .spinner {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #000;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+      margin-left: 6px;
+    }
+    @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
@@ -200,6 +226,9 @@ let promoActive=false; let userProfileUrl="";
 async function cekUsernameGeneric(inputId, notifId, avatarId){
   const username=document.getElementById(inputId).value.trim();
   if(!username){showFieldNotif(notifId,"Harap isi Username Roblox!","error");return;}
+  const notif=document.getElementById(notifId);
+  notif.innerHTML=`Sedang mencari... <span class="spinner"></span>`;
+  notif.style.color="black";
   try{
     const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
     const dataUser=await resUser.json();
@@ -216,19 +245,33 @@ async function cekUsernameGeneric(inputId, notifId, avatarId){
   }catch(err){showFieldNotif(notifId,"Gagal cek username","error");}
 }
 
-// ===== Paket Toggle 5 Hari =====
-document.querySelectorAll("#panel5hari .paket-card").forEach(card=>{
-  card.addEventListener("click",()=>{
-    document.querySelectorAll("#panel5hari .paket-card").forEach(c=>c.classList.remove("bg-gray-300"));
-    card.classList.add("bg-gray-300");
-    const robux=parseInt(card.dataset.value);
-    let harga=(robux/100)*13000; // harga per 100
-    if(promoActive){harga=Math.round(harga*0.9);} // contoh diskon 10%
-    const gamepassId=Math.round((robux/100)*143);
-    document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
-    document.getElementById("paketInfo").dataset.value=`${robux} Robux - Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
+// ===== Paket Card Toggle =====
+function bindPaketCards(panelId, infoId){
+  document.querySelectorAll(`#${panelId} .paket-card`).forEach(card=>{
+    card.addEventListener("click",()=>{
+      document.querySelectorAll(`#${panelId} .paket-card`).forEach(c=>c.classList.remove("active"));
+      card.classList.add("active");
+
+      const type=card.dataset.type||"robux";
+      const value=card.textContent;
+
+      if(panelId==="panelLogin"){
+        document.getElementById(infoId).textContent=(type==="premium" ? `Premium: ${value}` : `Robux: ${value}`);
+      }else if(panelId==="panel5hari"){
+        const robux=parseInt(card.dataset.value);
+        let harga=(robux/100)*13000;
+        if(promoActive){harga=Math.round(harga*0.9);}
+        const gamepassId=Math.round((robux/100)*143);
+        document.getElementById(infoId).textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
+      }
+
+      document.getElementById(infoId).dataset.value=value;
+      document.getElementById(infoId).dataset.type=type;
+    });
   });
-});
+}
+bindPaketCards("panel5hari","paketInfo");
+bindPaketCards("panelLogin","loginPaketInfo");
 
 // ===== Custom Paket 5 Hari =====
 document.getElementById("customRobux").addEventListener("input",function(){
@@ -246,23 +289,6 @@ document.getElementById("btnPromo").addEventListener("click",()=>{
   const input=document.getElementById("promoInput").value.trim().toUpperCase();
   if(input==="DEX10OFF"){promoActive=true;showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");}
   else{promoActive=false;showFieldNotif("notifPromo","Kode Promo Salah.","error");}
-});
-
-// ===== Paket Toggle Via Login =====
-document.querySelectorAll("#panelLogin .paket-card").forEach(card=>{
-  card.addEventListener("click",()=>{
-    document.querySelectorAll("#panelLogin .paket-card").forEach(c=>c.classList.remove("bg-gray-300"));
-    card.classList.add("bg-gray-300");
-    const type=card.dataset.type;
-    const value=card.textContent;
-    if(type==="premium"){
-      document.getElementById("loginPaketInfo").textContent=`Paket Premium dipilih: ${value}`;
-    }else{
-      document.getElementById("loginPaketInfo").textContent=`Paket Robux dipilih: ${value}`;
-    }
-    document.getElementById("loginPaketInfo").dataset.value=value;
-    document.getElementById("loginPaketInfo").dataset.type=type;
-  });
 });
 
 // ===== Konfirmasi Topup Generic =====
@@ -293,6 +319,9 @@ function konfirmasiTopup(username, paket, avatarId, notifTitle){
 }
 
 // ===== Binding Panel 5 Hari =====
+const usernameInput=document.getElementById("username");
+usernameInput.addEventListener("blur",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
+usernameInput.addEventListener("keypress",(e)=>{if(e.key==="Enter"){cekUsernameGeneric("username","notifUsername","avatarPreview");}});
 document.getElementById("btnCekUser").addEventListener("click",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
 document.getElementById("topupForm").addEventListener("submit",function(e){
   e.preventDefault();
@@ -303,6 +332,9 @@ document.getElementById("topupForm").addEventListener("submit",function(e){
 });
 
 // ===== Binding Panel Login =====
+const loginInput=document.getElementById("loginUsername");
+loginInput.addEventListener("blur",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
+loginInput.addEventListener("keypress",(e)=>{if(e.key==="Enter"){cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar");}});
 document.getElementById("btnLoginCekUser").addEventListener("click",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
 document.getElementById("btnLoginTopup").addEventListener("click",function(){
   const username=document.getElementById("loginUsername").value.trim();
