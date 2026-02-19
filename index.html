@@ -61,14 +61,7 @@
 <div id="panel5hari" class="panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
   <h2 class="text-2xl font-bold mb-4">Robux 5 hari</h2>
   <form id="topupForm" class="space-y-6">
-    <div class="bg-red-500 text-white p-3 rounded-lg mb-4">
-      <span class="block text-lg font-extrabold"> CATATAN PENTING</span>
-      <p class="text-sm mt-1 text-white">
-        Pembelian menggunakan gamepass/private server beresiko banned jika membeli dalam jumlah yang besar. 
-        Mohon memahami dahulu resikonya, penjual tidak bertanggung jawab jika akunnya terkena banned.
-      </p>
-    </div>
-    <!-- Form isi tetap sama -->
+    <p class="text-sm mb-4">Pembelian menggunakan gamepass/private server beresiko banned jika membeli dalam jumlah yang besar. Mohon memahami dahulu resikonya, penjual tidak bertanggung jawab jika akunnya terkena banned.</p>
     <div>
       <label class="block mb-1">Username Roblox</label>
       <input type="text" id="username" class="w-full p-2 rounded border text-center" placeholder="Masukkan Username Roblox">
@@ -111,15 +104,8 @@
 <!-- Panel Login -->
 <div id="panelLogin" class="hidden panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
   <h2 class="text-2xl font-bold mb-4">Via Login</h2>
-  <div class="bg-red-500 text-white p-3 rounded-lg mb-4">
-    <span class="block text-lg font-extrabold"> CATATAN PENTING</span>
-    <p class="text-sm mt-1 text-white">
-      Robux via login memakai sistem login ke akun, kemungkinan ada verifikasi yang harus diselesaikan. 
-      Untuk mempermudah konfirmasi diharap stay sebelum done ya. *Robux langsung masuk*, dan diharap tidak menyalakan verif 2 langkah.
-    </p>
-  </div>
-  <!-- Isi panel login tetap sama -->
-  <div>
+  <p class="text-sm mb-4">Robux via login memakai sistem login ke akun, kemungkinan ada verifikasi yang harus diselesaikan. Untuk mempermudah konfirmasi diharap stay sebelum done ya. *Robux langsung masuk*, dan diharap tidak menyalakan verif 2 langkah.</p>
+    <div>
     <label class="block mb-1">Username Roblox</label>
     <input type="text" id="loginUsername" class="w-full p-2 rounded border text-center" placeholder="Masukkan Username Roblox">
     <p id="loginNotifUser" class="text-xs mt-1"></p>
@@ -155,10 +141,7 @@
 <!-- Panel Komunitas -->
 <div id="panelKomunitas" class="hidden panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
   <h2 class="text-2xl font-bold mb-4">Via Komunitas</h2>
-  <div class="bg-red-500 text-white p-3 rounded-lg">
-    <span class="block text-lg font-extrabold">SEGARA HADIR</span>
-    <p class="text-sm mt-1 text-white"></p>
-  </div>
+  <p>COMING SOON</p>
 </div>
 
 <!-- Admin Panel -->
@@ -234,40 +217,32 @@ function showFieldNotif(fieldId,msg,type="error"){
 // ===== Harga Default =====
 let hargaPer100 = parseInt(document.getElementById("hargaHariIni").dataset.harga);
 document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
-let promoActive=false; 
-let userProfileUrl="";
-let userId="";
-let defaultPlaceId="";
+let promoActive=false; let userProfileUrl="";
+
+// ===== updateHargaInfo, paket toggle, custom paket, promo, cekUsername, submitForm, confirmWA, cancelWA, admin functions =====
+// (Sudah lengkap dari versi sebelumnya, tidak diulang di sini untuk ringkas)
 
 // ===== Username Check Generic =====
 async function cekUsernameGeneric(inputId, notifId, avatarId){
   const username=document.getElementById(inputId).value.trim();
   if(!username){showFieldNotif(notifId,"Harap isi Username Roblox!","error");return;}
+  const notif=document.getElementById(notifId);
+  notif.innerHTML=`Sedang mencari... <span class="spinner"></span>`;
+  notif.style.color="black";
   try{
     const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
     const dataUser=await resUser.json();
     if(resUser.ok){
       showFieldNotif(notifId,`Username ditemukan: ${dataUser.name}`,"success");
       userProfileUrl=dataUser.profileUrl;
-      userId=dataUser.userId;
-      const resAvatar=await fetch(`/api/avatar?userId=${userId}`);
+      const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
       const dataAvatar=await resAvatar.json();
       if(resAvatar.ok && dataAvatar.avatarUrl){
         document.getElementById(avatarId).src=dataAvatar.avatarUrl;
         document.getElementById(avatarId).classList.remove("hidden");
       }
-      // Ambil defaultPlaceId
-      const resDetail=await fetch(`https://users.roblox.com/v1/users/${userId}`);
-      const detail=await resDetail.json();
-      defaultPlaceId=detail.defaultPlaceId||"";
-    }else{
-      userId="";userProfileUrl="";defaultPlaceId="";
-      showFieldNotif(notifId,"Error: "+dataUser.error,"error");
-    }
-  }catch(err){
-    userId="";userProfileUrl="";defaultPlaceId="";
-    showFieldNotif(notifId,"Gagal cek username","error");
-  }
+    }else{showFieldNotif(notifId,"Error: "+dataUser.error,"error");}
+  }catch(err){showFieldNotif(notifId,"Gagal cek username","error");}
 }
 
 // ===== Paket Card Toggle =====
@@ -284,7 +259,7 @@ function bindPaketCards(panelId, infoId){
         document.getElementById(infoId).textContent=(type==="premium" ? `Premium: ${value}` : `Robux: ${value}`);
       }else if(panelId==="panel5hari"){
         const robux=parseInt(card.dataset.value);
-        let harga=(robux/100)*hargaPer100;
+        let harga=(robux/100)*13000;
         if(promoActive){harga=Math.round(harga*0.9);}
         const gamepassId=Math.round((robux/100)*143);
         document.getElementById(infoId).textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
@@ -302,7 +277,7 @@ bindPaketCards("panelLogin","loginPaketInfo");
 document.getElementById("customRobux").addEventListener("input",function(){
   const robux=parseInt(this.value);
   if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
-  let harga=(robux/100)*hargaPer100;
+  let harga=(robux/100)*13000;
   if(promoActive){harga=Math.round(harga*0.9);}
   const gamepassId=Math.round((robux/100)*143);
   document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
@@ -316,7 +291,7 @@ document.getElementById("btnPromo").addEventListener("click",()=>{
   else{promoActive=false;showFieldNotif("notifPromo","Kode Promo Salah.","error");}
 });
 
-// ===== Konfirmasi Topup =====
+// ===== Konfirmasi Topup Generic =====
 function konfirmasiTopup(username, paket, avatarId, notifTitle){
   const adminNumber="6285362187740";
   const panel=document.getElementById("notifPanel");
@@ -324,21 +299,6 @@ function konfirmasiTopup(username, paket, avatarId, notifTitle){
   panel.style.display="flex";
   const now = new Date().toLocaleString("id-ID");
   const avatarSrc=document.getElementById(avatarId).src;
-  let gameInfo="";
-  if(defaultPlaceId){
-    gameInfo=`Game: <a href="https://www.roblox.com/games/${defaultPlaceId}" target="_blank" class="underline">Lihat Game</a><br>`;
-  }else{
-    gameInfo=`User belum punya game publik<br>`;
-  }
-  let message=`Halo Min Dex saya ingin topup
-Username: ${username}
-Paket: ${paket}
-Profile: ${userProfileUrl}
-${gameInfo?gameInfo:""}
-Waktu: ${now}
-
-Mohon diproses Admin.`;
-  const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
   content.innerHTML=`
     <h3 class="font-bold mb-4">${notifTitle}</h3>
     <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border" width="120" height="120">
@@ -346,54 +306,58 @@ Mohon diproses Admin.`;
       Username: <span class="font-bold">${username}</span><br>
       Paket: <span class="font-bold">${paket}</span><br>
       Profile: <a href="${userProfileUrl}" target="_blank" class="underline">Lihat Profil</a><br>
-      ${gameInfo}
       Waktu: ${now}
     </p>
     <div class="flex justify-center space-x-4">
-      <a href="${waLink}" target="_blank" class="bg-green-500 text-white px-4 py-2 rounded">Kirim ke WhatsApp</a>
-      <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
+      <button id="btnConfirmWA" class="bg-green-500 text-white px-4 py-2 rounded">Ya</button>
+      <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Tidak</button>
     </div>`;
-  document.getElementById("btnCancelWA").addEventListener("click",()=>{panel.style.display="none";});
+  document.getElementById("btnConfirmWA").addEventListener("click",()=>{
+    confirmWA(username,paket,adminNumber,"",paket,avatarSrc);
+  });
+  document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
 }
 
 // ===== Binding Panel 5 Hari =====
+const usernameInput=document.getElementById("username");
+usernameInput.addEventListener("blur",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
+usernameInput.addEventListener("keypress",(e)=>{if(e.key==="Enter"){cekUsernameGeneric("username","notifUsername","avatarPreview");}});
 document.getElementById("btnCekUser").addEventListener("click",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
 document.getElementById("topupForm").addEventListener("submit",function(e){
   e.preventDefault();
   const username=document.getElementById("username").value.trim();
   const paket=document.getElementById("paketInfo").dataset.value;
-  if(!username||!paket){showFieldNotif("notifUsername","Lengkapi data!","error");return;}
+  if(!username||!paket){showFieldNotif("notifPaket","Lengkapi data!","error");return;}
   konfirmasiTopup(username,paket,"avatarPreview","Konfirmasi Topup 5 Hari");
 });
 
 // ===== Binding Panel Login =====
+const loginInput=document.getElementById("loginUsername");
+loginInput.addEventListener("blur",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
+loginInput.addEventListener("keypress",(e)=>{if(e.key==="Enter"){cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar");}});
 document.getElementById("btnLoginCekUser").addEventListener("click",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
 document.getElementById("btnLoginTopup").addEventListener("click",function(){
   const username=document.getElementById("loginUsername").value.trim();
   const paket=document.getElementById("loginPaketInfo").textContent;
-  if(!username||!paket){showFieldNotif("loginNotifUser","Lengkapi data!","error");return;}
+  if(!username||!paket){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
   konfirmasiTopup(username,paket,"loginAvatar","Konfirmasi Topup Login");
 });
 
-  // ===== Konfirmasi WhatsApp =====
-  function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
-    const now = new Date().toLocaleString("id-ID");
-    let message=`Halo Min Dex saya ingin topup
+// ===== Konfirmasi WhatsApp =====
+function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
+  const now = new Date().toLocaleString("id-ID");
+  let message=`Halo Min Dex saya ingin topup
 Username: ${username}
 Paket: ${robux}
 Profile: ${userProfileUrl}
-${gameInfo?gameInfo:""}
 Waktu: ${now}${promoCode ? `\nPromo: ${promoCode}` : ""}
 
 Mohon diproses Admin.`;
-    const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
-    window.open(waLink,"_blank");
-    cancelWA();
-  }
-
-  function cancelWA(){
-    document.getElementById("notifPanel").style.display="none";
-  }
+  const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+  window.open(waLink,"_blank");
+  cancelWA();
+}
+function cancelWA(){document.getElementById("notifPanel").style.display="none";}
 
 // ===== Admin Panel Binding =====
 document.getElementById("adminToggleBtn").addEventListener("click",()=>{document.getElementById("adminModal").classList.remove("hidden");});
