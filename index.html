@@ -25,22 +25,18 @@
       color:#fff;
       border:2px solid #000;
     }
-    #notifPanel {position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:50}
-    #notifContent {background:rgba(255,255,255,0.9);border:2px solid #000;box-shadow:0 0 20px #aaa;padding:20px;border-radius:12px;text-align:center;max-width:320px;color:#000;}
     .panel-buttons button.active {background:#000;color:#fff;}
     .panel-box {background:rgba(255,255,255,0.9);border:2px solid #000;border-radius:12px;}
-     footer {color:#000;}
-    .spinner {
-      border: 3px solid #f3f3f3;
-      border-top: 3px solid #000;
-      border-radius: 50%;
-      width: 18px;
-      height: 18px;
-      animation: spin 1s linear infinite;
-      display: inline-block;
-      margin-left: 6px;
+    footer {color:#000;}
+    /* Link biru sederhana */
+    .panel-link {
+      color: #007bff; /* biru */
+      font-weight: bold;
+      text-decoration: none;
     }
-    @keyframes spin {0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+    .panel-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
@@ -55,6 +51,13 @@
   <button id="btn5hari" class="active px-4 py-2 rounded">Robux 5 Hari</button>
   <button id="btnLangsung" class="px-4 py-2 rounded">Via Login</button>
   <button id="btnKomunitas" class="px-4 py-2 rounded">Via Komunitas</button>
+</div>
+
+<!-- Panel menuju link langsung (di bawah tombol) -->
+<div id="promoPanel" class="mt-4">
+  <a href="https://dexblox.webkus.com/" target="_blank" class="panel-link">
+    Robux lainnya Klik
+  </a>
 </div>
 
 <!-- Panel 5 Hari -->
@@ -385,6 +388,41 @@ document.getElementById("btnLoginTopup").addEventListener("click",function(){
   const paket=document.getElementById("loginPaketInfo").textContent;
   if(!username||!paket){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
   konfirmasiTopup(username,paket,"loginAvatar","Konfirmasi Topup Login");
+});
+
+// ===== Integrasi Pembayaran Pakasir =====
+async function buatInvoicePakasir(username, paket) {
+  try {
+    // Panggil endpoint server kamu (server akan pakai API Key Pakasir)
+    const response = await fetch("/buat-invoice", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        paket: paket
+      })
+    });
+    const data = await response.json();
+
+    if (data.checkout_url) {
+      // Redirect user ke halaman pembayaran Pakasir
+      window.location.href = data.checkout_url;
+    } else {
+      alert("Gagal membuat invoice: " + (data.error || "Unknown error"));
+    }
+  } catch (err) {
+    console.error("Error invoice:", err);
+    alert("Terjadi kesalahan saat membuat invoice.");
+  }
+}
+
+// Contoh binding ke tombol submit (setelah konfirmasi)
+document.addEventListener("click", function(e){
+  if(e.target && e.target.id==="btnConfirmWA"){
+    const username=document.getElementById("username").value.trim();
+    const paket=document.getElementById("paketInfo").textContent;
+    buatInvoicePakasir(username, paket);
+  }
 });
 
 // ===== Konfirmasi WhatsApp =====
