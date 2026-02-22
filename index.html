@@ -157,6 +157,20 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  // ===== Variabel Harga =====
+  let hargaPer100 = 13000; // harga dasar per 100 Robux
+  let promoActive = false; // status promo
+
+  // ===== Fungsi Hitung Harga =====
+  function hitungHarga(robux){
+    let harga = (robux / 100) * hargaPer100;
+    if(promoActive){
+      harga = Math.round(harga * 0.9); // diskon 10%
+    }
+    const gamepassId = Math.round((robux / 100) * 143);
+    return { harga, gamepassId };
+  }
+
   // ===== Panel Toggle =====
   function showPanel(panelId){
     ["panel5hari","panelLogin","panelKomunitas"].forEach(id=>{
@@ -172,11 +186,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btnLangsung").onclick=()=>showPanel("panelLogin");
   document.getElementById("btnKomunitas").onclick=()=>showPanel("panelKomunitas");
 
-  // ===== Harga Default =====
-  let hargaPer100 = parseInt(document.getElementById("hargaHariIni").dataset.harga);
-  document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
-  let promoActive=false; 
-
   // ===== Paket Card Toggle =====
   function bindPaketCards(panelId, infoId){
     document.querySelectorAll(`#${panelId} .paket-card`).forEach(card=>{
@@ -184,9 +193,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(`#${panelId} .paket-card`).forEach(c=>c.classList.remove("active"));
         card.classList.add("active");
         const robux=parseInt(card.dataset.value);
-        let harga=(robux/100)*hargaPer100;
-        if(promoActive){harga=Math.round(harga*0.9);}
-        const gamepassId=Math.round((robux/100)*143);
+        const { harga, gamepassId } = hitungHarga(robux);
         document.getElementById(infoId).textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
         document.getElementById(infoId).dataset.value=robux;
       });
@@ -194,17 +201,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   bindPaketCards("panel5hari","paketInfo");
   bindPaketCards("panelLogin","loginPaketInfo");
-
-  // ===== Custom Paket =====
-  document.getElementById("customRobux").addEventListener("input",function(){
-    const robux=parseInt(this.value);
-    if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
-    let harga=(robux/100)*hargaPer100;
-    if(promoActive){harga=Math.round(harga*0.9);}
-    const gamepassId=Math.round((robux/100)*143);
-    document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
-    document.getElementById("paketInfo").dataset.value=robux;
-  });
 
   // ===== Promo =====
   document.getElementById("btnPromo").addEventListener("click",()=>{
@@ -220,12 +216,39 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // ===== Cek Username (dummy) =====
+  async function cekUsernameGeneric(inputId, notifId, avatarId){
+    const username=document.getElementById(inputId).value.trim();
+    if(!username){
+      document.getElementById(notifId).textContent="Harap isi Username Roblox!";
+      return;
+    }
+    try{
+      const res=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
+      const data=await res.json();
+      if(res.ok){
+        document.getElementById(notifId).textContent="Username ditemukan: "+data.name;
+        const resAvatar=await fetch(`/api/avatar?userId=${data.userId}`);
+        const dataAvatar=await resAvatar.json();
+        if(resAvatar.ok && dataAvatar.avatarUrl){
+          const avatar=document.getElementById(avatarId);
+          avatar.src=dataAvatar.avatarUrl;
+          avatar.classList.remove("hidden");
+        }
+      } else {
+        document.getElementById(notifId).textContent="Error: "+data.error;
+      }
+    }catch(err){
+      document.getElementById(notifId).textContent="Gagal cek username";
+    }
+  }
+
   // ===== Konfirmasi Topup =====
   function konfirmasiTopup(username, robux, avatarId, notifTitle){
     const panel=document.getElementById("notifPanel");
     const content=document.getElementById("notifContent");
     panel.style.display="flex";
-    const now = new Date().toLocaleString("id-ID");
+    const now=new Date().toLocaleString("id-ID");
     const avatarSrc=document.getElementById(avatarId).src;
     content.innerHTML=`
       <h3 class="font-bold mb-4">${notifTitle}</h3>
@@ -243,121 +266,39 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btnCancel").onclick=()=>{panel.style.display="none";}
   }
 
-  // ===== Integrasi API Invoice =====
-  async function buatInvoicePakasir(username, robux) {
-    try {
-      const response = await fetch("/api/invoice", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, robux })
-      });
-      const data = await response.json();
-      if (data.checkout_url) {
+  // ===== Buat Invoice =====
+  async function buatInvoicePakasir(username, robux){
+    try{
+      const res=await fetch("/api/invoice",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,robux})});
+      const data=await res.json();
+      if(res.ok && data.checkout_url){
         window.open(data.checkout_url,"_blank");
       } else {
-        alert("Gagal membuat invoice: " + (data.error || "Unknown error"));
+        alert("Gagal membuat invoice: "+(data.error||"Unknown error"));
       }
-    } catch (err) {
-      console.error("Error invoice:", err);
-      alert("Terjadi kesalahan saat membuat invoice.");
+    }catch(err){
+      alert("Terjadi kesalahan server");
     }
   }
 
   // ===== Binding Panel 5 Hari =====
-document.getElementById("btnCekUser").addEventListener("click",()=>{
-  cekUsernameGeneric("username","notifUsername","avatarPreview");
-});
-
-document.getElementById("topupForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  const username=document.getElementById("username").value.trim();
-  const robux=document.getElementById("paketInfo").dataset.value;
-  if(!username||!robux){
-    document.getElementById("notifPaket").textContent="Lengkapi data!";
-    return;
-  }
-  konfirmasiTopup(username,robux,"avatarPreview","Konfirmasi Topup 5 Hari");
-});
-
-// contoh sederhana cek user (dummy)
-  function cekUsernameGeneric(inputId, notifId, avatarId){
-    const username=document.getElementById(inputId).value.trim();
-    if(!username){
-      document.getElementById(notifId).textContent="Harap isi Username Roblox!";
-      document.getElementById(notifId).style.color="red";
-      return;
-    }
-    document.getElementById(notifId).textContent="Username valid: "+username;
-    document.getElementById(notifId).style.color="green";
-    // tampilkan avatar dummy
-    const avatar=document.getElementById(avatarId);
-    avatar.src="https://placehold.co/120x120?text=Avatar";
-    avatar.classList.remove("hidden");
-  }
-
-  // binding form submit
-  document.getElementById("topupForm").addEventListener("submit",function(e){
+  document.getElementById("btnCekUser").onclick=()=>cekUsernameGeneric("username","notifUsername","avatarPreview");
+  document.getElementById("topupForm").onsubmit=(e)=>{
     e.preventDefault();
     const username=document.getElementById("username").value.trim();
     const robux=document.getElementById("paketInfo").dataset.value;
-    if(!username||!robux){
-      document.getElementById("notifPaket").textContent="Lengkapi data!";
-      return;
-    }
+    if(!username||!robux){alert("Lengkapi data!");return;}
     konfirmasiTopup(username,robux,"avatarPreview","Konfirmasi Topup 5 Hari");
-  });
+  };
 
-// ===== Binding Panel Login =====
-document.getElementById("btnLoginCekUser").addEventListener("click",()=>{
-  cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar");
-});
-
-document.getElementById("btnLoginTopup").addEventListener("click",function(){
-  const username=document.getElementById("loginUsername").value.trim();
-  const robux=document.getElementById("loginPaketInfo").dataset.value;
-  if(!username||!robux){
-    document.getElementById("loginPaketInfo").textContent="Lengkapi data!";
-    return;
-  }
-  konfirmasiTopup(username,robux,"loginAvatar","Konfirmasi Topup Login");
-});
-
-// ===== Admin Panel Binding =====
-document.getElementById("adminToggleBtn").onclick=()=>{document.getElementById("adminModal").classList.remove("hidden");};
-document.getElementById("btnCloseAdmin").onclick=()=>{document.getElementById("adminModal").classList.add("hidden");};
-document.getElementById("btnLoginAdmin").onclick=()=>{
-  const pass=document.getElementById("adminPassword").value;
-  if(pass==="54321"){ // contoh password
-    document.getElementById("adminTools").classList.remove("hidden");
-    document.getElementById("adminToggleBtn").textContent="Admin (ON)";
-  } else { alert("Password salah!"); }
-};
-document.getElementById("btnLogoutAdmin").onclick=()=>{
-  document.getElementById("adminTools").classList.add("hidden");
-  document.getElementById("adminToggleBtn").textContent="Admin";
-};
-document.getElementById("btnAdminCekUser").onclick=()=>cekUsernameGeneric("adminUser","adminNotifUser","adminAvatar");
-document.getElementById("btnAdminBayar").onclick=async ()=>{
-  const username=document.getElementById("adminUser").value.trim();
-  const robux=document.getElementById("adminRobux").value.trim();
-  if(!username||!robux){alert("Lengkapi semua data!");return;}
-  try {
-    const response = await fetch("/api/invoice", {
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({username,robux})
-    });
-    const data=await response.json();
-    if(data.checkout_url){
-      window.open(data.checkout_url,"_blank");
-    } else {
-      alert("Gagal membuat invoice: " + (data.error || "Unknown error"));
-    }
-  } catch(err){
-    console.error("Error invoice:",err);
-    alert("Terjadi kesalahan saat membuat invoice.");
-  }
-};
+  // ===== Binding Panel Login =====
+  document.getElementById("btnLoginCekUser").onclick=()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar");
+  document.getElementById("btnLoginTopup").onclick=()=>{
+    const username=document.getElementById("loginUsername").value.trim();
+    const robux=document.getElementById("loginPaketInfo").dataset.value;
+    if(!username||!robux){alert("Lengkapi data!");return;}
+    konfirmasiTopup(username,robux,"loginAvatar","Konfirmasi Topup Login");
+  };
 
 // ===== Footer Tahun Otomatis =====
 document.getElementById("fullDate").textContent=new Date().getFullYear();
@@ -365,4 +306,4 @@ document.getElementById("fullDate").textContent=new Date().getFullYear();
 </script>
 
 </body>
-  </html>
+</html>
