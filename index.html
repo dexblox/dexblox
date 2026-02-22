@@ -268,17 +268,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ===== Buat Invoice =====
   async function buatInvoicePakasir(username, robux){
-    try{
-      const res=await fetch("/api/invoice",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,robux})});
-      const data=await res.json();
-      if(res.ok && data.checkout_url){
-        window.open(data.checkout_url,"_blank");
-      } else {
-        alert("Gagal membuat invoice: "+(data.error||"Unknown error"));
-      }
-    }catch(err){
-      alert("Terjadi kesalahan server");
+  try{
+    const res=await fetch("/api/invoice",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({username,robux})
+    });
+    const data=await res.json();
+    if(res.ok && data.checkout_url){
+      window.open(data.checkout_url,"_blank"); // buka halaman pembayaran
+    } else {
+      alert("Gagal membuat invoice: "+(data.error||"Unknown error"));
     }
+  }catch(err){
+    alert("Terjadi kesalahan server");
+  }
   }
 
   // ===== Binding Panel 5 Hari =====
