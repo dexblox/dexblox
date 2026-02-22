@@ -8,12 +8,17 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Username dan Robux wajib diisi" });
   }
 
-  // Hitung harga sesuai kebutuhan (contoh: Rp13.000 per 100 Robux)
-  const hargaPer100 = 13000;
+  const hargaPer100 = 13000; // contoh harga
   const amount = (robux / 100) * hargaPer100;
   const gamepassId = Math.round((robux / 100) * 143);
 
   try {
+    console.log("=== Membuat invoice ===");
+    console.log("Username:", username);
+    console.log("Robux:", robux);
+    console.log("Amount:", amount);
+    console.log("Gamepass ID:", gamepassId);
+
     const response = await fetch("https://app.pakasir.com/api/v1/invoice", {
       method: "POST",
       headers: {
@@ -21,13 +26,15 @@ export default async function handler(req, res) {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        slug: "dexblox", // pastikan slug sesuai dengan project di Pakasir
+        slug: "dexblox", // pastikan slug sesuai di dashboard Pakasir
         amount: amount,
         description: `Topup Robux untuk ${username} - Paket: ${robux} Robux (Gamepass ID: ${gamepassId})`
       })
     });
 
     const data = await response.json();
+    console.log("Response status:", response.status);
+    console.log("Response data:", data);
 
     if (response.ok && data.checkout_url) {
       res.status(200).json({ checkout_url: data.checkout_url });
