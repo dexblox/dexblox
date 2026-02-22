@@ -37,11 +37,23 @@
     .panel-link:hover {
       text-decoration: underline;
     }
+
+    /* Animasi koin naik-turun */
+    @keyframes coinBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px) scale(1.05); }
+    }
+    .logo-coin {
+      animation: coinBounce 2s infinite ease-in-out;
+    }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
 
 <header class="z-10 text-center mt-6 mb-6">
+  <!-- Logo dengan animasi koin -->
+  <img src="dexblox.png" alt="DEXBLOX Logo" class="logo-coin mx-auto mb-4 w-24 h-24">
+  
   <h1 class="text-5xl font-extrabold">DEXBLOX</h1>
   <div class="rating mt-2">Topup Robux Termurah Di Indonesia</div>
 </header>
@@ -55,8 +67,8 @@
 
 <!-- Panel menuju link langsung (di bawah tombol) -->
 <div id="promoPanel" class="mt-4">
-  <a href="https://dexblox.webkus.com/" target="_blank" class="panel-link">
-    Robux lainnya Klik
+  <a href="https://dexstore.webkus.com/" target="_blank" class="panel-link">
+    Game lainnya Klik
   </a>
 </div>
 
@@ -88,7 +100,7 @@
 
     <section>
       <h3 class="text-lg font-bold mb-2">Harga Hari Ini</h3>
-      <p class="mb-4">Rp <span id="hargaHariIni" data-harga="12500" class="text-2xl font-extrabold">12.500</span> = 100 Robux</p>
+      <p class="mb-4">Rp <span id="hargaHariIni" data-harga="13000" class="text-2xl font-extrabold">13.000</span> = 100 Robux</p>
       <div class="grid grid-cols-2 gap-4">
         <div class="paket-card p-4 rounded-lg font-bold" data-value="100">100 Robux</div>
         <div class="paket-card p-4 rounded-lg font-bold" data-value="200">200 Robux</div>
@@ -388,41 +400,6 @@ document.getElementById("btnLoginTopup").addEventListener("click",function(){
   const paket=document.getElementById("loginPaketInfo").textContent;
   if(!username||!paket){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
   konfirmasiTopup(username,paket,"loginAvatar","Konfirmasi Topup Login");
-});
-
-// ===== Integrasi Pembayaran Pakasir =====
-async function buatInvoicePakasir(username, paket) {
-  try {
-    // Panggil endpoint server kamu (server akan pakai API Key Pakasir)
-    const response = await fetch("/buat-invoice", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username,
-        paket: paket
-      })
-    });
-    const data = await response.json();
-
-    if (data.checkout_url) {
-      // Redirect user ke halaman pembayaran Pakasir
-      window.location.href = data.checkout_url;
-    } else {
-      alert("Gagal membuat invoice: " + (data.error || "Unknown error"));
-    }
-  } catch (err) {
-    console.error("Error invoice:", err);
-    alert("Terjadi kesalahan saat membuat invoice.");
-  }
-}
-
-// Contoh binding ke tombol submit (setelah konfirmasi)
-document.addEventListener("click", function(e){
-  if(e.target && e.target.id==="btnConfirmWA"){
-    const username=document.getElementById("username").value.trim();
-    const paket=document.getElementById("paketInfo").textContent;
-    buatInvoicePakasir(username, paket);
-  }
 });
 
 // ===== Konfirmasi WhatsApp =====
