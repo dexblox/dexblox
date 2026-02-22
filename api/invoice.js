@@ -5,44 +5,35 @@ export default async function handler(req, res) {
 
   const { username, robux } = req.body;
   if (!username || !robux) {
-    return res.status(400).json({ error: "Username dan Robux wajib diisi" });
+    return res.status(400).json({ error: "Data wajib diisi" });
   }
 
-  const hargaPer100 = 13000; // contoh harga
+  const hargaPer100 = 13000;
   const amount = (robux / 100) * hargaPer100;
-  const gamepassId = Math.round((robux / 100) * 143);
 
   try {
-    console.log("=== Membuat invoice ===");
-    console.log("Username:", username);
-    console.log("Robux:", robux);
-    console.log("Amount:", amount);
-    console.log("Gamepass ID:", gamepassId);
-
     const response = await fetch("https://app.pakasir.com/api/v1/invoice", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.PAKASIR_API_KEY}`,
+        Authorization: `Bearer ${process.env.PAKASIR_API_KEY}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        slug: "dexblox", // pastikan slug sesuai di dashboard Pakasir
-        amount: amount,
-        description: `Topup Robux untuk ${username} - Paket: ${robux} Robux (Gamepass ID: ${gamepassId})`
+        slug: "dexblox", // ganti sesuai slug project kamu
+        amount,
+        description: `Topup Robux untuk ${username} - Paket: ${robux} Robux`
       })
     });
 
     const data = await response.json();
-    console.log("Response status:", response.status);
-    console.log("Response data:", data);
 
-    if (response.ok && data.checkout_url) {
-      res.status(200).json({ checkout_url: data.checkout_url });
-    } else {
-      res.status(500).json({ error: data.error || "Gagal membuat invoice" });
+    if (!response.ok) {
+      return res.status(response.status).json({ error: data.error || "Gagal membuat invoice" });
     }
+
+    return res.status(200).json({ checkout_url: data.checkout_url });
   } catch (err) {
-    console.error("Error invoice:", err);
-    res.status(500).json({ error: "Terjadi kesalahan server" });
+    console.error("Error Invoice:", err);
+    return res.status(500).json({ error: "Terjadi kesalahan server", detail: err.message });
   }
 }
