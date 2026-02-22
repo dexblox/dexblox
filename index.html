@@ -8,24 +8,40 @@
   <style>
     body { background:#fff;font-family:Arial,sans-serif;color:#000; }
     h1,h2,h3,p,label { color:#000;text-shadow:none; }
-    .paket-card {transition:.3s;cursor:pointer;background:rgba(0,0,0,0.05);color:#000;border:2px solid transparent;border-radius:8px;}
-    .paket-card:hover {transform:scale(1.03);background:rgba(0,0,0,0.1);}
-    .paket-card.active {background:#000;color:#fff;border:2px solid #000;}
+    .paket-card {
+      transition:.3s;
+      cursor:pointer;
+      background:rgba(0,0,0,0.05);
+      color:#000;
+      border:2px solid transparent;
+      border-radius:8px;
+    }
+    .paket-card:hover {
+      transform:scale(1.03);
+      background:rgba(0,0,0,0.1);
+    }
+    .paket-card.active {
+      background:#000;
+      color:#fff;
+      border:2px solid #000;
+    }
     .panel-buttons button.active {background:#000;color:#fff;}
     .panel-box {background:rgba(255,255,255,0.9);border:2px solid #000;border-radius:12px;}
     footer {color:#000;}
-    .panel-link {color:#007bff;font-weight:bold;text-decoration:none;}
-    .panel-link:hover {text-decoration:underline;}
-    @keyframes coinBounce {0%,100%{transform:translateY(0);}50%{transform:translateY(-20px) scale(1.05);}}
-    .logo-coin {animation:coinBounce 2s infinite ease-in-out;}
-    #notifPanel {display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:50;}
-    #notifContent {background:#fff;padding:20px;border-radius:12px;max-width:400px;text-align:center;}
+    /* Link biru sederhana */
+    .panel-link {
+      color: #007bff; /* biru */
+      font-weight: bold;
+      text-decoration: none;
+    }
+    .panel-link:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
 
 <header class="z-10 text-center mt-6 mb-6">
-  <img src="dexblox.png" alt="DEXBLOX Logo" class="logo-coin mx-auto mb-4 w-24 h-24">
   <h1 class="text-5xl font-extrabold">DEXBLOX</h1>
   <div class="rating mt-2">Topup Robux Termurah Di Indonesia</div>
 </header>
@@ -37,46 +53,68 @@
   <button id="btnKomunitas" class="px-4 py-2 rounded">Via Komunitas</button>
 </div>
 
-<!-- Promo Panel -->
+<!-- Panel menuju link langsung (di bawah tombol) -->
 <div id="promoPanel" class="mt-4">
-  <a href="https://dexstore.webkus.com/" target="_blank" class="panel-link">Game lainnya Klik</a>
+  <a href="https://dexstore.webkus.com/" target="_blank" class="panel-link">
+    Robux lainnya Klik
+  </a>
 </div>
 
 <!-- Panel 5 Hari -->
 <div id="panel5hari" class="panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
   <h2 class="text-2xl font-bold mb-4">Robux 5 Hari</h2>
   <form id="topupForm" class="space-y-6">
-    <label class="block mb-1">Username Roblox</label>
-    <input type="text" id="username" class="w-full p-2 rounded border text-center" placeholder="Masukkan Username Roblox">
-    <p id="notifUsername" class="text-xs mt-1"></p>
-    <div class="mt-4 text-center">
-      <img id="avatarPreview" class="hidden mx-auto rounded-full border" width="120" height="120" alt="Avatar Roblox">
+    <!-- Catatan Penting -->
+    <div class="bg-white border-2 border-black text-black p-4 rounded-lg mb-4">
+      <span class="block text-lg font-extrabold tracking-wide">CATATAN PENTING</span>
+      <p class="text-sm mt-2 leading-relaxed text-black">
+        Pembelian menggunakan <strong>gamepass/private server</strong> memiliki risiko akun terkena banned, 
+        terutama jika dilakukan dalam jumlah besar. 
+        Harap pahami terlebih dahulu risiko ini. 
+        Penjual tidak bertanggung jawab atas konsekuensi yang terjadi pada akun.
+      </p>
     </div>
-    <button type="button" id="btnCekUser" class="bg-black text-white font-bold px-4 py-2 rounded mt-2">Cek Username</button>
 
-    <h3 class="text-lg font-bold mt-4 mb-2">Harga Hari Ini</h3>
-    <p class="mb-4">Rp <span id="hargaHariIni" data-harga="13000" class="text-2xl font-extrabold">13.000</span> = 100 Robux</p>
-    <div class="grid grid-cols-2 gap-4">
-      <div class="paket-card p-4 rounded-lg font-bold" data-value="100">100 Robux</div>
-      <div class="paket-card p-4 rounded-lg font-bold" data-value="200">200 Robux</div>
-      <div class="paket-card p-4 rounded-lg font-bold" data-value="500">500 Robux</div>
-      <div class="paket-card p-4 rounded-lg font-bold" data-value="1000">1000 Robux</div>
+    <!-- Form isi tetap sama -->
+    <div>
+      <label class="block mb-1">Username Roblox</label>
+      <input type="text" id="username" class="w-full p-2 rounded border text-center" placeholder="Masukkan Username Roblox">
+      <p id="notifUsername" class="text-xs mt-1"></p>
+      <div class="mt-4 text-center">
+        <img id="avatarPreview" class="hidden mx-auto rounded-full border" width="120" height="120" alt="Avatar Roblox">
+      </div>
+      <button type="button" id="btnCekUser" class="bg-black text-white font-bold px-4 py-2 rounded mt-2">Cek Username</button>
     </div>
-    <p id="notifPaket" class="text-xs mt-1"></p>
 
-    <h3 class="text-lg font-bold mt-4 mb-2">Custom Paket Robux</h3>
-    <input type="number" id="customRobux" class="p-2 rounded border text-center w-48" placeholder="Jumlah Robux">
-    <p id="notifCustom" class="text-xs mt-1"></p>
+    <section>
+      <h3 class="text-lg font-bold mb-2">Harga Hari Ini</h3>
+      <p class="mb-4">Rp <span id="hargaHariIni" data-harga="13000" class="text-2xl font-extrabold">13.000</span> = 100 Robux</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="paket-card p-4 rounded-lg font-bold" data-value="100">100 Robux</div>
+        <div class="paket-card p-4 rounded-lg font-bold" data-value="200">200 Robux</div>
+        <div class="paket-card p-4 rounded-lg font-bold" data-value="500">500 Robux</div>
+        <div class="paket-card p-4 rounded-lg font-bold" data-value="1000">1000 Robux</div>
+      </div>
+      <p id="notifPaket" class="text-xs mt-1"></p>
+    </section>
+
+    <section>
+      <h3 class="text-lg font-bold mb-2">Custom Paket Robux</h3>
+      <input type="number" id="customRobux" class="p-2 rounded border text-center w-48" placeholder="Jumlah Robux">
+      <p id="notifCustom" class="text-xs mt-1"></p>
+    </section>
 
     <p id="paketInfo" class="font-bold mt-2"></p>
     <input type="hidden" id="robux" name="robux">
 
-    <label class="block mb-1 mt-4">Kode Promo</label>
-    <div class="flex space-x-2">
-      <input type="text" id="promoInput" class="flex-1 p-2 rounded border text-center" placeholder="Masukkan kode promo">
-      <button type="button" id="btnPromo" class="bg-black text-white font-bold px-4 rounded">Cek</button>
+    <div>
+      <label class="block mb-1">Kode Promo</label>
+      <div class="flex space-x-2">
+        <input type="text" id="promoInput" class="flex-1 p-2 rounded border text-center" placeholder="Masukkan kode promo">
+        <button type="button" id="btnPromo" class="bg-black text-white font-bold px-4 rounded">Cek</button>
+      </div>
+      <p id="notifPromo" class="text-xs mt-1"></p>
     </div>
-    <p id="notifPromo" class="text-xs mt-1"></p>
 
     <button type="submit" class="w-full bg-black text-white font-bold py-2 px-4 rounded shadow-lg">Topup</button>
   </form>
@@ -85,27 +123,50 @@
 <!-- Panel Login -->
 <div id="panelLogin" class="hidden panel-box mt-6 z-10 w-[90%] max-w-md p-6 rounded-xl shadow-lg text-center">
   <h2 class="text-2xl font-bold mb-4">Via Login</h2>
-  <label class="block mb-1">Username Roblox</label>
-  <input type="text" id="loginUsername" class="w-full p-2 rounded border text-center" placeholder="Masukkan Username Roblox">
-  <p id="loginNotifUser" class="text-xs mt-1"></p>
-  <div class="mt-4 text-center">
-    <img id="loginAvatar" class="hidden mx-auto rounded-full border" width="120" height="120" alt="Avatar Roblox">
-  </div>
-  <button type="button" id="btnLoginCekUser" class="bg-black text-white font-bold px-4 py-2 rounded mt-2">Cek Username</button>
 
-  <h3 class="text-lg font-bold mt-6 mb-2">Paket Premium</h3>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="paket-card p-4 rounded-lg font-bold" data-type="premium" data-value="450">450 Robux</div>
-    <div class="paket-card p-4 rounded-lg font-bold" data-type="premium" data-value="1000">1000 Robux</div>
-    <div class="paket-card p-4 rounded-lg font-bold" data-type="premium" data-value="2200">2200 Robux</div>
+  <!-- Catatan Penting -->
+  <div class="bg-white border-2 border-black text-black p-4 rounded-lg mb-4">
+    <span class="block text-lg font-extrabold tracking-wide">CATATAN PENTING</span>
+    <p class="text-sm mt-2 leading-relaxed text-black">
+      Topup <strong>via login</strong> menggunakan sistem masuk ke akun Roblox. 
+      Kemungkinan akan ada verifikasi yang perlu diselesaikan. 
+      Untuk mempercepat proses konfirmasi, harap tetap online hingga transaksi selesai. 
+      <em>Robux langsung masuk</em>, dan disarankan untuk tidak mengaktifkan verifikasi dua langkah.
+    </p>
   </div>
 
-  <h3 class="text-lg font-bold mt-6 mb-2">Paket Robux</h3>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="240">240 Robux</div>
-    <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="500">500 Robux</div>
-    <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="1000">1000 Robux</div>
+  <!-- Isi panel login tetap sama -->
+  <div>
+    <label class="block mb-1">Username Roblox</label>
+    <input type="text" id="loginUsername" class="w-full p-2 rounded border text-center" placeholder="Masukkan Username Roblox">
+    <p id="loginNotifUser" class="text-xs mt-1"></p>
+    <div class="mt-4 text-center">
+      <img id="loginAvatar" class="hidden mx-auto rounded-full border" width="120" height="120" alt="Avatar Roblox">
+    </div>
+    <button type="button" id="btnLoginCekUser" class="bg-black text-white font-bold px-4 py-2 rounded mt-2">Cek Username</button>
   </div>
+
+  <!-- Paket Premium -->
+  <section class="mt-6">
+    <h3 class="text-lg font-bold mb-2">Premium</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="premium" data-value="450">450 Robux - Rp72.500</div>
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="premium" data-value="1000">1000 Robux - Rp145.000</div>
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="premium" data-value="2200">2200 Robux - Rp289.000</div>
+    </div>
+  </section>
+
+  <!-- Paket Biasa -->
+  <section class="mt-6">
+    <h3 class="text-lg font-bold mb-2">Robux</h3>
+    <div class="grid grid-cols-2 gap-4">
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="240">240 Robux - Rp49.500</div>
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="320">320 Robux - Rp66.000</div>
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="500">500 Robux - Rp72.500</div>
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="1000">1000 Robux - Rp145.000</div>
+      <div class="paket-card p-4 rounded-lg font-bold" data-type="robux" data-value="2000">2000 Robux - Rp289.000</div>
+    </div>
+  </section>
 
   <p id="loginPaketInfo" class="font-bold mt-4"></p>
   <button id="btnLoginTopup" class="w-full bg-black text-white font-bold py-2 px-4 rounded shadow-lg mt-4">Topup</button>
@@ -130,8 +191,16 @@
       <img id="adminAvatar" class="hidden mx-auto mb-2 rounded-full border" width="100" height="100" alt="Avatar Roblox">
       <p id="adminNotifUser" class="text-xs mb-2"></p>
       <input type="text" id="adminRobux" placeholder="Jumlah Robux" class="w-full p-2 rounded border mb-2">
+      <select id="adminMetode" class="w-full p-2 rounded border mb-2">
+        <option value="">-- Pilih Metode Pembayaran --</option>
+        <option value="DANA">DANA</option>
+        <option value="GoPay">GoPay</option>
+        <option value="QRIS">QRIS</option>
+        <option value="OVO">OVO</option>
+        <option value="ShopeePay">ShopeePay</option>
+      </select>
       <input type="text" id="adminWA" placeholder="Nomor WhatsApp User (62...)" class="w-full p-2 rounded border mb-2">
-      <button id="btnAdminBayar" class="bg-black text-white px-4 py-2 rounded">Buat Invoice Pakasir</button>
+      <button id="btnKirimBukti" class="bg-black text-white px-4 py-2 rounded">Kirim Bukti</button>
     </div>
     <div class="flex justify-center space-x-4 mt-4">
       <button id="btnCloseAdmin" class="bg-red-500 text-white px-4 py-2 rounded">Tutup</button>
@@ -142,7 +211,10 @@
 
 <!-- Mini Admin Button -->
 <div class="fixed bottom-2 right-2 bg-gray-200 p-1 rounded-lg shadow-lg">
-  <button id="adminToggleBtn" class="relative bg-black text-white px-2 py-1 rounded-full shadow-lg text-sm">⋮</button>
+  <button id="adminToggleBtn" 
+    class="relative bg-black text-white px-2 py-1 rounded-full transition duration-300 ease-in-out shadow-lg text-sm">
+    ⋮
+  </button>
 </div>
 
 <!-- Notifikasi Konfirmasi -->
@@ -156,157 +228,244 @@
 </footer>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  // ===== Variabel Harga =====
-  let hargaPer100 = 13000; // harga dasar per 100 Robux
-  let promoActive = false; // status promo
-
-  // ===== Fungsi Hitung Harga =====
-  function hitungHarga(robux){
-    let harga = (robux / 100) * hargaPer100;
-    if(promoActive){
-      harga = Math.round(harga * 0.9); // diskon 10%
-    }
-    const gamepassId = Math.round((robux / 100) * 143);
-    return { harga, gamepassId };
-  }
-
-  // ===== Panel Toggle =====
-  function showPanel(panelId){
-    ["panel5hari","panelLogin","panelKomunitas"].forEach(id=>{
-      const el=document.getElementById(id);
-      if(el) el.classList.add("hidden");
-    });
-    document.getElementById(panelId).classList.remove("hidden");
-    document.querySelectorAll(".panel-buttons button").forEach(btn=>btn.classList.remove("active"));
-    let btnId = panelId==="panel5hari"?"btn5hari":panelId==="panelLogin"?"btnLangsung":"btnKomunitas";
-    document.getElementById(btnId).classList.add("active");
-  }
-  document.getElementById("btn5hari").onclick=()=>showPanel("panel5hari");
-  document.getElementById("btnLangsung").onclick=()=>showPanel("panelLogin");
-  document.getElementById("btnKomunitas").onclick=()=>showPanel("panelKomunitas");
-
-  // ===== Paket Card Toggle =====
-  function bindPaketCards(panelId, infoId){
-    document.querySelectorAll(`#${panelId} .paket-card`).forEach(card=>{
-      card.addEventListener("click",()=>{
-        document.querySelectorAll(`#${panelId} .paket-card`).forEach(c=>c.classList.remove("active"));
-        card.classList.add("active");
-        const robux=parseInt(card.dataset.value);
-        const { harga, gamepassId } = hitungHarga(robux);
-        document.getElementById(infoId).textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
-        document.getElementById(infoId).dataset.value=robux;
-      });
-    });
-  }
-  bindPaketCards("panel5hari","paketInfo");
-  bindPaketCards("panelLogin","loginPaketInfo");
-
-  // ===== Promo =====
-  document.getElementById("btnPromo").addEventListener("click",()=>{
-    const input=document.getElementById("promoInput").value.trim().toUpperCase();
-    if(input==="DEX10OFF"){
-      promoActive=true;
-      document.getElementById("notifPromo").textContent="Kode Promo Valid, diskon aktif.";
-      document.getElementById("notifPromo").style.color="green";
-    } else {
-      promoActive=false;
-      document.getElementById("notifPromo").textContent="Kode Promo Salah.";
-      document.getElementById("notifPromo").style.color="red";
-    }
+// ===== Panel Toggle =====
+function showPanel(panelId){
+  ["panel5hari","panelLogin","panelKomunitas"].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.classList.add("hidden");
   });
+  document.getElementById(panelId).classList.remove("hidden");
+  document.querySelectorAll(".panel-buttons button").forEach(btn=>btn.classList.remove("active"));
+  let btnId = panelId==="panel5hari"?"btn5hari":panelId==="panelLogin"?"btnLangsung":"btnKomunitas";
+  document.getElementById(btnId).classList.add("active");
+}
+document.getElementById("btn5hari").addEventListener("click",()=>showPanel("panel5hari"));
+document.getElementById("btnLangsung").addEventListener("click",()=>showPanel("panelLogin"));
+document.getElementById("btnKomunitas").addEventListener("click",()=>showPanel("panelKomunitas"));
 
-  // ===== Cek Username (dummy) =====
-  async function cekUsernameGeneric(inputId, notifId, avatarId){
-    const username=document.getElementById(inputId).value.trim();
-    if(!username){
-      document.getElementById(notifId).textContent="Harap isi Username Roblox!";
-      return;
-    }
-    try{
-      const res=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
-      const data=await res.json();
-      if(res.ok){
-        document.getElementById(notifId).textContent="Username ditemukan: "+data.name;
-        const resAvatar=await fetch(`/api/avatar?userId=${data.userId}`);
-        const dataAvatar=await resAvatar.json();
-        if(resAvatar.ok && dataAvatar.avatarUrl){
-          const avatar=document.getElementById(avatarId);
-          avatar.src=dataAvatar.avatarUrl;
-          avatar.classList.remove("hidden");
-        }
-      } else {
-        document.getElementById(notifId).textContent="Error: "+data.error;
-      }
-    }catch(err){
-      document.getElementById(notifId).textContent="Gagal cek username";
-    }
-  }
+// ===== Notifikasi Field =====
+function showFieldNotif(fieldId,msg,type="error"){
+  const el=document.getElementById(fieldId);
+  if(el){el.textContent=msg;el.style.color=(type==="success"?"green":"red");}
+}
 
-  // ===== Konfirmasi Topup =====
-  function konfirmasiTopup(username, robux, avatarId, notifTitle){
-    const panel=document.getElementById("notifPanel");
-    const content=document.getElementById("notifContent");
-    panel.style.display="flex";
-    const now=new Date().toLocaleString("id-ID");
-    const avatarSrc=document.getElementById(avatarId).src;
-    content.innerHTML=`
-      <h3 class="font-bold mb-4">${notifTitle}</h3>
-      <img src="${avatarSrc}" class="mx-auto mb-4 rounded-full border" width="120" height="120">
-      <p class="mb-4">
-        Username: <span class="font-bold">${username}</span><br>
-        Paket: <span class="font-bold">${robux} Robux</span><br>
-        Waktu: ${now}
-      </p>
-      <div class="flex justify-center space-x-4">
-        <button id="btnConfirmPay" class="bg-green-500 text-white px-4 py-2 rounded">Bayar via Pakasir</button>
-        <button id="btnCancel" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
-      </div>`;
-    document.getElementById("btnConfirmPay").onclick=()=>buatInvoicePakasir(username,robux);
-    document.getElementById("btnCancel").onclick=()=>{panel.style.display="none";}
-  }
+// ===== Harga Default =====
+let hargaPer100 = parseInt(document.getElementById("hargaHariIni").dataset.harga);
+document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
+let promoActive=false; 
+let userProfileUrl="";
 
-  // ===== Buat Invoice =====
-  async function buatInvoicePakasir(username, robux){
+// ===== Username Check Generic =====
+async function cekUsernameGeneric(inputId, notifId, avatarId){
+  const username=document.getElementById(inputId).value.trim();
+  if(!username){showFieldNotif(notifId,"Harap isi Username Roblox!","error");return;}
+  showFieldNotif(notifId,"Sedang mencari...","success");
   try{
-    const res=await fetch("/api/invoice",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({username,robux})
+    // Dummy cek user (karena API user belum ada)
+    showFieldNotif(notifId,`Username valid: ${username}`,"success");
+    document.getElementById(avatarId).src="https://placehold.co/120x120?text=Avatar";
+    document.getElementById(avatarId).classList.remove("hidden");
+    userProfileUrl=`https://www.roblox.com/users/${username}/profile`;
+  }catch(err){showFieldNotif(notifId,"Gagal cek username","error");}
+}
+
+// ===== Paket Card Toggle =====
+function bindPaketCards(panelId, infoId){
+  document.querySelectorAll(`#${panelId} .paket-card`).forEach(card=>{
+    card.addEventListener("click",()=>{
+      document.querySelectorAll(`#${panelId} .paket-card`).forEach(c=>c.classList.remove("active"));
+      card.classList.add("active");
+
+      const robux=parseInt(card.dataset.value);
+      let harga=(robux/100)*hargaPer100;
+      if(promoActive){harga=Math.round(harga*0.9);}
+      const gamepassId=Math.round((robux/100)*143);
+
+      document.getElementById(infoId).textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
+      document.getElementById(infoId).dataset.value=robux;
     });
-    const data=await res.json();
-    if(res.ok && data.checkout_url){
-      window.open(data.checkout_url,"_blank"); // buka halaman pembayaran
+  });
+}
+bindPaketCards("panel5hari","paketInfo");
+bindPaketCards("panelLogin","loginPaketInfo");
+
+// ===== Promo =====
+document.getElementById("btnPromo").addEventListener("click",()=>{
+  const input=document.getElementById("promoInput").value.trim().toUpperCase();
+  if(input==="DEX10OFF"){
+    promoActive=true;
+    showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");
+  } else {
+    promoActive=false;
+    showFieldNotif("notifPromo","Kode Promo Salah.","error");
+  }
+});
+
+// ===== Buat Invoice Pakasir (API key hardcoded untuk uji coba) =====
+async function buatInvoicePakasir(username, robux){
+  const amount = Math.round((robux / 100) * 13000);
+  try {
+    const response = await fetch("https://app.pakasir.com/api/v1/invoice", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer HJlTJS1XN4bt70k5MjdGbZ9Ovydeh8Do", // API key uji coba
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        slug: "dexblox",
+        amount,
+        description: `Topup Robux untuk ${username} - Paket: ${robux} Robux`
+      })
+    });
+    const data = await response.json();
+    if (response.ok && data.checkout_url) {
+      window.open(data.checkout_url, "_blank");
     } else {
-      alert("Gagal membuat invoice: "+(data.error||"Unknown error"));
+      alert("Gagal membuat invoice: " + (data.error || "Unknown error"));
+    }
+  } catch (err) {
+    alert("Terjadi kesalahan server: " + err.message);
+  }
+}
+
+// ===== Konfirmasi Topup Generic =====
+function konfirmasiTopup(username, robux, avatarId, notifTitle){
+  const panel=document.getElementById("notifPanel");
+  const content=document.getElementById("notifContent");
+  panel.style.display="flex";
+  const now = new Date().toLocaleString("id-ID");
+  const avatarSrc=document.getElementById(avatarId).src;
+  content.innerHTML=`
+    <h3 class="font-bold mb-4">${notifTitle}</h3>
+    <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border" width="120" height="120">
+    <p class="mb-4">
+      Username: <span class="font-bold">${username}</span><br>
+      Paket: <span class="font-bold">${robux} Robux</span><br>
+      Profile: <a href="${userProfileUrl}" target="_blank" class="underline">Lihat Profil</a><br>
+      Waktu: ${now}
+    </p>
+    <div class="flex justify-center space-x-4">
+      <button id="btnConfirmPay" class="bg-green-500 text-white px-4 py-2 rounded">Bayar via Pakasir</button>
+      <button id="btnCancelPay" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
+    </div>`;
+  document.getElementById("btnConfirmPay").onclick=()=>buatInvoicePakasir(username, robux);
+  document.getElementById("btnCancelPay").onclick=()=>{panel.style.display="none";}
+}
+
+// ===== Binding Panel 5 Hari =====
+document.getElementById("btnCekUser").addEventListener("click",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
+document.getElementById("topupForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  const username=document.getElementById("username").value.trim();
+  const robux=parseInt(document.getElementById("paketInfo").dataset.value);
+  if(!username||!robux){showFieldNotif("notifPaket","Lengkapi data!","error");return;}
+  konfirmasiTopup(username,robux,"avatarPreview","Konfirmasi Topup 5 Hari");
+});
+
+// ===== Binding Panel Login =====
+document.getElementById("btnLoginCekUser").addEventListener("click",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
+document.getElementById("btnLoginTopup").addEventListener("click",function(){
+  const username=document.getElementById("loginUsername").value.trim();
+  const robux=parseInt(document.getElementById("loginPaketInfo").dataset.value);
+  if(!username||!robux){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
+  konfirmasiTopup(username,robux,"loginAvatar","Konfirmasi Topup Login");
+});
+
+// ===== Konfirmasi WhatsApp =====
+function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
+  const now = new Date().toLocaleString("id-ID");
+  let message=`Halo Min Dex saya ingin topup
+Username: ${username}
+Paket: ${robux}
+Profile: ${userProfileUrl}
+Waktu: ${now}${promoCode ? `\nPromo: ${promoCode}` : ""}
+
+Mohon diproses Admin.`;
+  const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
+  window.open(waLink,"_blank");
+  cancelWA();
+}
+function cancelWA(){document.getElementById("notifPanel").style.display="none";}
+
+// ===== Admin Panel Binding =====
+document.getElementById("adminToggleBtn").addEventListener("click",()=>{document.getElementById("adminModal").classList.remove("hidden");});
+document.getElementById("btnCloseAdmin").addEventListener("click",()=>{document.getElementById("adminModal").classList.add("hidden");});
+document.getElementById("btnLoginAdmin").addEventListener("click",verifyAdmin);
+document.getElementById("btnLogoutAdmin").addEventListener("click",logoutAdmin);
+document.getElementById("btnAdminCekUser").addEventListener("click",cekUserAdmin);
+document.getElementById("btnKirimBukti").addEventListener("click",kirimBuktiAdmin);
+
+// =====  Admin Functions =====
+function verifyAdmin(){
+  const pass=document.getElementById("adminPassword").value;
+  if(pass==="54321"){
+    document.getElementById("adminTools").classList.remove("hidden");
+    document.getElementById("adminToggleBtn").textContent="Admin (ON)";
+  } else { alert("Password salah!"); }
+}
+function logoutAdmin(){
+  document.getElementById("adminTools").classList.add("hidden");
+  document.getElementById("adminToggleBtn").textContent="Admin";
+}
+
+// Admin cek user
+async function cekUserAdmin(){
+  const username=document.getElementById("adminUser").value.trim();
+  if(!username){document.getElementById("adminNotifUser").textContent="Harap isi Username!";return;}
+  try{
+    const resUser=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
+    const dataUser=await resUser.json();
+    if(resUser.ok){
+      document.getElementById("adminNotifUser").textContent=`Username ditemukan: ${dataUser.name}`;
+      const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
+      const dataAvatar=await resAvatar.json();
+      if(resAvatar.ok && dataAvatar.avatarUrl){
+        document.getElementById("adminAvatar").src=dataAvatar.avatarUrl;
+        document.getElementById("adminAvatar").classList.remove("hidden");
+      }
+    } else {
+      document.getElementById("adminNotifUser").textContent="Error: "+dataUser.error;
     }
   }catch(err){
-    alert("Terjadi kesalahan server");
+    document.getElementById("adminNotifUser").textContent="Gagal cek username";
   }
+}
+
+// Format tanggal
+function formatDate(dateObj) {
+  return dateObj.toLocaleString("id-ID", {
+    day: "numeric",month: "long",year: "numeric",hour: "2-digit",minute: "2-digit"
+  });
+}
+
+// Kirim bukti admin
+function kirimBuktiAdmin(){
+  const username=document.getElementById("adminUser").value.trim();
+  const robux=document.getElementById("adminRobux").value.trim();
+  const metode=document.getElementById("adminMetode").value.trim();
+  const userWA=document.getElementById("adminWA").value.trim();
+  if(!username||!robux||!metode||!userWA){alert("Lengkapi semua data!");return;}
+  const now=new Date();const future=new Date();future.setDate(now.getDate()+5);
+  const message=`Bukti Pembayaran DEXBLOX
+
+Username: ${username}
+Paket: ${robux} Robux
+Metode: ${metode}
+Waktu Transaksi: ${formatDate(now)}
+Estimasi Selesai: ${formatDate(future)}
+Profil: ${userProfileUrl}
+
+Robux akan masuk sesuai estimasi.
+Terima kasih sudah topup di DEXBLOX `;
+  const waLink=`https://wa.me/${userWA}?text=${encodeURIComponent(message)}`;
+  if(confirm("Kirim bukti ke user via WhatsApp?")){
+    window.open(waLink,"_blank");
   }
-
-  // ===== Binding Panel 5 Hari =====
-  document.getElementById("btnCekUser").onclick=()=>cekUsernameGeneric("username","notifUsername","avatarPreview");
-  document.getElementById("topupForm").onsubmit=(e)=>{
-    e.preventDefault();
-    const username=document.getElementById("username").value.trim();
-    const robux=document.getElementById("paketInfo").dataset.value;
-    if(!username||!robux){alert("Lengkapi data!");return;}
-    konfirmasiTopup(username,robux,"avatarPreview","Konfirmasi Topup 5 Hari");
-  };
-
-  // ===== Binding Panel Login =====
-  document.getElementById("btnLoginCekUser").onclick=()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar");
-  document.getElementById("btnLoginTopup").onclick=()=>{
-    const username=document.getElementById("loginUsername").value.trim();
-    const robux=document.getElementById("loginPaketInfo").dataset.value;
-    if(!username||!robux){alert("Lengkapi data!");return;}
-    konfirmasiTopup(username,robux,"loginAvatar","Konfirmasi Topup Login");
-  };
+}
 
 // ===== Footer Tahun Otomatis =====
-document.getElementById("fullDate").textContent=new Date().getFullYear();
-});
+const year = new Date().getFullYear();
+document.getElementById("fullDate").textContent = year;
 </script>
 
 </body>
