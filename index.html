@@ -390,21 +390,60 @@ document.getElementById("btnLoginTopup").addEventListener("click",function(){
   konfirmasiTopup(username,paket,"loginAvatar","Konfirmasi Topup Login");
 });
 
-// ===== Konfirmasi WhatsApp =====
+// Modifikasi konfirmasiTopup agar menampilkan QRIS + upload bukti
+function konfirmasiTopup(username, paket, avatarId, notifTitle){
+  const adminNumber="6285362187740";
+  const panel=document.getElementById("notifPanel");
+  const content=document.getElementById("notifContent");
+  panel.style.display="flex";
+  const now = new Date().toLocaleString("id-ID");
+  const avatarSrc=document.getElementById(avatarId).src;
+  content.innerHTML=`
+    <h3 class="font-bold mb-4">${notifTitle}</h3>
+    <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border" width="120" height="120">
+    <p class="mb-4">
+      Username: <span class="font-bold">${username}</span><br>
+      Paket: <span class="font-bold">${paket}</span><br>
+      Profile: <a href="${userProfileUrl}" target="_blank" class="underline">Lihat Profil</a><br>
+      Waktu: ${now}
+    </p>
+    <img src="/assets/qris.png" alt="QRIS" class="mx-auto mb-4 border" width="200">
+    <input type="file" id="buktiUpload" accept="image/*" class="mb-4">
+    <div class="flex justify-center space-x-4">
+      <button id="btnConfirmWA" class="bg-green-500 text-white px-4 py-2 rounded">Sudah Membayar</button>
+      <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
+    </div>`;
+  document.getElementById("btnConfirmWA").addEventListener("click",async ()=>{
+    const file=document.getElementById("buktiUpload").files[0];
+    if(file){await uploadBuktiDiscord(file,username,paket);}
+    confirmWA(username,paket,adminNumber,"",paket,avatarSrc);
+  });
+  document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
+}
+
+// Upload bukti ke Discord webhook
+async function uploadBuktiDiscord(file, username, paket){
+  const webhookUrl="https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU"; // ganti dengan webhook asli
+  const formData=new FormData();
+  formData.append("file",file);
+  formData.append("payload_json",JSON.stringify({content:`Bukti pembayaran dari ${username} untuk paket ${paket}`}));
+  await fetch(webhookUrl,{method:"POST",body:formData});
+}
+
+// Konfirmasi WA setelah upload bukti
 function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
   const now = new Date().toLocaleString("id-ID");
-  let message=`Halo Min Dex saya ingin topup
+  let message=`Halo Min Dex saya sudah membayar
 Username: ${username}
 Paket: ${robux}
 Profile: ${userProfileUrl}
-Waktu: ${now}${promoCode ? `\nPromo: ${promoCode}` : ""}
-
-Mohon diproses Admin.`;
+Waktu: ${now}`;
   const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
   window.open(waLink,"_blank");
   cancelWA();
 }
 function cancelWA(){document.getElementById("notifPanel").style.display="none";}
+
 
 // ===== Admin Panel Binding =====
 document.getElementById("adminToggleBtn").addEventListener("click",()=>{document.getElementById("adminModal").classList.remove("hidden");});
