@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -24,7 +23,7 @@
     /* QRIS Card abu-abu elegan */
     .qris-card {background:#f9f9f9;border-radius:12px;padding:16px;box-shadow:0 0 20px rgba(120,120,120,0.4);text-align:center;animation:glowGrey 2s infinite alternate;}
     .qris-card img {max-width:220px;border-radius:8px;border:2px solid #888;}
-    .qris-card h4 {margin-bottom:12px;font-weight:bold;color:#555;}
+    .qris-card h4 {margin-bottom:12px;font-weig>ht:bold;color:#555;}
     @keyframes glowGrey {from {box-shadow:0 0 10px rgba(150,150,150,0.3);}to {box-shadow:0 0 25px rgba(150,150,150,0.7);}}
     /* Tombol upload file custom */
     .file-upload {display:inline-block;padding:10px 20px;background:#555;color:#fff;border-radius:8px;cursor:pointer;transition:.3s;}
@@ -281,7 +280,7 @@ function bindPaketCards(panelId, infoId){
 
       const type=card.dataset.type||"robux";
       const robux=parseInt(card.dataset.value);
-      let harga=(robux/100)*hargaPer100; // pakai harga dari HTML
+      let harga=(robux/100)*hargaPer100;
       if(promoActive){harga=Math.round(harga*0.9);}
       const gamepassId=Math.round((robux/100)*143);
 
@@ -293,6 +292,7 @@ function bindPaketCards(panelId, infoId){
 
       document.getElementById(infoId).dataset.value=robux;
       document.getElementById(infoId).dataset.type=type;
+      document.getElementById(infoId).dataset.harga=harga;
     });
   });
 }
@@ -303,97 +303,41 @@ bindPaketCards("panelLogin","loginPaketInfo");
 document.getElementById("customRobux").addEventListener("input",function(){
   const robux=parseInt(this.value);
   if(!robux||robux<=0){document.getElementById("paketInfo").textContent="";return;}
-  let harga=(robux/100)*hargaPer100; // pakai harga dari HTML
+  let harga=(robux/100)*hargaPer100;
   if(promoActive){harga=Math.round(harga*0.9);}
   const gamepassId=Math.round((robux/100)*143);
   document.getElementById("paketInfo").textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
   document.getElementById("paketInfo").dataset.value=robux;
+  document.getElementById("paketInfo").dataset.harga=harga;
 });
 
 // ===== Promo =====
 document.getElementById("btnPromo").addEventListener("click",()=>{
   const input=document.getElementById("promoInput").value.trim().toUpperCase();
-  if(input==="DEX10OFF"){
-    promoActive=true;
-    showFieldNotif("notifPromo","Kode Promo Valid, diskon aktif.","success");
-  } else {
-    promoActive=false;
-    showFieldNotif("notifPromo","Kode Promo Salah.","error");
-  }
+  promoActive=(input==="DEX10OFF");
+  showFieldNotif("notifPromo", promoActive?"Kode Promo Valid, diskon aktif.":"Kode Promo Salah.", promoActive?"success":"error");
 
-  // update ulang paket yang sudah dipilih
-  const paketInfo=document.getElementById("paketInfo");
-  if(paketInfo.dataset.value){
-    const robux=parseInt(paketInfo.dataset.value);
-    let harga=(robux/100)*hargaPer100;
-    if(promoActive){harga=Math.round(harga*0.9);}
-    const gamepassId=Math.round((robux/100)*143);
-    paketInfo.textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
-  }
-});
-
-// ===== Konfirmasi Topup Generic =====
-function konfirmasiTopup(username, paket, avatarId, notifTitle){
-  const adminNumber="6285362187740";
-  const panel=document.getElementById("notifPanel");
-  const content=document.getElementById("notifContent");
-  panel.style.display="flex";
-  const now = new Date().toLocaleString("id-ID");
-  const avatarSrc=document.getElementById(avatarId).src;
-  content.innerHTML=`
-    <h3 class="font-bold mb-4">${notifTitle}</h3>
-    <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border" width="120" height="120">
-    <p class="mb-4">
-      Username: <span class="font-bold">${username}</span><br>
-      Paket: <span class="font-bold">${paket}</span><br>
-      Profile: <a href="${userProfileUrl}" target="_blank" class="underline">Lihat Profil</a><br>
-      Waktu: ${now}
-    </p>
-    <div class="flex justify-center space-x-4">
-      <button id="btnConfirmWA" class="bg-green-500 text-white px-4 py-2 rounded">Ya</button>
-      <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Tidak</button>
-    </div>`;
-  document.getElementById("btnConfirmWA").addEventListener("click",()=>{
-    confirmWA(username,paket,adminNumber,"",paket,avatarSrc);
+  ["paketInfo","loginPaketInfo"].forEach(id=>{
+    const paketInfo=document.getElementById(id);
+    if(paketInfo.dataset.value){
+      const robux=parseInt(paketInfo.dataset.value);
+      let harga=(robux/100)*hargaPer100;
+      if(promoActive){harga=Math.round(harga*0.9);}
+      const gamepassId=Math.round((robux/100)*143);
+      paketInfo.textContent=`${robux} Robux = Rp${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
+      paketInfo.dataset.harga=harga;
+    }
   });
-  document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
-}
-
-// ===== Binding Panel 5 Hari =====
-const usernameInput=document.getElementById("username");
-usernameInput.addEventListener("blur",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
-usernameInput.addEventListener("keypress",(e)=>{if(e.key==="Enter"){cekUsernameGeneric("username","notifUsername","avatarPreview");}});
-document.getElementById("btnCekUser").addEventListener("click",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
-document.getElementById("topupForm").addEventListener("submit",function(e){
-  e.preventDefault();
-  const username=document.getElementById("username").value.trim();
-  const paket=document.getElementById("paketInfo").textContent;
-  if(!username||!paket){showFieldNotif("notifPaket","Lengkapi data!","error");return;}
-  konfirmasiTopup(username,paket,"avatarPreview","Konfirmasi Topup 5 Hari");
-});
-
-// ===== Binding Panel Login =====
-const loginInput=document.getElementById("loginUsername");
-loginInput.addEventListener("blur",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
-loginInput.addEventListener("keypress",(e)=>{if(e.key==="Enter"){cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar");}});
-document.getElementById("btnLoginCekUser").addEventListener("click",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
-document.getElementById("btnLoginTopup").addEventListener("click",function(){
-  const username=document.getElementById("loginUsername").value.trim();
-  const paket=document.getElementById("loginPaketInfo").textContent;
-  if(!username||!paket){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
-  konfirmasiTopup(username,paket,"loginAvatar","Konfirmasi Topup Login");
 });
 
 // ===== Konfirmasi Topup dengan QRIS Card =====
-function konfirmasiTopup(username, paket, avatarId, notifTitle){
-  const adminNumber="6285362187740";
+function konfirmasiTopup(username, paket, robux, harga, avatarId, notifTitle){
+  const adminNumber="6285362187740"; // format internasional
   const panel=document.getElementById("notifPanel");
   const content=document.getElementById("notifContent");
   panel.style.display="flex";
   const now = new Date().toLocaleString("id-ID");
   const avatarSrc=document.getElementById(avatarId).src;
-  const robux = document.getElementById("paketInfo").dataset.value || 0;
-  const harga = (robux/100) * hargaPer100;
   const gamepass = Math.round((robux/100) * 143);
   const metode = "QRIS";
 
@@ -420,10 +364,15 @@ function konfirmasiTopup(username, paket, avatarId, notifTitle){
       <button id="btnConfirmWA" class="bg-gray-700 text-white px-4 py-2 rounded">Sudah Membayar</button>
       <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
     </div>`;
+  
   document.getElementById("btnConfirmWA").addEventListener("click",async ()=>{
     const file=document.getElementById("buktiUpload").files[0];
-    if(file){await uploadBuktiDiscord(file,username,robux,harga,gamepass,metode);}
-    confirmWA(username,paket,adminNumber,"",paket,avatarSrc);
+    if(file){
+      if(file.size > 5*1024*1024){alert("File terlalu besar! Maksimal 5MB.");return;}
+      if(!["image/png","image/jpeg"].includes(file.type)){alert("Format file harus JPG/PNG!");return;}
+      await uploadBuktiDiscord(file,username,robux,harga,gamepass,metode);
+    }
+    confirmWA(username,robux,adminNumber,"",`Rp${harga.toLocaleString("id-ID")}`,avatarSrc);
   });
   document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
 }
@@ -447,13 +396,14 @@ Metode Top Up: **${metode}**`;
   await fetch(webhookUrl,{method:"POST",body:formData});
 }
 
-// Konfirmasi WA setelah upload bukti
+// ===== Konfirmasi WA =====
 function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
   const now = new Date().toLocaleString("id-ID");
   let message=`Halo Min Dex saya sudah membayar
 Username: ${username}
-Paket: ${robux}
+Robux: ${robux}
 Profile: ${userProfileUrl}
+Harga: ${hargaText}
 Waktu: ${now}`;
   const waLink=`https://wa.me/${adminNumber}?text=${encodeURIComponent(message)}`;
   window.open(waLink,"_blank");
@@ -461,53 +411,20 @@ Waktu: ${now}`;
 }
 function cancelWA(){document.getElementById("notifPanel").style.display="none";}
 
-
 // ===== Admin Functions =====
 function verifyAdmin(){
   const pass=document.getElementById("adminPassword").value;
   if(pass==="54321"){ // ganti dengan password asli
     document.getElementById("adminTools").classList.remove("hidden");
-    document.getElementById("adminToggleBtn").textContent="Admin (ON)";
   } else {
     alert("Password salah!");
   }
 }
 function logoutAdmin(){
   document.getElementById("adminTools").classList.add("hidden");
-  document.getElementById("adminToggleBtn").textContent="Admin";
 }
 
 // ===== Admin cek user =====
-async function cekUserAdmin(){
-  const username=document.getElementById("adminUser").value.trim();
-  if(!username){
-    document.getElementById("adminNotifUser").textContent="Harap isi Username!";
-    return;
-  }
-  try{
-    const resUser=await fetch("/api/user",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({username})
-    });
-    const dataUser=await resUser.json();
-    if(resUser.ok){
-      document.getElementById("adminNotifUser").textContent=`Username ditemukan: ${dataUser.name}`;
-      const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
-      const dataAvatar=await resAvatar.json();
-      if(resAvatar.ok && dataAvatar.avatarUrl){
-        document.getElementById("adminAvatar").src=dataAvatar.avatarUrl;
-        document.getElementById("adminAvatar").classList.remove("hidden");
-      }
-    } else {
-      document.getElementById("adminNotifUser").textContent="Error: "+dataUser.error;
-    }
-  }catch(err){
-    document.getElementById("adminNotifUser").textContent="Gagal cek username";
-  }
-}
-
-// Admin cek user
 async function cekUserAdmin(){
   const username=document.getElementById("adminUser").value.trim();
   if(!username){document.getElementById("adminNotifUser").textContent="Harap isi Username!";return;}
@@ -530,14 +447,14 @@ async function cekUserAdmin(){
   }
 }
 
-// Format tanggal
+// ===== Format tanggal =====
 function formatDate(dateObj) {
   return dateObj.toLocaleString("id-ID", {
     day: "numeric",month: "long",year: "numeric",hour: "2-digit",minute: "2-digit"
   });
 }
 
-// ===== Kirim Bukti ke Discord =====
+// ===== Kirim Bukti ke Discord (Admin) =====
 document.getElementById("btnKirimBukti").addEventListener("click",async ()=>{
   const username=document.getElementById("adminUser").value;
   const robux=document.getElementById("adminRobux").value;
@@ -555,7 +472,7 @@ document.getElementById("btnKirimBukti").addEventListener("click",async ()=>{
   const message=`# Konfirmasi Topup User
 
 Username: ${username}
-Paket: **${robux}**Robux
+Paket: **${robux}** Robux
 Metode: **${metode}**
 Waktu Transaksi: **${formatDate(now)}**
 Estimasi Selesai: **${formatDate(future)}**
@@ -566,11 +483,46 @@ Profil: **${userProfileUrl}**`;
 
   await fetch(webhookUrl,{method:"POST",body:formData});
   alert("Konfirmasi berhasil dikirim ke Discord!");
-}
+});
 
 // ===== Footer Tahun Otomatis =====
 const year = new Date().getFullYear();
 document.getElementById("fullDate").textContent = year;
+
+// ===== Binding Tombol =====
+// Panel 5 Hari
+document.getElementById("btnCekUser").addEventListener("click",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
+document.getElementById("topupForm").addEventListener("submit",function(e){
+  e.preventDefault();
+  const username=document.getElementById("username").value.trim();
+  const paket=document.getElementById("paketInfo").textContent;
+  const robux=parseInt(document.getElementById("paketInfo").dataset.value||0);
+  const harga=parseInt(document.getElementById("paketInfo").dataset.harga||0);
+  if(!username||!paket){showFieldNotif("notifPaket","Lengkapi data!","error");return;}
+  konfirmasiTopup(username,paket,robux,harga,"avatarPreview","Konfirmasi Topup 5 Hari");
+});
+
+// Panel Login
+document.getElementById("btnLoginCekUser").addEventListener("click",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
+document.getElementById("btnLoginTopup").addEventListener("click",function(){
+  const username=document.getElementById("loginUsername").value.trim();
+  const paket=document.getElementById("loginPaketInfo").textContent;
+  const robux=parseInt(document.getElementById("loginPaketInfo").dataset.value||0);
+  const harga=parseInt(document.getElementById("loginPaketInfo").dataset.harga||0);
+  if(!username||!paket){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
+  konfirmasiTopup(username,paket,robux,harga,"loginAvatar","Konfirmasi Topup Login");
+});
+
+// Admin Panel
+document.getElementById("adminToggleBtn").addEventListener("click",()=>{
+  document.getElementById("adminModal").classList.remove("hidden");
+});
+document.getElementById("btnLoginAdmin").addEventListener("click",verifyAdmin);
+document.getElementById("btnCloseAdmin").addEventListener("click",()=>{
+  document.getElementById("adminModal").classList.add("hidden");
+});
+document.getElementById("btnLogoutAdmin").addEventListener("click",logoutAdmin);
+document.getElementById("btnAdminCekUser").addEventListener("click",cekUserAdmin);
 </script>
 
 </body>
