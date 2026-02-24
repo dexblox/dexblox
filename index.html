@@ -8,42 +8,28 @@
   <style>
     body { background:#fff;font-family:Arial,sans-serif;color:#000; }
     h1,h2,h3,p,label { color:#000;text-shadow:none; }
-    .paket-card {
-      transition:.3s;
-      cursor:pointer;
-      background:rgba(0,0,0,0.05);
-      color:#000;
-      border:2px solid transparent;
-      border-radius:8px;
-    }
-    .paket-card:hover {
-      transform:scale(1.03);
-      background:rgba(0,0,0,0.1);
-    }
-    .paket-card.active {
-      background:#000;
-      color:#fff;
-      border:2px solid #000;
-    }
+    .paket-card {transition:.3s;cursor:pointer;background:rgba(0,0,0,0.05);color:#000;border:2px solid transparent;border-radius:8px;}
+    .paket-card:hover {transform:scale(1.03);background:rgba(0,0,0,0.1);}
+    .paket-card.active {background:#000;color:#fff;border:2px solid #000;}
     .panel-buttons button.active {background:#000;color:#fff;}
     .panel-box {background:rgba(255,255,255,0.9);border:2px solid #000;border-radius:12px;}
     footer {color:#000;}
-    /* Link biru sederhana */
-    .panel-link {
-      color: #007bff; /* biru */
-      font-weight: bold;
-      text-decoration: none;
-    }
-    .panel-link:hover {
-      text-decoration: underline;
-    }
+    .panel-link {color:#007bff;font-weight:bold;text-decoration:none;}
+    .panel-link:hover {text-decoration:underline;}
+    /* QRIS Card */
+    .qris-card {background:#fff;border-radius:12px;padding:16px;box-shadow:0 0 20px rgba(0,200,255,0.6);text-align:center;animation:glow 2s infinite alternate;}
+    .qris-card img {max-width:220px;border-radius:8px;border:2px solid #0af;}
+    .qris-card h4 {margin-bottom:12px;font-weight:bold;color:#0af;}
+    @keyframes glow {from {box-shadow:0 0 10px rgba(0,200,255,0.4);}to {box-shadow:0 0 25px rgba(0,200,255,0.9);}}
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
 
+<!-- Header dengan Logo + Judul -->
 <header class="z-10 text-center mt-6 mb-6">
+  <img src="dexblox.png" alt="DEXBLOX Logo" class="mx-auto h-20 mb-4">
   <h1 class="text-5xl font-extrabold">DEXBLOX</h1>
-  <div class="rating mt-2">Topup Robux Termurah Di Indonesia</div>
+  <div class="rating mt-2 text-lg">Topup Robux Termurah Di Indonesia</div>
 </header>
 
 <!-- Panel Buttons -->
