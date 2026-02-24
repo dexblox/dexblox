@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -6,13 +7,17 @@
   <title>DEXBLOX - Topup Robux</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body { background:#fff;font-family:Arial,sans-serif;color:#000; }
+    body {
+      background:#f5f5f5; /* putih agak abu-abu */
+      font-family:Arial,sans-serif;
+      color:#000;
+    }
     h1,h2,h3,p,label { color:#000;text-shadow:none; }
     .paket-card {transition:.3s;cursor:pointer;background:rgba(0,0,0,0.05);color:#000;border:2px solid transparent;border-radius:8px;}
     .paket-card:hover {transform:scale(1.03);background:rgba(0,0,0,0.1);}
     .paket-card.active {background:#000;color:#fff;border:2px solid #000;}
     .panel-buttons button.active {background:#000;color:#fff;}
-    .panel-box {background:rgba(255,255,255,0.9);border:2px solid #000;border-radius:12px;}
+    .panel-box {background:#fff;border:2px solid #000;border-radius:12px;}
     footer {color:#000;}
     .panel-link {color:#007bff;font-weight:bold;text-decoration:none;}
     .panel-link:hover {text-decoration:underline;}
@@ -28,7 +33,7 @@
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
-  
+
 <!-- Header dengan Logo + Judul -->
 <header class="z-10 text-center mt-6 mb-6">
   <img src="dexblox.png" alt="DEXBLOX Logo" class="mx-auto h-20 mb-4">
@@ -170,12 +175,12 @@
 
 <!-- Admin Panel -->
 <div id="adminModal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-  <div class="panel-box p-6 rounded-lg shadow-lg text-center max-w-sm border border-black">
+  <div class="panel-box p-6 rounded-lg shadow-lg text-center max-w-sm border border-black bg-white">
     <h2 class="font-bold text-lg mb-4">Admin Panel</h2>
     <input type="password" id="adminPassword" class="w-full p-2 rounded border text-center mb-4" placeholder="••••••••">
     <div id="adminTools" class="hidden">
       <button id="btnLogoutAdmin" class="bg-gray-500 text-white px-4 py-2 rounded mt-2">Logout</button>
-      <h3 class="font-bold mt-6 mb-2">Kirim Bukti ke User</h3>
+      <h3 class="font-bold mt-6 mb-2">Konfirmasi ke Discord</h3>
       <input type="text" id="adminUser" placeholder="Username Roblox" class="w-full p-2 rounded border mb-2">
       <button id="btnAdminCekUser" class="bg-black text-white font-bold px-4 py-2 rounded mb-2">Cek Username</button>
       <img id="adminAvatar" class="hidden mx-auto mb-2 rounded-full border" width="100" height="100" alt="Avatar Roblox">
@@ -189,7 +194,6 @@
         <option value="OVO">OVO</option>
         <option value="ShopeePay">ShopeePay</option>
       </select>
-      <input type="text" id="adminWA" placeholder="Nomor WhatsApp User (62...)" class="w-full p-2 rounded border mb-2">
       <button id="btnKirimBukti" class="bg-black text-white px-4 py-2 rounded">Kirim Bukti</button>
     </div>
     <div class="flex justify-center space-x-4 mt-4">
@@ -458,25 +462,49 @@ Waktu: ${now}`;
 function cancelWA(){document.getElementById("notifPanel").style.display="none";}
 
 
-// ===== Admin Panel Binding =====
-document.getElementById("adminToggleBtn").addEventListener("click",()=>{document.getElementById("adminModal").classList.remove("hidden");});
-document.getElementById("btnCloseAdmin").addEventListener("click",()=>{document.getElementById("adminModal").classList.add("hidden");});
-document.getElementById("btnLoginAdmin").addEventListener("click",verifyAdmin);
-document.getElementById("btnLogoutAdmin").addEventListener("click",logoutAdmin);
-document.getElementById("btnAdminCekUser").addEventListener("click",cekUserAdmin);
-document.getElementById("btnKirimBukti").addEventListener("click",kirimBuktiAdmin);
-
 // ===== Admin Functions =====
 function verifyAdmin(){
   const pass=document.getElementById("adminPassword").value;
-  if(pass==="54321"){
+  if(pass==="54321"){ // ganti dengan password asli
     document.getElementById("adminTools").classList.remove("hidden");
     document.getElementById("adminToggleBtn").textContent="Admin (ON)";
-  } else { alert("Password salah!"); }
+  } else {
+    alert("Password salah!");
+  }
 }
 function logoutAdmin(){
   document.getElementById("adminTools").classList.add("hidden");
   document.getElementById("adminToggleBtn").textContent="Admin";
+}
+
+// ===== Admin cek user =====
+async function cekUserAdmin(){
+  const username=document.getElementById("adminUser").value.trim();
+  if(!username){
+    document.getElementById("adminNotifUser").textContent="Harap isi Username!";
+    return;
+  }
+  try{
+    const resUser=await fetch("/api/user",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({username})
+    });
+    const dataUser=await resUser.json();
+    if(resUser.ok){
+      document.getElementById("adminNotifUser").textContent=`Username ditemukan: ${dataUser.name}`;
+      const resAvatar=await fetch(`/api/avatar?userId=${dataUser.userId}`);
+      const dataAvatar=await resAvatar.json();
+      if(resAvatar.ok && dataAvatar.avatarUrl){
+        document.getElementById("adminAvatar").src=dataAvatar.avatarUrl;
+        document.getElementById("adminAvatar").classList.remove("hidden");
+      }
+    } else {
+      document.getElementById("adminNotifUser").textContent="Error: "+dataUser.error;
+    }
+  }catch(err){
+    document.getElementById("adminNotifUser").textContent="Gagal cek username";
+  }
 }
 
 // Admin cek user
@@ -509,29 +537,35 @@ function formatDate(dateObj) {
   });
 }
 
-// Kirim bukti admin
-function kirimBuktiAdmin(){
-  const username=document.getElementById("adminUser").value.trim();
-  const robux=document.getElementById("adminRobux").value.trim();
-  const metode=document.getElementById("adminMetode").value.trim();
-  const userWA=document.getElementById("adminWA").value.trim();
-  if(!username||!robux||!metode||!userWA){alert("Lengkapi semua data!");return;}
-  const now=new Date();const future=new Date();future.setDate(now.getDate()+5);
-  const message=`Bukti Pembayaran DEXBLOX
+// ===== Kirim Bukti ke Discord =====
+document.getElementById("btnKirimBukti").addEventListener("click",async ()=>{
+  const username=document.getElementById("adminUser").value;
+  const robux=document.getElementById("adminRobux").value;
+  const metode=document.getElementById("adminMetode").value;
+  const now=new Date();
+  const future=new Date(now.getTime() + (3*24*60*60*1000)); // estimasi 3 hari
+  const userProfileUrl=`https://www.roblox.com/users/profile?username=${encodeURIComponent(username)}`;
+
+  if(!username||!robux||!metode){
+    alert("Lengkapi semua data!");
+    return;
+  }
+
+  const webhookUrl="https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7";
+  const message=`# Konfirmasi Topup User
 
 Username: ${username}
-Paket: ${robux} Robux
-Metode: ${metode}
-Waktu Transaksi: ${formatDate(now)}
-Estimasi Selesai: ${formatDate(future)}
-Profil: ${userProfileUrl}
+Paket: **${robux}**Robux
+Metode: **${metode}**
+Waktu Transaksi: **${formatDate(now)}**
+Estimasi Selesai: **${formatDate(future)}**
+Profil: **${userProfileUrl}**`;
 
-Robux akan masuk sesuai estimasi.
-Terima kasih sudah topup di DEXBLOX `;
-  const waLink=`https://wa.me/${userWA}?text=${encodeURIComponent(message)}`;
-  if(confirm("Kirim bukti ke user via WhatsApp?")){
-    window.open(waLink,"_blank");
-  }
+  const formData=new FormData();
+  formData.append("payload_json", JSON.stringify({ content: message }));
+
+  await fetch(webhookUrl,{method:"POST",body:formData});
+  alert("Konfirmasi berhasil dikirim ke Discord!");
 }
 
 // ===== Footer Tahun Otomatis =====
