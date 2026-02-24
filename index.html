@@ -16,15 +16,19 @@
     footer {color:#000;}
     .panel-link {color:#007bff;font-weight:bold;text-decoration:none;}
     .panel-link:hover {text-decoration:underline;}
-    /* QRIS Card */
-    .qris-card {background:#fff;border-radius:12px;padding:16px;box-shadow:0 0 20px rgba(0,200,255,0.6);text-align:center;animation:glow 2s infinite alternate;}
-    .qris-card img {max-width:220px;border-radius:8px;border:2px solid #0af;}
-    .qris-card h4 {margin-bottom:12px;font-weight:bold;color:#0af;}
-    @keyframes glow {from {box-shadow:0 0 10px rgba(0,200,255,0.4);}to {box-shadow:0 0 25px rgba(0,200,255,0.9);}}
+    /* QRIS Card abu-abu elegan */
+    .qris-card {background:#f9f9f9;border-radius:12px;padding:16px;box-shadow:0 0 20px rgba(120,120,120,0.4);text-align:center;animation:glowGrey 2s infinite alternate;}
+    .qris-card img {max-width:220px;border-radius:8px;border:2px solid #888;}
+    .qris-card h4 {margin-bottom:12px;font-weight:bold;color:#555;}
+    @keyframes glowGrey {from {box-shadow:0 0 10px rgba(150,150,150,0.3);}to {box-shadow:0 0 25px rgba(150,150,150,0.7);}}
+    /* Tombol upload file custom */
+    .file-upload {display:inline-block;padding:10px 20px;background:#555;color:#fff;border-radius:8px;cursor:pointer;transition:.3s;}
+    .file-upload:hover {background:#333;}
+    .file-upload input[type="file"] {display:none;}
   </style>
 </head>
 <body class="flex flex-col items-center min-h-screen relative">
-
+  
 <!-- Header dengan Logo + Judul -->
 <header class="z-10 text-center mt-6 mb-6">
   <img src="dexblox.png" alt="DEXBLOX Logo" class="mx-auto h-20 mb-4">
