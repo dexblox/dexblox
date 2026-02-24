@@ -411,6 +411,62 @@ Waktu: ${now}`;
 }
 function cancelWA(){document.getElementById("notifPanel").style.display="none";}
 
+// ===== Konfirmasi Topup dengan QRIS Card =====
+function konfirmasiTopup(username, paket, robux, harga, avatarId, notifTitle, source){
+  const adminNumber="6285362187740"; // format internasional
+  const panel=document.getElementById("notifPanel");
+  const content=document.getElementById("notifContent");
+  panel.style.display="flex";
+  panel.scrollIntoView({behavior:"smooth"}); // scroll otomatis
+  const now = new Date().toLocaleString("id-ID");
+  const avatarSrc=document.getElementById(avatarId).src;
+  const gamepass = Math.round((robux/100) * 143);
+  const metode = "QRIS";
+
+  let extraInfo="";
+  if(source==="5hari"){
+    extraInfo=`<p class="text-sm text-gray-600">Jenis Topup: Paket 5 Hari</p>`;
+  } else if(source==="login"){
+    extraInfo=`<p class="text-sm text-gray-600">Jenis Topup: Via Login</p>`;
+  }
+
+  content.innerHTML=`
+    <h3 class="font-bold mb-4">${notifTitle}</h3>
+    <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border" width="120" height="120">
+    <p class="mb-4">
+      Username: <span class="font-bold">${username}</span><br>
+      Paket: <span class="font-bold">${paket}</span><br>
+      Profile: <a href="${userProfileUrl}" target="_blank" class="panel-link">Lihat Profil</a><br>
+      Waktu: ${now}
+    </p>
+    ${extraInfo}
+    <div class="qris-card mb-4">
+      <h4>Scan QRIS untuk Pembayaran</h4>
+      <img src="qris.png" alt="QRIS">
+      <p class="mt-2 text-sm text-gray-600">Didukung oleh: GoPay · OVO · DANA · ShopeePay</p>
+    </div>
+    <label class="file-upload mb-4">
+      Upload Bukti Pembayaran
+      <input type="file" id="buktiUpload" accept="image/png,image/jpeg">
+    </label>
+    <p class="text-xs text-gray-500 mt-2">Format JPG/PNG (Max 5MB)</p>
+    <div class="flex justify-center space-x-4 mt-4">
+      <button id="btnConfirmWA" class="bg-gray-700 text-white px-4 py-2 rounded">Sudah Membayar</button>
+      <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
+    </div>`;
+  
+  document.getElementById("btnConfirmWA").addEventListener("click",async ()=>{
+    const file=document.getElementById("buktiUpload").files[0];
+    if(file){
+      if(file.size > 5*1024*1024){alert("File terlalu besar! Maksimal 5MB.");return;}
+      if(!["image/png","image/jpeg"].includes(file.type)){alert("Format file harus JPG/PNG!");return;}
+      await uploadBuktiDiscord(file,username,robux,harga,gamepass,metode);
+    }
+    confirmWA(username,robux,adminNumber,"",`Rp${harga.toLocaleString("id-ID")}`,avatarSrc);
+  });
+  document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
+}
+
 // ===== Admin Functions =====
 function verifyAdmin(){
   const pass=document.getElementById("adminPassword").value;
@@ -499,7 +555,7 @@ document.getElementById("topupForm").addEventListener("submit",function(e){
   const robux=parseInt(document.getElementById("paketInfo").dataset.value||0);
   const harga=parseInt(document.getElementById("paketInfo").dataset.harga||0);
   if(!username||!paket){showFieldNotif("notifPaket","Lengkapi data!","error");return;}
-  konfirmasiTopup(username,paket,robux,harga,"avatarPreview","Konfirmasi Topup 5 Hari");
+  konfirmasiTopup(username,paket,robux,harga,"avatarPreview","Konfirmasi Topup 5 Hari","5hari");
 });
 
 // Panel Login
@@ -510,7 +566,7 @@ document.getElementById("btnLoginTopup").addEventListener("click",function(){
   const robux=parseInt(document.getElementById("loginPaketInfo").dataset.value||0);
   const harga=parseInt(document.getElementById("loginPaketInfo").dataset.harga||0);
   if(!username||!paket){showFieldNotif("loginPaketInfo","Lengkapi data!","error");return;}
-  konfirmasiTopup(username,paket,robux,harga,"loginAvatar","Konfirmasi Topup Login");
+  konfirmasiTopup(username,paket,robux,harga,"loginAvatar","Konfirmasi Topup Login","login");
 });
 
 // Admin Panel
