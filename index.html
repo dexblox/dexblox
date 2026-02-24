@@ -376,7 +376,7 @@ document.getElementById("btnLoginTopup").addEventListener("click",function(){
   konfirmasiTopup(username,paket,"loginAvatar","Konfirmasi Topup Login");
 });
 
-// Modifikasi konfirmasiTopup agar menampilkan QRIS + upload bukti
+// ===== Konfirmasi Topup dengan QRIS Card =====
 function konfirmasiTopup(username, paket, avatarId, notifTitle){
   const adminNumber="6285362187740";
   const panel=document.getElementById("notifPanel");
@@ -384,16 +384,24 @@ function konfirmasiTopup(username, paket, avatarId, notifTitle){
   panel.style.display="flex";
   const now = new Date().toLocaleString("id-ID");
   const avatarSrc=document.getElementById(avatarId).src;
+  const robux = document.getElementById("paketInfo").dataset.value || 0;
+  const harga = (robux/100) * hargaPer100;
+  const gamepass = Math.round((robux/100) * 143);
+  const metode = "QRIS";
+
   content.innerHTML=`
     <h3 class="font-bold mb-4">${notifTitle}</h3>
     <img src="${avatarSrc}" alt="Avatar Roblox" class="mx-auto mb-4 rounded-full border" width="120" height="120">
     <p class="mb-4">
       Username: <span class="font-bold">${username}</span><br>
       Paket: <span class="font-bold">${paket}</span><br>
-      Profile: <a href="${userProfileUrl}" target="_blank" class="underline">Lihat Profil</a><br>
+      Profile: <a href="${userProfileUrl}" target="_blank" class="panel-link">Lihat Profil</a><br>
       Waktu: ${now}
     </p>
-    <img src="qris.png" alt="QRIS" class="mx-auto mb-4 border" width="200">
+    <div class="qris-card mb-4">
+      <h4>Scan QRIS untuk Pembayaran</h4>
+      <img src="qris.png" alt="QRIS">
+    </div>
     <input type="file" id="buktiUpload" accept="image/*" class="mb-4">
     <div class="flex justify-center space-x-4">
       <button id="btnConfirmWA" class="bg-green-500 text-white px-4 py-2 rounded">Sudah Membayar</button>
@@ -401,18 +409,28 @@ function konfirmasiTopup(username, paket, avatarId, notifTitle){
     </div>`;
   document.getElementById("btnConfirmWA").addEventListener("click",async ()=>{
     const file=document.getElementById("buktiUpload").files[0];
-    if(file){await uploadBuktiDiscord(file,username,paket);}
+    if(file){await uploadBuktiDiscord(file,username,robux,harga,gamepass,metode);}
     confirmWA(username,paket,adminNumber,"",paket,avatarSrc);
   });
   document.getElementById("btnCancelWA").addEventListener("click",cancelWA);
 }
-  
-// Upload bukti ke Discord webhook
-async function uploadBuktiDiscord(file, username, paket){
-  const webhookUrl="https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU"; // ganti dengan webhook asli
+
+// ===== Upload Bukti ke Discord =====
+async function uploadBuktiDiscord(file, username, robux, harga, gamepass, metode){
+  const webhookUrl="YOUR_DISCORD_WEBHOOK_URL"; // ganti dengan webhook asli
   const formData=new FormData();
-  formData.append("file",file);
-  formData.append("payload_json",JSON.stringify({content:`Bukti pembayaran dari ${username} untuk paket ${paket}`}));
+
+  const message = `# Bukti Pembayaran Baru
+
+Nama Roblox: **${username}**
+Robux: **${robux}**
+Harga: Rp **${harga.toLocaleString("id-ID")}**
+Gamepass: *${gamepass}*
+Metode Top Up: **${metode}**`;
+
+  formData.append("file", file);
+  formData.append("payload_json", JSON.stringify({ content: message }));
+
   await fetch(webhookUrl,{method:"POST",body:formData});
 }
 
