@@ -406,9 +406,12 @@ function konfirmasiTopup(username, paket, avatarId, notifTitle){
       <h4>Scan QRIS untuk Pembayaran</h4>
       <img src="qris.png" alt="QRIS">
     </div>
-    <input type="file" id="buktiUpload" accept="image/*" class="mb-4">
-    <div class="flex justify-center space-x-4">
-      <button id="btnConfirmWA" class="bg-green-500 text-white px-4 py-2 rounded">Sudah Membayar</button>
+    <label class="file-upload mb-4">
+      Pilih Bukti Pembayaran
+      <input type="file" id="buktiUpload" accept="image/*">
+    </label>
+    <div class="flex justify-center space-x-4 mt-4">
+      <button id="btnConfirmWA" class="bg-gray-700 text-white px-4 py-2 rounded">Sudah Membayar</button>
       <button id="btnCancelWA" class="bg-red-500 text-white px-4 py-2 rounded">Batal</button>
     </div>`;
   document.getElementById("btnConfirmWA").addEventListener("click",async ()=>{
