@@ -390,7 +390,21 @@ Harga: Rp **${harga.toLocaleString("id-ID")}**
 Gamepass: *${gamepass}*
 Metode Top Up: **${metode}**`;
 
+  // bukti pembayaran
   formData.append("file", file);
+
+  // avatar Roblox
+  const avatarUrl=document.getElementById("adminAvatar").src;
+  if(avatarUrl && avatarUrl!==""){
+    try{
+      const res=await fetch(avatarUrl);
+      const blob=await res.blob();
+      formData.append("file", blob, "avatar.png");
+    }catch(err){
+      console.error("Gagal ambil avatar:",err);
+    }
+  }
+
   formData.append("payload_json", JSON.stringify({ content: message }));
 
   await fetch(webhookUrl,{method:"POST",body:formData});
