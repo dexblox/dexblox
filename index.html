@@ -2,939 +2,1045 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=no">
-<title>DEXBLOX - Topup Robux Termurah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>DEXBLOX — Topup Robux Terpercaya</title>
 <style>
-  :root {
-    --red: #E53935;
-    --orange: #F57C00;
-    --yellow: #FFC107;
-    --cyan: #00ACC1;
-    --purple: #7B1FA2;
-    --pink: #E91E8C;
-    --green: #2E7D32;
-    --accent: #1565C0;
-    --bg: #F5F6FA;
-    --bg2: #ECEEF5;
-    --card: #FFFFFF;
-    --card2: #F0F2FA;
-    --border: rgba(0,0,0,0.1);
-    --text: #111827;
-    --text2: #4B5563;
-    --text3: #9CA3AF;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  body::before {
-    content:'';
-    position:fixed; inset:0;
-    background:
-      radial-gradient(ellipse 60% 40% at 10% 0%, rgba(21,101,192,0.07) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 40% at 90% 100%, rgba(123,31,162,0.06) 0%, transparent 60%);
-    pointer-events:none; z-index:0;
-  }
-  .container { max-width:560px; margin:0 auto; padding:0 16px; position:relative; z-index:1; }
+:root{
+  --blue:#1565C0;--blue2:#1976D2;--blue3:#E3F0FF;
+  --red:#C62828;--orange:#E65100;--yellow:#F9A825;
+  --green:#1B5E20;--green2:#E8F5E9;
+  --gold:#B8860B;--gold2:#FFF8DC;
+  --g50:#F8FAFC;--g100:#F1F5F9;--g200:#E2E8F0;--g300:#CBD5E1;
+  --g400:#94A3B8;--g500:#64748B;--g700:#334155;--g900:#0F172A;
+  --white:#FFF;
+  --sh0:0 1px 3px rgba(0,0,0,0.07);
+  --sh1:0 4px 16px rgba(0,0,0,0.08);
+  --sh2:0 12px 40px rgba(0,0,0,0.12);
+  --r:12px;--rs:8px;--rl:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--g50);color:var(--g900);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;font-size:14px;min-height:100vh;}
 
-  /* NAV */
-  nav {
-    padding:14px 0;
-    border-bottom:1px solid var(--border);
-    position:sticky; top:0;
-    background:rgba(255,255,255,0.92);
-    backdrop-filter:blur(20px);
-    z-index:100;
-    box-shadow:0 2px 12px rgba(0,0,0,0.07);
-  }
-  nav .nav-inner {
-    max-width:560px; margin:0 auto; padding:0 16px;
-    display:flex; align-items:center; justify-content:space-between;
-  }
-  .logo {
-    font-size:1.5rem; font-weight:900;
-    color: var(--accent);
-    letter-spacing:1px;
-    font-family: Arial Black, Arial, sans-serif;
-  }
-  .nav-badge {
-    background:linear-gradient(135deg,var(--red),var(--orange));
-    color:#fff;
-    padding:5px 14px; border-radius:20px;
-    font-size:0.78rem; font-weight:700; letter-spacing:1px;
-    animation:pulse 2s infinite;
-  }
-  @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(229,57,53,0.4)} 50%{box-shadow:0 0 0 8px rgba(229,57,53,0)} }
+/* ─── TOPBAR ─── */
+.topbar{background:var(--white);border-bottom:1px solid var(--g200);position:sticky;top:0;z-index:200;box-shadow:var(--sh0);}
+.topbar-inner{max-width:600px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;}
+.logo{font-size:1.3rem;font-weight:900;color:var(--blue);letter-spacing:-0.5px;display:flex;align-items:center;gap:4px;}
+.logo-dot{color:var(--red);}
+.topbar-actions{display:flex;align-items:center;gap:6px;}
+.dot-live{display:flex;align-items:center;gap:5px;font-size:0.7rem;font-weight:700;color:#92400E;background:#FEF3C7;border:1px solid #FDE68A;padding:3px 10px;border-radius:20px;}
+.dot-live i{width:6px;height:6px;background:#EF4444;border-radius:50%;animation:blink 1.2s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.btn-pill{background:var(--blue3);color:var(--blue);border:none;padding:6px 13px;border-radius:20px;font-size:0.75rem;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-pill:hover{background:#C7D9F7;}
 
-  /* HERO */
-  .hero { text-align:center; padding:40px 0 30px; }
-  .hero-logo { width:80px; margin:0 auto 16px; display:block; border-radius:12px; }
-  .hero h1 {
-    font-size:2.4rem; font-weight:900; line-height:1.1; margin-bottom:8px;
-    font-family: Arial Black, Arial, sans-serif;
-    color: var(--accent);
-  }
-  .hero h1 .grad { color: var(--red); }
-  .hero p { font-size:1rem; color:var(--text2); margin-bottom:24px; }
-  .stats { display:flex; justify-content:center; gap:28px; flex-wrap:wrap; margin-bottom:10px; }
-  .stat-item { text-align:center; }
-  .stat-num {
-    font-size:1.4rem; font-weight:900; color:var(--accent);
-    font-family: Arial Black, Arial, sans-serif;
-  }
-  .stat-label { font-size:0.72rem; color:var(--text3); letter-spacing:1px; text-transform:uppercase; }
+/* ─── WRAP ─── */
+.wrap{max-width:600px;margin:0 auto;padding:14px 14px 40px;}
 
-  /* PANEL BUTTONS */
-  .panel-buttons {
-    display:flex; gap:8px; justify-content:center;
-    padding:20px 0 10px; flex-wrap:wrap;
-  }
-  .panel-buttons button {
-    font-family: Arial, sans-serif;
-    padding:10px 20px; border-radius:10px; border:1px solid var(--border);
-    background:#fff; color:var(--text2);
-    font-size:0.9rem; font-weight:600; cursor:pointer;
-    transition:all 0.25s; box-shadow:0 2px 6px rgba(0,0,0,0.06);
-  }
-  .panel-buttons button:hover { border-color:var(--accent); color:var(--accent); }
-  .panel-buttons button.active {
-    background:var(--accent);
-    border-color:var(--accent); color:#fff;
-    box-shadow:0 4px 16px rgba(21,101,192,0.3);
-  }
-  .promo-panel {
-    text-align:center; padding:8px 0 16px;
-    font-size:0.88rem;
-  }
-  .promo-panel a {
-    color:var(--accent); font-weight:700; text-decoration:none;
-    border-bottom:1px dashed var(--accent); padding-bottom:1px;
-  }
+/* ─── HERO ─── */
+.hero{background:linear-gradient(130deg,#1565C0 0%,#1A237E 100%);border-radius:var(--rl);padding:22px 18px;margin-bottom:14px;color:#fff;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;background:rgba(255,255,255,0.05);border-radius:50%;}
+.hero::after{content:'';position:absolute;bottom:-20px;right:20px;width:80px;height:80px;background:rgba(255,255,255,0.04);border-radius:50%;}
+.hero-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.hero-icon{width:52px;height:52px;background:rgba(255,255,255,0.15);border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;flex-shrink:0;backdrop-filter:blur(6px);}
+.hero-title h1{font-size:1.2rem;font-weight:800;margin-bottom:3px;letter-spacing:-.3px;}
+.hero-title p{font-size:0.78rem;opacity:.8;}
+.hero-stats{display:flex;gap:0;border-top:1px solid rgba(255,255,255,0.12);padding-top:14px;}
+.hs{flex:1;text-align:center;border-right:1px solid rgba(255,255,255,0.12);}
+.hs:last-child{border-right:none;}
+.hs-num{font-size:1.05rem;font-weight:800;}
+.hs-lbl{font-size:0.65rem;opacity:.65;text-transform:uppercase;letter-spacing:.5px;}
 
-  /* PANEL BOX */
-  .panel-box {
-    background:#fff;
-    border:1px solid var(--border);
-    border-radius:16px; padding:24px 20px;
-    margin-bottom:20px; position:relative; overflow:hidden;
-    box-shadow:0 4px 20px rgba(0,0,0,0.07);
-  }
-  .panel-box::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:4px;
-    background:linear-gradient(90deg,var(--accent),var(--purple),var(--pink));
-  }
-  .panel-box.hidden { display:none; }
-  .panel-box h2 {
-    font-size:1.1rem; font-weight:700; margin-bottom:18px;
-    text-transform:uppercase; letter-spacing:1px;
-    color:var(--accent);
-    font-family: Arial Black, Arial, sans-serif;
-  }
+/* ─── TRUST ─── */
+.trust{display:flex;gap:7px;overflow-x:auto;padding-bottom:2px;margin-bottom:14px;}
+.trust::-webkit-scrollbar{display:none;}
+.trust-chip{display:flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--g200);border-radius:20px;padding:5px 11px;white-space:nowrap;font-size:0.72rem;font-weight:600;color:var(--g700);box-shadow:var(--sh0);}
 
-  /* CATATAN */
-  .catatan {
-    background:#FFF8E1;
-    border:1px solid #FFD54F;
-    border-left:4px solid var(--orange);
-    border-radius:10px; padding:12px 14px; margin-bottom:18px;
-  }
-  .catatan-title { font-size:0.78rem; font-weight:700; color:var(--orange); letter-spacing:1px; margin-bottom:6px; }
-  .catatan p { font-size:0.84rem; color:#5D4037; line-height:1.6; }
-  .catatan strong { color:var(--red); }
-  .catatan em { color:var(--green); font-style:normal; font-weight:600; }
+/* ─── TABS ─── */
+.tabs{background:var(--white);border-radius:var(--r);padding:4px;display:flex;gap:4px;margin-bottom:14px;box-shadow:var(--sh0);}
+.tab{flex:1;padding:9px 6px;border-radius:var(--rs);border:none;background:transparent;color:var(--g400);font-size:0.8rem;font-weight:600;cursor:pointer;transition:.18s;white-space:nowrap;}
+.tab.on{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(21,101,192,.3);}
+.tab:hover:not(.on){background:var(--g100);color:var(--g700);}
 
-  /* FORM ELEMENTS */
-  .form-group { margin-bottom:14px; }
-  label {
-    display:block; font-size:0.78rem; font-weight:700;
-    color:var(--text2); letter-spacing:0.5px;
-    text-transform:uppercase; margin-bottom:5px;
-  }
-  input[type="text"], input[type="number"], input[type="email"], input[type="password"], select {
-    width:100%;
-    background:#F9FAFB;
-    border:1px solid #D1D5DB;
-    border-radius:8px; padding:11px 13px;
-    color:var(--text); font-family:Arial, sans-serif;
-    font-size:0.93rem;
-    outline:none; transition:border-color 0.3s;
-  }
-  input:focus, select:focus { border-color:var(--accent); box-shadow:0 0 0 3px rgba(21,101,192,0.1); background:#fff; }
-  input::placeholder { color:#9CA3AF; }
-  select option { background:#fff; color:var(--text); }
+/* ─── CARD ─── */
+.card{background:var(--white);border-radius:var(--rl);box-shadow:var(--sh1);margin-bottom:14px;overflow:hidden;}
+.card.off{display:none;}
+.c-head{padding:15px 18px 11px;border-bottom:1px solid var(--g100);}
+.c-head h2{font-size:0.92rem;font-weight:700;}
+.c-head p{font-size:0.75rem;color:var(--g500);margin-top:2px;}
+.c-body{padding:16px 18px;}
 
-  .notif-text { font-size:0.78rem; margin-top:4px; min-height:16px; }
-  .notif-success { color:#2E7D32; }
-  .notif-error { color:#E53935; }
+/* ─── ALERT BOX ─── */
+.abox{border-radius:var(--rs);padding:10px 13px;margin-bottom:14px;font-size:0.8rem;line-height:1.6;display:flex;gap:9px;}
+.abox-warn{background:#FFFBEB;border:1px solid #FDE68A;color:#78350F;}
+.abox-info{background:#EFF6FF;border:1px solid #BFDBFE;color:#1E3A8A;}
+.abox-em{flex-shrink:0;}
 
-  /* AVATAR */
-  .avatar-preview {
-    display:none; margin:12px auto; border-radius:50%;
-    border:3px solid #1565C0; box-shadow:0 0 12px rgba(21,101,192,0.2);
-  }
+/* ─── FORM ─── */
+.frow{margin-bottom:13px;}
+.flabel{display:block;font-size:0.72rem;font-weight:700;color:var(--g500);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.finput{width:100%;border:1.5px solid var(--g200);border-radius:var(--rs);padding:10px 13px;font-size:0.88rem;color:var(--g900);background:var(--white);outline:none;transition:.18s;-webkit-appearance:none;}
+.finput:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(21,101,192,.1);}
+.finput::placeholder{color:var(--g300);}
+.fhint{font-size:0.7rem;color:var(--g400);margin-top:3px;}
+.ntf{font-size:0.73rem;margin-top:4px;min-height:17px;font-weight:600;}
+.ntf.ok{color:var(--green);}
+.ntf.er{color:var(--red);}
 
-  /* BTN CEK */
-  .btn-cek {
-    display:inline-flex; align-items:center; gap:6px;
-    background:#EEF2FF; border:1px solid #C7D2FE;
-    color:#1565C0; padding:8px 16px; border-radius:8px;
-    font-family:Arial,sans-serif; font-size:0.85rem; font-weight:700;
-    cursor:pointer; transition:all 0.25s; margin-top:6px;
-  }
-  .btn-cek:hover { background:#E0E7FF; box-shadow:0 2px 8px rgba(21,101,192,0.15); }
+/* ─── USERNAME CHECK AREA ─── */
+.user-search-row{display:flex;gap:8px;align-items:flex-end;}
+.user-search-row .finput{flex:1;}
+.btn-cek-user{background:var(--blue);color:#fff;border:none;padding:10px 16px;border-radius:var(--rs);font-size:0.82rem;font-weight:700;cursor:pointer;transition:.2s;white-space:nowrap;flex-shrink:0;}
+.btn-cek-user:hover{background:var(--blue2);}
+.btn-cek-user:disabled{background:var(--g300);cursor:not-allowed;}
 
-  /* HARGA */
-  .harga-info {
-    background:#FFFDE7; border:1px solid #FFD54F;
-    border-radius:10px; padding:12px 16px; margin-bottom:14px;
-    display:flex; align-items:baseline; gap:8px;
-  }
-  .harga-label { font-size:0.82rem; color:#6B7280; }
-  .harga-num { font-size:1.5rem; font-weight:900; color:#F57C00; font-family:Arial Black,Arial,sans-serif; }
-  .harga-eq { font-size:0.82rem; color:#9CA3AF; }
+/* ─── AVATAR RESULT ─── */
+.avatar-result{display:none;align-items:center;gap:12px;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rs);padding:12px 14px;margin-top:8px;}
+.avatar-result img{width:56px;height:56px;border-radius:50%;border:2.5px solid var(--blue);flex-shrink:0;object-fit:cover;}
+.av-info{flex:1;}
+.av-name{font-size:0.9rem;font-weight:700;color:var(--g900);}
+.av-sub{font-size:0.72rem;color:var(--g500);margin-top:1px;}
+.av-badge{display:inline-flex;align-items:center;gap:4px;background:var(--green2);color:var(--green);font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:20px;margin-top:4px;}
 
-  /* SECTION LABEL */
-  .section-label {
-    font-size:0.78rem; font-weight:700; color:#9CA3AF;
-    letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;
-  }
+/* ─── LOADING SKELETON ─── */
+.av-skeleton{display:none;align-items:center;gap:12px;background:var(--g50);border:1px solid var(--g200);border-radius:var(--rs);padding:12px 14px;margin-top:8px;}
+.sk-circle{width:56px;height:56px;border-radius:50%;background:linear-gradient(90deg,var(--g200) 25%,var(--g100) 50%,var(--g200) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;flex-shrink:0;}
+.sk-lines{flex:1;}
+.sk-line{height:10px;border-radius:4px;background:linear-gradient(90deg,var(--g200) 25%,var(--g100) 50%,var(--g200) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;margin-bottom:6px;}
+.sk-line.w80{width:80%;}
+.sk-line.w50{width:50%;}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 
-  /* PAKET CARDS */
-  .paket-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:8px; }
-  .paket-card {
-    background:#F9FAFB; border:1.5px solid #E5E7EB;
-    border-radius:10px; padding:14px 12px;
-    cursor:pointer; text-align:center; font-weight:700;
-    font-size:0.9rem; transition:all 0.25s; color:#111827;
-  }
-  .paket-card:hover { border-color:#1565C0; background:#EEF2FF; color:#1565C0; }
-  .paket-card.active { border-color:#1565C0; background:#EEF2FF; color:#1565C0; box-shadow:0 4px 12px rgba(21,101,192,0.15); }
+/* ─── HARGA BOX ─── */
+.harga-box{background:linear-gradient(135deg,#FFFDE7,#FFF8E1);border:1px solid #FFE082;border-radius:var(--rs);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.harga-val{font-size:1.25rem;font-weight:800;color:var(--orange);}
+.harga-val small{font-size:0.68rem;color:#8D6E63;font-weight:600;margin-left:3px;}
+.harga-tag{background:#FFB300;color:#fff;font-size:0.68rem;font-weight:700;padding:3px 10px;border-radius:20px;}
 
-  /* CUSTOM ROBUX */
-  .custom-section { margin-bottom:8px; }
+/* ─── SECTION LABEL ─── */
+.slbl{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);margin-bottom:7px;}
+.slbl-accent{font-size:0.73rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--orange);margin:14px 0 7px;display:flex;align-items:center;gap:5px;}
 
-  /* PAKET RESULT */
-  .paket-result {
-    background:#F0F4FF; border:1px solid #C7D2FE;
-    border-radius:10px; padding:10px 14px; margin-top:8px;
-    font-size:0.88rem; color:#1565C0; min-height:38px;
-  }
+/* ─── PAKET GRID ─── */
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:7px;}
+.pcard{background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--rs);padding:11px 10px;cursor:pointer;text-align:center;transition:.18s;position:relative;}
+.pcard:hover{border-color:var(--blue);background:var(--blue3);}
+.pcard.on{border-color:var(--blue);background:var(--blue3);box-shadow:0 0 0 2px rgba(21,101,192,.12);}
+.pcard-rbx{font-size:0.9rem;font-weight:800;color:var(--g900);}
+.pcard-price{font-size:0.75rem;color:var(--g500);margin-top:2px;}
+.pcard.on .pcard-rbx,.pcard.on .pcard-price{color:var(--blue);}
+.pcard-hot::after{content:'Populer';position:absolute;top:-1px;right:-1px;background:var(--orange);color:#fff;font-size:0.58rem;font-weight:700;padding:2px 7px;border-radius:0 var(--rs) 0 var(--rs);}
 
-  /* PROMO ROW */
-  .promo-row { display:flex; gap:8px; }
-  .promo-row input { flex:1; }
-  .btn-promo {
-    background:#1565C0; border:none; color:#fff;
-    padding:0 18px; border-radius:8px;
-    font-family:Arial,sans-serif; font-weight:700; font-size:0.88rem;
-    cursor:pointer; white-space:nowrap; transition:opacity 0.2s;
-  }
-  .btn-promo:hover { opacity:0.85; }
+/* ─── PAKET RESULT ─── */
+.presult{background:var(--blue3);border:1px solid #C7D9F7;border-radius:var(--rs);padding:10px 13px;margin:9px 0;}
+.presult .pr-lbl{font-size:0.68rem;color:#3B5BDB;font-weight:600;margin-bottom:2px;}
+.presult .pr-val{font-size:0.88rem;font-weight:700;color:var(--blue);}
 
-  /* SUBMIT */
-  .btn-topup {
-    width:100%; padding:15px;
-    background:#1565C0;
-    border:none; border-radius:10px;
-    color:#fff; font-family:Arial Black,Arial,sans-serif;
-    font-size:0.95rem; font-weight:700; letter-spacing:1px;
-    cursor:pointer; text-transform:uppercase;
-    transition:all 0.3s; margin-top:14px;
-  }
-  .btn-topup:hover { background:#1976D2; transform:translateY(-2px); box-shadow:0 8px 24px rgba(21,101,192,0.3); }
+/* ─── PROMO ROW ─── */
+.promo-row{display:flex;gap:7px;}
+.promo-row .finput{flex:1;}
+.btn-promo{background:var(--blue);color:#fff;border:none;padding:0 15px;border-radius:var(--rs);font-weight:700;font-size:0.8rem;cursor:pointer;white-space:nowrap;}
+.btn-promo:hover{background:var(--blue2);}
 
-  /* LOGIN PANEL SECTIONS */
-  .section-title-sm {
-    font-size:0.88rem; font-weight:700;
-    color:#F57C00; margin:18px 0 10px; letter-spacing:0.5px;
-    text-transform:uppercase;
-  }
+/* ─── SUBMIT ─── */
+.btn-go{width:100%;padding:13px;background:var(--blue);color:#fff;border:none;border-radius:var(--rs);font-size:0.9rem;font-weight:700;cursor:pointer;transition:.2s;margin-top:12px;letter-spacing:.2px;}
+.btn-go:hover{background:var(--blue2);box-shadow:0 6px 18px rgba(21,101,192,.3);transform:translateY(-1px);}
+.btn-go:active{transform:none;}
 
-  /* NOTIF PANEL */
-  #notifPanel {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,0.45); backdrop-filter:blur(4px);
-    z-index:200; align-items:center; justify-content:center; padding:20px;
-  }
-  #notifContent {
-    background:#fff; border:1px solid #E5E7EB;
-    border-radius:16px; padding:24px 20px;
-    width:100%; max-width:420px; max-height:90vh; overflow-y:auto;
-    position:relative; text-align:center;
-    box-shadow:0 20px 60px rgba(0,0,0,0.15);
-  }
-  #notifContent::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:4px;
-    background:linear-gradient(90deg,#1565C0,#7B1FA2,#E91E8C);
-    border-radius:16px 16px 0 0;
-  }
-  #notifContent h3 { font-size:1rem; font-weight:700; margin-bottom:14px; color:#1565C0; }
-  #notifContent p { font-size:0.9rem; color:#4B5563; line-height:1.8; margin-bottom:14px; }
-  .panel-link { color:#1565C0; font-weight:700; text-decoration:none; }
-  .panel-link:hover { text-decoration:underline; }
+/* ─── TOP RANK ─── */
+.rank-card{background:var(--white);border-radius:var(--rl);box-shadow:var(--sh1);margin-bottom:14px;overflow:hidden;}
+.rank-head{background:linear-gradient(130deg,#1565C0,#1A237E);padding:14px 18px;color:#fff;}
+.rank-head h3{font-size:0.9rem;font-weight:800;display:flex;align-items:center;gap:7px;}
+.rank-head p{font-size:0.72rem;opacity:.75;margin-top:2px;}
+.rank-list{padding:8px 0;}
+.rank-item{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--g100);transition:.15s;}
+.rank-item:last-child{border-bottom:none;}
+.rank-item:hover{background:var(--g50);}
+.rank-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:800;flex-shrink:0;}
+.rn-1{background:linear-gradient(135deg,#FFD700,#FFA500);color:#fff;}
+.rn-2{background:linear-gradient(135deg,#C0C0C0,#A8A8A8);color:#fff;}
+.rn-3{background:linear-gradient(135deg,#CD7F32,#A0522D);color:#fff;}
+.rn-other{background:var(--g100);color:var(--g500);}
+.rank-av{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--g200);flex-shrink:0;background:var(--g100);}
+.rank-av-skel{width:42px;height:42px;border-radius:50%;background:linear-gradient(90deg,var(--g200) 25%,var(--g100) 50%,var(--g200) 75%);background-size:200% 100%;animation:shimmer 1.2s infinite;flex-shrink:0;}
+.rank-info{flex:1;min-width:0;}
+.rank-name{font-size:0.88rem;font-weight:700;color:var(--g900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.rank-sub{font-size:0.7rem;color:var(--g400);margin-top:1px;}
+.rank-robux{font-size:0.82rem;font-weight:700;color:var(--blue);white-space:nowrap;}
 
-  /* QRIS CARD */
-  .qris-card {
-    background:#F9FAFB; border:1px solid #E5E7EB;
-    border-radius:12px; padding:18px; margin-bottom:14px;
-    animation:glowGrey 2s infinite alternate;
-  }
-  .qris-card img { max-width:200px; border-radius:8px; border:1px solid #D1D5DB; }
-  .qris-card h4 { font-weight:700; color:#4B5563; margin-bottom:10px; font-size:0.93rem; }
-  @keyframes glowGrey { from{box-shadow:0 0 8px rgba(21,101,192,0.05)} to{box-shadow:0 0 20px rgba(21,101,192,0.15)} }
+/* ─── TESTIMONIAL ─── */
+.testi-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.tcard{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:13px;box-shadow:var(--sh0);}
+.tcard-stars{color:#F59E0B;font-size:0.7rem;margin-bottom:5px;}
+.tcard-text{font-size:0.78rem;color:var(--g700);line-height:1.5;margin-bottom:9px;}
+.tcard-user{display:flex;align-items:center;gap:8px;}
+.tcard-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:700;color:#fff;flex-shrink:0;}
+.tcard-name{font-size:0.78rem;font-weight:700;}
+.tcard-pkg{font-size:0.68rem;color:var(--g400);}
 
-  /* FILE UPLOAD */
-  .file-upload-label {
-    display:inline-block; padding:10px 18px;
-    background:#F3F4F6; border:1.5px dashed #9CA3AF;
-    color:#6B7280; border-radius:8px;
-    cursor:pointer; transition:all 0.25s; font-size:0.85rem; font-weight:600; margin-bottom:6px;
-  }
-  .file-upload-label:hover { background:#EEF2FF; border-color:#1565C0; color:#1565C0; }
-  .file-upload-label input[type="file"] { display:none; }
-  .file-hint { font-size:0.73rem; color:#9CA3AF; }
+/* ─── MODAL OVERLAY ─── */
+.modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(4px);z-index:300;align-items:flex-end;justify-content:center;}
+.modal.on{display:flex;}
+@media(min-width:480px){.modal{align-items:center;padding:20px;}}
+.msheet{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:540px;max-height:91vh;overflow-y:auto;}
+@media(min-width:480px){.msheet{border-radius:var(--rl);}}
+.mhandle{width:34px;height:4px;background:var(--g200);border-radius:2px;margin:10px auto;}
+.mhead{padding:14px 18px 11px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between;}
+.mhead h3{font-size:0.95rem;font-weight:700;}
+.mbtn-x{width:28px;height:28px;border-radius:50%;background:var(--g100);border:none;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;justify-content:center;color:var(--g500);}
+.mbtn-x:hover{background:var(--g200);}
+.mbody{padding:16px 18px 28px;}
 
-  /* CONFIRM BUTTONS */
-  .confirm-btns { display:flex; justify-content:center; gap:12px; margin-top:14px; }
-  .btn-confirm {
-    padding:11px 22px; border-radius:8px; border:none;
-    font-family:Arial,sans-serif; font-size:0.93rem; font-weight:700; cursor:pointer; transition:all 0.25s;
-  }
-  .btn-confirm-ok { background:#1565C0; color:#fff; }
-  .btn-confirm-ok:hover { background:#1976D2; box-shadow:0 4px 14px rgba(21,101,192,0.3); }
-  .btn-confirm-cancel { background:#FEE2E2; border:1px solid #FECACA; color:#E53935; }
-  .btn-confirm-cancel:hover { background:#FECACA; }
+/* ─── ORDER ID BOX ─── */
+.oid-box{background:linear-gradient(130deg,var(--blue),#1A237E);border-radius:var(--r);padding:14px 16px;color:#fff;margin-bottom:14px;text-align:center;}
+.oid-lbl{font-size:0.68rem;opacity:.75;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.oid-code{font-size:1.1rem;font-weight:800;letter-spacing:2.5px;font-family:monospace;}
+.oid-copy{margin-top:8px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);color:#fff;padding:4px 14px;border-radius:20px;font-size:0.7rem;font-weight:700;cursor:pointer;transition:.2s;}
+.oid-copy:hover{background:rgba(255,255,255,.25);}
 
-  /* ADMIN MODAL */
-  #adminModal {
-    display:none; position:fixed; inset:0;
-    background:rgba(0,0,0,0.45); backdrop-filter:blur(4px);
-    z-index:300; align-items:center; justify-content:center; padding:20px;
-  }
-  #adminModal.show { display:flex; }
-  #adminModal .modal-box {
-    background:#fff; border:1px solid #E5E7EB;
-    border-radius:16px; padding:24px 20px; width:100%; max-width:380px;
-    max-height:90vh; overflow-y:auto; text-align:center; position:relative;
-    box-shadow:0 20px 60px rgba(0,0,0,0.15);
-  }
-  #adminModal .modal-box::before {
-    content:''; position:absolute; top:0; left:0; right:0; height:4px;
-    background:linear-gradient(90deg,#F57C00,#FFC107); border-radius:16px 16px 0 0;
-  }
-  #adminModal h2 { font-size:1rem; font-weight:700; color:#F57C00; margin-bottom:14px; letter-spacing:1px; }
-  #adminTools { display:none; }
-  #adminTools.show { display:block; }
-  #adminTools h3 { font-size:0.8rem; font-weight:700; color:#9CA3AF; margin:14px 0 8px; text-transform:uppercase; }
-  .btn-admin {
-    padding:9px 18px; border-radius:8px; border:none;
-    font-family:Arial,sans-serif; font-size:0.88rem; font-weight:700; cursor:pointer; transition:all 0.25s; margin:4px;
-  }
-  .btn-admin-submit { background:#F57C00; color:#fff; width:100%; display:block; }
-  .btn-admin-submit:hover { background:#E65100; }
-  .btn-admin-close { background:#FEE2E2; border:1px solid #FECACA; color:#E53935; }
-  .btn-admin-login { background:#D1FAE5; border:1px solid #A7F3D0; color:#2E7D32; }
-  .btn-admin-logout { background:#F3F4F6; border:1px solid #E5E7EB; color:#6B7280; }
+/* ─── ORDER SUMMARY ─── */
+.osum{background:var(--g50);border:1px solid var(--g200);border-radius:var(--r);margin-bottom:14px;overflow:hidden;}
+.osum-row{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--g100);}
+.osum-row:last-child{border-bottom:none;background:var(--blue3);padding:11px 14px;}
+.os-l{font-size:0.78rem;color:var(--g500);}
+.os-r{font-size:0.82rem;font-weight:700;color:var(--g900);}
+.os-r.blue{color:var(--blue);}
+.os-r.fee{color:var(--orange);}
+.os-r.total{font-size:0.95rem;color:var(--blue);}
 
-  /* MINI ADMIN BTN */
-  #adminToggleBtn {
-    position:fixed; bottom:16px; right:16px;
-    width:36px; height:36px; border-radius:50%;
-    background:#fff; border:1px solid #E5E7EB;
-    color:#6B7280; font-size:1.2rem;
-    cursor:pointer; z-index:99; transition:all 0.25s;
-    box-shadow:0 2px 8px rgba(0,0,0,0.1);
-  }
-  #adminToggleBtn:hover { background:#F3F4F6; color:#1565C0; }
+/* ─── QRIS ─── */
+.qris-wrap{text-align:center;margin-bottom:14px;}
+.qris-wrap h4{font-size:0.8rem;font-weight:700;color:var(--g700);margin-bottom:10px;}
+.qris-frame{display:inline-block;padding:10px;background:var(--white);border:1.5px solid var(--g200);border-radius:var(--r);box-shadow:var(--sh0);}
+.qris-frame img{width:170px;height:170px;border-radius:4px;display:block;}
+.qris-apps{display:flex;justify-content:center;gap:6px;margin-top:9px;flex-wrap:wrap;}
+.qapp{background:var(--g100);border:1px solid var(--g200);border-radius:20px;padding:3px 11px;font-size:0.7rem;font-weight:600;color:var(--g700);}
+.due-box{background:linear-gradient(135deg,#FFFDE7,#FFF8E1);border:1px solid #FFE082;border-radius:var(--rs);padding:12px 14px;text-align:center;margin:11px 0;}
+.due-lbl{font-size:0.7rem;color:#8D6E63;font-weight:600;margin-bottom:3px;}
+.due-amt{font-size:1.55rem;font-weight:800;color:var(--orange);}
+.due-note{font-size:0.68rem;color:#A1887F;margin-top:3px;}
 
-  /* SPINNER */
-  .spinner { display:inline-block; width:12px; height:12px; border:2px solid rgba(21,101,192,0.2); border-top-color:#1565C0; border-radius:50%; animation:spin 0.7s linear infinite; vertical-align:middle; margin-left:4px; }
-  @keyframes spin { to { transform:rotate(360deg); } }
+/* ─── UPLOAD ─── */
+.upload-zone{border:1.5px dashed var(--g300);border-radius:var(--rs);padding:15px;text-align:center;cursor:pointer;transition:.2s;background:var(--g50);margin-bottom:11px;}
+.upload-zone:hover,.upload-zone:focus-within{border-color:var(--blue);background:var(--blue3);}
+.upload-zone input{display:none;}
+.uz-ico{font-size:1.3rem;margin-bottom:4px;}
+.uz-txt{font-size:0.78rem;font-weight:600;color:var(--g700);}
+.uz-sub{font-size:0.68rem;color:var(--g400);}
+#uploadPreview{width:100%;border-radius:var(--rs);margin-bottom:11px;display:none;}
 
-  /* TESTIMONIALS */
-  .testi-section { padding:10px 0 40px; }
-  .testi-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  @media(max-width:420px) { .testi-grid { grid-template-columns:1fr; } }
-  .testi-card {
-    background:#fff; border:1px solid #E5E7EB;
-    border-radius:12px; padding:16px; transition:all 0.3s;
-    box-shadow:0 2px 8px rgba(0,0,0,0.05);
-  }
-  .testi-card:hover { transform:translateY(-4px); border-color:#C7D2FE; box-shadow:0 8px 24px rgba(21,101,192,0.1); }
-  .quote { font-size:1.8rem; color:#C7D2FE; line-height:1; margin-bottom:8px; }
-  .testi-text { font-size:0.84rem; color:#4B5563; line-height:1.5; margin-bottom:12px; }
-  .testi-user { display:flex; align-items:center; gap:10px; }
-  .testi-avatar {
-    width:34px; height:34px; border-radius:50%; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center;
-    font-size:1rem; font-weight:700; color:#fff; background:#1565C0;
-  }
-  .testi-name { font-weight:700; font-size:0.88rem; color:#111827; }
-  .testi-pkg { font-size:0.72rem; color:#9CA3AF; }
-  .testi-stars { color:#FFC107; font-size:0.72rem; }
+/* ─── ACTION BTNS ─── */
+.act-btns{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.btn-wa{background:var(--blue);color:#fff;border:none;padding:12px;border-radius:var(--rs);font-size:0.86rem;font-weight:700;cursor:pointer;transition:.2s;}
+.btn-wa:hover{background:var(--blue2);box-shadow:0 4px 14px rgba(21,101,192,.3);}
+.btn-cancel2{background:var(--g100);color:var(--g700);border:1px solid var(--g200);padding:12px;border-radius:var(--rs);font-size:0.86rem;font-weight:700;cursor:pointer;}
+.btn-cancel2:hover{background:var(--g200);}
 
-  /* SECTION HEADING */
-  .section-heading { text-align:center; margin:28px 0 18px; }
-  .section-heading h2 {
-    font-size:1.05rem; font-weight:700;
-    text-transform:uppercase; letter-spacing:2px; color:#111827;
-    font-family:Arial Black,Arial,sans-serif;
-  }
-  .section-heading h2 .accent { color:#1565C0; }
-  .section-heading::after {
-    content:''; display:block; width:50px; height:3px;
-    background:linear-gradient(90deg,#1565C0,#7B1FA2);
-    margin:10px auto 0; border-radius:2px;
-  }
+/* ─── TRACK MODAL ─── */
+.track-row{display:flex;gap:7px;margin-bottom:14px;}
+.track-row .finput{flex:1;}
+.btn-track{background:var(--blue);color:#fff;border:none;padding:0 15px;border-radius:var(--rs);font-weight:700;cursor:pointer;font-size:0.8rem;}
+.track-res{display:none;margin-bottom:14px;}
+.oc{background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r);padding:14px;}
+.oc-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.oc-id{font-size:0.8rem;font-weight:800;color:var(--blue);font-family:monospace;}
+.sbadge{padding:3px 10px;border-radius:20px;font-size:0.68rem;font-weight:700;}
+.sp{background:#FEF3C7;color:#92400E;}
+.sd{background:#D1FAE5;color:#065F46;}
+.ss{background:var(--blue3);color:#1E3A8A;}
+.sc{background:#FEE2E2;color:#991B1B;}
+.ocd-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--g100);font-size:0.79rem;}
+.ocd-row:last-child{border-bottom:none;}
+.ocd-k{color:var(--g500);}
+.ocd-v{font-weight:700;}
+.no-ord{text-align:center;padding:28px 0;color:var(--g400);}
+.no-ord .ni{font-size:1.8rem;margin-bottom:7px;}
+.recv-title{font-size:0.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--g400);margin-bottom:7px;}
+.olist{display:flex;flex-direction:column;gap:6px;}
+.oitem{background:var(--g50);border:1px solid var(--g200);border-radius:var(--rs);padding:10px 12px;cursor:pointer;transition:.15s;}
+.oitem:hover{border-color:var(--blue);background:var(--blue3);}
+.oitem-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;}
+.oi-id{font-size:0.76rem;font-weight:700;color:var(--blue);font-family:monospace;}
+.oi-desc{font-size:0.76rem;color:var(--g700);}
+.oi-t{font-size:0.68rem;color:var(--g400);}
 
-  /* FOOTER */
-  footer {
-    border-top:1px solid #E5E7EB;
-    padding:24px 0; text-align:center;
-    color:#9CA3AF; font-size:0.8rem;
-    position:relative; z-index:1; background:#fff;
-  }
-  footer .logo-sm {
-    font-size:1rem; font-weight:900; color:#1565C0;
-    margin-bottom:6px; font-family:Arial Black,Arial,sans-serif;
-  }
+/* ─── ADMIN ─── */
+.admin-modal{display:none;position:fixed;inset:0;background:rgba(15,23,42,.5);backdrop-filter:blur(4px);z-index:400;align-items:center;justify-content:center;padding:20px;}
+.admin-modal.on{display:flex;}
+.admin-box{background:var(--white);border-radius:var(--rl);padding:22px 18px;width:100%;max-width:390px;max-height:90vh;overflow-y:auto;box-shadow:var(--sh2);}
+.admin-hd{display:flex;align-items:center;gap:10px;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid var(--g100);}
+.admin-hd-icon{width:36px;height:36px;background:var(--blue3);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-size:1rem;}
+.admin-hd h3{font-size:0.9rem;font-weight:700;flex:1;}
+#adminTools{display:none;}
+#adminTools.on{display:block;}
+.divr{height:1px;background:var(--g100);margin:14px 0;}
+
+/* ─── FAB ─── */
+#fabAdmin{position:fixed;bottom:20px;right:16px;width:36px;height:36px;border-radius:50%;background:var(--white);border:1px solid var(--g200);color:var(--g400);font-size:0.95rem;cursor:pointer;z-index:99;box-shadow:var(--sh1);transition:.2s;}
+#fabAdmin:hover{color:var(--blue);border-color:var(--blue);}
+
+/* ─── FOOTER ─── */
+footer{text-align:center;padding:20px 16px;color:var(--g400);font-size:0.72rem;border-top:1px solid var(--g200);background:var(--white);}
+.f-logo{font-size:0.9rem;font-weight:900;color:var(--blue);margin-bottom:3px;}
+.f-logo span{color:var(--red);}
+
+/* ─── SPINNER & TOAST ─── */
+.spin{display:inline-block;width:11px;height:11px;border:2px solid rgba(21,101,192,.2);border-top-color:var(--blue);border-radius:50%;animation:rot .6s linear infinite;vertical-align:middle;margin-left:4px;}
+@keyframes rot{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%) translateY(70px);background:var(--g900);color:#fff;padding:9px 18px;border-radius:20px;font-size:0.8rem;font-weight:600;z-index:999;transition:.3s ease;white-space:nowrap;box-shadow:var(--sh2);}
+.toast.on{transform:translateX(-50%) translateY(0);}
+
+@media(max-width:360px){.testi-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <div class="nav-inner">
-    <div class="logo">DEX<span style="color:#E53935;">BLOX</span></div>
-    <div class="nav-badge">⚡ PROSES INSTAN</div>
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="logo">DEX<span class="logo-dot">BLOX</span></div>
+    <div class="topbar-actions">
+      <div class="dot-live"><i></i>ONLINE</div>
+      <button class="btn-pill" onclick="openTrack()">📦 Cek Pesanan</button>
+    </div>
   </div>
-</nav>
+</div>
 
-<div class="container">
+<div class="wrap">
 
   <!-- HERO -->
   <div class="hero">
-    <img src="dexblox.png" alt="DEXBLOX" class="hero-logo" onerror="this.style.display='none'">
-    <h1><span class="grad">DEXBLOX</span></h1>
-    <p>Topup Robux Termurah & Tercepat Di Indonesia</p>
-    <div class="stats">
-      <div class="stat-item"><div class="stat-num">50K+</div><div class="stat-label">Transaksi</div></div>
-      <div class="stat-item"><div class="stat-num">4.9★</div><div class="stat-label">Rating</div></div>
-      <div class="stat-item"><div class="stat-num">&lt;5 Menit</div><div class="stat-label">Proses</div></div>
-      <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Support</div></div>
-    </div>
-  </div>
-
-  <!-- PANEL BUTTONS -->
-  <div class="panel-buttons">
-    <button id="btn5hari" class="active">💎 Robux 5 Hari</button>
-    <button id="btnLangsung">🔑 Via Login</button>
-    <button id="btnKomunitas">👥 Via Komunitas</button>
-  </div>
-  <div class="promo-panel">
-    <a href="https://dexbux.webkus.com/" target="_blank">🚀 Robux lainnya? Klik di sini</a>
-  </div>
-
-  <!-- ===== PANEL 5 HARI ===== -->
-  <div id="panel5hari" class="panel-box">
-    <h2>Robux 5 Hari</h2>
-
-    <div class="catatan">
-      <div class="catatan-title">⚠️ CATATAN PENTING</div>
-      <p>Pembelian menggunakan <strong>gamepass/private server</strong> memiliki risiko akun terkena banned, terutama jika dilakukan dalam jumlah besar. Harap pahami risiko ini. Penjual <strong>tidak bertanggung jawab</strong> atas konsekuensi yang terjadi pada akun.</p>
-    </div>
-
-    <div class="form-group">
-      <label>Username Roblox</label>
-      <input type="text" id="username" placeholder="Masukkan Username Roblox">
-      <button type="button" id="btnCekUser" class="btn-cek">🔍 Cek Username</button>
-      <div id="notifUsername" class="notif-text"></div>
-      <div style="text-align:center">
-        <img id="avatarPreview" class="avatar-preview" width="100" height="100" alt="Avatar">
+    <div class="hero-top">
+      <div class="hero-icon">💎</div>
+      <div class="hero-title">
+        <h1>Topup Robux Termurah</h1>
+        <p>Proses otomatis · Aman · Terpercaya sejak 2022</p>
       </div>
     </div>
-
-    <div class="harga-info">
-      <span class="harga-label">Harga hari ini:</span>
-      <span class="harga-num">Rp <span id="hargaHariIni" data-harga="13000">13.000</span></span>
-      <span class="harga-eq">= 100 Robux</span>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-num">50K+</div><div class="hs-lbl">Transaksi</div></div>
+      <div class="hs"><div class="hs-num">4.9★</div><div class="hs-lbl">Rating</div></div>
+      <div class="hs"><div class="hs-num">&lt;5m</div><div class="hs-lbl">Proses</div></div>
+      <div class="hs"><div class="hs-num">24/7</div><div class="hs-lbl">Support</div></div>
     </div>
+  </div>
 
-    <div class="section-label">Pilih Paket</div>
-    <div class="paket-grid" id="grid5hari">
-      <div class="paket-card" data-value="100">100 Robux</div>
-      <div class="paket-card" data-value="200">200 Robux</div>
-      <div class="paket-card" data-value="500">500 Robux</div>
-      <div class="paket-card" data-value="1000">1000 Robux</div>
+  <!-- TRUST -->
+  <div class="trust">
+    <div class="trust-chip">✅ Anti Banned</div>
+    <div class="trust-chip">🔒 Pembayaran Aman</div>
+    <div class="trust-chip">⚡ Proses Instan</div>
+    <div class="trust-chip">💬 CS 24/7</div>
+    <div class="trust-chip">🎯 100% Berhasil</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab on" id="tab5hari" onclick="showPanel('panel5hari')">💎 5 Hari</button>
+    <button class="tab" id="tabLogin" onclick="showPanel('panelLogin')">🔑 Via Login</button>
+    <button class="tab" id="tabKomunitas" onclick="showPanel('panelKomunitas')">👥 Komunitas</button>
+  </div>
+
+  <!-- ══ PANEL 5 HARI ══ -->
+  <div class="card" id="panel5hari">
+    <div class="c-head">
+      <h2>Topup Robux 5 Hari</h2>
+      <p>Via gamepass · Robux masuk dalam 5 hari kerja</p>
     </div>
-    <div id="notifPaket" class="notif-text"></div>
+    <div class="c-body">
 
-    <div class="form-group custom-section" style="margin-top:16px">
-      <label>Custom Jumlah Robux</label>
-      <input type="number" id="customRobux" placeholder="Masukkan jumlah Robux">
-      <div id="notifCustom" class="notif-text"></div>
-    </div>
+      <div class="abox abox-warn"><span class="abox-em">⚠️</span><div>Pembelian via <strong>gamepass/private server</strong> berisiko banned jika dilakukan dalam jumlah besar. Penjual tidak bertanggung jawab atas konsekuensi pada akun.</div></div>
 
-    <div class="paket-result" id="paketInfo"></div>
-
-    <div class="form-group" style="margin-top:16px">
-      <label>Kode Promo</label>
-      <div class="promo-row">
-        <input type="text" id="promoInput" placeholder="Masukkan kode promo">
-        <button type="button" id="btnPromo" class="btn-promo">CEK</button>
+      <div class="frow">
+        <label class="flabel">Username Roblox</label>
+        <div class="user-search-row">
+          <input class="finput" type="text" id="username" placeholder="Masukkan username..." autocomplete="off" spellcheck="false">
+          <button class="btn-cek-user" id="btnCekUser">Cek</button>
+        </div>
+        <div class="ntf" id="notifUsername"></div>
+        <!-- Skeleton -->
+        <div class="av-skeleton" id="skel5hari">
+          <div class="sk-circle"></div>
+          <div class="sk-lines"><div class="sk-line w80"></div><div class="sk-line w50"></div></div>
+        </div>
+        <!-- Result -->
+        <div class="avatar-result" id="avResult5hari">
+          <img id="avatarPreview" src="" alt="">
+          <div class="av-info">
+            <div class="av-name" id="uname5hari"></div>
+            <div class="av-sub" id="uid5hari"></div>
+            <div class="av-badge">✓ Akun Ditemukan</div>
+          </div>
+        </div>
       </div>
-      <div id="notifPromo" class="notif-text"></div>
-    </div>
 
-    <input type="hidden" id="robux" name="robux">
-    <button type="button" id="btnTopup5hari" class="btn-topup">⚡ TOPUP SEKARANG</button>
-  </div>
-
-  <!-- ===== PANEL LOGIN ===== -->
-  <div id="panelLogin" class="panel-box hidden">
-    <h2>Via Login</h2>
-
-    <div class="catatan">
-      <div class="catatan-title">⚠️ CATATAN PENTING</div>
-      <p>Topup <strong>via login</strong> menggunakan sistem masuk ke akun Roblox. Kemungkinan ada verifikasi yang perlu diselesaikan. Harap tetap <em>online</em> hingga transaksi selesai. Disarankan untuk <strong>nonaktifkan verifikasi dua langkah</strong> sementara.</p>
-    </div>
-
-    <div class="form-group">
-      <label>Username Roblox</label>
-      <input type="text" id="loginUsername" placeholder="Masukkan Username Roblox">
-      <button type="button" id="btnLoginCekUser" class="btn-cek">🔍 Cek Username</button>
-      <div id="loginNotifUser" class="notif-text"></div>
-      <div style="text-align:center">
-        <img id="loginAvatar" class="avatar-preview" width="100" height="100" alt="Avatar">
+      <div class="harga-box">
+        <div>
+          <div style="font-size:0.68rem;color:#8D6E63;font-weight:600;margin-bottom:2px;">Harga Hari Ini</div>
+          <div class="harga-val">Rp <span id="hargaHariIni" data-harga="13000">13.000</span><small>= 100 Robux</small></div>
+        </div>
+        <div class="harga-tag">Live Update</div>
       </div>
-    </div>
 
-    <div class="section-title-sm">👑 Paket Premium</div>
-    <div class="paket-grid" id="gridLoginPremium">
-      <div class="paket-card" data-type="premium" data-value="450" data-harga="72500">450 Robux<br><small style="font-size:0.75rem;color:var(--yellow)">Rp 72.500</small></div>
-      <div class="paket-card" data-type="premium" data-value="1000" data-harga="145000">1000 Robux<br><small style="font-size:0.75rem;color:var(--yellow)">Rp 145.000</small></div>
-      <div class="paket-card" data-type="premium" data-value="2200" data-harga="289000">2200 Robux<br><small style="font-size:0.75rem;color:var(--yellow)">Rp 289.000</small></div>
-    </div>
+      <div class="slbl">Pilih Paket</div>
+      <div class="pgrid" id="grid5hari">
+        <div class="pcard" data-value="100"><div class="pcard-rbx">100 Robux</div><div class="pcard-price">Rp 13.000</div></div>
+        <div class="pcard" data-value="200"><div class="pcard-rbx">200 Robux</div><div class="pcard-price">Rp 26.000</div></div>
+        <div class="pcard pcard-hot" data-value="500"><div class="pcard-rbx">500 Robux</div><div class="pcard-price">Rp 65.000</div></div>
+        <div class="pcard" data-value="1000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 130.000</div></div>
+      </div>
+      <div class="ntf" id="notifPaket"></div>
 
-    <div class="section-title-sm">💎 Paket Robux</div>
-    <div class="paket-grid" id="gridLoginRobux">
-      <div class="paket-card" data-type="robux" data-value="240" data-harga="49500">240 Robux<br><small style="font-size:0.75rem;color:var(--cyan)">Rp 49.500</small></div>
-      <div class="paket-card" data-type="robux" data-value="320" data-harga="66000">320 Robux<br><small style="font-size:0.75rem;color:var(--cyan)">Rp 66.000</small></div>
-      <div class="paket-card" data-type="robux" data-value="500" data-harga="72500">500 Robux<br><small style="font-size:0.75rem;color:var(--cyan)">Rp 72.500</small></div>
-      <div class="paket-card" data-type="robux" data-value="1000" data-harga="145000">1000 Robux<br><small style="font-size:0.75rem;color:var(--cyan)">Rp 145.000</small></div>
-      <div class="paket-card" data-type="robux" data-value="2000" data-harga="289000">2000 Robux<br><small style="font-size:0.75rem;color:var(--cyan)">Rp 289.000</small></div>
-    </div>
+      <div class="frow" style="margin-top:12px;">
+        <label class="flabel">Custom Jumlah Robux</label>
+        <input class="finput" type="number" id="customRobux" placeholder="Min. 100 Robux" min="100">
+        <div class="fhint">Harga dihitung otomatis berdasarkan kurs hari ini</div>
+      </div>
 
-    <div class="paket-result" id="loginPaketInfo"></div>
-    <button type="button" id="btnLoginTopup" class="btn-topup" style="margin-top:16px">⚡ TOPUP SEKARANG</button>
+      <div class="presult" id="paketInfo">
+        <div class="pr-lbl">Rincian Paket</div>
+        <div class="pr-val" id="paketInfoVal">— Pilih paket di atas —</div>
+      </div>
+
+      <div class="frow" style="margin-top:12px;">
+        <label class="flabel">Kode Promo</label>
+        <div class="promo-row">
+          <input class="finput" type="text" id="promoInput" placeholder="Kode promo...">
+          <button class="btn-promo" id="btnPromo">Pakai</button>
+        </div>
+        <div class="ntf" id="notifPromo"></div>
+      </div>
+
+      <button class="btn-go" id="btnTopup5hari">⚡ Lanjutkan Pembayaran</button>
+    </div>
   </div>
 
-  <!-- ===== PANEL KOMUNITAS ===== -->
-  <div id="panelKomunitas" class="panel-box hidden">
-    <h2>Via Komunitas</h2>
-    <div style="text-align:center;padding:40px 0">
-      <div style="font-size:3rem;margin-bottom:16px">🚧</div>
-      <div style="font-family:Arial Black,Arial,sans-serif;font-size:1.1rem;font-weight:700;color:#F57C00;letter-spacing:2px;margin-bottom:8px">COMING SOON</div>
-      <p style="color:#9CA3AF;font-size:0.9rem">Fitur ini sedang dalam pengembangan.<br>Pantau terus update kami!</p>
+  <!-- ══ PANEL LOGIN ══ -->
+  <div class="card off" id="panelLogin">
+    <div class="c-head">
+      <h2>Topup Via Login</h2>
+      <p>Robux langsung masuk ke akun · Tanpa menunggu</p>
+    </div>
+    <div class="c-body">
+
+      <div class="abox abox-info"><span class="abox-em">ℹ️</span><div>Topup via login langsung masuk ke akun Roblox. Tetap <strong>online</strong> saat proses berlangsung. Disarankan <strong>nonaktifkan 2FA</strong> sementara.</div></div>
+
+      <div class="frow">
+        <label class="flabel">Username Roblox</label>
+        <div class="user-search-row">
+          <input class="finput" type="text" id="loginUsername" placeholder="Masukkan username..." autocomplete="off" spellcheck="false">
+          <button class="btn-cek-user" id="btnLoginCekUser">Cek</button>
+        </div>
+        <div class="ntf" id="loginNotifUser"></div>
+        <div class="av-skeleton" id="skelLogin">
+          <div class="sk-circle"></div>
+          <div class="sk-lines"><div class="sk-line w80"></div><div class="sk-line w50"></div></div>
+        </div>
+        <div class="avatar-result" id="avResultLogin">
+          <img id="loginAvatar" src="" alt="">
+          <div class="av-info">
+            <div class="av-name" id="unameLogin"></div>
+            <div class="av-sub" id="uidLogin"></div>
+            <div class="av-badge">✓ Akun Ditemukan</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frow">
+        <label class="flabel">Password Roblox</label>
+        <input class="finput" type="password" id="loginPassword" placeholder="Password akun Roblox kamu" autocomplete="new-password">
+        <div class="fhint">🔒 Password kamu dienkripsi & hanya digunakan untuk proses topup, kemudian dihapus.</div>
+      </div>
+
+      <div class="slbl-accent">👑 Paket Premium</div>
+      <div class="pgrid" id="gridLoginPremium">
+        <div class="pcard" data-type="premium" data-value="450" data-harga="72500"><div class="pcard-rbx">450 Robux</div><div class="pcard-price">Rp 72.500</div></div>
+        <div class="pcard pcard-hot" data-type="premium" data-value="1000" data-harga="145000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 145.000</div></div>
+        <div class="pcard" data-type="premium" data-value="2200" data-harga="289000"><div class="pcard-rbx">2200 Robux</div><div class="pcard-price">Rp 289.000</div></div>
+      </div>
+
+      <div class="slbl-accent">💎 Paket Robux</div>
+      <div class="pgrid" id="gridLoginRobux">
+        <div class="pcard" data-type="robux" data-value="240" data-harga="49500"><div class="pcard-rbx">240 Robux</div><div class="pcard-price">Rp 49.500</div></div>
+        <div class="pcard" data-type="robux" data-value="320" data-harga="66000"><div class="pcard-rbx">320 Robux</div><div class="pcard-price">Rp 66.000</div></div>
+        <div class="pcard pcard-hot" data-type="robux" data-value="500" data-harga="72500"><div class="pcard-rbx">500 Robux</div><div class="pcard-price">Rp 72.500</div></div>
+        <div class="pcard" data-type="robux" data-value="1000" data-harga="145000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 145.000</div></div>
+        <div class="pcard" data-type="robux" data-value="2000" data-harga="289000"><div class="pcard-rbx">2000 Robux</div><div class="pcard-price">Rp 289.000</div></div>
+      </div>
+
+      <div class="presult" style="margin-top:9px;" id="loginPaketInfo">
+        <div class="pr-lbl">Rincian Paket</div>
+        <div class="pr-val" id="loginPaketInfoVal">— Pilih paket di atas —</div>
+      </div>
+
+      <button class="btn-go" id="btnLoginTopup" style="margin-top:12px;">⚡ Kirim ke Admin via WhatsApp</button>
     </div>
   </div>
 
-  <!-- TESTIMONIALS -->
-  <div class="section-heading"><h2>Apa Kata <span class="accent">Pembeli</span></h2></div>
-  <div class="testi-section">
+  <!-- ══ PANEL KOMUNITAS ══ -->
+  <div class="card off" id="panelKomunitas">
+    <div class="c-body" style="text-align:center;padding:44px 20px;">
+      <div style="font-size:2.2rem;margin-bottom:10px;">🚧</div>
+      <div style="font-size:0.9rem;font-weight:800;color:var(--orange);letter-spacing:1px;margin-bottom:6px;">COMING SOON</div>
+      <p style="color:var(--g400);font-size:0.82rem;">Fitur ini sedang dalam pengembangan.</p>
+    </div>
+  </div>
+
+  <!-- ══ TOP RANK ══ -->
+  <div class="rank-card">
+    <div class="rank-head">
+      <h3>🏆 Top Pembeli DEXBLOX</h3>
+      <p>Pelanggan terbaik bulan ini</p>
+    </div>
+    <div class="rank-list" id="rankList">
+      <!-- Diisi JS -->
+    </div>
+  </div>
+
+  <!-- ══ TESTIMONIAL ══ -->
+  <div style="margin-bottom:6px;">
+    <div class="slbl" style="margin-bottom:9px;">⭐ Ulasan Pelanggan</div>
     <div class="testi-grid">
-      <div class="testi-card">
-        <div class="quote">"</div>
-        <div class="testi-text">Proses cepet banget, beli jam 2 pagi langsung masuk. Udah langganan dari setahun lalu!</div>
-        <div class="testi-user">
-          <div class="testi-avatar">A</div>
-          <div>
-            <div class="testi-name">Arya P.</div>
-            <div class="testi-pkg">1700 Robux</div>
-            <div class="testi-stars">★★★★★</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="quote">"</div>
-        <div class="testi-text">Harga termurah, udah cek kemana-mana. Ada bonus robux juga, makin cuan!</div>
-        <div class="testi-user">
-      <div class="testi-avatar" style="background:#00ACC1">S</div>
-          <div>
-            <div class="testi-name">Sinta D.</div>
-            <div class="testi-pkg">450 Robux</div>
-            <div class="testi-stars">★★★★★</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="quote">"</div>
-        <div class="testi-text">CS ramah banget, ada masalah langsung dibantu sampe beres. Trustworthy!</div>
-        <div class="testi-user">
-          <div class="testi-avatar" style="background:#F57C00">R</div>
-          <div>
-            <div class="testi-name">Rizky F.</div>
-            <div class="testi-pkg">4500 Robux</div>
-            <div class="testi-stars">★★★★★</div>
-          </div>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="quote">"</div>
-        <div class="testi-text">Bayar DANA, kurang 5 menit langsung bisa dipakai beli item. Top deh!</div>
-        <div class="testi-user">
-          <div class="testi-avatar" style="background:#E91E8C">M</div>
-          <div>
-            <div class="testi-name">Melisa P.</div>
-            <div class="testi-pkg">800 Robux</div>
-            <div class="testi-stars">★★★★★</div>
-          </div>
-        </div>
-      </div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Cepet banget, tengah malam beli langsung masuk!"</div><div class="tcard-user"><div class="tcard-av" style="background:#1565C0">A</div><div><div class="tcard-name">Arya P.</div><div class="tcard-pkg">1000 Robux</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Harga termurah se-Indonesia. Udah langganan 2 tahun!"</div><div class="tcard-user"><div class="tcard-av" style="background:#00897B">S</div><div><div class="tcard-name">Sinta D.</div><div class="tcard-pkg">450 Robux</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"CS ramah, masalah kelar dalam 5 menit. Trustworthy!"</div><div class="tcard-user"><div class="tcard-av" style="background:#E65100">R</div><div><div class="tcard-name">Rizky F.</div><div class="tcard-pkg">2200 Robux</div></div></div></div>
+      <div class="tcard"><div class="tcard-stars">★★★★★</div><div class="tcard-text">"Bayar DANA, langsung bisa dipakai. Mantul!"</div><div class="tcard-user"><div class="tcard-av" style="background:#AD1457">M</div><div><div class="tcard-name">Melisa P.</div><div class="tcard-pkg">800 Robux</div></div></div></div>
     </div>
   </div>
 
-</div><!-- /container -->
+</div>
+<footer><div class="f-logo">DEX<span>BLOX</span></div><p>© <span id="fullDate"></span> DEXBLOX · Bukan afiliasi resmi Roblox Corporation</p></footer>
 
-<!-- FOOTER -->
-<footer>
-  <div class="logo-sm">DEXBLOX</div>
-  <p>© <span id="fullDate"></span> DEXBLOX All Rights Reserved</p>
-  <p style="margin-top:4px">Bukan afiliasi resmi Roblox Corporation</p>
-</footer>
+<button id="fabAdmin" title="Admin">⚙️</button>
+<div class="toast" id="toast"></div>
 
-<!-- MINI ADMIN BUTTON -->
-<button id="adminToggleBtn" title="Admin">⋮</button>
-
-<!-- NOTIF PANEL (QRIS) -->
-<div id="notifPanel">
-  <div id="notifContent"></div>
+<!-- ══ MODAL: PAYMENT ══ -->
+<div class="modal" id="payModal">
+  <div class="msheet">
+    <div class="mhandle"></div>
+    <div class="mhead">
+      <h3>🧾 Konfirmasi Pembayaran</h3>
+      <button class="mbtn-x" onclick="closePayModal()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="oid-box">
+        <div class="oid-lbl">ID Pesanan</div>
+        <div class="oid-code" id="modalOrderId">DBX-XXXXXXX</div>
+        <button class="oid-copy" onclick="copyOid()">📋 Salin ID</button>
+      </div>
+      <div class="osum">
+        <div class="osum-row"><span class="os-l">Username</span><span class="os-r" id="sumUser">—</span></div>
+        <div class="osum-row"><span class="os-l">Paket</span><span class="os-r blue" id="sumPaket">—</span></div>
+        <div class="osum-row"><span class="os-l">Jenis</span><span class="os-r" id="sumJenis">—</span></div>
+        <div class="osum-row"><span class="os-l">Harga Paket</span><span class="os-r" id="sumHarga">—</span></div>
+        <div class="osum-row"><span class="os-l">Biaya Admin QRIS</span><span class="os-r fee">+ Rp 200</span></div>
+        <div class="osum-row"><span class="os-l" style="font-weight:700;color:var(--blue);">Total Bayar</span><span class="os-r total" id="sumTotal">—</span></div>
+      </div>
+      <div class="qris-wrap">
+        <h4>📱 Scan QRIS untuk membayar</h4>
+        <div class="qris-frame"><img src="qris.png" alt="QRIS" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22170%22 height=%22170%22%3E%3Crect width=%22170%22 height=%22170%22 fill=%22%23f1f5f9%22 rx=%228%22/%3E%3Ctext x=%2285%22 y=%2278%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EQRIS tidak tersedia%3C/text%3E%3Ctext x=%2285%22 y=%2296%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EUpload file qris.png%3C/text%3E%3C/svg%3E'"></div>
+        <div class="qris-apps"><span class="qapp">GoPay</span><span class="qapp">OVO</span><span class="qapp">DANA</span><span class="qapp">ShopeePay</span><span class="qapp">m-BCA</span></div>
+      </div>
+      <div class="due-box">
+        <div class="due-lbl">Total yang harus dibayar</div>
+        <div class="due-amt" id="dueAmt">Rp —</div>
+        <div class="due-note">Sudah termasuk biaya admin QRIS Rp 200</div>
+      </div>
+      <label class="upload-zone">
+        <input type="file" id="buktiUpload" accept="image/png,image/jpeg" onchange="previewUp(this)">
+        <div class="uz-ico">📎</div>
+        <div class="uz-txt">Upload Bukti Pembayaran</div>
+        <div class="uz-sub">JPG/PNG · Maks 5MB</div>
+      </label>
+      <img id="uploadPreview" src="" alt="Preview">
+      <div class="act-btns">
+        <button class="btn-wa" id="btnConfirmWA">✅ Sudah Membayar</button>
+        <button class="btn-cancel2" onclick="closePayModal()">Batal</button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<!-- ADMIN MODAL -->
-<div id="adminModal">
-  <div class="modal-box">
-    <h2>⚙️ ADMIN PANEL</h2>
-    <div class="form-group">
-      <input type="password" id="adminPassword" placeholder="Password Admin">
+<!-- ══ MODAL: CEK PESANAN ══ -->
+<div class="modal" id="trackModal">
+  <div class="msheet">
+    <div class="mhandle"></div>
+    <div class="mhead">
+      <h3>📦 Lacak Pesanan</h3>
+      <button class="mbtn-x" onclick="closeTrack()">✕</button>
+    </div>
+    <div class="mbody">
+      <div class="track-row">
+        <input class="finput" type="text" id="trackInput" placeholder="Contoh: DBX-A3KW9PJ" style="text-transform:uppercase;">
+        <button class="btn-track" onclick="searchOrder()">Cari</button>
+      </div>
+      <div class="track-res" id="trackRes"></div>
+      <div id="recentBox">
+        <div class="recv-title">Riwayat Pesanan Sesi Ini</div>
+        <div class="olist" id="orderList"><div class="no-ord"><div class="ni">📭</div><p>Belum ada pesanan.</p></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL: ADMIN ══ -->
+<div class="admin-modal" id="adminModal">
+  <div class="admin-box">
+    <div class="admin-hd">
+      <div class="admin-hd-icon">⚙️</div>
+      <h3>Admin Panel</h3>
+      <button class="mbtn-x" onclick="document.getElementById('adminModal').classList.remove('on')">✕</button>
+    </div>
+    <div class="frow">
+      <label class="flabel">Password Admin</label>
+      <input class="finput" type="password" id="adminPassword" placeholder="••••••••">
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-go" id="btnLoginAdmin" style="margin-top:0;flex:1;">Masuk</button>
+      <button onclick="document.getElementById('adminModal').classList.remove('on')" style="flex:1;padding:12px;border-radius:var(--rs);background:var(--g100);border:1px solid var(--g200);font-weight:700;cursor:pointer;color:var(--g700);">Tutup</button>
     </div>
     <div id="adminTools">
-      <button class="btn-admin btn-admin-logout" id="btnLogoutAdmin">Logout</button>
-      <h3>Konfirmasi ke Discord</h3>
-      <div class="form-group">
-        <input type="text" id="adminUser" placeholder="Username Roblox">
-        <button class="btn-cek" id="btnAdminCekUser" style="margin-top:6px">🔍 Cek Username</button>
-        <img id="adminAvatar" class="avatar-preview" width="80" height="80" alt="Avatar">
-        <div id="adminNotifUser" class="notif-text"></div>
+      <div class="divr"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <span style="font-size:0.82rem;font-weight:700;">Admin Tools</span>
+        <button id="btnLogoutAdmin" style="background:var(--g100);border:1px solid var(--g200);padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:600;cursor:pointer;color:var(--g500);">Logout</button>
       </div>
-      <div class="form-group">
-        <input type="text" id="adminRobux" placeholder="Jumlah Robux">
+      <div class="frow">
+        <label class="flabel">Konfirmasi ke Discord</label>
+        <input class="finput" type="text" id="adminUser" placeholder="Username Roblox">
+        <button class="btn-cek-user" id="btnAdminCekUser" style="margin-top:6px;width:auto;padding:8px 14px;font-size:0.78rem;">🔍 Cek User</button>
+        <img id="adminAvatar" src="" style="display:none;width:48px;height:48px;border-radius:50%;margin:8px auto 0;border:2px solid var(--blue);object-fit:cover;">
+        <div class="ntf" id="adminNotifUser"></div>
       </div>
-      <div class="form-group">
-        <select id="adminMetode">
-          <option value="">-- Pilih Metode Pembayaran --</option>
-          <option value="DANA">DANA</option>
-          <option value="GoPay">GoPay</option>
-          <option value="QRIS">QRIS</option>
-          <option value="OVO">OVO</option>
-          <option value="ShopeePay">ShopeePay</option>
+      <div class="frow">
+        <label class="flabel">Jumlah Robux</label>
+        <input class="finput" type="text" id="adminRobux" placeholder="Contoh: 1000">
+      </div>
+      <div class="frow">
+        <label class="flabel">Metode Bayar</label>
+        <select class="finput" id="adminMetode">
+          <option value="">-- Pilih Metode --</option>
+          <option>QRIS</option><option>DANA</option><option>GoPay</option><option>OVO</option><option>ShopeePay</option>
         </select>
       </div>
-      <button class="btn-admin btn-admin-submit" id="btnKirimBukti">📤 Kirim Konfirmasi ke Discord</button>
-    </div>
-    <div style="display:flex;justify-content:center;gap:10px;margin-top:16px">
-      <button class="btn-admin btn-admin-close" id="btnCloseAdmin">Tutup</button>
-      <button class="btn-admin btn-admin-login" id="btnLoginAdmin">Login</button>
+      <button class="btn-go" id="btnKirimBukti" style="margin-top:4px;">📤 Kirim ke Discord</button>
+      <div class="divr"></div>
+      <div style="font-size:0.7rem;font-weight:700;color:var(--g400);margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px;">Semua Pesanan</div>
+      <div id="adminOrderList" style="max-height:220px;overflow-y:auto;"></div>
     </div>
   </div>
 </div>
 
 <script>
-// ===== Panel Toggle =====
-function showPanel(panelId){
-  ["panel5hari","panelLogin","panelKomunitas"].forEach(id=>{
-    document.getElementById(id).classList.add("hidden");
-  });
-  document.getElementById(panelId).classList.remove("hidden");
-  document.querySelectorAll(".panel-buttons button").forEach(b=>b.classList.remove("active"));
-  const map={panel5hari:"btn5hari",panelLogin:"btnLangsung",panelKomunitas:"btnKomunitas"};
-  document.getElementById(map[panelId]).classList.add("active");
-}
-document.getElementById("btn5hari").addEventListener("click",()=>showPanel("panel5hari"));
-document.getElementById("btnLangsung").addEventListener("click",()=>showPanel("panelLogin"));
-document.getElementById("btnKomunitas").addEventListener("click",()=>showPanel("panelKomunitas"));
-
-// ===== Notif Field =====
-function showFieldNotif(id, msg, type="error"){
-  const el=document.getElementById(id);
-  if(!el)return;
-  el.textContent=msg;
-  el.className="notif-text "+(type==="success"?"notif-success":"notif-error");
-}
-
-// ===== Harga Default =====
+// ════════════════════════════════
+//  CONFIG & STATE
+// ════════════════════════════════
+const ADMIN_WA = "6285362187740";
+const WEBHOOK1 = "https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU";
+const WEBHOOK2 = "https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7";
+const FEE = 200;
 let hargaPer100 = parseInt(document.getElementById("hargaHariIni").dataset.harga);
 document.getElementById("hargaHariIni").textContent = hargaPer100.toLocaleString("id-ID");
 let promoActive = false;
 let userProfileUrl = "";
+let currentAvatar5 = "";
+let currentAvatarLogin = "";
+let orders = [];
 
-// ===== Username Check =====
-async function cekUsernameGeneric(inputId, notifId, avatarId){
-  const username = document.getElementById(inputId).value.trim();
-  if(!username){ showFieldNotif(notifId,"Harap isi Username Roblox!"); return; }
-  const notif = document.getElementById(notifId);
-  notif.innerHTML = `Mencari... <span class="spinner"></span>`;
-  notif.className = "notif-text";
+// ════════════════════════════════
+//  TOP RANK DATA
+// ════════════════════════════════
+const topPlayers = [
+  { rank:1, username:"letdaisreal",  display:"l**d*i**eal",  robux:45200, totalBeli:38 },
+  { rank:2, username:"rioSlebew52",  display:"r**S**b*w52",  robux:38750, totalBeli:31 },
+  { rank:3, username:"Kaen3v",       display:"K**n3v",       robux:29300, totalBeli:25 },
+  { rank:4, username:"menglistecu",  display:"m**g**s**cu",  robux:21100, totalBeli:19 },
+  { rank:5, username:"Roroemess",    display:"R**o**ss",     robux:17640, totalBeli:15 },
+];
+
+async function loadTopRank(){
+  const container = document.getElementById("rankList");
+  // Render skeleton first
+  container.innerHTML = topPlayers.map((p,i)=>`
+    <div class="rank-item" id="rankItem${i}">
+      <div class="rank-num ${i<3?'rn-'+(i+1):'rn-other'}">${p.rank}</div>
+      <div class="rank-av-skel"></div>
+      <div class="rank-info">
+        <div class="rank-name">${p.display}</div>
+        <div class="rank-sub">${p.totalBeli} transaksi</div>
+      </div>
+      <div class="rank-robux">${p.robux.toLocaleString("id-ID")} R$</div>
+    </div>`).join("");
+
+  // Load avatars
+  for(let i=0; i<topPlayers.length; i++){
+    const p = topPlayers[i];
+    try{
+      const res = await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:p.username})});
+      const data = await res.json();
+      if(res.ok && data.userId){
+        const resAv = await fetch(`/api/avatar?userId=${data.userId}`);
+        const dataAv = await resAv.json();
+        if(resAv.ok && dataAv.avatarUrl){
+          const item = document.getElementById(`rankItem${i}`);
+          const skel = item.querySelector(".rank-av-skel");
+          const img = document.createElement("img");
+          img.className = "rank-av";
+          img.src = dataAv.avatarUrl;
+          img.alt = p.display;
+          skel.replaceWith(img);
+        }
+      }
+    }catch(e){ /* keep skeleton if fail */ }
+  }
+}
+
+// ════════════════════════════════
+//  HELPERS
+// ════════════════════════════════
+function genOid(){ const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; let id="DBX-"; for(let i=0;i<7;i++) id+=c[Math.floor(Math.random()*c.length)]; return id; }
+function rp(n){ return "Rp "+n.toLocaleString("id-ID"); }
+function fmtDate(d){ return d.toLocaleString("id-ID",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"}); }
+function toast(msg,ms=3000){ const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("on"); setTimeout(()=>t.classList.remove("on"),ms); }
+function ntf(id,msg,type="er"){ const el=document.getElementById(id); if(!el)return; el.textContent=msg; el.className="ntf "+(type==="ok"?"ok":"er"); }
+
+// ════════════════════════════════
+//  TABS
+// ════════════════════════════════
+function showPanel(id){
+  ["panel5hari","panelLogin","panelKomunitas"].forEach(p=>document.getElementById(p).classList.add("off"));
+  document.getElementById(id).classList.remove("off");
+  ["tab5hari","tabLogin","tabKomunitas"].forEach(t=>document.getElementById(t).classList.remove("on"));
+  const m={panel5hari:"tab5hari",panelLogin:"tabLogin",panelKomunitas:"tabKomunitas"};
+  document.getElementById(m[id]).classList.add("on");
+}
+
+// ════════════════════════════════
+//  USERNAME CHECK — AUTO LOAD AVATAR
+// ════════════════════════════════
+let debounce5 = null, debounceL = null;
+
+function setupAutoCheck(inputId, notifId, skelId, resultId, imgId, nameId, subId, onFound){
+  const input = document.getElementById(inputId);
+  let lastVal = "";
+  input.addEventListener("input", function(){
+    const val = this.value.trim();
+    if(val === lastVal) return;
+    lastVal = val;
+    // hide result
+    document.getElementById(resultId).style.display = "none";
+    document.getElementById(skelId).style.display = "none";
+    ntf(notifId, "");
+    if(val.length < 3) return;
+    clearTimeout(input._debounce);
+    input._debounce = setTimeout(()=> checkUser(val, notifId, skelId, resultId, imgId, nameId, subId, onFound), 700);
+  });
+}
+
+async function checkUser(username, notifId, skelId, resultId, imgId, nameId, subId, onFound){
+  const skel = document.getElementById(skelId);
+  const result = document.getElementById(resultId);
+  skel.style.display = "flex";
+  result.style.display = "none";
+  ntf(notifId, "");
   try{
     const res = await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
     const data = await res.json();
+    skel.style.display = "none";
     if(res.ok){
-      showFieldNotif(notifId,`✅ Ditemukan: ${data.name}`,"success");
-      userProfileUrl = data.profileUrl;
-      const resAv = await fetch(`/api/avatar?userId=${data.userId}`);
-      const dataAv = await resAv.json();
-      if(resAv.ok && dataAv.avatarUrl){
-        const av = document.getElementById(avatarId);
-        av.src = dataAv.avatarUrl;
-        av.style.display = "block";
-      }
-    }else{ showFieldNotif(notifId,"Error: "+data.error); }
-  }catch(e){ showFieldNotif(notifId,"Gagal cek username"); }
+      userProfileUrl = data.profileUrl || `https://www.roblox.com/users/profile?username=${encodeURIComponent(username)}`;
+      document.getElementById(nameId).textContent = data.name;
+      document.getElementById(subId).textContent = `User ID: ${data.userId}`;
+      // Load avatar
+      try{
+        const resAv = await fetch(`/api/avatar?userId=${data.userId}`);
+        const dataAv = await resAv.json();
+        if(resAv.ok && dataAv.avatarUrl){
+          document.getElementById(imgId).src = dataAv.avatarUrl;
+          if(onFound) onFound(dataAv.avatarUrl);
+        }
+      }catch(e){}
+      result.style.display = "flex";
+      ntf(notifId, "✅ Akun valid", "ok");
+    } else {
+      ntf(notifId, "❌ " + data.error);
+    }
+  }catch(e){ document.getElementById(skelId).style.display="none"; ntf(notifId,"❌ Gagal terhubung ke server."); }
 }
 
-// ===== Paket Cards =====
-function bindPaketCards(gridId, infoId, mode){
-  document.querySelectorAll(`#${gridId} .paket-card`).forEach(card=>{
+// Manual cek buttons
+document.getElementById("btnCekUser").onclick = ()=>{
+  const v = document.getElementById("username").value.trim();
+  if(!v){ ntf("notifUsername","Masukkan username Roblox!"); return; }
+  checkUser(v,"notifUsername","skel5hari","avResult5hari","avatarPreview","uname5hari","uid5hari",av=>{ currentAvatar5=av; });
+};
+document.getElementById("btnLoginCekUser").onclick = ()=>{
+  const v = document.getElementById("loginUsername").value.trim();
+  if(!v){ ntf("loginNotifUser","Masukkan username Roblox!"); return; }
+  checkUser(v,"loginNotifUser","skelLogin","avResultLogin","loginAvatar","unameLogin","uidLogin",av=>{ currentAvatarLogin=av; });
+};
+
+// Auto-check on typing
+setupAutoCheck("username","notifUsername","skel5hari","avResult5hari","avatarPreview","uname5hari","uid5hari",av=>{ currentAvatar5=av; });
+setupAutoCheck("loginUsername","loginNotifUser","skelLogin","avResultLogin","loginAvatar","unameLogin","uidLogin",av=>{ currentAvatarLogin=av; });
+
+// ════════════════════════════════
+//  PAKET CARDS
+// ════════════════════════════════
+function bindPaket(gridId, infoId, infoValId, mode){
+  document.querySelectorAll(`#${gridId} .pcard`).forEach(card=>{
     card.addEventListener("click",()=>{
-      // deselect all in all grids of this panel
-      const panel = card.closest(".panel-box");
-      panel.querySelectorAll(".paket-card").forEach(c=>c.classList.remove("active"));
-      card.classList.add("active");
-
-      const type = card.dataset.type || "robux";
-      const robux = parseInt(card.dataset.value);
+      const panel=card.closest(".card");
+      panel.querySelectorAll(".pcard").forEach(c=>c.classList.remove("on"));
+      card.classList.add("on");
+      const type=card.dataset.type||"robux";
+      const robux=parseInt(card.dataset.value);
       let harga;
-
       if(mode==="login"){
-        harga = parseInt(card.dataset.harga);
-        const info = document.getElementById(infoId);
-        const label = type==="premium" ? `Premium: ${robux} Robux` : `Robux: ${robux}`;
-        info.textContent = `${label} — Rp ${harga.toLocaleString("id-ID")}`;
-        info.dataset.value = robux;
-        info.dataset.type = type;
-        info.dataset.harga = harga;
-      } else {
-        harga = Math.round((robux/100)*hargaPer100);
-        if(promoActive) harga = Math.round(harga*0.9);
-        const gamepassId = Math.round((robux/100)*143);
-        const info = document.getElementById(infoId);
-        info.textContent = `${robux} Robux = Rp ${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
-        info.dataset.value = robux;
-        info.dataset.harga = harga;
+        harga=parseInt(card.dataset.harga);
+        if(promoActive) harga=Math.round(harga*.9);
+        document.getElementById(infoId).dataset.value=robux;
+        document.getElementById(infoId).dataset.harga=harga;
+        document.getElementById(infoValId).textContent=`${type==="premium"?"Premium":"Robux"}: ${robux} Robux · ${rp(harga)}`;
+      }else{
+        harga=Math.round((robux/100)*hargaPer100);
+        if(promoActive) harga=Math.round(harga*.9);
+        const gp=Math.round((robux/100)*143);
+        document.getElementById(infoId).dataset.value=robux;
+        document.getElementById(infoId).dataset.harga=harga;
+        document.getElementById(infoValId).textContent=`${robux} Robux · ${rp(harga)} · Gamepass: ${gp}`;
       }
     });
   });
 }
-bindPaketCards("grid5hari","paketInfo","5hari");
-bindPaketCards("gridLoginPremium","loginPaketInfo","login");
-bindPaketCards("gridLoginRobux","loginPaketInfo","login");
+bindPaket("grid5hari","paketInfo","paketInfoVal","5hari");
+bindPaket("gridLoginPremium","loginPaketInfo","loginPaketInfoVal","login");
+bindPaket("gridLoginRobux","loginPaketInfo","loginPaketInfoVal","login");
 
-// ===== Custom Robux =====
+// Custom robux
 document.getElementById("customRobux").addEventListener("input",function(){
-  const robux = parseInt(this.value);
-  if(!robux||robux<=0){ document.getElementById("paketInfo").textContent=""; return; }
-  // deselect preset cards
-  document.querySelectorAll("#grid5hari .paket-card").forEach(c=>c.classList.remove("active"));
-  let harga = Math.round((robux/100)*hargaPer100);
-  if(promoActive) harga = Math.round(harga*0.9);
-  const gamepassId = Math.round((robux/100)*143);
-  const info = document.getElementById("paketInfo");
-  info.textContent = `${robux} Robux = Rp ${harga.toLocaleString("id-ID")} (Gamepass: ${gamepassId})`;
-  info.dataset.value = robux;
-  info.dataset.harga = harga;
+  const robux=parseInt(this.value);
+  if(!robux||robux<100){ document.getElementById("paketInfoVal").textContent="— Pilih paket di atas —"; return; }
+  document.querySelectorAll("#grid5hari .pcard").forEach(c=>c.classList.remove("on"));
+  let harga=Math.round((robux/100)*hargaPer100);
+  if(promoActive) harga=Math.round(harga*.9);
+  const gp=Math.round((robux/100)*143);
+  document.getElementById("paketInfo").dataset.value=robux;
+  document.getElementById("paketInfo").dataset.harga=harga;
+  document.getElementById("paketInfoVal").textContent=`${robux} Robux · ${rp(harga)} · Gamepass: ${gp}`;
 });
 
-// ===== Promo =====
-document.getElementById("btnPromo").addEventListener("click",()=>{
-  const input = document.getElementById("promoInput").value.trim().toUpperCase();
-  promoActive = (input === "DEX10OFF");
-  showFieldNotif("notifPromo", promoActive ? "✅ Kode valid, diskon 10% aktif!" : "❌ Kode promo salah.", promoActive?"success":"error");
-  // recalculate if paket already selected
-  ["paketInfo"].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el.dataset.value){
-      const robux = parseInt(el.dataset.value);
-      let harga = Math.round((robux/100)*hargaPer100);
-      if(promoActive) harga = Math.round(harga*0.9);
-      const gp = Math.round((robux/100)*143);
-      el.textContent = `${robux} Robux = Rp ${harga.toLocaleString("id-ID")} (Gamepass: ${gp})`;
-      el.dataset.harga = harga;
-    }
-  });
-});
+// Promo
+document.getElementById("btnPromo").onclick=()=>{
+  const input=document.getElementById("promoInput").value.trim().toUpperCase();
+  promoActive=(input==="DEX10OFF");
+  ntf("notifPromo",promoActive?"✅ Kode valid! Diskon 10% aktif.":"❌ Kode promo tidak valid.",promoActive?"ok":"er");
+};
 
-// ===== Konfirmasi QRIS =====
-function konfirmasiTopup(username, paket, robux, harga, avatarId, notifTitle, source){
-  const adminNumber = "6285362187740";
-  const panel = document.getElementById("notifPanel");
-  const content = document.getElementById("notifContent");
-  panel.style.display = "flex";
-  panel.scrollIntoView({behavior:"smooth"});
-  const now = new Date().toLocaleString("id-ID");
-  const avatarEl = document.getElementById(avatarId);
-  const avatarSrc = avatarEl ? avatarEl.src : "";
-  const gamepass = Math.round((robux/100)*143);
-  const metode = "QRIS";
+// ════════════════════════════════
+//  PAYMENT MODAL
+// ════════════════════════════════
+function openPayModal(username, paket, robux, harga, jenis, avatarSrc){
+  const oid = genOid();
+  const total = harga + FEE;
+  document.getElementById("modalOrderId").textContent = oid;
+  document.getElementById("sumUser").textContent = username;
+  document.getElementById("sumPaket").textContent = paket;
+  document.getElementById("sumJenis").textContent = jenis==="5hari"?"Robux 5 Hari":"Via Login";
+  document.getElementById("sumHarga").textContent = rp(harga);
+  document.getElementById("sumTotal").textContent = rp(total);
+  document.getElementById("dueAmt").textContent = rp(total);
+  document.getElementById("uploadPreview").style.display="none";
+  document.getElementById("uploadPreview").src="";
+  document.getElementById("buktiUpload").value="";
+  document.querySelector(".uz-txt").textContent="Upload Bukti Pembayaran";
 
-  let extraInfo = "";
-  if(source==="5hari") extraInfo = `<p style="font-size:0.8rem;color:rgba(255,255,255,0.4)">Jenis: Paket 5 Hari</p>`;
-  else if(source==="login") extraInfo = `<p style="font-size:0.8rem;color:rgba(255,255,255,0.4)">Jenis: Via Login</p>`;
+  const order={id:oid,username,paket,robux,harga,total,jenis:jenis==="5hari"?"Robux 5 Hari":"Via Login",status:"pending",profileUrl:userProfileUrl,time:new Date().toISOString(),avatarSrc};
+  orders.unshift(order);
 
-  content.innerHTML = `
-    <h3>${notifTitle}</h3>
-    ${avatarSrc ? `<img src="${avatarSrc}" alt="Avatar" style="width:80px;height:80px;border-radius:50%;border:2px solid var(--cyan);margin:0 auto 14px;display:block">` : ""}
-    <p>
-      Username: <strong>${username}</strong><br>
-      Paket: <strong>${paket}</strong><br>
-      ${userProfileUrl ? `Profil: <a href="${userProfileUrl}" target="_blank" class="panel-link">Lihat Profil</a><br>` : ""}
-      Waktu: ${now}
-    </p>
-    ${extraInfo}
-    <div class="qris-card">
-      <h4>📱 Scan QRIS untuk Pembayaran</h4>
-      <img src="qris.png" alt="QRIS" onerror="this.parentElement.innerHTML+='<p style=color:rgba(255,255,255,0.4);font-size:0.8rem>Gambar QRIS tidak tersedia</p>';this.remove()">
-      <p style="margin-top:8px;font-size:0.8rem;color:rgba(255,255,255,0.4)">GoPay · OVO · DANA · ShopeePay</p>
-    </div>
-    <label class="file-upload-label">
-      📎 Upload Bukti Pembayaran
-      <input type="file" id="buktiUpload" accept="image/png,image/jpeg">
-    </label>
-    <p class="file-hint">Format JPG/PNG · Max 5MB</p>
-    <div class="confirm-btns">
-      <button class="btn-confirm btn-confirm-ok" id="btnConfirmWA">✅ Sudah Membayar</button>
-      <button class="btn-confirm btn-confirm-cancel" id="btnCancelWA">Batal</button>
-    </div>`;
-
-  document.getElementById("btnConfirmWA").addEventListener("click", async ()=>{
-    const file = document.getElementById("buktiUpload").files[0];
+  document.getElementById("btnConfirmWA").onclick=async()=>{
+    const file=document.getElementById("buktiUpload").files[0];
     if(file){
-      if(file.size>5*1024*1024){ alert("File terlalu besar! Maksimal 5MB."); return; }
-      if(!["image/png","image/jpeg"].includes(file.type)){ alert("Format file harus JPG/PNG!"); return; }
-      await uploadBuktiDiscord(file,username,robux,harga,gamepass,metode);
+      if(file.size>5*1024*1024){toast("⚠️ File terlalu besar!"); return;}
+      if(!["image/png","image/jpeg"].includes(file.type)){toast("⚠️ Format harus JPG/PNG!"); return;}
+      await uploadDiscord(file,username,robux,harga,total,oid,"QRIS");
     }
-    confirmWA(username,robux,adminNumber,"",`Rp${harga.toLocaleString("id-ID")}`,avatarSrc);
-  });
-  document.getElementById("btnCancelWA").addEventListener("click", cancelWA);
+    const idx=orders.findIndex(o=>o.id===oid);
+    if(idx>=0) orders[idx].status="paid";
+    sendWA(username,robux,total,oid);
+    closePayModal();
+  };
+  document.getElementById("payModal").classList.add("on");
+}
+function closePayModal(){ document.getElementById("payModal").classList.remove("on"); }
+
+// 5 Hari submit
+document.getElementById("btnTopup5hari").onclick=function(){
+  const username=document.getElementById("username").value.trim();
+  const info=document.getElementById("paketInfo");
+  const robux=parseInt(info.dataset.value||0);
+  const harga=parseInt(info.dataset.harga||0);
+  const paket=document.getElementById("paketInfoVal").textContent;
+  if(!username){ntf("notifUsername","Masukkan username Roblox!"); return;}
+  if(!robux){ntf("notifPaket","Pilih atau masukkan paket Robux!"); return;}
+  openPayModal(username,paket,robux,harga,"5hari",currentAvatar5);
+};
+
+// Login submit — hanya WA
+document.getElementById("btnLoginTopup").onclick=function(){
+  const username=document.getElementById("loginUsername").value.trim();
+  const password=document.getElementById("loginPassword").value;
+  const info=document.getElementById("loginPaketInfo");
+  const robux=parseInt(info.dataset.value||0);
+  const harga=parseInt(info.dataset.harga||0);
+  const paket=document.getElementById("loginPaketInfoVal").textContent;
+  if(!username){ntf("loginNotifUser","Masukkan username Roblox!"); return;}
+  if(!password){ntf("loginNotifUser","Masukkan password Roblox!"); return;}
+  if(!robux){ntf("loginNotifUser","Pilih paket terlebih dahulu!"); return;}
+
+  // Via Login hanya WA langsung
+  const oid=genOid();
+  const total=harga+FEE;
+  const order={id:oid,username,paket,robux,harga,total,jenis:"Via Login",status:"pending",profileUrl:userProfileUrl,time:new Date().toISOString(),avatarSrc:currentAvatarLogin};
+  orders.unshift(order);
+
+  const now=new Date().toLocaleString("id-ID");
+  const msg=`Halo Min DEXBLOX, saya mau topup via Login 🔑\n\n📋 ID Pesanan: *${oid}*\n👤 Username: ${username}\n🔒 Password: ${password}\n💎 Paket: ${paket}\n💰 Total (+ fee): ${rp(total)}\n🔗 Profil: ${userProfileUrl}\n🕐 Waktu: ${now}`;
+  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,"_blank");
+  toast("✅ Diarahkan ke WhatsApp admin!");
+};
+
+// ════════════════════════════════
+//  DISCORD UPLOAD
+// ════════════════════════════════
+async function uploadDiscord(file,username,robux,harga,total,oid,metode){
+  const fd=new FormData();
+  const msg=`# 💳 Bukti Pembayaran\n📋 ID: **${oid}**\n👤 Username: **${username}**\n💎 Robux: **${robux}**\n💰 Harga: ${rp(harga)}\n💰 Total: ${rp(total)}\n🏦 Metode: **${metode}**`;
+  fd.append("file",file);
+  fd.append("payload_json",JSON.stringify({content:msg}));
+  try{ await fetch(WEBHOOK1,{method:"POST",body:fd}); }catch(e){}
 }
 
-// ===== Upload Bukti Discord =====
-async function uploadBuktiDiscord(file,username,robux,harga,gamepass,metode){
-  const webhookUrl = "https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU";
-  const formData = new FormData();
-  const msg = `# 💳 Bukti Pembayaran Baru\n\nUsername: **${username}**\nRobux: **${robux}**\nHarga: Rp **${harga.toLocaleString("id-ID")}**\nGamepass: *${gamepass}*\nMetode: **${metode}**`;
-  formData.append("file", file);
-  formData.append("payload_json", JSON.stringify({content:msg}));
-  await fetch(webhookUrl,{method:"POST",body:formData});
+// ════════════════════════════════
+//  WA CONFIRM
+// ════════════════════════════════
+function sendWA(username,robux,total,oid){
+  const msg=`Halo Min DEXBLOX, saya sudah membayar! 🎮\n\n📋 ID Pesanan: *${oid}*\n👤 Username: ${username}\n💎 Robux: ${robux}\n💰 Total Dibayar: ${rp(total)}\n🔗 Profil: ${userProfileUrl}\n🕐 Waktu: ${new Date().toLocaleString("id-ID")}`;
+  window.open(`https://wa.me/${ADMIN_WA}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
-// ===== Konfirmasi WhatsApp =====
-function confirmWA(username,robux,adminNumber,promoCode,hargaText,avatarSrc){
-  const now = new Date().toLocaleString("id-ID");
-  const msg = `Halo Min Dex saya sudah membayar\nUsername: ${username}\nRobux: ${robux}\nProfile: ${userProfileUrl}\nHarga: ${hargaText}\nWaktu: ${now}`;
-  window.open(`https://wa.me/${adminNumber}?text=${encodeURIComponent(msg)}`,"_blank");
-  cancelWA();
+// ════════════════════════════════
+//  UPLOAD PREVIEW
+// ════════════════════════════════
+function previewUp(input){
+  const file=input.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const prev=document.getElementById("uploadPreview");
+    prev.src=e.target.result; prev.style.display="block";
+    document.querySelector(".uz-txt").textContent="✅ Bukti terpilih";
+  };
+  reader.readAsDataURL(file);
 }
-function cancelWA(){ document.getElementById("notifPanel").style.display="none"; }
 
-// ===== Topup 5 Hari =====
-document.getElementById("btnTopup5hari").addEventListener("click",function(){
-  const username = document.getElementById("username").value.trim();
-  const info = document.getElementById("paketInfo");
-  const paket = info.textContent;
-  const robux = parseInt(info.dataset.value||0);
-  const harga = parseInt(info.dataset.harga||0);
-  if(!username){ showFieldNotif("notifUsername","Masukkan username Roblox!"); return; }
-  if(!robux){ showFieldNotif("notifPaket","Pilih atau masukkan paket Robux!"); return; }
-  konfirmasiTopup(username,paket,robux,harga,"avatarPreview","Konfirmasi Topup 5 Hari","5hari");
-});
-
-// ===== Topup Login =====
-document.getElementById("btnLoginTopup").addEventListener("click",function(){
-  const username = document.getElementById("loginUsername").value.trim();
-  const info = document.getElementById("loginPaketInfo");
-  const paket = info.textContent;
-  const robux = parseInt(info.dataset.value||0);
-  const harga = parseInt(info.dataset.harga||0);
-  if(!username){ showFieldNotif("loginNotifUser","Masukkan username Roblox!"); return; }
-  if(!robux){ showFieldNotif("loginNotifUser","Pilih paket terlebih dahulu!"); return; }
-  konfirmasiTopup(username,paket,robux,harga,"loginAvatar","Konfirmasi Topup Via Login","login");
-});
-
-// ===== Cek Username Bindings =====
-document.getElementById("btnCekUser").addEventListener("click",()=>cekUsernameGeneric("username","notifUsername","avatarPreview"));
-document.getElementById("btnLoginCekUser").addEventListener("click",()=>cekUsernameGeneric("loginUsername","loginNotifUser","loginAvatar"));
-
-// ===== Admin =====
-function verifyAdmin(){
-  const pass = document.getElementById("adminPassword").value;
-  if(pass==="54321"){
-    document.getElementById("adminTools").classList.add("show");
-  }else{ alert("Password salah!"); }
+// ════════════════════════════════
+//  COPY ORDER ID
+// ════════════════════════════════
+function copyOid(){
+  const id=document.getElementById("modalOrderId").textContent;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(id).then(()=>toast("✅ "+id+" disalin!"));
+  }else{
+    const el=document.createElement("textarea");el.value=id;document.body.appendChild(el);el.select();document.execCommand("copy");document.body.removeChild(el);toast("✅ "+id+" disalin!");
+  }
 }
-function logoutAdmin(){
-  document.getElementById("adminTools").classList.remove("show");
+
+// ════════════════════════════════
+//  TRACK MODAL
+// ════════════════════════════════
+function openTrack(){
+  document.getElementById("trackModal").classList.add("on");
+  renderOrderList();
+}
+function closeTrack(){ document.getElementById("trackModal").classList.remove("on"); }
+
+function renderOrderList(){
+  const el=document.getElementById("orderList");
+  if(!orders.length){ el.innerHTML=`<div class="no-ord"><div class="ni">📭</div><p>Belum ada pesanan.</p></div>`; return; }
+  el.innerHTML=orders.slice(0,10).map(o=>`<div class="oitem" onclick="showODetail('${o.id}')"><div class="oitem-top"><span class="oi-id">${o.id}</span><span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span></div><div class="oi-desc">${o.username} · ${o.paket}</div><div class="oi-t">${fmtDate(new Date(o.time))}</div></div>`).join("");
+}
+
+function sClass(s){return{pending:"sp",paid:"sd",done:"ss",cancel:"sc"}[s]||"sp";}
+function sLabel(s){return{pending:"⏳ Menunggu",paid:"✅ Dibayar",done:"🎉 Selesai",cancel:"❌ Batal"}[s]||s;}
+
+function showODetail(id){
+  const o=orders.find(x=>x.id===id); if(!o)return;
+  document.getElementById("trackInput").value=id;
+  renderOCard(o);
+}
+function searchOrder(){
+  const q=document.getElementById("trackInput").value.trim().toUpperCase();
+  if(!q){ toast("Masukkan ID pesanan"); return; }
+  const o=orders.find(x=>x.id===q);
+  if(o) renderOCard(o);
+  else{ document.getElementById("trackRes").style.display="block"; document.getElementById("trackRes").innerHTML=`<div class="no-ord"><div class="ni">🔍</div><p>Pesanan <strong>${q}</strong> tidak ditemukan.<br><span style="font-size:0.75rem;color:var(--g400)">Hubungi CS via WhatsApp.</span></p></div>`; }
+}
+function renderOCard(o){
+  document.getElementById("trackRes").style.display="block";
+  document.getElementById("trackRes").innerHTML=`<div class="oc"><div class="oc-top"><span class="oc-id">${o.id}</span><span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span></div><div class="ocd-row"><span class="ocd-k">Username</span><span class="ocd-v">${o.username}</span></div><div class="ocd-row"><span class="ocd-k">Paket</span><span class="ocd-v">${o.paket}</span></div><div class="ocd-row"><span class="ocd-k">Jenis</span><span class="ocd-v">${o.jenis}</span></div><div class="ocd-row"><span class="ocd-k">Harga Paket</span><span class="ocd-v">${rp(o.harga)}</span></div><div class="ocd-row"><span class="ocd-k">Biaya QRIS</span><span class="ocd-v" style="color:var(--orange)">+ Rp 200</span></div><div class="ocd-row"><span class="ocd-k">Total Bayar</span><span class="ocd-v" style="color:var(--blue)">${rp(o.total)}</span></div><div class="ocd-row"><span class="ocd-k">Waktu</span><span class="ocd-v">${fmtDate(new Date(o.time))}</span></div>${o.profileUrl?`<div class="ocd-row"><span class="ocd-k">Profil</span><span class="ocd-v"><a href="${o.profileUrl}" target="_blank" style="color:var(--blue)">Lihat →</a></span></div>`:""}</div>`;
+}
+
+// ════════════════════════════════
+//  ADMIN PANEL
+// ════════════════════════════════
+document.getElementById("fabAdmin").onclick=()=>document.getElementById("adminModal").classList.add("on");
+document.getElementById("btnLoginAdmin").onclick=()=>{
+  if(document.getElementById("adminPassword").value==="54321"){
+    document.getElementById("adminTools").classList.add("on");
+    renderAdminOrders();
+  }else toast("❌ Password salah!");
+};
+document.getElementById("btnLogoutAdmin").onclick=()=>{
+  document.getElementById("adminTools").classList.remove("on");
   document.getElementById("adminPassword").value="";
-}
-document.getElementById("adminToggleBtn").addEventListener("click",()=>{ document.getElementById("adminModal").classList.add("show"); });
-document.getElementById("btnCloseAdmin").addEventListener("click",()=>{ document.getElementById("adminModal").classList.remove("show"); });
-document.getElementById("btnLoginAdmin").addEventListener("click",verifyAdmin);
-document.getElementById("btnLogoutAdmin").addEventListener("click",logoutAdmin);
-document.getElementById("btnAdminCekUser").addEventListener("click",cekUserAdmin);
-
-async function cekUserAdmin(){
-  const username = document.getElementById("adminUser").value.trim();
-  if(!username){ document.getElementById("adminNotifUser").textContent="Isi username dulu!"; return; }
+};
+document.getElementById("btnAdminCekUser").onclick=async()=>{
+  const u=document.getElementById("adminUser").value.trim(); if(!u)return;
   try{
-    const res = await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
-    const data = await res.json();
+    const res=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:u})});
+    const data=await res.json();
     if(res.ok){
-      document.getElementById("adminNotifUser").textContent=`✅ ${data.name}`;
-      document.getElementById("adminNotifUser").className="notif-text notif-success";
-      const resAv = await fetch(`/api/avatar?userId=${data.userId}`);
-      const dataAv = await resAv.json();
-      if(resAv.ok && dataAv.avatarUrl){
-        const av = document.getElementById("adminAvatar");
-        av.src=dataAv.avatarUrl; av.style.display="block";
-      }
-    }else{ document.getElementById("adminNotifUser").textContent="Error: "+data.error; }
-  }catch(e){ document.getElementById("adminNotifUser").textContent="Gagal cek username"; }
+      ntf("adminNotifUser","✅ "+data.name,"ok");
+      const resAv=await fetch(`/api/avatar?userId=${data.userId}`);
+      const dataAv=await resAv.json();
+      if(resAv.ok&&dataAv.avatarUrl){const av=document.getElementById("adminAvatar");av.src=dataAv.avatarUrl;av.style.display="block";}
+    }else ntf("adminNotifUser","❌ "+data.error);
+  }catch(e){ntf("adminNotifUser","❌ Gagal");}
+};
+document.getElementById("btnKirimBukti").onclick=async()=>{
+  const u=document.getElementById("adminUser").value;
+  const rbx=document.getElementById("adminRobux").value;
+  const met=document.getElementById("adminMetode").value;
+  if(!u||!rbx||!met){toast("Lengkapi semua data!"); return;}
+  const now=new Date(), fut=new Date(now.getTime()+3*864e5);
+  const msg=`# ✅ Konfirmasi Topup\nUsername: ${u}\nPaket: **${rbx}** Robux\nMetode: **${met}**\nWaktu: ${fmtDate(now)}\nEstimasi Selesai: ${fmtDate(fut)}\nProfil: https://www.roblox.com/users/profile?username=${encodeURIComponent(u)}`;
+  const fd=new FormData(); fd.append("payload_json",JSON.stringify({content:msg}));
+  try{ await fetch(WEBHOOK2,{method:"POST",body:fd}); toast("✅ Dikirim ke Discord!"); }
+  catch(e){ toast("❌ Gagal kirim Discord"); }
+};
+
+function renderAdminOrders(){
+  const el=document.getElementById("adminOrderList");
+  if(!orders.length){el.innerHTML=`<p style="font-size:0.78rem;color:var(--g400);text-align:center;padding:14px">Belum ada pesanan.</p>`;return;}
+  el.innerHTML=orders.map(o=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 10px;background:var(--g50);border-radius:var(--rs);margin-bottom:5px;border:1px solid var(--g200);"><div><div style="font-size:0.72rem;font-weight:700;color:var(--blue);font-family:monospace;">${o.id}</div><div style="font-size:0.7rem;color:var(--g500);">${o.username} · ${o.robux} R$</div></div><div style="display:flex;align-items:center;gap:5px;"><span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span>${o.status==="paid"?`<button onclick="markDone('${o.id}')" style="background:var(--blue3);color:var(--blue);border:1px solid #C7D9F7;padding:2px 8px;border-radius:20px;font-size:0.65rem;font-weight:700;cursor:pointer;">Selesai</button>`:""}</div></div>`).join("");
 }
+function markDone(id){ const o=orders.find(x=>x.id===id); if(o){o.status="done";renderAdminOrders();toast("✅ Pesanan "+id+" selesai!");} }
 
-function formatDate(d){ return d.toLocaleString("id-ID",{day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit"}); }
-
-document.getElementById("btnKirimBukti").addEventListener("click", async()=>{
-  const username = document.getElementById("adminUser").value;
-  const robux = document.getElementById("adminRobux").value;
-  const metode = document.getElementById("adminMetode").value;
-  if(!username||!robux||!metode){ alert("Lengkapi semua data!"); return; }
-
-  const now = new Date();
-  const future = new Date(now.getTime()+(3*24*60*60*1000));
-  const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(username)}`;
-  const webhookUrl = "https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7";
-  const msg = `# ✅ Konfirmasi Topup User\n\nUsername: ${username}\nPaket: **${robux}** Robux\nMetode: **${metode}**\nWaktu: **${formatDate(now)}**\nEstimasi Selesai: **${formatDate(future)}**\nProfil: **${profileUrl}**`;
-  const formData = new FormData();
-  formData.append("payload_json", JSON.stringify({content:msg}));
-  await fetch(webhookUrl,{method:"POST",body:formData});
-  alert("Konfirmasi berhasil dikirim ke Discord!");
-});
-
-// ===== Footer Year =====
+// ════════════════════════════════
+//  INIT
+// ════════════════════════════════
 document.getElementById("fullDate").textContent = new Date().getFullYear();
+document.getElementById("trackInput").addEventListener("input",function(){ this.value=this.value.toUpperCase(); });
+loadTopRank();
 </script>
 </body>
 </html>
