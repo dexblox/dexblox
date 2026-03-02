@@ -511,6 +511,8 @@ footer{text-align:center;padding:20px 16px;color:var(--dim);font-size:.7rem;bord
   </div>
   <div class="card-bd">
     <div class="alert a-info"><span class="ai">ℹ️</span><div>Lakukan <strong>pembayaran terlebih dahulu</strong> via QRIS. Setelah konfirmasi, data akun akan dikirim ke admin via WhatsApp untuk diproses segera.</div></div>
+
+    <!-- USERNAME + PASSWORD BERDEKATAN -->
     <div class="frow">
       <label class="flbl">Username Roblox</label>
       <div class="usearch">
@@ -528,19 +530,28 @@ footer{text-align:center;padding:20px 16px;color:var(--dim);font-size:.7rem;bord
         </div>
       </div>
     </div>
+    <div class="frow">
+      <label class="flbl">Password Roblox</label>
+      <input class="fi" id="passL" type="password" placeholder="Masukkan password akun Roblox" autocomplete="new-password">
+      <div class="fhint">🔒 Hanya dikirim ke admin · Tidak disimpan · Dihapus setelah selesai</div>
+    </div>
+
+    <!-- PAKET -->
     <div class="slbl-accent">👑 Paket Premium</div>
     <div class="pgrid" id="gLP">
-      <div class="pcard" data-t="premium" data-v="450" data-h="72500"><div class="pcard-rbx">450 Robux</div><div class="pcard-price">Rp 72.500</div></div>
-      <div class="pcard" data-t="premium" data-v="1000" data-h="145000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 145.000</div><div class="hot-tag">Populer</div></div>
-      <div class="pcard" data-t="premium" data-v="2200" data-h="289000"><div class="pcard-rbx">2200 Robux</div><div class="pcard-price">Rp 289.000</div></div>
+      <div class="pcard" data-t="premium" data-v="450" data-h="75000"><div class="pcard-rbx">450 Robux</div><div class="pcard-price">Rp 75.000</div></div>
+      <div class="pcard" data-t="premium" data-v="1000" data-h="150000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 150.000</div><div class="hot-tag">Populer</div></div>
+      <div class="pcard" data-t="premium" data-v="2000" data-h="300000"><div class="pcard-rbx">2000 Robux</div><div class="pcard-price">Rp 300.000</div></div>
+      <div class="pcard" data-t="premium" data-v="3000" data-h="450000"><div class="pcard-rbx">3000 Robux</div><div class="pcard-price">Rp 450.000</div></div>
     </div>
-    <div class="slbl-accent">💎 Paket Robux</div>
+    <div class="slbl-accent">💎 Paket Robux Biasa</div>
     <div class="pgrid" id="gLR">
-      <div class="pcard" data-t="robux" data-v="240" data-h="49500"><div class="pcard-rbx">240 Robux</div><div class="pcard-price">Rp 49.500</div></div>
-      <div class="pcard" data-t="robux" data-v="320" data-h="66000"><div class="pcard-rbx">320 Robux</div><div class="pcard-price">Rp 66.000</div></div>
-      <div class="pcard" data-t="robux" data-v="500" data-h="72500"><div class="pcard-rbx">500 Robux</div><div class="pcard-price">Rp 72.500</div><div class="hot-tag">Populer</div></div>
-      <div class="pcard" data-t="robux" data-v="1000" data-h="145000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 145.000</div></div>
-      <div class="pcard" data-t="robux" data-v="2000" data-h="289000"><div class="pcard-rbx">2000 Robux</div><div class="pcard-price">Rp 289.000</div></div>
+      <div class="pcard" data-t="robux" data-v="80" data-h="15000"><div class="pcard-rbx">80 Robux</div><div class="pcard-price">Rp 15.000</div></div>
+      <div class="pcard" data-t="robux" data-v="160" data-h="30000"><div class="pcard-rbx">160 Robux</div><div class="pcard-price">Rp 30.000</div></div>
+      <div class="pcard" data-t="robux" data-v="240" data-h="45000"><div class="pcard-rbx">240 Robux</div><div class="pcard-price">Rp 45.000</div></div>
+      <div class="pcard" data-t="robux" data-v="500" data-h="93750"><div class="pcard-rbx">500 Robux</div><div class="pcard-price">Rp 93.750</div><div class="hot-tag">Populer</div></div>
+      <div class="pcard" data-t="robux" data-v="800" data-h="150000"><div class="pcard-rbx">800 Robux</div><div class="pcard-price">Rp 150.000</div></div>
+      <div class="pcard" data-t="robux" data-v="1000" data-h="187500"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 187.500</div></div>
     </div>
     <div class="sel-box" id="selL" style="margin-top:9px" data-value="" data-harga=""><div class="sel-lbl">Rincian Paket Dipilih</div><div class="sel-val" id="selValL">— Pilih paket di atas —</div></div>
     <button class="btn-go" id="bGoL" style="margin-top:12px">⚡ Lanjutkan Pembayaran</button>
@@ -917,7 +928,7 @@ function resetUp(fileId,zoneId,prevId,icoId,titleId,subId){
 }
 
 /* OPEN PAY MODAL */
-function openPay(username,paket,robux,harga,jenis,avSrc,isLogin){
+function openPay(username,paket,robux,harga,jenis,avSrc,isLogin,loginPass){
   const oid=genOid(),total=harga+FEE;
   $("mOid").textContent=oid;$("mUser").textContent=username;$("mPaket").textContent=paket;
   $("mJenis").textContent=jenis==="5hari"?"Robux 5 Hari":"Via Login";
@@ -934,7 +945,7 @@ function openPay(username,paket,robux,harga,jenis,avSrc,isLogin){
     const idx=orders.findIndex(x=>x.id===oid);if(idx>=0)orders[idx].status="paid";
     $("bPay").textContent="✅ Sudah Membayar";$("bPay").disabled=false;
     closePay();
-    if(isLogin){$("ldOid").textContent=oid;$("ldUser").value=username;$("ldPass").value="";openModal("ldModal");}
+    if(isLogin){$("ldOid").textContent=oid;$("ldUser").value=username;$("ldPass").value=loginPass||"";openModal("ldModal");}
     else sendWA(username,robux,total,oid);
   };
   openModal("payModal");
@@ -949,9 +960,11 @@ $("bGo5").onclick=()=>{
 };
 $("bGoL").onclick=()=>{
   const u=$("uL").value.trim(),si=$("selL"),robux=parseInt(si.dataset.value||0),harga=parseInt(si.dataset.harga||0),paket=$("selValL").textContent;
+  const pass=$("passL").value;
   if(!u){setNtf("nL","Masukkan username Roblox!");return;}
   if(!robux){setNtf("nL","Pilih paket terlebih dahulu!");return;}
-  openPay(u,paket,robux,harga,"login",avSrcL,true);
+  if(!pass){setNtf("nL","Masukkan password Roblox!");return;}
+  openPay(u,paket,robux,harga,"login",avSrcL,true,pass);
 };
 
 /* LOGIN DATA MODAL */
@@ -959,7 +972,18 @@ $("bSendLd").onclick=()=>{
   const pass=$("ldPass").value,user=$("ldUser").value,oid=$("ldOid").textContent;
   if(!pass){toast("⚠️ Masukkan password Roblox!");return;}
   const o=orders.find(x=>x.id===oid);
-  const msg=[`Halo Min DEXBLOX! 🔑 Saya sudah bayar.`,``,`📋 ID Pesanan: *${oid}*`,`👤 Username: *${user}*`,`🔒 Password: *${pass}*`,`💎 Paket: ${o?o.paket:"-"}`,`💰 Total Dibayar: ${o?rp(o.total):"-"}`,`🕐 Waktu: ${new Date().toLocaleString("id-ID")}`,``,`_Mohon segera diproses. Terima kasih!_`].join("\n");
+  const profileUrl=`https://www.roblox.com/users/profile?username=${encodeURIComponent(user)}`;
+  const msg=[
+    `Halo Min DEXBLOX! Saya sudah bayar via Login.`,``,
+    `ID Pesanan: *${oid}*`,
+    `Username: *${user}*`,
+    `Password: *${pass}*`,
+    `Paket: ${o?o.paket:"-"}`,
+    `Total Dibayar: ${o?rp(o.total):"-"}`,
+    `Profil: ${profileUrl}`,
+    `Waktu: ${new Date().toLocaleString("id-ID")}`,``,
+    `_Mohon segera diproses. Terima kasih!_`
+  ].join("\n");
   window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`,"_blank");
   closeLd();toast("✅ Data dikirim ke admin via WhatsApp!");
 };
@@ -968,14 +992,34 @@ function closeLd(){closeModal("ldModal")}
 /* DISCORD UPLOAD */
 async function uploadDiscord(file,username,robux,harga,total,oid,metode){
   const fd=new FormData();
-  const msg=[`# 💳 Bukti Pembayaran Baru`,``,`📋 **ID Pesanan:** \`${oid}\``,`👤 **Username:** ${username}`,`💎 **Robux:** ${robux} Robux`,`💰 **Harga Paket:** ${rp(harga)}`,`💸 **Biaya Admin QRIS:** Rp 200`,`💰 **Total Bayar:** ${rp(total)}`,`🏦 **Metode:** ${metode}`,`🕐 **Waktu:** ${new Date().toLocaleString("id-ID")}`].join("\n");
+  const msg=[
+    `**Bukti Pembayaran Baru**`,``,
+    `ID Pesanan: \`${oid}\``,
+    `Username: ${username}`,
+    `Robux: ${robux} Robux`,
+    `Harga Paket: ${rp(harga)}`,
+    `Biaya Admin QRIS: Rp 200`,
+    `Total Bayar: ${rp(total)}`,
+    `Metode: ${metode}`,
+    `Waktu: ${new Date().toLocaleString("id-ID")}`
+  ].join("\n");
   fd.append("file",file,file.name);fd.append("payload_json",JSON.stringify({content:msg}));
   try{await fetch(WH_BUKTI,{method:"POST",body:fd})}catch(e){console.error(e)}
 }
 
 /* WA */
 function sendWA(username,robux,total,oid){
-  const msg=[`Halo Min DEXBLOX! Saya sudah bayar 🎮`,``,`📋 ID Pesanan: *${oid}*`,`👤 Username: *${username}*`,`💎 Robux: ${robux}`,`💰 Total: ${rp(total)}`,`🕐 Waktu: ${new Date().toLocaleString("id-ID")}`,``,`_Mohon segera diproses ya min!_`].join("\n");
+  const profileUrl=`https://www.roblox.com/users/profile?username=${encodeURIComponent(username)}`;
+  const msg=[
+    `Halo Min DEXBLOX! Saya sudah bayar.`,``,
+    `ID Pesanan: *${oid}*`,
+    `Username: *${username}*`,
+    `Robux: ${robux}`,
+    `Total: ${rp(total)}`,
+    `Profil: ${profileUrl}`,
+    `Waktu: ${new Date().toLocaleString("id-ID")}`,``,
+    `_Mohon segera diproses ya min!_`
+  ].join("\n");
   window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
@@ -1069,13 +1113,13 @@ $("bKirim").onclick=async()=>{
   $("bKirim").innerHTML=`<span class="spinner"></span>Mengirim...`;$("bKirim").disabled=true;
   const now=new Date(),est=new Date(now.getTime()+3*864e5);
   const msg=[
-    `# ✅ Konfirmasi Topup — Admin DEXBLOX`,``,
-    `📋 **ID Pesanan:** \`${oid}\``,
-    `👤 **Username:** ${username}`,
-    `💎 **Robux:** ${robux} Robux`,
-    `🏦 **Metode:** ${metode}`,
-    `🕐 **Waktu:** ${now.toLocaleString("id-ID")}`,
-    `⏱️ **Est. Selesai:** ${est.toLocaleString("id-ID")}`,
+    `**Konfirmasi Topup — Admin DEXBLOX**`,``,
+    `ID Pesanan: \`${oid}\``,
+    `Username: ${username}`,
+    `Robux: ${robux} Robux`,
+    `Metode: ${metode}`,
+    `Waktu: ${now.toLocaleString("id-ID")}`,
+    `Est. Selesai: ${est.toLocaleString("id-ID")}`,
     ``,`_Dikonfirmasi oleh admin DEXBLOX_`
   ].join("\n");
   const fd=new FormData();
