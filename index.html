@@ -759,6 +759,25 @@ footer{text-align:center;padding:20px 16px;color:var(--dim);font-size:.7rem;bord
           </div>
         </div>
 
+        <!-- UPLOAD AVATAR MANUAL -->
+        <div class="frow">
+          <label class="flbl">Upload &amp; Download Avatar <span style="font-size:.6rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)">(foto karakter Roblox full body)</span></label>
+          <label class="upzone" id="avUpZ" style="padding:16px">
+            <input type="file" id="avUpFile" accept="image/*" onchange="handleAvUpload(this)">
+            <div class="up-ico" id="avUpIco">🖼️</div>
+            <div class="up-title" id="avUpTitle">Upload foto avatar Roblox</div>
+            <div class="up-sub">PNG / JPG / WEBP · Maks 10 MB</div>
+          </label>
+          <div id="avPreviewBox" style="display:none;margin-top:10px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r12);padding:14px;text-align:center">
+            <img id="avPreviewImg" src="" alt="Avatar" style="max-width:180px;max-height:220px;object-fit:contain;border-radius:var(--r8);display:block;margin:0 auto;box-shadow:var(--s2)">
+            <div id="avPreviewName" style="font-size:.8rem;font-weight:700;margin-top:8px;color:var(--ink)"></div>
+            <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
+              <button class="btn-dl" onclick="dlAvatarManual()">⬇️ Download Avatar</button>
+              <button onclick="resetAvUpload()" style="background:var(--R2);color:var(--R);border:1px solid #FECACA;padding:5px 14px;border-radius:var(--rFull);font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit">✕ Hapus</button>
+            </div>
+          </div>
+        </div>
+
         <div class="divr"></div>
         <div class="asec-lbl">Kirim Konfirmasi ke Discord</div>
         <div class="frow">
@@ -1099,6 +1118,42 @@ function dlAvatar(){
   const un=$("admUn").value||"roblox";
   const a=document.createElement("a");a.href=admAvUrl;a.download=`avatar-${un}.png`;a.target="_blank";document.body.appendChild(a);a.click();document.body.removeChild(a);
   toast("⬇️ Mengunduh avatar...");
+}
+
+/* Avatar manual upload & download */
+let manualAvDataUrl="",manualAvFilename="avatar";
+function handleAvUpload(inp){
+  const file=inp.files[0];if(!file)return;
+  if(file.size>10*1024*1024){toast("File terlalu besar! Maks 10MB");inp.value="";return;}
+  manualAvFilename=file.name.replace(/\.[^.]+$/,"")||"avatar";
+  const reader=new FileReader();
+  reader.onload=e=>{
+    manualAvDataUrl=e.target.result;
+    $("avPreviewImg").src=manualAvDataUrl;
+    $("avPreviewName").textContent=file.name;
+    $("avPreviewBox").style.display="block";
+    $("avUpZ").classList.add("ok");
+    $("avUpIco").textContent="✅";
+    $("avUpTitle").textContent=file.name;
+  };
+  reader.readAsDataURL(file);
+}
+function dlAvatarManual(){
+  if(!manualAvDataUrl){toast("Belum ada avatar diupload");return;}
+  const a=document.createElement("a");
+  a.href=manualAvDataUrl;
+  a.download=manualAvFilename+".png";
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  toast("Avatar berhasil didownload!");
+}
+function resetAvUpload(){
+  $("avUpFile").value="";
+  $("avUpZ").classList.remove("ok");
+  $("avUpIco").textContent="🖼️";
+  $("avUpTitle").textContent="Upload foto avatar Roblox";
+  $("avPreviewBox").style.display="none";
+  $("avPreviewImg").src="";
+  manualAvDataUrl="";manualAvFilename="avatar";
 }
 
 /* Admin: kirim ke Discord */
