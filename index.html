@@ -1,1264 +1,2280 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<title>DEXBLOX — Topup Robux #1 Indonesia</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
-/* ================================================================
-   DESIGN TOKENS
-================================================================ */
-:root{
-  --P:#2563EB;--P1:#1D4ED8;--P2:#EFF6FF;--P3:#DBEAFE;
-  --R:#DC2626;--R2:#FEF2F2;
-  --A:#D97706;--A2:#FFFBEB;--A3:#FDE68A;
-  --G:#059669;--G2:#ECFDF5;
-  --O:#EA580C;
-  --ink:#0F172A;--sub:#475569;--dim:#94A3B8;
-  --bd:#E2E8F0;--bd2:#CBD5E1;
-  --bg:#F8FAFC;--bg2:#F1F5F9;--sur:#FFF;
-  --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;--rFull:999px;
-  --s0:0 1px 2px rgba(0,0,0,.05);
-  --s1:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04);
-  --s2:0 4px 16px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.04);
-  --s3:0 12px 40px rgba(0,0,0,.1),0 4px 12px rgba(0,0,0,.06);
-  --s4:0 24px 60px rgba(0,0,0,.14),0 8px 20px rgba(0,0,0,.08);
-  --t:.18s;
-}
-*,::before,::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{-webkit-text-size-adjust:100%}
-body{font-family:'Sora',system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5;min-height:100vh;overscroll-behavior:none}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DexBlox - Top Up Robux Roblox Murah dan Gamepass Aman Terpercaya</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ── VARIABLES ──────────────────────────────────── */
+    :root {
+      --primary:       #f97316;
+      --primary-dark:  #ea580c;
+      --primary-deep:  #c2410c;
+      --primary-light: #fff7ed;
+      --orange-border: #fed7aa;
+      --bg:            #f8fafc;
+      --bg2:           #f1f5f9;
+      --white:         #ffffff;
+      --border:        #e2e8f0;
+      --shadow:        0 2px 12px rgba(0,0,0,0.07);
+      --text:          #1e293b;
+      --text-muted:    #64748b;
+      --text-light:    #94a3b8;
+    }
 
-/* ================================================================
-   TOPBAR
-================================================================ */
-.nav{background:var(--sur);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:200;box-shadow:var(--s0)}
-.nav-in{max-width:600px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 16px}
-.logo{display:flex;align-items:center;gap:9px}
-.logo-mark{width:32px;height:32px;background:linear-gradient(135deg,var(--P),var(--P1));border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3);flex-shrink:0}
-.logo-text{font-size:1.15rem;font-weight:800;color:var(--ink);letter-spacing:-.5px}
-.logo-text em{color:var(--R);font-style:normal}
-.nav-right{display:flex;align-items:center;gap:7px}
-.live-pill{display:flex;align-items:center;gap:5px;background:var(--A2);border:1px solid var(--A3);color:#92400E;padding:4px 10px;border-radius:var(--rFull);font-size:.65rem;font-weight:700}
-.live-dot{width:6px;height:6px;background:#EF4444;border-radius:50%;animation:blink 1.4s ease-in-out infinite}
-@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.75)}}
-.btn-pill{background:var(--P2);border:none;color:var(--P);padding:7px 13px;border-radius:var(--rFull);font-size:.72rem;font-weight:700;cursor:pointer;transition:background var(--t);font-family:inherit}
-.btn-pill:hover{background:var(--P3)}
+    /* ── RESET ──────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ================================================================
-   LAYOUT
-================================================================ */
-.wrap{max-width:600px;margin:0 auto;padding:14px 14px 52px}
+    /* ── BASE ───────────────────────────────────────── */
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+      -webkit-touch-callout: none;
+    }
 
-/* ================================================================
-   HERO
-================================================================ */
-.hero{background:linear-gradient(130deg,#1E3A8A 0%,#2563EB 60%,#3B82F6 100%);border-radius:var(--r16);padding:20px 18px 18px;margin-bottom:12px;color:#fff;position:relative;overflow:hidden}
-.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
-.hero::before{width:200px;height:200px;background:rgba(255,255,255,.05);top:-60px;right:-60px}
-.hero::after{width:120px;height:120px;background:rgba(255,255,255,.04);bottom:-30px;left:35%}
-.hero-top{display:flex;align-items:center;gap:12px;margin-bottom:15px;position:relative}
-.hero-icon{width:46px;height:46px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.2);border-radius:var(--r12);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;backdrop-filter:blur(4px)}
-.hero-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:2px 9px;border-radius:var(--rFull);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.hero-title{font-size:1.2rem;font-weight:800;line-height:1.2;letter-spacing:-.3px}
-.hero-sub{font-size:.76rem;opacity:.78;margin-top:2px}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.14);padding-top:13px;position:relative}
-.hs{text-align:center;border-right:1px solid rgba(255,255,255,.1);padding:0 4px}
-.hs:last-child{border-right:none}
-.hs-n{font-size:1rem;font-weight:800}
-.hs-l{font-size:.58rem;opacity:.6;text-transform:uppercase;letter-spacing:.5px;margin-top:1px}
+    ::-webkit-scrollbar       { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
 
-/* ================================================================
-   TRUST STRIP
-================================================================ */
-.trust{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px;margin-bottom:12px;scrollbar-width:none}
-.trust::-webkit-scrollbar{display:none}
-.tc{display:flex;align-items:center;gap:5px;background:var(--sur);border:1px solid var(--bd);border-radius:var(--rFull);padding:5px 11px;white-space:nowrap;font-size:.67rem;font-weight:600;color:var(--sub);box-shadow:var(--s0);flex-shrink:0}
+    /* ── UTILITIES ──────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+    .section   { padding-top: 2rem; padding-bottom: 2rem; }
+    .divider   { height: 1px; background: var(--border); margin: 0 1.5rem; }
 
-/* ================================================================
-   TABS
-================================================================ */
-.tabs{background:var(--sur);border-radius:var(--r12);padding:4px;display:flex;gap:3px;margin-bottom:12px;box-shadow:var(--s1)}
-.tab{flex:1;padding:9px 4px;border-radius:var(--r8);border:none;background:transparent;color:var(--dim);font-size:.76rem;font-weight:600;cursor:pointer;transition:all var(--t);font-family:inherit;white-space:nowrap}
-.tab.on{background:var(--P);color:#fff;box-shadow:0 2px 8px rgba(37,99,235,.3)}
-.tab:not(.on):hover{background:var(--bg2);color:var(--sub)}
+    .section-row {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; margin-bottom: 1.25rem;
+    }
+    .section-title { font-family:'Poppins',sans-serif; font-size:1.35rem; font-weight:800; color:var(--text); margin-bottom:0.2rem; }
+    .section-sub   { font-size:0.875rem; font-weight:600; color:var(--text-muted); }
 
-/* ================================================================
-   CARD / PANEL
-================================================================ */
-.card{background:var(--sur);border-radius:var(--r16);box-shadow:var(--s2);margin-bottom:12px;overflow:hidden;animation:fadein .22s ease}
-@keyframes fadein{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.card.hidden{display:none}
-.card-hd{padding:15px 18px 11px;border-bottom:1px solid var(--bd)}
-.card-hd h2{font-size:.92rem;font-weight:700}
-.card-hd p{font-size:.72rem;color:var(--dim);margin-top:2px}
-.card-bd{padding:16px 18px}
+    .view-all {
+      font-size:0.82rem; font-weight:800; color:var(--primary);
+      text-decoration:none; display:flex; align-items:center; gap:0.25rem; transition:gap 0.2s;
+    }
+    .view-all:hover { gap:0.5rem; }
 
-/* ================================================================
-   ALERT
-================================================================ */
-.alert{border-radius:var(--r8);padding:10px 12px;margin-bottom:14px;font-size:.77rem;line-height:1.65;display:flex;gap:8px;align-items:flex-start}
-.ai{flex-shrink:0}
-.a-warn{background:var(--A2);border:1px solid var(--A3);color:#78350F}
-.a-info{background:var(--P2);border:1px solid var(--P3);color:#1E3A8A}
-.a-suc{background:var(--G2);border:1px solid #A7F3D0;color:#065F46}
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade    { animation: fadeUp 0.45s ease both; }
+    .fade.d1 { animation-delay: 0.1s; }
+    .fade.d2 { animation-delay: 0.2s; }
+    .fade.d3 { animation-delay: 0.3s; }
 
-/* ================================================================
-   FORM
-================================================================ */
-.frow{margin-bottom:13px}
-.frow:last-of-type{margin-bottom:0}
-.flbl{display:block;font-size:.67rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
-.fi{width:100%;border:1.5px solid var(--bd);border-radius:var(--r8);padding:10px 13px;font-size:.88rem;color:var(--ink);background:var(--sur);outline:none;transition:all var(--t);font-family:inherit;-webkit-appearance:none;appearance:none}
-.fi:focus{border-color:var(--P);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.fi::placeholder{color:var(--bd2)}
-select.fi{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%2394A3B8' d='M5.5 8l4.5 4.5L14.5 8'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:18px;padding-right:34px;cursor:pointer}
-.fhint{font-size:.67rem;color:var(--dim);margin-top:4px;line-height:1.5}
-.fntf{font-size:.7rem;margin-top:4px;min-height:16px;font-weight:600;display:flex;align-items:center;gap:4px}
-.fntf.ok{color:var(--G)}
-.fntf.er{color:var(--R)}
+    /* ── NAVBAR ─────────────────────────────────────── */
+    nav {
+      position:sticky; top:0; z-index:100;
+      background:rgba(255,255,255,0.97); backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border); box-shadow:0 1px 8px rgba(0,0,0,0.06);
+    }
+    .nav-inner {
+      display:flex; align-items:center; justify-content:space-between;
+      height:62px; gap:1rem;
+    }
+    .logo {
+      font-family:'Poppins',sans-serif; font-weight:800; font-size:1.45rem;
+      color:var(--text); text-decoration:none; display:flex; align-items:center; gap:0.5rem;
+    }
+    .logo-icon {
+      width:36px; height:36px; border-radius:10px;
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem; box-shadow:0 4px 10px rgba(249,115,22,0.3);
+    }
+    .logo span {
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .nav-links { display:flex; align-items:center; gap:0.2rem; list-style:none; }
+    .nav-links a {
+      color:var(--text-muted); text-decoration:none; font-size:0.875rem;
+      font-weight:700; padding:0.4rem 0.85rem; border-radius:8px; transition:all 0.2s;
+    }
+    .nav-links a:hover { color:var(--primary); background:var(--primary-light); }
+    .nav-actions { display:flex; align-items:center; gap:0.75rem; }
+    .btn-login {
+      background:transparent; border:1.5px solid var(--border); color:var(--text);
+      padding:0.42rem 1.1rem; border-radius:9px; font-size:0.85rem; font-weight:700;
+      cursor:pointer; font-family:'Nunito',sans-serif; transition:all 0.2s;
+    }
+    .btn-login:hover { border-color:var(--primary); color:var(--primary); background:var(--primary-light); }
+    .btn-topup {
+      background:linear-gradient(135deg,#f97316,#ea580c); border:none; color:#fff;
+      padding:0.48rem 1.3rem; border-radius:9px; font-size:0.85rem; font-weight:700;
+      cursor:pointer; font-family:'Nunito',sans-serif;
+      box-shadow:0 4px 14px rgba(249,115,22,0.28); transition:all 0.2s;
+    }
+    .btn-topup:hover { transform:translateY(-1px); box-shadow:0 6px 20px rgba(249,115,22,0.38); }
 
-/* ================================================================
-   USER SEARCH + SKELETON + RESULT CARD
-================================================================ */
-.usearch{display:flex;gap:8px;align-items:stretch}
-.usearch .fi{flex:1}
-.btn-cek{background:var(--P);color:#fff;border:none;padding:0 16px;border-radius:var(--r8);font-size:.8rem;font-weight:700;cursor:pointer;transition:background var(--t);font-family:inherit;white-space:nowrap;flex-shrink:0;height:auto}
-.btn-cek:hover{background:var(--P1)}
-/* skeleton */
-.skel{display:none;align-items:center;gap:12px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r8);padding:12px 14px;margin-top:8px}
-.sk-av{width:52px;height:52px;border-radius:50%;background:linear-gradient(90deg,var(--bg2) 25%,var(--sur) 50%,var(--bg2) 75%);background-size:200%;animation:sh 1.2s infinite;flex-shrink:0}
-.sk-ln{flex:1}
-.sk-l{height:9px;border-radius:var(--r4);background:linear-gradient(90deg,var(--bg2) 25%,var(--sur) 50%,var(--bg2) 75%);background-size:200%;animation:sh 1.2s infinite;margin-bottom:7px}
-.sk-l:last-child{width:55%;margin-bottom:0}
-@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
-/* user card */
-.ucard{display:none;align-items:center;gap:12px;background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r8);padding:12px 14px;margin-top:8px}
-.ucard img{width:52px;height:52px;border-radius:50%;border:2.5px solid var(--P);object-fit:cover;flex-shrink:0}
-.ucard-info{flex:1;min-width:0}
-.ucard-name{font-size:.88rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.ucard-id{font-size:.67rem;color:var(--dim);margin-top:1px}
-.ucard-badge{display:inline-flex;align-items:center;gap:3px;background:var(--G2);color:var(--G);font-size:.6rem;font-weight:700;padding:2px 8px;border-radius:var(--rFull);margin-top:5px}
+    /* ── TICKER ─────────────────────────────────────── */
+    .ticker { background:var(--primary-light); border-bottom:1px solid var(--orange-border); padding:0.45rem 0; overflow:hidden; }
+    .ticker-track { display:flex; gap:3rem; width:max-content; animation:tickerScroll 140s linear infinite; }
+    @keyframes tickerScroll { to { transform:translateX(-50%); } }
+    .ticker-item { display:flex; align-items:center; gap:0.5rem; font-size:0.78rem; font-weight:700; color:var(--primary-dark); white-space:nowrap; }
+    .ticker-item .dot { width:6px; height:6px; border-radius:50%; background:var(--primary); flex-shrink:0; }
 
-/* ================================================================
-   HARGA BOX
-================================================================ */
-.harga-box{background:linear-gradient(135deg,#FFFBEB,#FEF3C7);border:1px solid var(--A3);border-radius:var(--r8);padding:11px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.harga-num{font-size:1.2rem;font-weight:800;color:var(--O)}
-.harga-num small{font-size:.65rem;color:#92400E;font-weight:600;margin-left:3px}
-.harga-tag{background:var(--A);color:#fff;font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:var(--rFull);letter-spacing:.2px}
+    /* ── HERO ───────────────────────────────────────── */
+    .hero-wrap {
+      display:grid; grid-template-columns:1fr auto;
+      align-items:center; gap:2rem; padding:3rem 0 2.25rem;
+    }
+    .hero-badge {
+      display:inline-flex; align-items:center; gap:0.45rem;
+      background:var(--primary-light); border:1.5px solid var(--orange-border);
+      color:var(--primary-dark); padding:0.35rem 0.9rem;
+      border-radius:50px; font-size:0.78rem; font-weight:800; margin-bottom:1rem;
+    }
+    .hero h1 {
+      font-family:'Poppins',sans-serif; font-size:2.75rem; font-weight:800;
+      line-height:1.15; color:var(--text); margin-bottom:0.75rem;
+    }
+    .hero h1 .hl {
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .hero p { color:var(--text-muted); font-size:1rem; line-height:1.65; margin-bottom:1.75rem; max-width:460px; }
+    .hero-stats { display:flex; gap:2.5rem; }
+    .hero-stat .val { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.3rem; color:var(--text); }
+    .hero-stat .lbl { font-size:0.78rem; font-weight:600; color:var(--text-muted); }
 
-/* ================================================================
-   PAKET
-================================================================ */
-.slbl{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:7px}
-.slbl-accent{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--O);margin:14px 0 7px;display:flex;align-items:center;gap:5px}
-.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px}
-.pcard{background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r8);padding:12px 10px;cursor:pointer;text-align:center;transition:all var(--t);position:relative;user-select:none;-webkit-user-select:none}
-.pcard:active{transform:scale(.97)}
-.pcard:hover{border-color:var(--P);background:var(--P2)}
-.pcard.on{border-color:var(--P);background:var(--P2);box-shadow:0 0 0 3px rgba(37,99,235,.1)}
-.pcard-rbx{font-size:.9rem;font-weight:800;color:var(--ink)}
-.pcard-price{font-size:.72rem;color:var(--sub);margin-top:2px}
-.pcard.on .pcard-rbx,.pcard.on .pcard-price{color:var(--P)}
-.hot-tag{position:absolute;top:-1px;right:-1px;background:var(--O);color:#fff;font-size:.56rem;font-weight:700;padding:2px 7px;border-radius:0 var(--r8) 0 var(--r8)}
-/* selected display */
-.sel-box{background:var(--P2);border:1px solid var(--P3);border-radius:var(--r8);padding:10px 13px;margin:9px 0}
-.sel-lbl{font-size:.6rem;color:#3B82F6;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-.sel-val{font-size:.86rem;font-weight:700;color:var(--P)}
+    .rating-card {
+      background:var(--white); border:1.5px solid var(--orange-border); border-radius:16px;
+      padding:1.25rem 1.6rem; display:flex; flex-direction:column;
+      align-items:center; gap:0.2rem; cursor:pointer;
+      box-shadow:0 4px 20px rgba(249,115,22,0.1); transition:all 0.2s;
+    }
+    .rating-card:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(249,115,22,0.18); }
+    .rating-card .stars { color:#f59e0b; font-size:1rem; letter-spacing:2px; }
+    .rating-card .score { font-family:'Poppins',sans-serif; font-weight:800; font-size:2rem; color:var(--text); }
+    .rating-card .sub   { font-size:0.72rem; font-weight:700; color:var(--text-muted); }
+    @keyframes pulseShadow {
+      0%,100% { box-shadow:0 4px 20px rgba(249,115,22,0.1); }
+      50%      { box-shadow:0 4px 28px rgba(249,115,22,0.28); }
+    }
+    .pulse { animation:pulseShadow 2.5s infinite; }
 
-/* ================================================================
-   PROMO
-================================================================ */
-.promo-row{display:flex;gap:7px}
-.promo-row .fi{flex:1}
-.btn-promo{background:var(--P);color:#fff;border:none;padding:0 15px;border-radius:var(--r8);font-weight:700;font-size:.78rem;cursor:pointer;font-family:inherit;transition:background var(--t);white-space:nowrap}
-.btn-promo:hover{background:var(--P1)}
+    /* ── CATEGORIES ─────────────────────────────────── */
+    .cat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .cat-card {
+      background:var(--white); border:1.5px solid var(--border); border-radius:16px;
+      padding:1.5rem; display:flex; flex-direction:column; align-items:center;
+      gap:0.7rem; cursor:pointer; position:relative;
+      box-shadow:var(--shadow); transition:all 0.25s;
+    }
+    .cat-card:hover  { border-color:var(--primary); transform:translateY(-3px); box-shadow:0 10px 28px rgba(249,115,22,0.12); }
+    .cat-card.active { border-color:var(--primary); background:var(--primary-light); box-shadow:0 6px 20px rgba(249,115,22,0.1); }
+    .cat-icon {
+      width:56px; height:56px; border-radius:14px;
+      background:var(--primary-light); border:1px solid var(--orange-border);
+      display:flex; align-items:center; justify-content:center; font-size:1.7rem;
+    }
+    .cat-name { font-weight:800; font-size:0.95rem; color:var(--text); }
+    .cat-sub  { font-size:0.75rem; font-weight:600; color:var(--text-light); }
+    .chip {
+      position:absolute; top:10px; right:10px;
+      font-size:0.62rem; font-weight:800; padding:0.18rem 0.5rem;
+      border-radius:50px; text-transform:uppercase;
+    }
+    .chip-sale { background:linear-gradient(135deg,#22c55e,#16a34a); color:#fff; }
+    .chip-soon { background:var(--bg2); color:var(--text-muted); }
 
-/* ================================================================
-   PRIMARY BUTTON
-================================================================ */
-.btn-go{width:100%;padding:13px;background:var(--P);color:#fff;border:none;border-radius:var(--r8);font-size:.9rem;font-weight:700;cursor:pointer;transition:all var(--t);margin-top:14px;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-go:hover{background:var(--P1);box-shadow:0 6px 20px rgba(37,99,235,.28);transform:translateY(-1px)}
-.btn-go:active{transform:none}
-.btn-go.green{background:var(--G)}
-.btn-go.green:hover{background:#047857;box-shadow:0 6px 20px rgba(5,150,105,.28)}
+    /* ── ROBUX BANNER ───────────────────────────────── */
+    .robux-banner {
+      background:linear-gradient(155deg,#1e293b 0%,#2d1a0e 45%,#7c2d12 100%);
+      border-radius:20px; padding:2rem; position:relative;
+      overflow:hidden; box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    }
+    .robux-banner::before,
+    .robux-banner::after {
+      content:''; position:absolute; border-radius:50%; background:rgba(255,255,255,0.06);
+    }
+    .robux-banner::before { width:200px; height:200px; top:-60px; right:-60px; }
+    .robux-banner::after  { width:140px; height:140px; bottom:-40px; left:35%; }
+    .robux-title { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.85rem; color:#fff; margin-bottom:0.3rem; }
+    .robux-sub   { font-size:0.95rem; font-weight:600; color:rgba(255,255,255,0.85); margin-bottom:1.1rem; }
+    .trust-row   { display:flex; gap:0.6rem; margin-bottom:1.5rem; flex-wrap:wrap; }
+    .trust-chip  {
+      display:flex; align-items:center; gap:0.5rem;
+      padding:0.45rem 1rem; border-radius:50px;
+      font-size:0.7rem; font-weight:800; line-height:1.3; text-transform:uppercase;
+    }
+    .trust-chip.light { background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.22); color:#fff; }
+    .trust-chip.dark  { background:rgba(249,115,22,0.35);  border:1.5px solid rgba(249,115,22,0.5);  color:#fff; }
 
-/* ================================================================
-   TOP RANK
-================================================================ */
-.rank-card{background:var(--sur);border-radius:var(--r16);box-shadow:var(--s2);margin-bottom:12px;overflow:hidden}
-.rank-hd{background:linear-gradient(130deg,#1E3A8A,#1D4ED8);padding:14px 18px}
-.rank-hd h3{font-size:.9rem;font-weight:800;color:#fff}
-.rank-hd p{font-size:.7rem;color:rgba(255,255,255,.72);margin-top:2px}
-.rank-list{padding:4px 0}
-.rank-row{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--bd);transition:background var(--t)}
-.rank-row:last-child{border-bottom:none}
-.rank-row:hover{background:var(--bg)}
-.rank-num{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex-shrink:0}
-.rn1{background:linear-gradient(135deg,#FFD700,#FFA500);color:#fff;box-shadow:0 2px 6px rgba(255,165,0,.35)}
-.rn2{background:linear-gradient(135deg,#9CA3AF,#6B7280);color:#fff}
-.rn3{background:linear-gradient(135deg,#CD7F32,#92400E);color:#fff}
-.rno{background:var(--bg2);color:var(--dim)}
-.rank-av-wrap{position:relative;flex-shrink:0;width:40px;height:40px}
-.rank-av{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--bd);display:block}
-.rank-av-sk{width:40px;height:40px;border-radius:50%;background:linear-gradient(90deg,var(--bg2) 25%,var(--sur) 50%,var(--bg2) 75%);background-size:200%;animation:sh 1.2s infinite}
-.rank-crown{position:absolute;top:-7px;left:50%;transform:translateX(-50%);font-size:.68rem;line-height:1}
-.rank-info{flex:1;min-width:0}
-.rank-name{font-size:.85rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rank-sub{font-size:.65rem;color:var(--dim);margin-top:1px}
-.rank-rbx{font-size:.8rem;font-weight:700;color:var(--P);white-space:nowrap}
+    .type-cards { display:flex; flex-direction:column; gap:0.85rem; position:relative; z-index:1; }
+    .type-card  { cursor:pointer; }
+    .type-inner {
+      background:var(--white); border-radius:16px; overflow:hidden;
+      box-shadow:0 4px 16px rgba(0,0,0,0.12); transition:all 0.2s; position:relative;
+    }
+    .type-inner:hover { transform:translateY(-1px); box-shadow:0 8px 24px rgba(0,0,0,0.16); }
+    .type-top  { display:flex; align-items:center; gap:1rem; padding:1rem 1.25rem; }
+    .type-ico  { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:1.3rem; flex-shrink:0; }
+    .ico-a { background:#ffedd5; }
+    .ico-b { background:#fff7ed; }
+    .type-info { flex:1; }
+    .type-name { font-family:'Poppins',sans-serif; font-weight:700; font-size:1rem; color:var(--text); margin-bottom:0.15rem; }
+    .type-desc { font-size:0.8rem; font-weight:600; color:var(--text-muted); }
+    .type-arrow {
+      width:30px; height:30px; border-radius:50%; background:var(--bg2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.15rem; color:var(--text-muted); flex-shrink:0;
+    }
+    .type-foot {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0.6rem 1.25rem; font-size:0.82rem; font-weight:700; color:#fff;
+    }
+    .foot-a { background:#ea580c; }
+    .foot-b { background:#374151; }
+    .foot-label { opacity:0.85; font-weight:600; }
+    .flash-badge {
+      position:absolute; top:-1px; right:16px;
+      background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff;
+      font-size:0.73rem; font-weight:800; padding:0.3rem 0.85rem;
+      border-radius:0 0 10px 10px; box-shadow:0 4px 10px rgba(239,68,68,0.35);
+    }
 
-/* ================================================================
-   REVIEWS — MARQUEE
-================================================================ */
-.rev-wrap{margin-bottom:12px}
-.rev-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px}
-.rev-header h3{font-size:.86rem;font-weight:700}
-.rev-header span{font-size:.68rem;color:var(--dim)}
-.rev-outer{overflow:hidden;border-radius:var(--r12);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.rev-track{display:flex;gap:10px;animation:marquee 30s linear infinite;width:max-content}
-.rev-track:hover{animation-play-state:paused}
-@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-.rcard{background:var(--sur);border:1px solid var(--bd);border-radius:var(--r12);padding:14px;width:215px;flex-shrink:0;box-shadow:var(--s1)}
-.rcard-stars{display:flex;gap:2px;margin-bottom:7px}
-.rcard-stars span{font-size:.72rem}
-.rcard-text{font-size:.76rem;color:var(--sub);line-height:1.55;margin-bottom:10px;font-style:italic}
-.rcard-user{display:flex;align-items:center;gap:8px}
-.rcard-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
-.rcard-name{font-size:.76rem;font-weight:700}
-.rcard-pkg{font-size:.63rem;color:var(--dim)}
+    /* ── PRODUCT GRID ───────────────────────────────── */
+    .prod-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1.25rem; }
+    .prod-card {
+      background:var(--white); border:1.5px solid var(--border); border-radius:16px;
+      padding:1.2rem; cursor:pointer; position:relative;
+      box-shadow:var(--shadow); transition:all 0.25s;
+    }
+    .prod-card:hover { border-color:var(--primary); transform:translateY(-3px); box-shadow:0 10px 28px rgba(249,115,22,0.13); }
+    .prod-img {
+      width:100%; aspect-ratio:1; border-radius:12px; margin-bottom:0.85rem;
+      display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,var(--primary-light),var(--bg2));
+      border:1px solid var(--orange-border); font-size:2.4rem;
+    }
+    .prod-name     { font-weight:700; font-size:0.875rem; color:var(--text); margin-bottom:0.3rem; }
+    .prod-price    { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.05rem; color:var(--primary); margin-bottom:0.2rem; }
+    .prod-original { font-size:0.75rem; color:var(--text-light); text-decoration:line-through; }
+    .prod-badge {
+      position:absolute; top:10px; left:10px;
+      font-size:0.62rem; font-weight:800; padding:0.18rem 0.5rem;
+      border-radius:50px; text-transform:uppercase;
+    }
+    .b-flash { background:linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
+    .b-hot   { background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; }
+    .b-new   { background:linear-gradient(135deg,#3b82f6,#2563eb); color:#fff; }
 
-/* ================================================================
-   FOOTER
-================================================================ */
-footer{text-align:center;padding:20px 16px;color:var(--dim);font-size:.7rem;border-top:1px solid var(--bd);background:var(--sur)}
-.f-logo{font-size:.92rem;font-weight:800;color:var(--P);margin-bottom:3px}
-.f-logo em{color:var(--R);font-style:normal}
+    /* ── CAROUSEL ───────────────────────────────────── */
+    .carousel-wrap {
+      background:var(--bg2); border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); padding:1.25rem 0;
+      overflow:hidden; margin:1rem 0;
+    }
+    .carousel-track { display:flex; gap:1rem; width:max-content; animation:carouselScroll 32s linear infinite; }
+    .carousel-track:hover { animation-play-state:paused; }
+    @keyframes carouselScroll { to { transform:translateX(-50%); } }
+    .carousel-item {
+      min-width:265px; height:142px; border-radius:14px; flex-shrink:0; cursor:pointer;
+      border:1.5px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.875rem; font-weight:800; text-align:center; line-height:1.5;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05); transition:transform 0.2s, box-shadow 0.2s;
+    }
+    .carousel-item:hover { transform:scale(1.02); box-shadow:0 6px 16px rgba(0,0,0,0.1); }
 
-/* ================================================================
-   FAB + TOAST
-================================================================ */
-#fab{position:fixed;bottom:20px;right:16px;width:40px;height:40px;border-radius:50%;background:var(--sur);border:1.5px solid var(--bd);color:var(--dim);font-size:1rem;cursor:pointer;z-index:99;box-shadow:var(--s3);transition:all var(--t)}
-#fab:hover{color:var(--P);border-color:var(--P);box-shadow:0 4px 16px rgba(37,99,235,.2)}
-.toast{position:fixed;bottom:22px;left:50%;z-index:999;transform:translateX(-50%) translateY(70px);background:var(--ink);color:#fff;padding:10px 20px;border-radius:var(--rFull);font-size:.78rem;font-weight:600;box-shadow:var(--s4);transition:transform .28s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap}
-.toast.on{transform:translateX(-50%) translateY(0)}
-.spinner{display:inline-block;width:12px;height:12px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px}
-@keyframes spin{to{transform:rotate(360deg)}}
+    /* ── GAME GRID ──────────────────────────────────── */
+    .game-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1rem; }
+    .game-card {
+      background:var(--white); border:1.5px solid var(--border); border-radius:16px;
+      overflow:hidden; cursor:pointer; position:relative;
+      box-shadow:var(--shadow); transition:all 0.25s;
+    }
+    .game-card:hover { border-color:var(--primary); transform:translateY(-3px); box-shadow:0 10px 28px rgba(249,115,22,0.12); }
+    .game-img {
+      width:100%; aspect-ratio:4/3; display:flex; align-items:center;
+      justify-content:center; font-size:2.75rem; position:relative; overflow:hidden;
+    }
+    .game-overlay { position:absolute; inset:0; background:linear-gradient(0deg,rgba(0,0,0,0.1) 0%,transparent 60%); }
+    .game-info   { padding:0.75rem; border-top:1px solid var(--border); }
+    .game-name   { font-weight:800; font-size:0.85rem; color:var(--text); margin-bottom:0.2rem; }
+    .game-status { font-size:0.72rem; font-weight:600; color:var(--text-muted); }
+    .badge-hot   { position:absolute; top:8px; left:8px;  background:linear-gradient(135deg,#ef4444,#dc2626); color:#fff; font-size:0.58rem; font-weight:800; padding:0.18rem 0.45rem; border-radius:50px; text-transform:uppercase; }
+    .badge-trend { position:absolute; top:8px; right:8px; background:linear-gradient(135deg,#a855f7,#7c3aed); color:#fff; font-size:0.58rem; font-weight:800; padding:0.18rem 0.45rem; border-radius:50px; }
 
-/* ================================================================
-   MODAL SYSTEM
-================================================================ */
-.modal{display:none;position:fixed;inset:0;z-index:300}
-.modal.open{display:flex;align-items:flex-end;justify-content:center}
-@media(min-width:520px){.modal.open{align-items:center;padding:20px}}
-.mbackdrop{position:absolute;inset:0;background:rgba(15,23,42,.52);backdrop-filter:blur(4px)}
-.msheet{position:relative;background:var(--sur);width:100%;max-width:560px;max-height:92vh;overflow-y:auto;border-radius:20px 20px 0 0;z-index:1;overscroll-behavior:contain}
-@media(min-width:520px){.msheet{border-radius:var(--r16);max-height:90vh}}
-.mhandle{width:32px;height:4px;background:var(--bd2);border-radius:2px;margin:10px auto 0}
-.mhd{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 11px;border-bottom:1px solid var(--bd)}
-.mhd h3{font-size:.92rem;font-weight:700}
-.btn-x{width:28px;height:28px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--sub);font-size:.88rem;transition:background var(--t)}
-.btn-x:hover{background:var(--bg2)}
-.mbody{padding:16px 18px 30px}
+    .coming-box {
+      background:var(--white); border:1.5px dashed var(--border); border-radius:16px;
+      padding:3rem 2rem; text-align:center;
+      display:flex; flex-direction:column; align-items:center; gap:0.75rem;
+      margin-top:1.25rem; box-shadow:var(--shadow);
+    }
+    .coming-box .emo { font-size:3.5rem; }
+    .coming-box h3   { font-weight:800; font-size:1.1rem; color:var(--text); }
+    .coming-box p    { color:var(--text-muted); font-size:0.875rem; max-width:340px; }
 
-/* ================================================================
-   ORDER ID BOX
-================================================================ */
-.oid-box{background:linear-gradient(130deg,#1E40AF,#1D4ED8);border-radius:var(--r12);padding:15px;color:#fff;margin-bottom:14px;text-align:center}
-.oid-lbl{font-size:.6rem;opacity:.72;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
-.oid-code{font-size:1.12rem;font-weight:800;letter-spacing:3px;font-variant-numeric:tabular-nums}
-.btn-copy{margin-top:9px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);color:#fff;padding:4px 14px;border-radius:var(--rFull);font-size:.68rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background var(--t)}
-.btn-copy:hover{background:rgba(255,255,255,.24)}
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer { background:var(--white); border-top:1px solid var(--border); padding:2.5rem 0 0; margin-top:3rem; }
 
-/* ================================================================
-   ORDER SUMMARY TABLE
-================================================================ */
-.osum{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r12);margin-bottom:14px;overflow:hidden}
-.osum-row{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;border-bottom:1px solid var(--bd)}
-.osum-row:last-child{border-bottom:none;background:var(--P2);padding:11px 14px}
-.ok{font-size:.76rem;color:var(--sub)}
-.ov{font-size:.8rem;font-weight:700;color:var(--ink)}
-.ov.blue{color:var(--P)}
-.ov.fee{color:var(--O)}
-.ov.total{font-size:.92rem;color:var(--P)}
+    .footer-top {
+      max-width:1200px; margin:0 auto; padding:0 1.5rem;
+      display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr;
+      gap:2.5rem; padding-bottom:2rem;
+    }
 
-/* ================================================================
-   QRIS SECTION
-================================================================ */
-.qsec{text-align:center;margin-bottom:14px}
-.qsec h4{font-size:.78rem;font-weight:700;color:var(--sub);margin-bottom:10px}
-.qframe{display:inline-block;padding:10px;background:var(--sur);border:1.5px solid var(--bd);border-radius:var(--r8);box-shadow:var(--s1)}
-.qframe img{width:166px;height:166px;display:block;border-radius:4px}
-.qapps{display:flex;justify-content:center;gap:6px;margin-top:9px;flex-wrap:wrap}
-.qapp{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rFull);padding:3px 11px;font-size:.66rem;font-weight:600;color:var(--sub)}
-.due-box{background:linear-gradient(135deg,var(--A2),#FEF3C7);border:1px solid var(--A3);border-radius:var(--r8);padding:14px;text-align:center;margin:12px 0}
-.due-lbl{font-size:.66rem;color:#92400E;font-weight:600;margin-bottom:4px}
-.due-amt{font-size:1.55rem;font-weight:800;color:var(--O);line-height:1}
-.due-note{font-size:.63rem;color:#A16207;margin-top:4px}
+    /* Brand col */
+    .footer-logo-wrap { display:flex; align-items:center; gap:0.6rem; margin-bottom:0.9rem; }
+    .footer-logo-icon {
+      width:40px; height:40px; border-radius:50%;
+      background:linear-gradient(135deg,#f97316,#ea580c);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; box-shadow:0 4px 10px rgba(249,115,22,0.3);
+    }
+    .footer-logo-name { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.3rem; color:var(--text); }
+    .footer-desc {
+      color:var(--text-muted); font-size:0.85rem; line-height:1.7;
+      margin-bottom:1.25rem;
+    }
+    .footer-desc a { color:var(--primary); text-decoration:none; font-weight:600; }
+    .footer-desc a:hover { text-decoration:underline; }
 
-/* ================================================================
-   UPLOAD ZONE — PROFESSIONAL
-================================================================ */
-.up-area{margin-bottom:12px}
-.up-lbl{font-size:.67rem;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px;display:flex;align-items:center;gap:5px}
-.up-req{color:var(--R);font-size:.6rem}
-.upzone{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2px dashed var(--bd2);border-radius:var(--r12);padding:20px 16px;background:var(--bg);cursor:pointer;transition:all var(--t);text-align:center;overflow:hidden}
-.upzone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upzone:hover,.upzone:focus-within{border-color:var(--P);background:var(--P2)}
-.upzone.ok{border-color:var(--G);border-style:solid;background:var(--G2)}
-.upzone.ok:hover{border-color:var(--G);background:var(--G2)}
-.up-ico{font-size:1.8rem;line-height:1;transition:transform var(--t)}
-.upzone:hover .up-ico{transform:translateY(-2px)}
-.up-title{font-size:.82rem;font-weight:700;color:var(--sub);margin-top:2px}
-.upzone.ok .up-title{color:var(--G)}
-.up-sub{font-size:.66rem;color:var(--dim)}
-.up-preview{width:100%;max-height:200px;object-fit:contain;border-radius:var(--r8);margin-bottom:10px;display:none;box-shadow:var(--s1);border:1px solid var(--bd)}
+    /* Pay chips */
+    .pay-label { font-size:0.7rem; color:var(--text-muted); font-weight:700; text-transform:uppercase; letter-spacing:.5px; margin-bottom:0.5rem; }
+    .pay-chips  { display:flex; gap:0.45rem; flex-wrap:wrap; }
+    .pay-chip   {
+      background:var(--bg2); border:1.5px solid var(--border);
+      border-radius:7px; padding:0.28rem 0.65rem;
+      font-size:0.7rem; font-weight:700; color:var(--text-muted);
+    }
 
-/* ================================================================
-   ACTION BUTTONS (modal bottom)
-================================================================ */
-.act-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
-.btn-ok{background:var(--P);color:#fff;border:none;padding:12px;border-radius:var(--r8);font-size:.86rem;font-weight:700;cursor:pointer;font-family:inherit;transition:all var(--t);display:flex;align-items:center;justify-content:center;gap:5px}
-.btn-ok:hover{background:var(--P1);box-shadow:0 4px 14px rgba(37,99,235,.28)}
-.btn-ok:disabled{background:var(--bd2);cursor:not-allowed;box-shadow:none;transform:none}
-.btn-cancel{background:var(--bg);color:var(--sub);border:1.5px solid var(--bd);padding:12px;border-radius:var(--r8);font-size:.86rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background var(--t)}
-.btn-cancel:hover{background:var(--bg2)}
+    /* Nav cols */
+    .footer-col h4 {
+      font-weight:800; font-size:0.95rem; color:var(--text);
+      margin-bottom:1rem; padding-bottom:0.5rem;
+    }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:0.75rem; }
+    .footer-col ul li a {
+      color:var(--text-muted); text-decoration:none;
+      font-size:0.875rem; font-weight:600; transition:color 0.2s;
+    }
+    .footer-col ul li a:hover { color:var(--primary); }
 
-/* ================================================================
-   TRACK MODAL
-================================================================ */
-.track-row{display:flex;gap:8px;margin-bottom:14px}
-.track-row .fi{flex:1;text-transform:uppercase}
-.btn-track{background:var(--P);color:#fff;border:none;padding:0 16px;border-radius:var(--r8);font-weight:700;cursor:pointer;font-family:inherit;font-size:.78rem;transition:background var(--t)}
-.btn-track:hover{background:var(--P1)}
-.ocard{background:var(--bg);border:1.5px solid var(--bd);border-radius:var(--r12);padding:14px;margin-bottom:12px}
-.ocard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.ocard-id{font-size:.8rem;font-weight:800;color:var(--P);font-family:monospace}
-.sbadge{padding:3px 10px;border-radius:var(--rFull);font-size:.63rem;font-weight:700}
-.sp{background:var(--A2);color:#92400E}
-.sd{background:var(--G2);color:var(--G)}
-.ss{background:var(--P2);color:var(--P)}
-.sc{background:var(--R2);color:var(--R)}
-.ocard-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--bd);font-size:.78rem}
-.ocard-row:last-child{border-bottom:none;padding-bottom:0}
-.ocard-k{color:var(--dim)}
-.ocard-v{font-weight:700}
-.empty{text-align:center;padding:26px 0;color:var(--dim)}
-.empty-ico{font-size:1.7rem;margin-bottom:7px}
-.recv-lbl{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:7px}
-.olist{display:flex;flex-direction:column;gap:6px;max-height:300px;overflow-y:auto}
-.oitem{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r8);padding:10px 12px;cursor:pointer;transition:all var(--t)}
-.oitem:hover{border-color:var(--P);background:var(--P2)}
-.oitem-r1{display:flex;justify-content:space-between;align-items:center;margin-bottom:2px}
-.oi-id{font-size:.73rem;font-weight:800;color:var(--P);font-family:monospace}
-.oi-desc{font-size:.73rem;color:var(--sub)}
-.oi-t{font-size:.63rem;color:var(--dim);margin-top:2px}
+    /* Social icons - round grey style like screenshot */
+    .social-icons { display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.25rem; }
+    .social-ico {
+      width:40px; height:40px; border-radius:50%;
+      background:#e2e8f0; display:flex; align-items:center;
+      justify-content:center; font-size:1rem; cursor:pointer;
+      text-decoration:none; transition:all 0.2s;
+    }
+    .social-ico:hover { background:var(--primary); transform:translateY(-2px); box-shadow:0 4px 10px rgba(249,115,22,0.28); }
 
-/* ================================================================
-   ADMIN MODAL
-================================================================ */
-.admin-modal{display:none;position:fixed;inset:0;z-index:400}
-.admin-modal.open{display:flex;align-items:center;justify-content:center;padding:20px}
-.admin-bd{position:absolute;inset:0;background:rgba(15,23,42,.58);backdrop-filter:blur(5px)}
-.admin-sheet{position:relative;background:var(--sur);width:100%;max-width:420px;max-height:92vh;overflow-y:auto;border-radius:var(--r16);z-index:1;box-shadow:var(--s4)}
-.admin-hd{display:flex;align-items:center;gap:10px;padding:17px 18px 13px;border-bottom:1px solid var(--bd)}
-.admin-hd-ico{width:34px;height:34px;background:var(--P2);border-radius:var(--r8);display:flex;align-items:center;justify-content:center;font-size:.95rem}
-.admin-hd h3{font-size:.92rem;font-weight:700;flex:1}
-.admin-body{padding:16px 18px 24px}
-#adminTools{display:none}
-#adminTools.vis{display:block}
-.divr{height:1px;background:var(--bd);margin:14px 0}
-.asec-lbl{font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin-bottom:10px}
-/* admin avatar box */
-.admin-av-box{display:none;flex-direction:column;align-items:center;gap:5px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r12);padding:14px;margin-top:10px;text-align:center}
-.admin-av-box.vis{display:flex}
-.admin-av-img{width:80px;height:80px;border-radius:50%;border:3px solid var(--P);object-fit:cover;box-shadow:var(--s2)}
-.admin-av-name{font-size:.88rem;font-weight:700;margin-top:4px}
-.admin-av-id{font-size:.68rem;color:var(--dim)}
-.btn-dl{display:inline-flex;align-items:center;gap:5px;background:var(--G2);color:var(--G);border:1px solid #A7F3D0;padding:5px 14px;border-radius:var(--rFull);font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px;transition:background var(--t)}
-.btn-dl:hover{background:#D1FAE5}
-/* admin order list */
-.admin-olist{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto}
-.ao-row{background:var(--bg);border:1px solid var(--bd);border-radius:var(--r8);padding:9px 12px;display:flex;justify-content:space-between;align-items:center}
-.ao-id{font-size:.7rem;font-weight:700;color:var(--P);font-family:monospace}
-.ao-desc{font-size:.67rem;color:var(--sub);margin-top:1px}
-.btn-done{background:var(--P2);color:var(--P);border:1px solid var(--P3);padding:3px 9px;border-radius:var(--rFull);font-size:.63rem;font-weight:700;cursor:pointer;font-family:inherit;transition:background var(--t)}
-.btn-done:hover{background:var(--P3)}
+    /* Footer bottom bar */
+    .footer-bottom {
+      border-top:1px solid var(--border);
+      padding:1.1rem 1.5rem;
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;
+    }
+    .footer-bottom p { color:var(--text-muted); font-size:0.78rem; font-weight:600; }
+    .back-top { color:var(--primary); font-size:0.78rem; font-weight:700; text-decoration:none; transition:opacity 0.2s; }
+    .back-top:hover { opacity:0.75; }
 
-@media(max-width:360px){.pgrid{grid-template-columns:1fr 1fr}}
-</style>
+    /* ── MOBILE NAV ─────────────────────────────────── */
+    .mob-nav {
+      display:none; position:fixed; bottom:0; left:0; right:0;
+      background:rgba(255,255,255,0.97); backdrop-filter:blur(12px);
+      border-top:1px solid var(--border); box-shadow:0 -2px 10px rgba(0,0,0,0.06);
+      z-index:100; padding:0.3rem 0 0.2rem;
+    }
+    .mob-inner { display:flex; justify-content:space-around; }
+    .mob-item  {
+      display:flex; flex-direction:column; align-items:center; gap:0.1rem;
+      padding:0.25rem 0.75rem; color:var(--text-muted); font-size:0.58rem;
+      font-weight:700; text-decoration:none; transition:color 0.2s;
+    }
+    .mob-item.active { color:var(--primary); }
+    .mob-item .ico   { font-size:1rem; }
+
+    /* ── RESPONSIVE ─────────────────────────────────── */
+    @media (max-width: 900px) {
+      .game-grid { grid-template-columns:repeat(3,1fr); }
+      .prod-grid { grid-template-columns:repeat(3,1fr); }
+    }
+    @media (max-width: 640px) {
+      .hero-wrap   { grid-template-columns:1fr; }
+      .hero h1     { font-size:1.9rem; }
+      .prod-grid   { grid-template-columns:repeat(2,1fr); }
+      .game-grid   { grid-template-columns:repeat(2,1fr); }
+      .cat-grid    { grid-template-columns:repeat(3,1fr); }
+      .footer-top  { grid-template-columns:1fr 1fr; }
+      .nav-links   { display:none; }
+      .mob-nav     { display:block; }
+      body         { padding-bottom:52px; }
+    }
+
+    /* ── TOP RANK ───────────────────────────────────── */
+    .rank-section { padding-top:2rem; padding-bottom:2rem; }
+    .rank-section .section-row { margin-bottom:1.25rem; }
+
+    .rank-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:0.75rem;
+    }
+    /* rank 1 spans full width as hero card */
+    .rank-grid .rank-item:first-child {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--primary-light), #fff);
+      border-color: var(--orange-border);
+    }
+
+    .rank-item {
+      background:var(--white); border:1.5px solid var(--border);
+      border-radius:14px; padding:0.9rem 1rem;
+      display:flex; align-items:center; gap:0.85rem;
+      box-shadow:var(--shadow); transition:all 0.2s; cursor:default;
+    }
+    .rank-item:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,0.09); }
+
+    .rank-num-wrap { position:relative; flex-shrink:0; }
+    .rank-medal {
+      width:36px; height:36px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.8rem; font-weight:800; color:#fff; flex-shrink:0;
+    }
+    .medal-1 { background:linear-gradient(135deg,#FFD700,#FFA500); box-shadow:0 3px 8px rgba(255,165,0,0.4); }
+    .medal-2 { background:linear-gradient(135deg,#C0C0C0,#9CA3AF); box-shadow:0 3px 8px rgba(156,163,175,0.35); }
+    .medal-3 { background:linear-gradient(135deg,#CD7F32,#92400E); box-shadow:0 3px 8px rgba(146,64,14,0.35); }
+    .medal-n { background:var(--bg2); color:var(--text-muted); border:1.5px solid var(--border); }
+    .rank-crown { position:absolute; top:-9px; left:50%; transform:translateX(-50%); font-size:0.7rem; line-height:1; }
+
+    .rank-av-wrap { position:relative; flex-shrink:0; }
+    .rank-av {
+      width:42px; height:42px; border-radius:50%;
+      border:2.5px solid var(--border); object-fit:cover; display:block;
+      background:var(--bg2);
+    }
+    .rank-av-sk {
+      width:42px; height:42px; border-radius:50%;
+      background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);
+      background-size:200%; animation:skAnim 1.2s infinite;
+    }
+    .rank-info { flex:1; min-width:0; }
+    .rank-name { font-weight:800; font-size:0.85rem; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .rank-rbx  { font-size:0.72rem; font-weight:700; color:var(--primary); margin-top:2px; }
+
+    .rank-btn {
+      width:100%; margin-top:1rem; padding:0.8rem;
+      background:var(--white); border:1.5px solid var(--border);
+      border-radius:12px; font-family:'Nunito',sans-serif;
+      font-size:0.875rem; font-weight:800; color:var(--text-muted);
+      cursor:pointer; transition:all 0.2s;
+    }
+    .rank-btn:hover { border-color:var(--primary); color:var(--primary); background:var(--primary-light); }
+
+    /* ── MODAL ───────────────────────────────────────── */
+    .modal-overlay {
+      position:fixed; inset:0; z-index:999;
+      background:rgba(15,23,42,0.55); backdrop-filter:blur(5px);
+      display:flex; align-items:center; justify-content:center; padding:1rem;
+      opacity:0; pointer-events:none; transition:opacity 0.25s;
+    }
+    .modal-overlay.open { opacity:1; pointer-events:all; }
+
+    .modal {
+      background:var(--white); border-radius:24px;
+      width:100%; max-width:460px;
+      box-shadow:0 24px 64px rgba(0,0,0,0.2);
+      overflow:hidden;
+      transform:translateY(24px) scale(0.97);
+      transition:transform 0.3s cubic-bezier(.34,1.3,.64,1);
+      max-height: 92vh; overflow-y: auto;
+    }
+    .modal-overlay.open .modal { transform:translateY(0) scale(1); }
+
+    /* Header */
+    .modal-head {
+      background:linear-gradient(135deg,#c2410c,#ea580c,#f97316);
+      padding:1.35rem 1.5rem;
+      display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:2;
+    }
+    .modal-head-title { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.05rem; color:#fff; }
+    .modal-head-sub   { font-size:0.75rem; font-weight:600; color:rgba(255,255,255,0.8); margin-top:0.1rem; }
+    .modal-close {
+      width:32px; height:32px; border-radius:50%;
+      background:rgba(255,255,255,0.2); border:none; color:#fff;
+      font-size:1rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center; transition:background 0.2s;
+    }
+    .modal-close:hover { background:rgba(255,255,255,0.35); }
+
+    /* Steps */
+    .modal-steps {
+      display:flex; align-items:center; justify-content:center;
+      padding:1.1rem 1.5rem 0; gap:0;
+    }
+    .step-dot { display:flex; flex-direction:column; align-items:center; gap:0.25rem; }
+    .step-dot .sdot {
+      width:30px; height:30px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.75rem; font-weight:800;
+      background:var(--bg2); color:var(--text-muted);
+      border:2px solid var(--border); transition:all 0.3s;
+    }
+    .step-dot .sdot.active { background:var(--primary); color:#fff; border-color:var(--primary); box-shadow:0 3px 10px rgba(249,115,22,0.35); }
+    .step-dot .sdot.done   { background:#22c55e; color:#fff; border-color:#22c55e; }
+    .step-dot .slbl { font-size:0.62rem; font-weight:700; color:var(--text-muted); white-space:nowrap; }
+    .step-dot .slbl.active { color:var(--primary); }
+    .step-line { width:44px; height:2px; background:var(--border); margin:0 0.2rem 1rem; flex-shrink:0; transition:background 0.3s; }
+    .step-line.done { background:#22c55e; }
+
+    /* Body */
+    .modal-body { padding:1.1rem 1.5rem 1.5rem; }
+    .step-panel { display:none; }
+    .step-panel.active { display:block; }
+
+    /* Step 1 */
+    .inp-label { font-size:0.8rem; font-weight:800; color:var(--text); margin-bottom:0.4rem; display:block; }
+    .inp-field {
+      width:100%; padding:0.72rem 1rem; border-radius:11px;
+      border:1.5px solid var(--border); background:var(--bg);
+      font-family:'Nunito',sans-serif; font-size:0.95rem; font-weight:700;
+      color:var(--text); outline:none; transition:border-color 0.2s;
+      -webkit-user-select:text; -moz-user-select:text; user-select:text;
+    }
+    .inp-field:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(249,115,22,0.1); }
+    .inp-field::placeholder { color:var(--text-light); font-weight:600; }
+    .inp-hint { font-size:0.73rem; font-weight:600; color:var(--text-muted); margin-top:0.35rem; }
+    .inp-group { margin-bottom:1rem; }
+
+    .verify-box {
+      display:flex; align-items:center; gap:0.75rem;
+      padding:0.75rem 1rem; border-radius:12px;
+      background:var(--primary-light); border:1.5px solid var(--orange-border); margin-top:0.75rem;
+    }
+    .verify-box .vav  { font-size:1.75rem; }
+    .verify-box .vnam { font-family:'Poppins',sans-serif; font-weight:800; font-size:0.9rem; color:var(--text); }
+    .verify-box .vuid { font-size:0.73rem; font-weight:600; color:var(--text-muted); }
+    .verify-box .vchk { margin-left:auto; width:26px; height:26px; border-radius:50%; background:#22c55e; display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.85rem; flex-shrink:0; }
+
+    /* Step 2 */
+    .paket-list { display:flex; flex-direction:column; gap:0.55rem; max-height:300px; overflow-y:auto; padding-right:2px; }
+    .paket-list::-webkit-scrollbar { width:3px; }
+    .paket-list::-webkit-scrollbar-thumb { background:var(--orange-border); border-radius:3px; }
+    .paket-row {
+      display:flex; align-items:center; gap:0.8rem;
+      padding:0.8rem 1rem; border-radius:12px;
+      border:1.5px solid var(--border); cursor:pointer; transition:all 0.18s;
+    }
+    .paket-row:hover  { border-color:var(--primary); background:var(--primary-light); }
+    .paket-row.sel    { border-color:var(--primary); background:var(--primary-light); box-shadow:0 4px 12px rgba(249,115,22,0.1); }
+    .paket-row .pico  { font-size:1.5rem; flex-shrink:0; }
+    .paket-row .pinf  { flex:1; }
+    .paket-row .pnam  { font-family:'Poppins',sans-serif; font-weight:700; font-size:0.88rem; color:var(--text); }
+    .paket-row .pori  { font-size:0.7rem; color:var(--text-light); text-decoration:line-through; }
+    .paket-row .ppri  { font-family:'Poppins',sans-serif; font-weight:800; font-size:0.98rem; color:var(--primary); text-align:right; }
+    .paket-row .pbdg  { font-size:0.58rem; font-weight:800; padding:0.12rem 0.38rem; border-radius:50px; text-transform:uppercase; display:inline-block; margin-top:0.15rem; }
+    .paket-row .prad  {
+      width:18px; height:18px; border-radius:50%;
+      border:2px solid var(--border); flex-shrink:0; transition:all 0.18s;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .paket-row.sel .prad { border-color:var(--primary); background:var(--primary); }
+    .paket-row.sel .prad::after { content:''; width:6px; height:6px; border-radius:50%; background:#fff; display:block; }
+
+    .ringkasan {
+      display:flex; align-items:center; justify-content:space-between;
+      background:var(--primary-light); border:1.5px solid var(--orange-border);
+      border-radius:11px; padding:0.7rem 1rem; margin-top:0.85rem;
+    }
+    .ringkasan .rlbl { font-size:0.78rem; font-weight:700; color:var(--text-muted); }
+    .ringkasan .rval { font-family:'Poppins',sans-serif; font-weight:800; font-size:1rem; color:var(--primary); }
+
+    /* Step 3 QRIS */
+    .qris-order {
+      background:var(--bg); border:1.5px solid var(--border);
+      border-radius:12px; padding:0.9rem 1rem;
+      display:flex; flex-direction:column; gap:0.45rem; margin-bottom:1rem;
+    }
+    .qrow { display:flex; justify-content:space-between; align-items:center; font-size:0.81rem; }
+    .qrow .qk { font-weight:600; color:var(--text-muted); }
+    .qrow .qv { font-weight:800; color:var(--text); }
+    .qrow .qv.orn { color:var(--primary); }
+
+    .qris-box {
+      background:#fff; border:2px solid var(--border);
+      border-radius:16px; padding:1rem;
+      display:flex; flex-direction:column; align-items:center; gap:0.6rem;
+    }
+    .qris-lbl { font-size:0.65rem; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:.6px; }
+    .qris-amount { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.35rem; color:var(--text); }
+
+    /* Fake QR grid — hidden, diganti qris.png */
+    .qr-wrap { position:relative; width:180px; height:180px; }
+    .qr-grid  { display:none; }
+    .qr-logo  { display:none; }
+    .qframe {
+      display:inline-block; padding:10px;
+      background:#fff; border:1.5px solid var(--border);
+      border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.06);
+    }
+    .qframe img { width:166px; height:166px; display:block; border-radius:4px; }
+    .qris-expire-row { display:flex; align-items:center; gap:0.4rem; font-size:0.75rem; font-weight:700; color:var(--text-muted); }
+    .qris-timer { color:var(--primary); font-family:'Poppins',sans-serif; font-weight:800; }
+    .qris-methods { display:flex; gap:0.4rem; flex-wrap:wrap; justify-content:center; }
+    .qris-meth {
+      padding:0.25rem 0.6rem; border-radius:7px;
+      background:var(--bg2); border:1.5px solid var(--border);
+      font-size:0.68rem; font-weight:700; color:var(--text-muted);
+    }
+    .copy-btn {
+      width:100%; padding:0.6rem; border-radius:10px;
+      background:var(--bg2); border:1.5px solid var(--border);
+      font-family:'Nunito',sans-serif; font-size:0.8rem; font-weight:800;
+      color:var(--text-muted); cursor:pointer; transition:all 0.2s;
+      display:flex; align-items:center; justify-content:center; gap:0.35rem;
+    }
+    .copy-btn:hover { border-color:var(--primary); color:var(--primary); background:var(--primary-light); }
+
+    /* Buttons */
+    .mbtn {
+      width:100%; padding:0.82rem; border-radius:12px;
+      background:linear-gradient(135deg,#f97316,#ea580c); border:none; color:#fff;
+      font-family:'Poppins',sans-serif; font-size:0.95rem; font-weight:800;
+      cursor:pointer; margin-top:1rem;
+      box-shadow:0 6px 18px rgba(249,115,22,0.28); transition:all 0.2s;
+      display:flex; align-items:center; justify-content:center; gap:0.45rem;
+    }
+    .mbtn:hover { transform:translateY(-1px); box-shadow:0 8px 22px rgba(249,115,22,0.38); }
+    .mbtn:disabled { opacity:0.45; cursor:not-allowed; transform:none; box-shadow:none; }
+    .mbtn-back {
+      width:100%; padding:0.65rem; border-radius:12px;
+      background:transparent; border:1.5px solid var(--border); color:var(--text-muted);
+      font-family:'Nunito',sans-serif; font-size:0.875rem; font-weight:700;
+      cursor:pointer; margin-top:0.45rem; transition:all 0.2s;
+    }
+    .mbtn-back:hover { border-color:var(--text-muted); color:var(--text); }
+
+    /* Success */
+    .success-wrap { display:flex; flex-direction:column; align-items:center; gap:0.8rem; text-align:center; }
+    .sico  { font-size:3.75rem; animation:popIn 0.4s cubic-bezier(.34,1.5,.64,1) both; }
+    @keyframes popIn { from{transform:scale(0)} to{transform:scale(1)} }
+    .stit  { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.2rem; color:var(--text); }
+    .ssub  { font-size:0.85rem; font-weight:600; color:var(--text-muted); max-width:270px; }
+    .sdet  { width:100%; background:var(--bg); border:1.5px solid var(--border); border-radius:12px; padding:0.9rem 1rem; display:flex; flex-direction:column; gap:0.45rem; }
+
+    /* ── ADMIN MODAL ─────────────────────────────── */
+    .admin-overlay {
+      display:none; position:fixed; inset:0; z-index:500;
+      background:rgba(15,23,42,0.6); backdrop-filter:blur(5px);
+      align-items:center; justify-content:center; padding:1rem;
+    }
+    .admin-overlay.open { display:flex; }
+    .admin-sheet {
+      background:var(--white); border-radius:20px;
+      width:100%; max-width:400px; max-height:90vh;
+      overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,0.2);
+      animation:fadeUp 0.28s ease both;
+    }
+    .admin-hd {
+      display:flex; align-items:center; gap:10px;
+      padding:1.2rem 1.4rem; border-bottom:1px solid var(--border);
+      position:sticky; top:0; background:var(--white); z-index:1;
+    }
+    .admin-hd-ico {
+      width:36px; height:36px; border-radius:10px;
+      background:var(--primary-light); border:1px solid var(--orange-border);
+      display:flex; align-items:center; justify-content:center; font-size:1rem;
+    }
+    .admin-hd h3   { font-family:'Poppins',sans-serif; font-weight:800; font-size:0.95rem; flex:1; color:var(--text); }
+    .admin-body    { padding:1.2rem 1.4rem 2rem; }
+    .admin-divider { height:1px; background:var(--border); margin:1rem 0; }
+    .admin-sec-lbl { font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.6px; color:var(--text-muted); margin-bottom:0.75rem; }
+    #adminGate       { display:block; }
+    #adminTools      { display:none; }
+    #adminTools.vis  { display:block; }
+    .ao-row  { background:var(--bg); border:1px solid var(--border); border-radius:10px; padding:9px 12px; display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+    .ao-id   { font-size:0.72rem; font-weight:800; color:var(--primary); font-family:monospace; }
+    .ao-desc { font-size:0.68rem; color:var(--text-muted); margin-top:2px; }
+    .btn-done-sm { background:var(--primary-light); color:var(--primary); border:1px solid var(--orange-border); padding:3px 10px; border-radius:50px; font-size:0.65rem; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif; transition:background 0.2s; white-space:nowrap; }
+    .btn-done-sm:hover { background:var(--orange-border); }
+    .sbadge { padding:3px 9px; border-radius:50px; font-size:0.62rem; font-weight:700; }
+    .sp  { background:#fffbeb; color:#92400e; }
+    .sd  { background:#f0fdf4; color:#16a34a; }
+    .ss  { background:var(--primary-light); color:var(--primary-dark); }
+    .sc  { background:#fef2f2; color:#dc2626; }
+    .admin-empty { text-align:center; padding:20px 0; color:var(--text-muted); font-size:0.8rem; }
+    .adm-av-box { display:none; flex-direction:column; align-items:center; gap:6px; background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:14px; text-align:center; margin-top:8px; }
+    .adm-av-box.vis { display:flex; }
+    .adm-av-img  { width:72px; height:72px; border-radius:50%; border:2.5px solid var(--primary); object-fit:cover; }
+    .adm-av-name { font-weight:800; font-size:0.88rem; color:var(--text); }
+    .adm-av-id   { font-size:0.68rem; color:var(--text-muted); }
+    .btn-dl { display:inline-flex; align-items:center; gap:4px; background:#f0fdf4; color:#16a34a; border:1px solid #bbf7d0; padding:4px 12px; border-radius:50px; font-size:0.68rem; font-weight:700; cursor:pointer; font-family:'Nunito',sans-serif; margin-top:4px; transition:background 0.2s; }
+    .btn-dl:hover { background:#dcfce7; }
+    .btn-discord { width:100%; padding:0.72rem; border-radius:10px; background:#5865F2; border:none; color:#fff; font-family:'Poppins',sans-serif; font-size:0.875rem; font-weight:700; cursor:pointer; transition:all 0.2s; display:flex; align-items:center; justify-content:center; gap:0.5rem; margin-top:0.5rem; }
+    .btn-discord:hover    { background:#4752C4; transform:translateY(-1px); }
+    .btn-discord:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+  </style>
 </head>
-<body>
+<body oncontextmenu="return false;" ondragstart="return false;" onselectstart="return false;">
 
-<!-- ══ NAV ══════════════════════════════════════════════════════ -->
-<div class="nav">
-  <div class="nav-in">
-    <div class="logo">
-      <div class="logo-mark">💎</div>
-      <div class="logo-text">DEX<em>BLOX</em></div>
+<!-- ── NAVBAR ──────────────────────────────────────────── -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">🎮</div>
+      <span>DexBlox</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Beranda</a></li>
+      <li><a href="#">Top Up</a></li>
+      <li><a href="#">Transaksi</a></li>
+      <li><a href="#">Pusat Bantuan</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-login">Masuk</button>
+      <button class="btn-topup">Top Up Robux</button>
     </div>
-    <div class="nav-right">
-      <div class="live-pill"><div class="live-dot"></div>ONLINE</div>
-      <button class="btn-pill" onclick="openTrack()">📦 Cek Pesanan</button>
-    </div>
+  </div>
+</nav>
+
+<!-- ── TICKER ───────────────────────────────────────────── -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item"><span class="dot"></span>Bud*** baru saja membeli Robux 1700 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Al*** baru saja membeli Robux 400 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Si*** baru saja membeli Robux 800 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Don*** baru saja membeli Robux 2000 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Rak*** baru saja membeli Robux 400 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>May*** baru saja membeli Robux 1000 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Far*** baru saja membeli Robux 200 🎯</div>
+    <div class="ticker-item"><span class="dot"></span>Riz*** baru saja membeli Robux 500 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>And*** baru saja membeli Robux 1000 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Put*** baru saja membeli Robux 800 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Ind*** baru saja membeli Robux 400 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Haf*** baru saja membeli Robux 2200 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Nab*** baru saja membeli Robux 200 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Kel*** baru saja membeli Robux 1000 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Zah*** baru saja membeli Robux 500 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>Rey*** baru saja membeli Robux 4500 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Din*** baru saja membeli Robux 800 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Aug*** baru saja membeli Robux 200 🎯</div>
+    <div class="ticker-item"><span class="dot"></span>Tri*** baru saja membeli Robux 1000 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Nad*** baru saja membeli Robux 400 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Gio*** baru saja membeli Robux 2000 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Fen*** baru saja membeli Robux 200 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Han*** baru saja membeli Robux 1000 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Wal*** baru saja membeli Robux 500 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>Del*** baru saja membeli Robux 800 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Yan*** baru saja membeli Robux 400 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Okt*** baru saja membeli Robux 2000 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Sel*** baru saja membeli Robux 200 🎯</div>
+    <div class="ticker-item"><span class="dot"></span>Ari*** baru saja membeli Robux 1000 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Bag*** baru saja membeli Robux 400 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Mel*** baru saja membeli Robux 800 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Ren*** baru saja membeli Robux 500 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>Erl*** baru saja membeli Robux 200 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Wid*** baru saja membeli Robux 1000 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Chi*** baru saja membeli Robux 4500 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Fer*** baru saja membeli Robux 800 🎉</div>
+    <!-- duplikat untuk loop mulus -->
+    <div class="ticker-item"><span class="dot"></span>Bud*** baru saja membeli Robux 1700 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Al*** baru saja membeli Robux 400 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Si*** baru saja membeli Robux 800 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Don*** baru saja membeli Robux 2000 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Rak*** baru saja membeli Robux 400 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>May*** baru saja membeli Robux 1000 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Far*** baru saja membeli Robux 200 🎯</div>
+    <div class="ticker-item"><span class="dot"></span>Riz*** baru saja membeli Robux 500 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>And*** baru saja membeli Robux 1000 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Put*** baru saja membeli Robux 800 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Ind*** baru saja membeli Robux 400 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Haf*** baru saja membeli Robux 2200 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Nab*** baru saja membeli Robux 200 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Kel*** baru saja membeli Robux 1000 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Zah*** baru saja membeli Robux 500 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>Rey*** baru saja membeli Robux 4500 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Din*** baru saja membeli Robux 800 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Aug*** baru saja membeli Robux 200 🎯</div>
+    <div class="ticker-item"><span class="dot"></span>Tri*** baru saja membeli Robux 1000 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Nad*** baru saja membeli Robux 400 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Gio*** baru saja membeli Robux 2000 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Fen*** baru saja membeli Robux 200 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Han*** baru saja membeli Robux 1000 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Wal*** baru saja membeli Robux 500 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>Del*** baru saja membeli Robux 800 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Yan*** baru saja membeli Robux 400 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Okt*** baru saja membeli Robux 2000 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Sel*** baru saja membeli Robux 200 🎯</div>
+    <div class="ticker-item"><span class="dot"></span>Ari*** baru saja membeli Robux 1000 🎉</div>
+    <div class="ticker-item"><span class="dot"></span>Bag*** baru saja membeli Robux 400 💎</div>
+    <div class="ticker-item"><span class="dot"></span>Mel*** baru saja membeli Robux 800 🔥</div>
+    <div class="ticker-item"><span class="dot"></span>Ren*** baru saja membeli Robux 500 ✨</div>
+    <div class="ticker-item"><span class="dot"></span>Erl*** baru saja membeli Robux 200 🎮</div>
+    <div class="ticker-item"><span class="dot"></span>Wid*** baru saja membeli Robux 1000 ⚡</div>
+    <div class="ticker-item"><span class="dot"></span>Chi*** baru saja membeli Robux 4500 👑</div>
+    <div class="ticker-item"><span class="dot"></span>Fer*** baru saja membeli Robux 800 🎉</div>
   </div>
 </div>
 
-<div class="wrap">
-
-<!-- ══ HERO ═════════════════════════════════════════════════════ -->
-<div class="hero">
-  <div class="hero-top">
-    <div class="hero-icon">💎</div>
+<!-- ── HERO ─────────────────────────────────────────────── -->
+<div class="container fade">
+  <div class="hero-wrap">
     <div>
-      <div class="hero-badge">⚡ No.1 di Indonesia</div>
-      <div class="hero-title">Topup Robux Termurah</div>
-      <div class="hero-sub">Proses otomatis · Aman · Terpercaya sejak 2022</div>
-    </div>
-  </div>
-  <div class="hero-stats">
-    <div class="hs"><div class="hs-n">50K+</div><div class="hs-l">Transaksi</div></div>
-    <div class="hs"><div class="hs-n">4.9★</div><div class="hs-l">Rating</div></div>
-    <div class="hs"><div class="hs-n">&lt;5m</div><div class="hs-l">Proses</div></div>
-    <div class="hs"><div class="hs-n">24/7</div><div class="hs-l">Support</div></div>
-  </div>
-</div>
-
-<!-- ══ TRUST STRIP ══════════════════════════════════════════════ -->
-<div class="trust">
-  <div class="tc">✅ Anti Banned</div>
-  <div class="tc">🔒 Pembayaran Aman</div>
-  <div class="tc">⚡ Proses Instan</div>
-  <div class="tc">💬 CS 24/7</div>
-  <div class="tc">🎯 100% Berhasil</div>
-  <div class="tc">🏆 Terpercaya</div>
-</div>
-
-<!-- ══ TABS ══════════════════════════════════════════════════════ -->
-<div class="tabs">
-  <button class="tab on" id="t1" onclick="switchTab('p1')">💎 5 Hari</button>
-  <button class="tab" id="t2" onclick="switchTab('p2')">🔑 Via Login</button>
-  <button class="tab" id="t3" onclick="switchTab('p3')">👥 Komunitas</button>
-</div>
-
-<!-- ══ PANEL 5 HARI ══════════════════════════════════════════════ -->
-<div class="card" id="p1">
-  <div class="card-hd">
-    <h2>Topup Robux 5 Hari</h2>
-    <p>Via gamepass · Masuk dalam 5 hari kerja</p>
-  </div>
-  <div class="card-bd">
-    <div class="alert a-warn"><span class="ai">⚠️</span><div>Pembelian via <strong>gamepass/private server</strong> berisiko banned jika dalam jumlah besar. Penjual tidak bertanggung jawab atas konsekuensi pada akun.</div></div>
-    <div class="frow">
-      <label class="flbl">Username Roblox</label>
-      <div class="usearch">
-        <input class="fi" type="text" id="u5" placeholder="Masukkan username..." autocomplete="off" spellcheck="false">
-        <button class="btn-cek" id="bCek5">Cek</button>
-      </div>
-      <div class="fntf" id="n5"></div>
-      <div class="skel" id="sk5"><div class="sk-av"></div><div class="sk-ln"><div class="sk-l"></div><div class="sk-l"></div></div></div>
-      <div class="ucard" id="uc5">
-        <img id="av5" src="" alt="">
-        <div class="ucard-info">
-          <div class="ucard-name" id="un5">—</div>
-          <div class="ucard-id" id="ui5">—</div>
-          <div class="ucard-badge">✓ Akun Terverifikasi</div>
+      <div class="hero-badge">🔥 DexBlox — Top Up Terpercaya!</div>
+      <h1>Top Up <span class="hl">Robux</span><br>Murah &amp; Aman</h1>
+      <p>DexBlox adalah tempat Top Up Robux Roblox murah, gamepass dengan proses serba otomatis. Setiap pembelian dilindungi garansi DexSecure.</p>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="val">⭐ 4.9</div>
+          <div class="lbl">Rating</div>
+        </div>
+        <div class="hero-stat">
+          <div class="val">34.800+</div>
+          <div class="lbl">Ulasan</div>
+        </div>
+        <div class="hero-stat">
+          <div class="val">10.000.000+</div>
+          <div class="lbl">Item Terjual</div>
         </div>
       </div>
     </div>
-    <div class="harga-box">
-      <div>
-        <div style="font-size:.63rem;color:#92400E;font-weight:600;margin-bottom:2px">Harga Hari Ini</div>
-        <div class="harga-num">Rp <span id="hrgNum" data-h="13000">13.000</span><small>= 100 Robux</small></div>
-      </div>
-      <div class="harga-tag">Live Update</div>
+    <div class="rating-card pulse">
+      <div class="stars">★★★★★</div>
+      <div class="score">4.9</div>
+      <div class="sub">Penilaian</div>
     </div>
-    <div class="slbl">Pilih Paket</div>
-    <div class="pgrid" id="g5">
-      <div class="pcard" data-v="100"><div class="pcard-rbx">100 Robux</div><div class="pcard-price">Rp 13.000</div></div>
-      <div class="pcard" data-v="200"><div class="pcard-rbx">200 Robux</div><div class="pcard-price">Rp 26.000</div></div>
-      <div class="pcard" data-v="500"><div class="pcard-rbx">500 Robux</div><div class="pcard-price">Rp 65.000</div><div class="hot-tag">Populer</div></div>
-      <div class="pcard" data-v="1000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 130.000</div></div>
-    </div>
-    <div class="fntf" id="nPkt"></div>
-    <div class="frow" style="margin-top:12px">
-      <label class="flbl">Custom Jumlah Robux</label>
-      <input class="fi" type="number" id="cust" placeholder="Min. 100 Robux" min="100">
-      <div class="fhint">Harga dihitung otomatis berdasarkan kurs hari ini</div>
-    </div>
-    <div class="sel-box" id="sel5" data-value="" data-harga=""><div class="sel-lbl">Rincian Paket Dipilih</div><div class="sel-val" id="selVal5">— Pilih paket di atas —</div></div>
-    <div class="frow" style="margin-top:12px">
-      <label class="flbl">Kode Promo <span style="font-size:.6rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)">(opsional)</span></label>
-      <div class="promo-row">
-        <input class="fi" type="text" id="promoInp" placeholder="Masukkan kode promo">
-        <button class="btn-promo" id="bPromo">Pakai</button>
-      </div>
-      <div class="fntf" id="nPromo"></div>
-    </div>
-    <button class="btn-go" id="bGo5">⚡ Lanjutkan Pembayaran</button>
   </div>
 </div>
 
-<!-- ══ PANEL LOGIN ════════════════════════════════════════════════ -->
-<div class="card hidden" id="p2">
-  <div class="card-hd">
-    <h2>Topup Via Login</h2>
-    <p>Robux langsung masuk ke akun · Tanpa menunggu</p>
-  </div>
-  <div class="card-bd">
-    <div class="alert a-info"><span class="ai">ℹ️</span><div>Lakukan <strong>pembayaran terlebih dahulu</strong> via QRIS. Setelah konfirmasi, data akun akan dikirim ke admin via WhatsApp untuk diproses segera.</div></div>
+<div class="divider"></div>
 
-    <!-- USERNAME + PASSWORD BERDEKATAN -->
-    <div class="frow">
-      <label class="flbl">Username Roblox</label>
-      <div class="usearch">
-        <input class="fi" type="text" id="uL" placeholder="Masukkan username..." autocomplete="off" spellcheck="false">
-        <button class="btn-cek" id="bCekL">Cek</button>
-      </div>
-      <div class="fntf" id="nL"></div>
-      <div class="skel" id="skL"><div class="sk-av"></div><div class="sk-ln"><div class="sk-l"></div><div class="sk-l"></div></div></div>
-      <div class="ucard" id="ucL">
-        <img id="avL" src="" alt="">
-        <div class="ucard-info">
-          <div class="ucard-name" id="unL">—</div>
-          <div class="ucard-id" id="uiL">—</div>
-          <div class="ucard-badge">✓ Akun Terverifikasi</div>
+<div class="divider"></div>
+
+<!-- ── PRODUK ────────────────────────────────────────────── -->
+<div class="container section fade d2">
+  <div class="section-row">
+    <div>
+      <div class="section-title">Yuk, Jadi Top Rank!</div>
+      <div class="section-sub">Borong Robux, Jadi Nomor Satu!</div>
+    </div>
+    <a href="#" class="view-all">Lihat Semua →</a>
+  </div>
+
+  <!-- Banner Oranye -->
+  <div class="robux-banner">
+    <div class="robux-title">Top Up Robux Murah!</div>
+    <div class="robux-sub">Mulai Dari Rp108/Rbx. Termurah se-Universe!</div>
+    <div class="trust-row">
+      <div class="trust-chip light">🛡️ &nbsp;<span>GARANSI 100%<br>AKUN AMAN</span></div>
+      <div class="trust-chip dark">✅ &nbsp;<span>ROBUX<br>PASTI MASUK</span></div>
+    </div>
+    <div class="type-cards">
+      <div class="type-card" onclick="openModalFromBanner('slow')">
+        <div class="type-inner" id="type-slow">
+          <div class="flash-badge">Sedang Flashsale!</div>
+          <div class="type-top">
+            <div class="type-ico ico-a">⏳</div>
+            <div class="type-info">
+              <div class="type-name">Robux 5-7 Hari</div>
+              <div class="type-desc">Hemat dompet dan Min Dex rekomendasikan!</div>
+              <!-- INFO HARGA -->
+              <div style="margin-top:7px;">
+                <span style="background:#fff;color:var(--primary-dark);font-size:0.72rem;font-weight:800;padding:4px 11px;border-radius:50px;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);">💰 100 Robux = Rp 13.000</span>
+              </div>
+            </div>
+            <div class="type-arrow">›</div>
+          </div>
+          <div class="type-foot foot-a">
+            <span class="foot-label">Sangat ideal untuk:</span>
+            <span>Hemat maksimal 🔥</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="frow">
-      <label class="flbl">Password Roblox</label>
-      <input class="fi" id="passL" type="password" placeholder="Masukkan password akun Roblox" autocomplete="new-password">
-      <div class="fhint">🔒 Hanya dikirim ke admin · Tidak disimpan · Dihapus setelah selesai</div>
-    </div>
 
-    <!-- PAKET -->
-    <div class="slbl-accent">👑 Paket Premium</div>
-    <div class="pgrid" id="gLP">
-      <div class="pcard" data-t="premium" data-v="450" data-h="75000"><div class="pcard-rbx">450 Robux</div><div class="pcard-price">Rp 75.000</div></div>
-      <div class="pcard" data-t="premium" data-v="1000" data-h="150000"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 150.000</div><div class="hot-tag">Populer</div></div>
-      <div class="pcard" data-t="premium" data-v="2000" data-h="300000"><div class="pcard-rbx">2000 Robux</div><div class="pcard-price">Rp 300.000</div></div>
-      <div class="pcard" data-t="premium" data-v="3000" data-h="450000"><div class="pcard-rbx">3000 Robux</div><div class="pcard-price">Rp 450.000</div></div>
+      <div class="type-card" onclick="openModalFromBanner('fast')">
+        <div class="type-inner" id="type-fast">
+          <div class="type-top">
+            <div class="type-ico ico-b">⚡</div>
+            <div class="type-info">
+              <div class="type-name">Langsung Masuk</div>
+              <div class="type-desc">Tidak pake tunggu, bakal diproses kilat!</div>
+              <!-- INFO HARGA -->
+              <div style="margin-top:7px;">
+                <span style="background:#fff;color:var(--primary-dark);font-size:0.72rem;font-weight:800;padding:4px 11px;border-radius:50px;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);">💰 80 Robux = Rp 15.000</span>
+              </div>
+            </div>
+            <div class="type-arrow">›</div>
+          </div>
+          <div class="type-foot foot-b">
+            <span class="foot-label">Sangat ideal untuk:</span>
+            <span>Yang butuh cepat</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- KOMUNITAS — Coming Soon -->
+      <div class="type-card" style="cursor:default;">
+        <div class="type-inner" style="opacity:0.72;">
+          <div style="position:absolute;top:-1px;right:16px;background:linear-gradient(135deg,#6b7280,#4b5563);color:#fff;font-size:0.73rem;font-weight:800;padding:0.3rem 0.85rem;border-radius:0 0 10px 10px;box-shadow:0 4px 10px rgba(0,0,0,0.15);">Segera Hadir</div>
+          <div class="type-top">
+            <div class="type-ico" style="background:#f1f5f9;">👥</div>
+            <div class="type-info">
+              <div class="type-name">Komunitas</div>
+              <div class="type-desc">Fitur komunitas sedang disiapkan untukmu!</div>
+              <div style="margin-top:6px;">
+                <span style="background:#f1f5f9;border:1px solid var(--border);color:var(--text-muted);font-size:0.65rem;font-weight:800;padding:2px 8px;border-radius:50px;">🚧 Coming Soon</span>
+              </div>
+            </div>
+            <div class="type-arrow" style="opacity:0.35;">›</div>
+          </div>
+          <div class="type-foot" style="background:#e2e8f0;">
+            <span class="foot-label" style="opacity:0.7;">Segera hadir:</span>
+            <span style="color:#64748b;">Fitur baru 🎮</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- GIFT CARD — Coming Soon -->
+      <div class="type-card" style="cursor:default;">
+        <div class="type-inner" style="opacity:0.72;">
+          <div style="position:absolute;top:-1px;right:16px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:#fff;font-size:0.73rem;font-weight:800;padding:0.3rem 0.85rem;border-radius:0 0 10px 10px;box-shadow:0 4px 10px rgba(109,40,217,0.3);">Segera Hadir</div>
+          <div class="type-top">
+            <div class="type-ico" style="background:#f5f3ff;">🎁</div>
+            <div class="type-info">
+              <div class="type-name">Gift Card</div>
+              <div class="type-desc">Kirim Robux ke teman sebagai hadiah spesial!</div>
+              <div style="margin-top:6px;">
+                <span style="background:#f5f3ff;border:1px solid #ddd6fe;color:#7c3aed;font-size:0.65rem;font-weight:800;padding:2px 8px;border-radius:50px;">🎀 Coming Soon</span>
+              </div>
+            </div>
+            <div class="type-arrow" style="opacity:0.35;">›</div>
+          </div>
+          <div class="type-foot" style="background:#ede9fe;">
+            <span class="foot-label" style="opacity:0.7;color:#7c3aed;">Segera hadir:</span>
+            <span style="color:#7c3aed;">Hadiah untuk temanmu 🎁</span>
+          </div>
+        </div>
+      </div>
+
     </div>
-    <div class="slbl-accent">💎 Paket Robux Biasa</div>
-    <div class="pgrid" id="gLR">
-      <div class="pcard" data-t="robux" data-v="80" data-h="15000"><div class="pcard-rbx">80 Robux</div><div class="pcard-price">Rp 15.000</div></div>
-      <div class="pcard" data-t="robux" data-v="160" data-h="30000"><div class="pcard-rbx">160 Robux</div><div class="pcard-price">Rp 30.000</div></div>
-      <div class="pcard" data-t="robux" data-v="240" data-h="45000"><div class="pcard-rbx">240 Robux</div><div class="pcard-price">Rp 45.000</div></div>
-      <div class="pcard" data-t="robux" data-v="500" data-h="93750"><div class="pcard-rbx">500 Robux</div><div class="pcard-price">Rp 93.750</div><div class="hot-tag">Populer</div></div>
-      <div class="pcard" data-t="robux" data-v="800" data-h="150000"><div class="pcard-rbx">800 Robux</div><div class="pcard-price">Rp 150.000</div></div>
-      <div class="pcard" data-t="robux" data-v="1000" data-h="187500"><div class="pcard-rbx">1000 Robux</div><div class="pcard-price">Rp 187.500</div></div>
+  </div>
+
+</div>
+
+<!-- ── TOP RANK ──────────────────────────────────────────── -->
+<div class="container rank-section">
+  <div class="section-row">
+    <div>
+      <div class="section-title">🏆 Yuk, Jadi Top Rank!</div>
+      <div class="section-sub">Borong Robux, Jadi Nomor Satu!</div>
     </div>
-    <div class="sel-box" id="selL" style="margin-top:9px" data-value="" data-harga=""><div class="sel-lbl">Rincian Paket Dipilih</div><div class="sel-val" id="selValL">— Pilih paket di atas —</div></div>
-    <button class="btn-go" id="bGoL" style="margin-top:12px">⚡ Lanjutkan Pembayaran</button>
+  </div>
+  <div class="rank-grid" id="rankGrid">
+    <!-- Diisi oleh JS -->
+  </div>
+  <button class="rank-btn" onclick="toggleRankAll()">Lihat Semua (10) →</button>
+</div>
+
+<div class="divider"></div>
+
+>
+
+<div class="divider"></div>
+
+<!-- ── PROMO CAROUSEL ────────────────────────────────────── -->
+<div class="container" style="padding-top:1.5rem;">
+  <div class="section-title">Promo dan Penawaran</div>
+</div>
+<div class="carousel-wrap">
+  <div class="carousel-track">
+    <div class="carousel-item" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1d4ed8;padding:1rem 1.5rem;">🔥 Diskon s.d 50%<br><small style="font-weight:600;opacity:.6">Khusus weekend</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#faf5ff,#ede9fe);color:#7c3aed;padding:1rem 1.5rem;">💎 Robux Premium<br><small style="font-weight:600;opacity:.6">Langsung masuk</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#15803d;padding:1rem 1.5rem;">✅ Garansi DexSecure<br><small style="font-weight:600;opacity:.6">Transaksi aman</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#fff7ed,#ffedd5);color:#c2410c;padding:1rem 1.5rem;">⚡ Proses Kilat<br><small style="font-weight:600;opacity:.6">Tidak perlu tunggu</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1d4ed8;padding:1rem 1.5rem;">🎮 10 Juta+ Item Terjual<br><small style="font-weight:600;opacity:.6">Dipercaya gamers</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);color:#be123c;padding:1rem 1.5rem;">🎉 Event Spesial<br><small style="font-weight:600;opacity:.6">Cek sekarang!</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#15803d;padding:1rem 1.5rem;">📱 Bayar Mudah<br><small style="font-weight:600;opacity:.6">DANA, OVO, GoPay</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1d4ed8;padding:1rem 1.5rem;">🔥 Diskon s.d 50%<br><small style="font-weight:600;opacity:.6">Khusus weekend</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#faf5ff,#ede9fe);color:#7c3aed;padding:1rem 1.5rem;">💎 Robux Premium<br><small style="font-weight:600;opacity:.6">Langsung masuk</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#15803d;padding:1rem 1.5rem;">✅ Garansi DexSecure<br><small style="font-weight:600;opacity:.6">Transaksi aman</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#fff7ed,#ffedd5);color:#c2410c;padding:1rem 1.5rem;">⚡ Proses Kilat<br><small style="font-weight:600;opacity:.6">Tidak perlu tunggu</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#eff6ff,#dbeafe);color:#1d4ed8;padding:1rem 1.5rem;">🎮 10 Juta+ Item Terjual<br><small style="font-weight:600;opacity:.6">Dipercaya gamers</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#fff1f2,#ffe4e6);color:#be123c;padding:1rem 1.5rem;">🎉 Event Spesial<br><small style="font-weight:600;opacity:.6">Cek sekarang!</small></div>
+    <div class="carousel-item" style="background:linear-gradient(135deg,#f0fdf4,#dcfce7);color:#15803d;padding:1rem 1.5rem;">📱 Bayar Mudah<br><small style="font-weight:600;opacity:.6">DANA, OVO, GoPay</small></div>
   </div>
 </div>
 
-<!-- ══ PANEL KOMUNITAS ═══════════════════════════════════════════ -->
-<div class="card hidden" id="p3">
-  <div class="card-bd" style="text-align:center;padding:44px 20px">
-    <div style="font-size:2.2rem;margin-bottom:11px">🚧</div>
-    <div style="font-size:.9rem;font-weight:800;color:var(--O);letter-spacing:.5px;margin-bottom:6px">Coming Soon</div>
-    <p style="color:var(--dim);font-size:.8rem">Fitur ini sedang dalam pengembangan.</p>
+<div class="divider"></div>
+
+<div class="container section fade d3">
+  <div class="section-row">
+    <div>
+      <div class="section-title">Item yang Diburu Gamers!</div>
+      <div class="section-sub">Sikat Abis Item Keren di Katalog Game Ini!</div>
+    </div>
+    <a href="#" class="view-all">Lihat Semua →</a>
+  </div>
+  <div class="game-grid">
+    <div class="game-card">
+      <div class="game-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
+        <span style="position:relative;z-index:1;">🍎</span>
+        <div class="game-overlay"></div>
+        <div class="badge-hot">HOT</div>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Blox Fruit</div>
+        <div class="game-status">🕒 Segera Hadir</div>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-img" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);">
+        <span style="position:relative;z-index:1;">🌱</span>
+        <div class="game-overlay"></div>
+        <div class="badge-hot">HOT</div>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Grow A Garden</div>
+        <div class="game-status">🕒 Segera Hadir</div>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">
+        <span style="position:relative;z-index:1;">🐟</span>
+        <div class="game-overlay"></div>
+        <div class="badge-hot">HOT</div>
+        <div class="badge-trend">TRENDING #1</div>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Fish It!</div>
+        <div class="game-status">🕒 Segera Hadir</div>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-img" style="background:linear-gradient(135deg,#ffe4e6,#fecdd3);">
+        <span style="position:relative;z-index:1;">🔪</span>
+        <div class="game-overlay"></div>
+        <div class="badge-hot">HOT</div>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Murder Mystery</div>
+        <div class="game-status">🕒 Segera Hadir</div>
+      </div>
+    </div>
+    <div class="game-card">
+      <div class="game-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">
+        <span style="position:relative;z-index:1;">⚔️</span>
+        <div class="game-overlay"></div>
+        <div class="badge-hot">HOT</div>
+      </div>
+      <div class="game-info">
+        <div class="game-name">Rivals</div>
+        <div class="game-status">🕒 Segera Hadir</div>
+      </div>
+    </div>
+  </div>
+  <div class="coming-box">
+    <div class="emo">🎮</div>
+    <h3>Item Menarik Akan Segera Hadir!</h3>
+    <p>Bersiaplah! Item keren dari game favoritmu sedang disiapkan untuk petualangan baru.</p>
   </div>
 </div>
 
-<!-- ══ TOP RANK ══════════════════════════════════════════════════ -->
-<div class="rank-card">
-  <div class="rank-hd">
-    <h3>🏆 Top Pembeli DEXBLOX</h3>
-    <p>Pelanggan terbaik bulan ini</p>
-  </div>
-  <div class="rank-list" id="rankList"></div>
-</div>
-
-<!-- ══ REVIEWS ═══════════════════════════════════════════════════ -->
-<div class="rev-wrap">
-  <div class="rev-header">
-    <h3>⭐ Ulasan Pelanggan</h3>
-    <span>50.000+ puas</span>
-  </div>
-  <div class="rev-outer">
-    <div class="rev-track" id="revTrack"></div>
-  </div>
-</div>
-
-</div><!-- /wrap -->
-
+<!-- ── FOOTER ────────────────────────────────────────────── -->
 <footer>
-  <div class="f-logo">DEX<em>BLOX</em></div>
-  <p>© <span id="yr"></span> DEXBLOX · Bukan afiliasi resmi Roblox Corporation</p>
+  <div class="footer-top">
+
+    <!-- Brand -->
+    <div>
+      <div class="footer-logo-wrap">
+        <div class="footer-logo-icon">🎮</div>
+        <div class="footer-logo-name">dexblox</div>
+      </div>
+      <p class="footer-desc">
+        DexBlox adalah tempat Top Up Robux Roblox murah, gamepass dengan proses serba otomatis.
+        Setiap pembelian dilindungi garansi <a href="#">DexSecure</a>.
+      </p>
+      <div class="pay-label">Pembayaran</div>
+      <div class="pay-chips">
+        <div class="pay-chip">💳 DANA</div>
+        <div class="pay-chip">💚 GoPay</div>
+        <div class="pay-chip">💜 OVO</div>
+        <div class="pay-chip">🏦 Bank</div>
+        <div class="pay-chip">📱 QRIS</div>
+      </div>
+    </div>
+
+    <!-- Bantuan & Keluhan -->
+    <div class="footer-col">
+      <h4>Bantuan &amp; Keluhan</h4>
+      <ul>
+        <li><a href="#">Whatsapp</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Sosial Media</a></li>
+      </ul>
+    </div>
+
+    <!-- Beli & Tentang Kami -->
+    <div class="footer-col">
+      <h4>Beli</h4>
+      <ul>
+        <li><a href="#">Robux</a></li>
+      </ul>
+      <h4 style="margin-top:1.75rem;">Tentang Kami</h4>
+      <ul>
+        <li><a href="#">Pusat Bantuan</a></li>
+        <li><a href="#">Kebijakan Privasi</a></li>
+        <li><a href="#">Syarat dan Ketentuan</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
+    </div>
+
+    <!-- Ikuti Kami -->
+    <div class="footer-col">
+      <h4>Ikuti Kami</h4>
+      <div class="social-icons">
+        <a href="#" class="social-ico" title="YouTube">▶️</a>
+        <a href="#" class="social-ico" title="Instagram">📷</a>
+        <a href="#" class="social-ico" title="Discord">💬</a>
+        <a href="#" class="social-ico" title="WhatsApp">📞</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 DexBlox - PT Digital Dex Indonesia. All Rights Reserved</p>
+    <a href="#" class="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">↑ Kembali Ke Atas</a>
+  </div>
 </footer>
 
-<button id="fab" title="Admin Panel">⚙️</button>
-<div class="toast" id="toast"></div>
+<!-- ── MOBILE NAV ─────────────────────────────────────────── -->
+<div class="mob-nav">
+  <div class="mob-inner">
+    <a href="#" class="mob-item active"><span class="ico">🏠</span>Beranda</a>
+    <a href="#" class="mob-item"><span class="ico">⚡</span>Top Up</a>
+    <a href="#" class="mob-item" onclick="openCekPesanan();return false;"><span class="ico">📦</span>Pesanan</a>
+    <a href="#" class="mob-item" onclick="openAdminModal();return false;"><span class="ico">⚙️</span>Admin</a>
+  </div>
+</div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     MODAL: KONFIRMASI PEMBAYARAN
-══════════════════════════════════════════════════════════════ -->
-<div class="modal" id="payModal">
-  <div class="mbackdrop" onclick="closePay()"></div>
-  <div class="msheet">
-    <div class="mhandle"></div>
-    <div class="mhd">
-      <h3>🧾 Konfirmasi Pembayaran</h3>
-      <button class="btn-x" onclick="closePay()">✕</button>
+<!-- ── MODAL UTAMA (sheet style) ─────────────────────────────── -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+
+    <!-- Header -->
+    <div class="modal-head">
+      <div>
+        <div class="modal-head-title" id="modalTitle">Top Up Robux</div>
+        <div class="modal-head-sub"   id="modalSub">Pilih metode top up</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
-    <div class="mbody">
-      <div class="oid-box">
-        <div class="oid-lbl">ID Pesanan</div>
-        <div class="oid-code" id="mOid">DBX-XXXXXXX</div>
-        <button class="btn-copy" onclick="copyOid()">📋 Salin ID</button>
+
+    <!-- Steps -->
+    <div class="modal-steps" id="stepsBar">
+      <div class="step-dot">
+        <div class="sdot active" id="sd1">1</div>
+        <div class="slbl active" id="sl1">Akun</div>
       </div>
-      <div class="osum">
-        <div class="osum-row"><span class="ok">Username</span><span class="ov" id="mUser">—</span></div>
-        <div class="osum-row"><span class="ok">Paket</span><span class="ov blue" id="mPaket">—</span></div>
-        <div class="osum-row"><span class="ok">Jenis</span><span class="ov" id="mJenis">—</span></div>
-        <div class="osum-row"><span class="ok">Harga Paket</span><span class="ov" id="mHarga">—</span></div>
-        <div class="osum-row"><span class="ok">Biaya Admin QRIS</span><span class="ov fee">+ Rp 200</span></div>
-        <div class="osum-row"><span class="ok" style="font-weight:700;color:var(--P)">Total Bayar</span><span class="ov total" id="mTotal">—</span></div>
+      <div class="step-line" id="line1"></div>
+      <div class="step-dot">
+        <div class="sdot" id="sd2">2</div>
+        <div class="slbl" id="sl2">Paket</div>
       </div>
-      <div class="qsec">
-        <h4>📱 Scan QRIS untuk membayar</h4>
-        <div class="qframe">
-          <img id="qrImg" src="qris.png" alt="QRIS" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22166%22 height=%22166%22%3E%3Crect width=%22166%22 height=%22166%22 fill=%22%23f1f5f9%22 rx=%228%22/%3E%3Ctext x=%2283%22 y=%2276%22 font-size=%2210%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EQRIS tidak tersedia%3C/text%3E%3Ctext x=%2283%22 y=%2293%22 font-size=%2210%22 text-anchor=%22middle%22 fill=%22%2294a3b8%22%3EUpload file qris.png%3C/text%3E%3C/svg%3E'">
+      <div class="step-line" id="line2"></div>
+      <div class="step-dot">
+        <div class="sdot" id="sd3">3</div>
+        <div class="slbl" id="sl3">Bayar</div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- ── STEP 1A: 5-7 Hari — Username ── -->
+      <div class="step-panel active" id="panel1">
+
+        <!-- Panel Slow: username only -->
+        <div id="pnlSlow">
+          <div class="inp-group">
+            <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#78350f;margin-bottom:1rem;line-height:1.55;">
+              ⚠️ Pembelian via <strong>gamepass</strong>. Robux masuk dalam <strong>5–7 hari kerja</strong>.
+            </div>
+            <label class="inp-label">Username Roblox</label>
+            <div style="display:flex;gap:8px;">
+              <input class="inp-field" id="u5" type="text" placeholder="Masukkan username..." autocomplete="off" spellcheck="false" style="flex:1;" oninput="onU5Input()" />
+              <button style="background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;flex-shrink:0;" onclick="doCheck5()">Cek</button>
+            </div>
+            <div class="inp-hint" id="n5" style="margin-top:4px;min-height:16px;"></div>
+          </div>
+          <!-- Skeleton -->
+          <div id="sk5" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;flex-shrink:0;"></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;margin-bottom:7px;"></div><div style="height:9px;width:55%;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;"></div></div>
+          </div>
+          <!-- User card -->
+          <div id="uc5" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;">
+            <img id="av5" src="" alt="" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--primary);object-fit:cover;flex-shrink:0;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22%3E%3Ccircle cx=%2224%22 cy=%2224%22 r=%2224%22 fill=%22%23fed7aa%22/%3E%3Ctext x=%2224%22 y=%2230%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22%23ea580c%22%3E🎮%3C/text%3E%3C/svg%3E'" />
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:800;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="un5">—</div>
+              <div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;" id="ui5">—</div>
+              <div style="display:inline-flex;align-items:center;gap:3px;background:#f0fdf4;color:#16a34a;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:50px;margin-top:4px;">✓ Akun Terverifikasi</div>
+            </div>
+          </div>
+          <button class="mbtn" id="btnSlow1" onclick="goStepSlow(2)" disabled>Lanjut Pilih Paket →</button>
         </div>
-        <div class="qapps">
-          <span class="qapp">GoPay</span><span class="qapp">OVO</span>
-          <span class="qapp">DANA</span><span class="qapp">ShopeePay</span><span class="qapp">m-BCA</span>
+
+        <!-- Panel Fast: username + password -->
+        <div id="pnlFast" style="display:none;">
+          <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;margin-bottom:1rem;line-height:1.55;">
+            ℹ️ Robux <strong>langsung masuk</strong> setelah pembayaran dikonfirmasi. Data akun dikirim ke admin via WhatsApp.
+          </div>
+          <div class="inp-group">
+            <label class="inp-label">Username Roblox</label>
+            <div style="display:flex;gap:8px;">
+              <input class="inp-field" id="uL" type="text" placeholder="Masukkan username..." autocomplete="off" spellcheck="false" style="flex:1;" oninput="onULInput()" />
+              <button style="background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;flex-shrink:0;" onclick="doCheckL()">Cek</button>
+            </div>
+            <div class="inp-hint" id="nL" style="margin-top:4px;min-height:16px;"></div>
+          </div>
+          <!-- Skeleton L -->
+          <div id="skL" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;flex-shrink:0;"></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;margin-bottom:7px;"></div><div style="height:9px;width:55%;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;"></div></div>
+          </div>
+          <!-- User card L -->
+          <div id="ucL" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;">
+            <img id="avL" src="" alt="" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--primary);object-fit:cover;flex-shrink:0;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22%3E%3Ccircle cx=%2224%22 cy=%2224%22 r=%2224%22 fill=%22%23fed7aa%22/%3E%3Ctext x=%2224%22 y=%2230%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22%23ea580c%22%3E🎮%3C/text%3E%3C/svg%3E'" />
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:800;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="unL">—</div>
+              <div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;" id="uiL">—</div>
+              <div style="display:inline-flex;align-items:center;gap:3px;background:#f0fdf4;color:#16a34a;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:50px;margin-top:4px;">✓ Akun Terverifikasi</div>
+            </div>
+          </div>
+          <div class="inp-group">
+            <label class="inp-label">Password Roblox</label>
+            <input class="inp-field" id="passL" type="password" placeholder="Masukkan password akun Roblox" autocomplete="new-password" oninput="onPassLInput()" style="-webkit-user-select:text;user-select:text;" />
+            <div class="inp-hint">🔒 Hanya dikirim ke admin · Tidak disimpan · Dihapus setelah selesai</div>
+          </div>
+          <button class="mbtn" id="btnFast1" onclick="goStepFast(2)" disabled>Lanjut Pilih Paket →</button>
+        </div>
+
+      </div>
+
+      <!-- ── STEP 2: Pilih Paket ── -->
+      <div class="step-panel" id="panel2">
+        <div style="font-size:0.75rem;font-weight:700;color:var(--text-muted);margin-bottom:1rem;">
+          Tipe: <span id="typeLabel" style="color:var(--primary);font-weight:800;"></span>
+        </div>
+
+        <!-- Paket Slow -->
+        <div id="paketSlow">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Pilih Paket</div>
+          <div class="paket-list" id="paketListSlow"></div>
+          <div style="margin-top:1rem;">
+            <label class="inp-label">Custom Jumlah Robux <span style="font-size:0.65rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-muted);">(opsional)</span></label>
+            <input class="inp-field" type="number" id="custRobux" placeholder="Min. 100 Robux" min="100" oninput="onCustInput()" style="-webkit-user-select:text;user-select:text;" />
+            <div class="inp-hint">Harga dihitung otomatis: Rp 130/Robux</div>
+          </div>
+        </div>
+
+        <!-- Paket Fast -->
+        <div id="paketFast" style="display:none;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">👑 Paket Premium</div>
+          <div class="paket-list" id="paketListFastP"></div>
+          <div style="font-size:0.72rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin:12px 0 8px;">💎 Robux Biasa</div>
+          <div class="paket-list" id="paketListFastR"></div>
+        </div>
+
+        <div class="ringkasan" id="ringkasan" style="display:none;">
+          <span class="rlbl">Total Pembayaran</span>
+          <span class="rval" id="ringkasanVal">—</span>
+        </div>
+        <button class="mbtn" id="btnStep2" onclick="goToPay()" disabled>Bayar Sekarang →</button>
+        <button class="mbtn-back" onclick="goBackToStep1()">← Kembali</button>
+      </div>
+
+      <!-- ── STEP 3: QRIS + Upload Bukti ── -->
+      <div class="step-panel" id="panel3">
+        <!-- Order summary -->
+        <div class="qris-order" id="qrisOrder"></div>
+
+        <!-- QRIS box -->
+        <div class="qris-box">
+          <div class="qris-lbl">Scan QRIS untuk Membayar</div>
+          <div class="qris-amount" id="qrisAmount">Rp 0</div>
+          <div class="qframe">
+            <img id="qrImg" src="qris.png" alt="QRIS"
+              onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22166%22 height=%22166%22%3E%3Crect width=%22166%22 height=%22166%22 fill=%22%23f1f5f9%22 rx=%228%22/%3E%3Ctext x=%2283%22 y=%2272%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EQRIS belum tersedia%3C/text%3E%3Ctext x=%2283%22 y=%2290%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EUpload file qris.png%3C/text%3E%3Ctext x=%2283%22 y=%22108%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3Eke folder website%3C/text%3E%3C/svg%3E'">
+          </div>
+          <div class="qris-expire-row">⏱ Berlaku: <span class="qris-timer" id="qrisTimer">14:59</span></div>
+          <div class="qris-methods">
+            <div class="qris-meth">GoPay</div>
+            <div class="qris-meth">OVO</div>
+            <div class="qris-meth">DANA</div>
+            <div class="qris-meth">ShopeePay</div>
+            <div class="qris-meth">m-BCA</div>
+          </div>
+        </div>
+
+        <!-- Upload bukti -->
+        <div style="margin-top:1rem;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:5px;">
+            Bukti Pembayaran <span style="color:#ef4444;font-size:0.65rem;">* Wajib</span>
+          </div>
+          <label id="upZone" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2px dashed var(--border);border-radius:12px;padding:18px 16px;background:var(--bg);cursor:pointer;transition:all 0.2s;text-align:center;overflow:hidden;">
+            <input type="file" id="upFile" accept="image/png,image/jpeg,image/jpg" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleUp()" />
+            <div style="font-size:1.6rem;" id="upIco">🖼️</div>
+            <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);" id="upTitle">Klik atau seret foto bukti transfer</div>
+            <div style="font-size:0.68rem;color:var(--text-light);" id="upSub">Format JPG / PNG · Maks 5 MB</div>
+          </label>
+          <img id="upPrev" src="" alt="" style="display:none;width:100%;max-height:180px;object-fit:contain;border-radius:10px;margin-top:8px;border:1px solid var(--border);" />
+        </div>
+
+        <button class="mbtn" id="btnPay" onclick="konfirmBayar()">✅ Sudah Membayar</button>
+        <button class="mbtn-back" onclick="goStepUI(2)">← Kembali</button>
+      </div>
+
+      <!-- ── STEP 4: Sukses ── -->
+      <div class="step-panel" id="panel4">
+        <div class="success-wrap">
+          <div class="sico">🎉</div>
+          <div class="stit">Pembayaran Berhasil!</div>
+          <div class="ssub" id="successMsg">Pesanan kamu sedang diproses.</div>
+          <div class="sdet" id="successDetail"></div>
+          <button class="mbtn" onclick="closeModal()" style="margin-top:0.5rem;">Selesai 🚀</button>
         </div>
       </div>
-      <div class="due-box">
-        <div class="due-lbl">Jumlah yang harus dibayar</div>
-        <div class="due-amt" id="mDue">Rp —</div>
-        <div class="due-note">Sudah termasuk biaya admin QRIS Rp 200</div>
-      </div>
-      <!-- UPLOAD BUKTI -->
-      <div class="up-area">
-        <div class="up-lbl">Bukti Pembayaran <span class="up-req">* Wajib</span></div>
-        <label class="upzone" id="upZ">
-          <input type="file" id="upFile" accept="image/png,image/jpeg,image/jpg" onchange="handleUp(this,'upZ','upPrev','upIco','upTitle','upSub')">
-          <div class="up-ico" id="upIco">🖼️</div>
-          <div class="up-title" id="upTitle">Klik atau seret foto bukti transfer ke sini</div>
-          <div class="up-sub" id="upSub">Format JPG / PNG · Maks 5 MB</div>
-        </label>
-        <img class="up-preview" id="upPrev" src="" alt="">
-      </div>
-      <div class="act-row">
-        <button class="btn-ok" id="bPay">✅ Sudah Membayar</button>
-        <button class="btn-cancel" onclick="closePay()">Batal</button>
-      </div>
+
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     MODAL: DATA AKUN (setelah bayar — khusus via login)
-══════════════════════════════════════════════════════════════ -->
-<div class="modal" id="ldModal">
-  <div class="mbackdrop" onclick="closeLd()"></div>
-  <div class="msheet">
-    <div class="mhandle"></div>
-    <div class="mhd">
-      <h3>🔑 Data Akun Roblox</h3>
-      <button class="btn-x" onclick="closeLd()">✕</button>
-    </div>
-    <div class="mbody">
-      <div class="alert a-suc"><span class="ai">✅</span><div>Pembayaran dikonfirmasi! Masukkan data akun Roblox untuk dikirim ke admin via WhatsApp agar segera diproses.</div></div>
-      <div class="oid-box" style="margin-bottom:14px">
-        <div class="oid-lbl">ID Pesanan Anda</div>
-        <div class="oid-code" id="ldOid">—</div>
-      </div>
-      <div class="frow">
-        <label class="flbl">Username Roblox</label>
-        <input class="fi" id="ldUser" type="text" readonly style="background:var(--bg2);color:var(--sub)">
-      </div>
-      <div class="frow">
-        <label class="flbl">Password Roblox</label>
-        <input class="fi" id="ldPass" type="password" placeholder="Password akun Roblox kamu" autocomplete="new-password">
-        <div class="fhint">🔒 Hanya dikirim ke admin · Tidak disimpan · Dihapus setelah selesai</div>
-      </div>
-      <button class="btn-go green" id="bSendLd">📲 Kirim ke Admin via WhatsApp</button>
-    </div>
-  </div>
-</div>
+<!-- Toast -->
+<div id="toastEl" style="position:fixed;bottom:22px;left:50%;z-index:9999;transform:translateX(-50%) translateY(70px);background:#1e293b;color:#fff;padding:10px 20px;border-radius:50px;font-size:0.78rem;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,0.2);transition:transform .28s cubic-bezier(.34,1.56,.64,1);pointer-events:none;white-space:nowrap;"></div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     MODAL: CEK PESANAN
-══════════════════════════════════════════════════════════════ -->
-<div class="modal" id="trackModal">
-  <div class="mbackdrop" onclick="closeTrack()"></div>
-  <div class="msheet">
-    <div class="mhandle"></div>
-    <div class="mhd">
-      <h3>📦 Lacak Pesanan</h3>
-      <button class="btn-x" onclick="closeTrack()">✕</button>
+<style>
+@keyframes skAnim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+</style>
+
+<script>
+/* ── CONFIG ──────────────────────────────────────────── */
+const WA_NUM = '6285362187740';
+const FEE    = 200;
+const HARGA_PER_100 = 13000; // Rp per 100 Robux
+
+/* ── DATA PAKET ──────────────────────────────────────── */
+const paketSlow = [
+  { rbx:100,  harga:13000,  gp:143   },
+  { rbx:200,  harga:26000,  gp:286   },
+  { rbx:400,  harga:52000,  gp:572   },
+  { rbx:500,  harga:65000,  gp:715,  hot:'Populer' },
+  { rbx:800,  harga:104000, gp:1144  },
+  { rbx:1000, harga:130000, gp:1430  },
+  { rbx:2200, harga:286000, gp:3146, hot:'Hemat' },
+  { rbx:4500, harga:585000, gp:6435  },
+];
+const paketFastPremium = [
+  { rbx:450,  harga:75000 },
+  { rbx:1000, harga:150000, hot:'Populer' },
+  { rbx:2000, harga:300000 },
+  { rbx:3000, harga:450000 },
+];
+const paketFastRobux = [
+  { rbx:80,   harga:15000 },
+  { rbx:160,  harga:30000 },
+  { rbx:240,  harga:45000 },
+  { rbx:500,  harga:93750,  hot:'Populer' },
+  { rbx:800,  harga:150000 },
+  { rbx:1000, harga:187500 },
+];
+
+/* ── STATE ───────────────────────────────────────────── */
+let activeType    = 'slow';
+let selectedPaket = null; // { rbx, harga, label }
+let timerInterval = null;
+let timerSecs     = 899;
+let avSrc5 = '', avSrcL = '';
+let currentOid   = '';
+
+const rp  = n => 'Rp ' + n.toLocaleString('id-ID');
+const $   = id => document.getElementById(id);
+const genOid = () => { const c='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; let s='DBX-'; for(let i=0;i<7;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; };
+
+/* ── TOAST ───────────────────────────────────────────── */
+function toast(msg, d=3000) {
+  const el = $('toastEl');
+  el.textContent = msg;
+  el.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.style.transform = 'translateX(-50%) translateY(70px)', d);
+}
+
+/* ── MODAL OPEN/CLOSE ────────────────────────────────── */
+function openModalFromBanner(type) {
+  activeType = type;
+  resetModal();
+  $('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  // Show correct panel
+  $('pnlSlow').style.display  = type === 'slow' ? 'block' : 'none';
+  $('pnlFast').style.display  = type === 'fast' ? 'block' : 'none';
+  $('typeLabel').textContent   = type === 'slow' ? '⏳ Robux 5-7 Hari' : '⚡ Langsung Masuk';
+  $('modalTitle').textContent  = type === 'slow' ? 'Robux 5-7 Hari' : 'Langsung Masuk';
+  $('modalSub').textContent    = type === 'slow' ? 'Cek username Roblox kamu' : 'Masukkan username & password';
+  setTimeout(() => (type === 'slow' ? $('u5') : $('uL')).focus(), 300);
+}
+
+function closeModal() {
+  $('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  stopTimer();
+}
+
+function handleOverlayClick(e) {
+  if (e.target === $('modalOverlay')) closeModal();
+}
+
+function resetModal() {
+  selectedPaket = null;
+  $('u5').value = ''; $('n5').textContent = ''; $('n5').style.color = '';
+  $('uc5').style.display = 'none'; $('sk5').style.display = 'none';
+  $('uL').value = ''; $('nL').textContent = ''; $('nL').style.color = '';
+  $('ucL').style.display = 'none'; $('skL').style.display = 'none';
+  $('passL').value = '';
+  $('btnSlow1').disabled = true;
+  $('btnFast1').disabled = true;
+  $('ringkasan').style.display = 'none';
+  $('btnStep2').disabled = true;
+  $('upFile').value = ''; $('upPrev').style.display = 'none'; $('upPrev').src = '';
+  $('upIco').textContent = '🖼️'; $('upTitle').textContent = 'Klik atau seret foto bukti transfer';
+  $('upSub').textContent = 'Format JPG / PNG · Maks 5 MB';
+  $('upZone').style.borderColor = '';
+  stopTimer();
+  goStepUI(1);
+}
+
+/* ── STEP UI ─────────────────────────────────────────── */
+function goStepUI(n) {
+  [1,2,3,4].forEach(i => $('panel'+i).classList.toggle('active', i===n));
+  for (let i=1; i<=3; i++) {
+    const dot = $('sd'+i), lbl = $('sl'+i);
+    dot.className = 'sdot' + (i<n?' done': i===n?' active':'');
+    lbl.className = 'slbl' + (i===n?' active':'');
+    dot.textContent = i<n ? '✓' : String(i);
+  }
+  for (let i=1; i<=2; i++) $('line'+i).className = 'step-line' + (i<n?' done':'');
+  $('modal').scrollTop = 0;
+}
+
+/* ── USERNAME CHECK ──────────────────────────────────── */
+function setNtf(id, msg, ok=false) {
+  const el = $(id); if (!el) return;
+  el.textContent = msg;
+  el.style.color = ok ? '#16a34a' : '#ef4444';
+  el.style.fontWeight = '700';
+  el.style.fontSize = '0.75rem';
+}
+
+async function doCheckUser(username, ntfId, skId, ucId, avId, nameId, uidId, cbSrc) {
+  $(skId).style.display = 'flex';
+  $(ucId).style.display = 'none';
+  setNtf(ntfId, '');
+  try {
+    const r = await fetch('/api/user', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username}) });
+    const d = await r.json();
+    $(skId).style.display = 'none';
+    if (r.ok) {
+      $(nameId).textContent = d.name;
+      $(uidId).textContent  = 'User ID: ' + d.userId;
+      try {
+        const ra = await fetch('/api/avatar?userId=' + d.userId);
+        const da = await ra.json();
+        if (ra.ok && da.avatarUrl) { $(avId).src = da.avatarUrl; if(cbSrc) cbSrc(da.avatarUrl); }
+      } catch(_) {}
+      $(ucId).style.display = 'flex';
+      setNtf(ntfId, '✅ Akun ditemukan: ' + d.name, true);
+    } else {
+      setNtf(ntfId, '❌ ' + (d.error || 'Username tidak ditemukan'));
+    }
+  } catch(e) {
+    $(skId).style.display = 'none';
+    // Fallback: simulasi found (untuk demo tanpa server)
+    const fakeName = username;
+    const fakeId   = Math.floor(1e7 + Math.random()*9e7);
+    $(nameId).textContent = fakeName;
+    $(uidId).textContent  = 'User ID: ' + fakeId;
+    $(ucId).style.display = 'flex';
+    setNtf(ntfId, '✅ Akun ditemukan: ' + fakeName, true);
+    if(cbSrc) cbSrc('');
+  }
+}
+
+// Slow auto
+let _t5; function onU5Input() {
+  const v = $('u5').value.trim();
+  $('uc5').style.display='none'; setNtf('n5',''); $('btnSlow1').disabled=true;
+  if(v.length<3) return;
+  clearTimeout(_t5);
+  _t5 = setTimeout(() => doCheck5(), 650);
+}
+function doCheck5() {
+  const v = $('u5').value.trim();
+  if (!v) { setNtf('n5','Masukkan username Roblox!'); return; }
+  doCheckUser(v,'n5','sk5','uc5','av5','un5','ui5', src => { avSrc5=src; $('btnSlow1').disabled=false; });
+}
+
+// Fast auto
+let _tL; function onULInput() {
+  const v = $('uL').value.trim();
+  $('ucL').style.display='none'; setNtf('nL',''); checkFastReady();
+  if(v.length<3) return;
+  clearTimeout(_tL);
+  _tL = setTimeout(() => doCheckL(), 650);
+}
+function doCheckL() {
+  const v = $('uL').value.trim();
+  if (!v) { setNtf('nL','Masukkan username Roblox!'); return; }
+  doCheckUser(v,'nL','skL','ucL','avL','unL','uiL', src => { avSrcL=src; checkFastReady(); });
+}
+function onPassLInput() { checkFastReady(); }
+function checkFastReady() {
+  const uOk = $('ucL').style.display === 'flex';
+  const pOk = $('passL').value.trim().length >= 3;
+  $('btnFast1').disabled = !(uOk && pOk);
+}
+
+/* ── PAKET ───────────────────────────────────────────── */
+function renderPaketList(listEl, items, mode) {
+  listEl.innerHTML = items.map((p, i) => `
+    <div class="paket-row ${mode==='slow'?'paket-row-slow':''}" data-idx="${i}" data-mode="${mode}" onclick="selectPaketRow(this, ${JSON.stringify(p).replace(/"/g,"'")}, '${mode}')">
+      <div class="pico">${p.rbx >= 2000 ? '👑' : p.rbx >= 500 ? '💎' : '💰'}</div>
+      <div class="pinf">
+        <div class="pnam">${mode==='premium' ? 'Premium ' : ''}${p.rbx} Robux</div>
+        ${mode === 'slow' ? `
+          <div style="display:inline-flex;align-items:center;gap:4px;background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:2px 7px;margin-top:4px;">
+            <span style="font-size:0.6rem;">🎮</span>
+            <span style="font-size:0.62rem;font-weight:800;color:#ea580c;">Gamepass #${(p.gp || Math.round(p.rbx*1.43)).toLocaleString('id-ID')}</span>
+          </div>
+        ` : ''}
+      </div>
+      <div style="text-align:right;flex-shrink:0;">
+        <div class="ppri">${rp(p.harga)}</div>
+        ${p.hot ? `<span class="pbdg b-hot">${p.hot}</span>` : ''}
+      </div>
+      <div class="prad"></div>
     </div>
-    <div class="mbody">
-      <div class="track-row">
-        <input class="fi" id="trackInp" placeholder="Contoh: DBX-A3KW9PJ">
-        <button class="btn-track" onclick="doTrack()">Cari</button>
+  `).join('');
+}
+
+function selectPaketRow(el, p, mode) {
+  document.querySelectorAll('.paket-row').forEach(r => r.classList.remove('sel'));
+  el.classList.add('sel');
+  const label = (mode==='premium' ? 'Premium ' : '') + p.rbx + ' Robux';
+  selectedPaket = { rbx: p.rbx, harga: p.harga, label, gp: p.gp || null };
+  $('ringkasan').style.display = 'flex';
+  $('ringkasanVal').textContent = rp(p.harga + FEE);
+  $('btnStep2').disabled = false;
+}
+
+function onCustInput() {
+  const robux = parseInt($('custRobux').value);
+  if (!robux || robux < 100) { selectedPaket = null; $('ringkasan').style.display='none'; $('btnStep2').disabled=true; return; }
+  document.querySelectorAll('.paket-row').forEach(r => r.classList.remove('sel'));
+  const harga = Math.round((robux / 100) * HARGA_PER_100);
+  const gp    = Math.round(robux * 1.43);
+  selectedPaket = { rbx: robux, harga, label: robux + ' Robux (custom)', gp };
+  $('ringkasan').style.display = 'flex';
+  $('ringkasanVal').textContent = rp(harga + FEE);
+  $('btnStep2').disabled = false;
+  // Show gamepass hint
+  const hint = $('custRobux').nextElementSibling;
+  if (hint) hint.innerHTML = `🎮 Harga: ${rp(harga)} &nbsp;·&nbsp; Gamepass #${gp.toLocaleString('id-ID')}`;
+}
+
+function goStepSlow(n) {
+  if (n === 2) {
+    const u = $('u5').value.trim();
+    if (!u || $('uc5').style.display !== 'flex') { setNtf('n5','Cek username terlebih dahulu!'); return; }
+    $('paketSlow').style.display = 'block';
+    $('paketFast').style.display = 'none';
+    renderPaketList($('paketListSlow'), paketSlow, 'slow');
+    $('typeLabel').textContent = '⏳ Robux 5-7 Hari';
+    goStepUI(2);
+    $('modalTitle').textContent = 'Pilih Paket';
+    $('modalSub').textContent   = 'Pilih jumlah Robux yang kamu inginkan';
+  }
+}
+
+function goStepFast(n) {
+  if (n === 2) {
+    const u = $('uL').value.trim(), p = $('passL').value.trim();
+    if (!u || $('ucL').style.display !== 'flex') { setNtf('nL','Cek username terlebih dahulu!'); return; }
+    if (!p) { setNtf('nL','Masukkan password Roblox!'); return; }
+    $('paketSlow').style.display = 'none';
+    $('paketFast').style.display = 'block';
+    renderPaketList($('paketListFastP'), paketFastPremium, 'premium');
+    renderPaketList($('paketListFastR'), paketFastRobux, 'robux');
+    $('typeLabel').textContent = '⚡ Langsung Masuk';
+    goStepUI(2);
+    $('modalTitle').textContent = 'Pilih Paket';
+    $('modalSub').textContent   = 'Pilih paket Robux untuk akun kamu';
+  }
+}
+
+function goBackToStep1() {
+  goStepUI(1);
+  $('modalTitle').textContent = activeType === 'slow' ? 'Robux 5-7 Hari' : 'Langsung Masuk';
+  $('modalSub').textContent   = activeType === 'slow' ? 'Cek username Roblox kamu' : 'Masukkan username & password';
+}
+
+/* ── GO TO PAY ───────────────────────────────────────── */
+function goToPay() {
+  if (!selectedPaket) return;
+  const total  = selectedPaket.harga + FEE;
+  currentOid   = genOid();
+  const uname  = activeType === 'slow' ? $('u5').value.trim() : $('uL').value.trim();
+
+  // Render order summary
+  $('qrisOrder').innerHTML = `
+    <div class="qrow"><span class="qk">Order ID</span>    <span class="qv" style="font-family:monospace;font-size:0.88rem;">${currentOid}</span></div>
+    <div class="qrow"><span class="qk">Username</span>    <span class="qv">${uname}</span></div>
+    <div class="qrow"><span class="qk">Paket</span>       <span class="qv">${selectedPaket.label}</span></div>
+    ${activeType === 'slow' && selectedPaket.gp ? `<div class="qrow"><span class="qk">Gamepass</span>    <span class="qv" style="color:var(--primary);">🎮 #${selectedPaket.gp.toLocaleString('id-ID')}</span></div>` : ''}
+    <div class="qrow"><span class="qk">Tipe</span>        <span class="qv">${activeType==='slow'?'⏳ 5-7 Hari':'⚡ Langsung Masuk'}</span></div>
+    <div class="qrow"><span class="qk">Harga Paket</span> <span class="qv">${rp(selectedPaket.harga)}</span></div>
+    <div class="qrow"><span class="qk">Biaya QRIS</span>  <span class="qv" style="color:var(--primary);">+ Rp 200</span></div>
+    <div class="qrow" style="border-top:1px solid var(--border);padding-top:0.4rem;margin-top:0.1rem;">
+      <span class="qk" style="font-weight:800;">Total Bayar</span>
+      <span class="qv orn" style="font-size:1rem;">${rp(total)}</span>
+    </div>
+  `;
+  $('qrisAmount').textContent = rp(total);
+  startTimer();
+  goStepUI(3);
+  $('modalTitle').textContent = 'Pembayaran QRIS';
+  $('modalSub').textContent   = 'Scan QR & upload bukti bayar';
+}
+
+/* ── UPLOAD BUKTI ────────────────────────────────────── */
+function handleUp() {
+  const file = $('upFile').files[0]; if (!file) return;
+  if (file.size > 5*1024*1024) { toast('⚠️ File terlalu besar! Maks 5MB'); $('upFile').value=''; return; }
+  if (!['image/png','image/jpeg','image/jpg'].includes(file.type)) { toast('⚠️ Format harus JPG/PNG'); $('upFile').value=''; return; }
+  const r = new FileReader();
+  r.onload = e => {
+    $('upPrev').src = e.target.result; $('upPrev').style.display='block';
+    $('upZone').style.borderColor = '#22c55e'; $('upZone').style.borderStyle = 'solid';
+    $('upIco').textContent='✅'; $('upTitle').textContent=file.name;
+    $('upSub').textContent = (file.size/1024).toFixed(0)+' KB · Siap dikirim';
+  };
+  r.readAsDataURL(file);
+}
+
+/* ── KONFIRMASI BAYAR ────────────────────────────────── */
+async function konfirmBayar() {
+  const file  = $('upFile').files[0];
+  const uname = activeType==='slow' ? $('u5').value.trim() : $('uL').value.trim();
+  const pass  = activeType==='fast' ? $('passL').value.trim() : '';
+  const total = selectedPaket.harga + FEE;
+
+  if (!file) { toast('⚠️ Upload bukti pembayaran terlebih dahulu!'); return; }
+
+  $('btnPay').textContent = '⏳ Mengirim...'; $('btnPay').disabled = true;
+
+  // Simpan ke admin orders
+  pushOrder({ id: currentOid, username: uname, rbx: selectedPaket.rbx, harga: selectedPaket.harga, jenis: activeType==='slow'?'5-7 Hari':'Via Login', status:'paid' });
+
+  // Kirim bukti ke Discord (jika ada webhook)
+  try {
+    const WH = 'https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU';
+    const fd  = new FormData();
+    const msg = [
+      '**Bukti Pembayaran Baru — DEXBLOX**','',
+      `ID Pesanan: \`${currentOid}\``,
+      `Username: ${uname}`,
+      `Robux: ${selectedPaket.rbx} Robux`,
+      `Harga: ${rp(selectedPaket.harga)}`,
+      `Biaya QRIS: Rp 200`,
+      `Total: ${rp(total)}`,
+      `Tipe: ${activeType==='slow'?'5-7 Hari':'Via Login'}`,
+      `Waktu: ${new Date().toLocaleString('id-ID')}`
+    ].join('\n');
+    fd.append('file', file, file.name);
+    fd.append('payload_json', JSON.stringify({content: msg}));
+    await fetch(WH, { method:'POST', body:fd });
+  } catch(_) {}
+
+  stopTimer();
+  $('btnPay').textContent = '✅ Sudah Membayar'; $('btnPay').disabled = false;
+
+  if (activeType === 'fast') {
+    // Kirim ke WA dengan data login
+    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
+    const waMsg = [
+      'Halo Min DEXBLOX! Saya sudah bayar via Login.','',
+      `ID Pesanan: *${currentOid}*`,
+      `Username: *${uname}*`,
+      `Password: *${pass}*`,
+      `Paket: ${selectedPaket.label}`,
+      `Total Dibayar: ${rp(total)}`,
+      `Profil: ${profileUrl}`,
+      `Waktu: ${new Date().toLocaleString('id-ID')}`,
+      '',
+      '_Mohon segera diproses. Terima kasih!_'
+    ].join('\n');
+    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
+  } else {
+    // 5-7 Hari: kirim konfirmasi ke WA
+    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
+    const waMsg = [
+      'Halo Min DEXBLOX! Saya sudah bayar.','',
+      `ID Pesanan: *${currentOid}*`,
+      `Username: *${uname}*`,
+      `Robux: ${selectedPaket.rbx}`,
+      selectedPaket.gp ? `Gamepass: #${selectedPaket.gp.toLocaleString('id-ID')}` : null,
+      `Total: ${rp(total)}`,
+      `Profil: ${profileUrl}`,
+      `Waktu: ${new Date().toLocaleString('id-ID')}`,
+      '',
+      '_Mohon segera diproses ya min!_'
+    ].filter(Boolean).join('\n');
+    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
+  }
+
+  // Tampilkan sukses
+  $('successMsg').textContent  = activeType==='fast'
+    ? 'Data akun dikirim ke admin via WhatsApp. Robux akan segera masuk!'
+    : 'Pesanan kamu sedang diproses. Robux masuk dalam 5-7 hari kerja.';
+  $('successDetail').innerHTML = `
+    <div class="qrow"><span class="qk">Order ID</span>  <span class="qv" style="font-family:monospace;">${currentOid}</span></div>
+    <div class="qrow"><span class="qk">Username</span>  <span class="qv">${uname}</span></div>
+    <div class="qrow"><span class="qk">Paket</span>     <span class="qv">${selectedPaket.label}</span></div>
+    <div class="qrow"><span class="qk">Total</span>     <span class="qv orn">${rp(total)}</span></div>
+  `;
+  goStepUI(4);
+  $('modalTitle').textContent = '🎉 Pesanan Berhasil';
+  $('modalSub').textContent   = 'Terima kasih!';
+}
+
+/* ── FAKE QR ─────────────────────────────────────────── */
+function buildFakeQR() {
+  const grid = $('qrGrid'), size = 17;
+  const corners = new Set();
+  for(let r=0;r<7;r++) for(let c=0;c<7;c++) corners.add(r*size+c);
+  for(let r=0;r<7;r++) for(let c=size-7;c<size;c++) corners.add(r*size+c);
+  for(let r=size-7;r<size;r++) for(let c=0;c<7;c++) corners.add(r*size+c);
+  let html='';
+  for(let i=0;i<size*size;i++){
+    const r=Math.floor(i/size),c=i%size;
+    let dark=false;
+    if(corners.has(i)){const lr=r%7,lc=r<7?c:c<7?c:c-(size-7);dark=lr===0||lr===6||lc===0||lc===6||(lr>=2&&lr<=4&&lc>=2&&lc<=4);}
+    else dark=Math.random()>.5;
+    const mid=Math.floor(size/2);
+    if(Math.abs(r-mid)<=1&&Math.abs(c-mid)<=1) dark=false;
+    html+=`<div class="qc" style="background:${dark?'#1e293b':'transparent'};border-radius:${corners.has(i)?'1px':'2px'};"></div>`;
+  }
+  grid.innerHTML=html;
+}
+
+/* ── TIMER ───────────────────────────────────────────── */
+function startTimer() {
+  stopTimer(); timerSecs=899; updateTimerDisplay();
+  timerInterval=setInterval(()=>{ timerSecs--; updateTimerDisplay(); if(timerSecs<=0) stopTimer(); },1000);
+}
+function stopTimer() { if(timerInterval){clearInterval(timerInterval);timerInterval=null;} }
+function updateTimerDisplay() {
+  const m=String(Math.floor(timerSecs/60)).padStart(2,'0'),s=String(timerSecs%60).padStart(2,'0');
+  const el=$('qrisTimer'); if(el) el.textContent=m+':'+s;
+}
+
+/* ── TYPE SELECT (banner cards) ──────────────────────── */
+function selectType(type) {
+  activeType = type;
+  const slow = $('type-slow'), fast = $('type-fast');
+  if(slow) slow.style.outline = type==='slow' ? '2.5px solid #f97316' : 'none';
+  if(fast) fast.style.outline = type==='fast' ? '2.5px solid #ea580c' : 'none';
+}
+
+/* ── TOP RANK DATA ───────────────────────────────────── */
+const TOPLIST = [
+  { rank:1, username:'letdaisreal',  display:'let***real',  rbx:91970 },
+  { rank:2, username:'rioSlebew52',  display:'rio***w52',   rbx:44000 },
+  { rank:3, username:'Kaen3v',       display:'Kae***3v',    rbx:40000 },
+  { rank:4, username:'niha0_ma',     display:'nih***_ma',   rbx:38500 },
+  { rank:5, username:'monam0i',      display:'mon***0i',    rbx:35200 },
+  { rank:6, username:'Laziaawn',     display:'Laz***wn',    rbx:31700 },
+  { rank:7, username:'bilong0408',   display:'bil***408',   rbx:28300 },
+  { rank:8, username:'chee_ch1',     display:'che***ch1',   rbx:24600 },
+  { rank:9, username:'AishaBD344',   display:'Ais***344',   rbx:21100 },
+  { rank:10,username:'faleanacanz',  display:'fal***anz',   rbx:17800 },
+];
+
+const MEDAL_CLASS = ['medal-1','medal-2','medal-3','medal-n','medal-n','medal-n','medal-n','medal-n','medal-n','medal-n'];
+const MEDAL_LABEL = ['1','2','3','4','5','6','7','8','9','10'];
+
+let rankShowAll = false;
+
+function buildRankItem(p, idx) {
+  const medal = MEDAL_CLASS[idx] || 'medal-n';
+  const crown = idx === 0 ? `<div class="rank-crown">👑</div>` : '';
+  const skId  = `ras${idx}`;
+  return `
+    <div class="rank-item">
+      <div class="rank-num-wrap">
+        ${crown}
+        <div class="rank-medal ${medal}">${MEDAL_LABEL[idx]}</div>
+      </div>
+      <div class="rank-av-wrap">
+        <div class="rank-av-sk" id="${skId}"></div>
+      </div>
+      <div class="rank-info">
+        <div class="rank-name">${p.display}</div>
+        <div class="rank-rbx">R$${p.rbx.toLocaleString('id-ID')}</div>
+      </div>
+    </div>
+  `;
+}
+
+async function loadRank() {
+  const grid  = $('rankGrid');
+  const shown = rankShowAll ? TOPLIST : TOPLIST.slice(0, 5);
+  grid.innerHTML = shown.map((p, i) => buildRankItem(p, i)).join('');
+
+  for (let i = 0; i < shown.length; i++) {
+    const p   = shown[i];
+    const skEl = $(`ras${i}`);
+    if (!skEl) continue;
+    try {
+      const r  = await fetch('/api/user', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ username: p.username }) });
+      const d  = await r.json();
+      if (r.ok && d.userId) {
+        const ra = await fetch('/api/avatar?userId=' + d.userId);
+        const da = await ra.json();
+        if (ra.ok && da.avatarUrl) { replaceSkWithImg(skEl, da.avatarUrl, p.display); continue; }
+      }
+    } catch(_) {}
+    replaceSkWithLetterAv(skEl, p.display, i);
+  }
+}
+
+function replaceSkWithImg(skEl, src, name) {
+  const img = document.createElement('img');
+  img.className = 'rank-av';
+  img.src = src; img.alt = name;
+  img.onerror = () => replaceSkWithLetterAv(img, name, 0);
+  skEl.replaceWith(img);
+}
+
+function replaceSkWithLetterAv(el, name, idx) {
+  const colors = ['#f97316','#3b82f6','#a855f7','#22c55e','#ef4444','#0891b2','#d97706','#be185d','#16a34a','#7c3aed'];
+  const div = document.createElement('div');
+  div.style.cssText = `width:42px;height:42px;border-radius:50%;background:${colors[idx % colors.length]};display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:800;color:#fff;flex-shrink:0;`;
+  div.textContent = name[0].toUpperCase();
+  el.replaceWith(div);
+}
+
+function toggleRankAll() {
+  rankShowAll = !rankShowAll;
+  const btn = document.querySelector('.rank-btn');
+  btn.textContent = rankShowAll ? 'Sembunyikan ↑' : 'Lihat Semua (10) →';
+  loadRank();
+}
+
+/* ── INIT ────────────────────────────────────────────── */
+selectType('slow');
+loadRank();
+
+/* ── CEK PESANAN ─────────────────────────────────────── */
+function openCekPesanan() {
+  document.getElementById('trackOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderTrackList();
+}
+function closeTrack() {
+  document.getElementById('trackOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderOrderCard(o) {
+  const sc = {pending:'sp', paid:'sd', done:'ss', cancel:'sc'};
+  const sl = {pending:'⏳ Menunggu', paid:'✅ Dibayar', done:'🎉 Selesai', cancel:'❌ Batal'};
+  return `
+    <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:0.82rem;font-weight:800;color:var(--primary);font-family:monospace;">${o.id}</span>
+        <span class="sbadge ${sc[o.status]||'sp'}">${sl[o.status]||o.status}</span>
+      </div>
+      ${[
+        ['Username', o.username],
+        ['Paket',    o.rbx + ' Robux'],
+        ['Tipe',     o.jenis],
+        ['Total',    rpFmt((o.harga||0) + 200)],
+      ].map(([k,v]) => `
+        <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:0.78rem;">
+          <span style="color:var(--text-muted);font-weight:600;">${k}</span>
+          <span style="font-weight:700;color:var(--text);">${v}</span>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderTrackList() {
+  const el = document.getElementById('trackList');
+  if (!orders.length) { el.innerHTML = '<div class="admin-empty">📭 Belum ada pesanan sesi ini.</div>'; return; }
+  el.innerHTML = orders.map(o => `
+    <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:6px;cursor:pointer;transition:all 0.18s;" onclick="showTrackDetail('${o.id}')" onmouseover="this.style.borderColor='var(--primary)';this.style.background='var(--primary-light)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--bg)'">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
+        <span style="font-size:0.75rem;font-weight:800;color:var(--primary);font-family:monospace;">${o.id}</span>
+        <span class="sbadge ${{pending:'sp',paid:'sd',done:'ss',cancel:'sc'}[o.status]||'sp'}">${{pending:'⏳',paid:'✅',done:'🎉',cancel:'❌'}[o.status]||''} ${o.status}</span>
+      </div>
+      <div style="font-size:0.73rem;color:var(--text-muted);">${o.username} · ${o.rbx} Robux · ${o.jenis}</div>
+    </div>
+  `).join('');
+}
+
+function showTrackDetail(id) {
+  const o = orders.find(x => x.id === id);
+  if (!o) return;
+  document.getElementById('trackInp').value = id;
+  document.getElementById('trackRes').innerHTML = renderOrderCard(o);
+}
+
+function doTrack() {
+  const q = document.getElementById('trackInp').value.trim().toUpperCase();
+  const res = document.getElementById('trackRes');
+  if (!q) { toast('Masukkan ID pesanan'); return; }
+  const o = orders.find(x => x.id === q);
+  if (o) {
+    res.innerHTML = renderOrderCard(o);
+  } else {
+    res.innerHTML = `
+      <div class="admin-empty" style="padding:16px 0;">
+        🔍<br>
+        <span style="font-size:0.82rem;">Pesanan <strong>${q}</strong> tidak ditemukan.<br>
+        <span style="color:var(--text-light);font-size:0.75rem;">Hubungi CS via WhatsApp jika butuh bantuan.</span></span>
+      </div>`;
+  }
+}
+</script>
+
+<!-- ── MODAL CEK PESANAN ──────────────────────────────────── -->
+<div class="admin-overlay" id="trackOverlay" onclick="if(event.target===this)closeTrack()">
+  <div class="admin-sheet">
+    <div class="admin-hd">
+      <div class="admin-hd-ico">📦</div>
+      <h3>Cek Pesanan</h3>
+      <button class="modal-close" onclick="closeTrack()">✕</button>
+    </div>
+    <div class="admin-body">
+      <div style="display:flex;gap:8px;margin-bottom:1rem;">
+        <input class="inp-field" id="trackInp" type="text" placeholder="Contoh: DBX-A3KW9PJ" style="flex:1;text-transform:uppercase;-webkit-user-select:text;user-select:text;" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doTrack()" />
+        <button style="background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;flex-shrink:0;" onclick="doTrack()">Cari</button>
       </div>
       <div id="trackRes"></div>
-      <div id="histBox">
-        <div class="recv-lbl">Riwayat Sesi Ini</div>
-        <div class="olist" id="olist">
-          <div class="empty"><div class="empty-ico">📭</div><p style="font-size:.78rem">Belum ada pesanan sesi ini.</p></div>
-        </div>
+      <div style="margin-top:1rem;">
+        <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:0.75rem;">Riwayat Sesi Ini</div>
+        <div id="trackList"><div class="admin-empty">📭 Belum ada pesanan sesi ini.</div></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     ADMIN MODAL
-══════════════════════════════════════════════════════════════ -->
-<div class="admin-modal" id="adminModal">
-  <div class="admin-bd" onclick="closeAdmin()"></div>
-  <div class="admin-sheet">
+<!-- ── ADMIN MODAL ──────────────────────────────────────── -->
+<div class="admin-overlay" id="adminOverlay" onclick="handleAdminOverlay(event)">
+  <div class="admin-sheet" id="adminSheet">
+
     <div class="admin-hd">
       <div class="admin-hd-ico">⚙️</div>
       <h3>Admin Panel</h3>
-      <button class="btn-x" onclick="closeAdmin()">✕</button>
+      <button class="modal-close" onclick="closeAdminModal()">✕</button>
     </div>
+
     <div class="admin-body">
-      <div class="frow">
-        <label class="flbl">Password Admin</label>
-        <input class="fi" id="admPass" type="password" placeholder="Masukkan password">
-      </div>
-      <div style="display:flex;gap:8px">
-        <button class="btn-ok" id="bAdmLogin" style="flex:1;padding:11px;border-radius:var(--r8)">Masuk</button>
-        <button class="btn-cancel" onclick="closeAdmin()" style="flex:1;padding:11px">Tutup</button>
+
+      <!-- Gate: login dulu -->
+      <div id="adminGate">
+        <div style="text-align:center;margin-bottom:1.25rem;">
+          <div style="font-size:2.5rem;margin-bottom:0.5rem;">🔐</div>
+          <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:1rem;color:var(--text);margin-bottom:0.25rem;">Masuk Admin</div>
+          <div style="font-size:0.78rem;color:var(--text-muted);font-weight:600;">Masukkan password untuk akses panel</div>
+        </div>
+        <div class="inp-group">
+          <label class="inp-label">Password Admin</label>
+          <input class="inp-field" id="admPass" type="password" placeholder="Masukkan password..." style="-webkit-user-select:text;user-select:text;" onkeydown="if(event.key==='Enter') doAdminLogin()" />
+          <div id="admPassErr" style="font-size:0.73rem;color:#ef4444;font-weight:700;margin-top:4px;min-height:16px;"></div>
+        </div>
+        <button class="mbtn" onclick="doAdminLogin()">Masuk →</button>
       </div>
 
+      <!-- Tools: setelah login -->
       <div id="adminTools">
-        <div class="divr"></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-          <div style="font-size:.82rem;font-weight:700">Admin Tools</div>
-          <button id="bAdmOut" style="background:var(--bg2);border:1px solid var(--bd);padding:4px 12px;border-radius:var(--rFull);font-size:.67rem;font-weight:600;cursor:pointer;color:var(--sub);font-family:inherit">Logout</button>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
+          <div style="font-size:0.82rem;font-weight:800;color:var(--text);">⚙️ Admin Tools</div>
+          <button onclick="doAdminLogout()" style="background:var(--bg2);border:1px solid var(--border);padding:4px 12px;border-radius:50px;font-size:0.68rem;font-weight:700;cursor:pointer;color:var(--text-muted);font-family:'Nunito',sans-serif;">Logout</button>
         </div>
 
-        <!-- CEK USER -->
-        <div class="frow">
-          <label class="flbl">Cek Username Roblox</label>
-          <div class="usearch">
-            <input class="fi" id="admUn" type="text" placeholder="Username Roblox..." autocomplete="off">
-            <button class="btn-cek" id="bAdmCek">Cek</button>
-          </div>
-          <div class="fntf" id="admNtf"></div>
-          <div class="skel" id="admSk"><div class="sk-av"></div><div class="sk-ln"><div class="sk-l"></div><div class="sk-l"></div></div></div>
-          <div class="admin-av-box" id="admAvBox">
-            <img class="admin-av-img" id="admAvImg" src="" alt="">
-            <div class="admin-av-name" id="admAvName"></div>
-            <div class="admin-av-id" id="admAvId"></div>
-            <button class="btn-dl" onclick="dlAvatar()">⬇️ Download Avatar</button>
-          </div>
+        <!-- Cek Username -->
+        <div class="admin-sec-lbl">🔍 Cek Username Roblox</div>
+        <div style="display:flex;gap:8px;margin-bottom:6px;">
+          <input class="inp-field" id="admUn" type="text" placeholder="Username Roblox..." autocomplete="off" style="flex:1;-webkit-user-select:text;user-select:text;" oninput="onAdmUnInput()" />
+          <button style="background:var(--primary);color:#fff;border:none;padding:0 14px;border-radius:10px;font-size:0.8rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;flex-shrink:0;" onclick="doAdmCheck()">Cek</button>
+        </div>
+        <div id="admNtf" style="font-size:0.73rem;font-weight:700;min-height:16px;margin-bottom:4px;"></div>
+        <!-- Skeleton admin -->
+        <div id="admSk" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:8px;">
+          <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;flex-shrink:0;"></div>
+          <div style="flex:1;"><div style="height:9px;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;margin-bottom:7px;"></div><div style="height:9px;width:55%;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;"></div></div>
+        </div>
+        <div class="adm-av-box" id="admAvBox">
+          <img class="adm-av-img" id="admAvImg" src="" alt="" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2272%22 height=%2272%22%3E%3Ccircle cx=%2236%22 cy=%2236%22 r=%2236%22 fill=%22%23fed7aa%22/%3E%3Ctext x=%2236%22 y=%2244%22 font-size=%2228%22 text-anchor=%22middle%22 fill=%22%23ea580c%22%3E🎮%3C/text%3E%3C/svg%3E'" />
+          <div class="adm-av-name" id="admAvName">—</div>
+          <div class="adm-av-id"   id="admAvId">—</div>
+          <button class="btn-dl" onclick="dlAvatar()">⬇️ Download Avatar</button>
         </div>
 
-        <!-- UPLOAD AVATAR MANUAL -->
-        <div class="frow">
-          <label class="flbl">Upload &amp; Download Avatar <span style="font-size:.6rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)">(foto karakter Roblox full body)</span></label>
-          <label class="upzone" id="avUpZ" style="padding:16px">
-            <input type="file" id="avUpFile" accept="image/*" onchange="handleAvUpload(this)">
-            <div class="up-ico" id="avUpIco">🖼️</div>
-            <div class="up-title" id="avUpTitle">Upload foto avatar Roblox</div>
-            <div class="up-sub">PNG / JPG / WEBP · Maks 10 MB</div>
-          </label>
-          <div id="avPreviewBox" style="display:none;margin-top:10px;background:var(--bg);border:1px solid var(--bd);border-radius:var(--r12);padding:14px;text-align:center">
-            <img id="avPreviewImg" src="" alt="Avatar" style="max-width:180px;max-height:220px;object-fit:contain;border-radius:var(--r8);display:block;margin:0 auto;box-shadow:var(--s2)">
-            <div id="avPreviewName" style="font-size:.8rem;font-weight:700;margin-top:8px;color:var(--ink)"></div>
-            <div style="display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap">
-              <button class="btn-dl" onclick="dlAvatarManual()">⬇️ Download Avatar</button>
-              <button onclick="resetAvUpload()" style="background:var(--R2);color:var(--R);border:1px solid #FECACA;padding:5px 14px;border-radius:var(--rFull);font-size:.7rem;font-weight:700;cursor:pointer;font-family:inherit">✕ Hapus</button>
-            </div>
-          </div>
-        </div>
+        <div class="admin-divider"></div>
 
-        <div class="divr"></div>
-        <div class="asec-lbl">Kirim Konfirmasi ke Discord</div>
-        <div class="frow">
-          <label class="flbl">Username Roblox</label>
-          <input class="fi" id="admUnConf" type="text" placeholder="Sama dengan cek user di atas">
+        <!-- Kirim Konfirmasi ke Discord -->
+        <div class="admin-sec-lbl">📤 Kirim Konfirmasi ke Discord</div>
+        <div class="inp-group">
+          <label class="inp-label">Username Roblox</label>
+          <input class="inp-field" id="admUnConf" type="text" placeholder="Sama dengan cek user di atas" style="-webkit-user-select:text;user-select:text;" />
         </div>
-        <div class="frow">
-          <label class="flbl">Jumlah Robux</label>
-          <input class="fi" id="admRbx" type="text" placeholder="Contoh: 1000">
+        <div class="inp-group">
+          <label class="inp-label">Jumlah Robux</label>
+          <input class="inp-field" id="admRbx" type="text" placeholder="Contoh: 1000" style="-webkit-user-select:text;user-select:text;" />
         </div>
-        <div class="frow">
-          <label class="flbl">Metode Bayar</label>
-          <select class="fi" id="admMet">
+        <div class="inp-group">
+          <label class="inp-label">Metode Bayar</label>
+          <select class="inp-field" id="admMet" style="-webkit-user-select:text;user-select:text;">
             <option value="">-- Pilih Metode --</option>
             <option>QRIS</option><option>DANA</option><option>GoPay</option><option>OVO</option><option>ShopeePay</option>
           </select>
         </div>
-        <div class="frow">
-          <label class="flbl">ID Pesanan <span style="font-size:.6rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--dim)">(opsional)</span></label>
-          <input class="fi" id="admOid" type="text" placeholder="DBX-XXXXXXX">
+        <div class="inp-group">
+          <label class="inp-label">ID Pesanan <span style="font-size:0.62rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-muted);">(opsional)</span></label>
+          <input class="inp-field" id="admOid" type="text" placeholder="DBX-XXXXXXX" style="-webkit-user-select:text;user-select:text;" />
         </div>
-        <div class="up-area">
-          <div class="up-lbl">Upload Bukti Pembayaran <span class="up-req">* Wajib</span></div>
-          <label class="upzone" id="admUpZ">
-            <input type="file" id="admUpFile" accept="image/png,image/jpeg,image/jpg" onchange="handleUp(this,'admUpZ','admUpPrev','admUpIco','admUpTitle',null)">
-            <div class="up-ico" id="admUpIco">📎</div>
-            <div class="up-title" id="admUpTitle">Klik untuk upload bukti pembayaran</div>
-            <div class="up-sub">JPG / PNG · Maks 5 MB</div>
+        <!-- Upload bukti admin -->
+        <div style="margin-bottom:1rem;">
+          <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:6px;">Upload Bukti Pembayaran <span style="color:#ef4444;font-size:0.6rem;">* Wajib</span></div>
+          <label id="admUpZone" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2px dashed var(--border);border-radius:10px;padding:16px;background:var(--bg);cursor:pointer;transition:all 0.2s;text-align:center;overflow:hidden;">
+            <input type="file" id="admUpFile" accept="image/png,image/jpeg,image/jpg" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleAdmUp()" />
+            <div style="font-size:1.5rem;" id="admUpIco">📎</div>
+            <div style="font-size:0.8rem;font-weight:700;color:var(--text-muted);" id="admUpTitle">Klik untuk upload bukti</div>
+            <div style="font-size:0.65rem;color:var(--text-light);">JPG / PNG · Maks 5 MB</div>
           </label>
-          <img class="up-preview" id="admUpPrev" src="" alt="">
+          <img id="admUpPrev" src="" alt="" style="display:none;width:100%;max-height:140px;object-fit:contain;border-radius:8px;margin-top:6px;border:1px solid var(--border);" />
         </div>
-        <button class="btn-ok" id="bKirim" style="width:100%;padding:12px;border-radius:var(--r8)">📤 Kirim ke Discord</button>
+        <button class="btn-discord" id="bKirim" onclick="kirimDiscord()">📤 Kirim ke Discord</button>
 
-        <div class="divr"></div>
-        <div class="asec-lbl">Semua Pesanan Sesi Ini</div>
-        <div class="admin-olist" id="admOList"></div>
+        <div class="admin-divider"></div>
+
+        <!-- Daftar Pesanan -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
+          <div class="admin-sec-lbl" style="margin-bottom:0;">📋 Pesanan Sesi Ini</div>
+          <span id="orderCount" style="background:var(--primary);color:#fff;font-size:0.62rem;font-weight:800;padding:2px 8px;border-radius:50px;"></span>
+        </div>
+        <div id="admOList"><div class="admin-empty">📭 Belum ada pesanan.</div></div>
+
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════════════════════════
-     SCRIPT
-══════════════════════════════════════════════════════════════ -->
 <script>
-/* CONFIG */
-const WA_NUM="6285362187740";
-const WH_BUKTI="https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU";
-const WH_CONF="https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7";
-const FEE=200;
-let hargaPer100=parseInt(document.getElementById("hrgNum").dataset.h);
-document.getElementById("hrgNum").textContent=hargaPer100.toLocaleString("id-ID");
-let promoOn=false,orders=[],admAvUrl="";
-const $=id=>document.getElementById(id);
-const rp=n=>"Rp "+n.toLocaleString("id-ID");
-function genOid(){const c="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";let s="DBX-";for(let i=0;i<7;i++)s+=c[Math.floor(Math.random()*c.length)];return s}
-function fmtDate(d){return new Date(d).toLocaleString("id-ID",{day:"numeric",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"})}
-function toast(msg,d=3200){const t=$("toast");t.textContent=msg;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),d)}
-function setNtf(id,msg,tp="er"){const el=$(id);if(!el)return;el.textContent=msg;el.className="fntf "+(tp==="ok"?"ok":"er")}
-function showFlex(id){$(id).style.display="flex"}
-function hide(id){if($(id))$(id).style.display="none"}
+/* ── ADMIN STATE ─────────────────────────────────────── */
+const ADMIN_PASS = '54321';
+const WH_CONF    = 'https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7';
+let admAvUrl = '';
+let admLoggedIn = false;
+const orders = [];
 
-/* TABS */
-function switchTab(id){
-  ["p1","p2","p3"].forEach(p=>$(p).classList.add("hidden"));
-  $(id).classList.remove("hidden");
-  [["p1","t1"],["p2","t2"],["p3","t3"]].forEach(([p,t])=>$(t).classList.toggle("on",p===id));
+/* ── OPEN / CLOSE ────────────────────────────────────── */
+function openAdminModal() {
+  $('adminOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  $('admPass').value = ''; $('admPassErr').textContent = '';
+  if (!admLoggedIn) { $('adminGate').style.display='block'; $('adminTools').classList.remove('vis'); }
+  else { $('adminGate').style.display='none'; $('adminTools').classList.add('vis'); renderAdmOrders(); }
+}
+function closeAdminModal() {
+  $('adminOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function handleAdminOverlay(e) { if (e.target === $('adminOverlay')) closeAdminModal(); }
+
+/* ── LOGIN / LOGOUT ──────────────────────────────────── */
+function doAdminLogin() {
+  const v = $('admPass').value;
+  if (v === ADMIN_PASS) {
+    admLoggedIn = true;
+    $('adminGate').style.display = 'none';
+    $('adminTools').classList.add('vis');
+    renderAdmOrders();
+  } else {
+    $('admPassErr').textContent = '❌ Password salah!';
+    $('admPass').value = '';
+    $('admPass').focus();
+  }
+}
+function doAdminLogout() {
+  admLoggedIn = false;
+  $('adminTools').classList.remove('vis');
+  $('adminGate').style.display = 'block';
+  $('admPass').value = ''; $('admPassErr').textContent = '';
 }
 
-/* USERNAME CHECK */
-function setupAuto(inputId,ntfId,skId,ucId,avId,nameId,uidId,cb){
-  const inp=$(inputId);
-  inp.addEventListener("input",function(){
-    const v=this.value.trim();
-    hide(ucId);hide(skId);setNtf(ntfId,"");
-    if(v.length<3)return;
-    clearTimeout(inp._t);
-    inp._t=setTimeout(()=>doCheck(v,ntfId,skId,ucId,avId,nameId,uidId,cb),650);
-  });
+/* ── CEK USER (admin) ────────────────────────────────── */
+let _tAdm;
+function onAdmUnInput() {
+  const v = $('admUn').value.trim();
+  $('admAvBox').classList.remove('vis'); $('admNtf').textContent = '';
+  if (v.length < 3) return;
+  clearTimeout(_tAdm);
+  _tAdm = setTimeout(() => doAdmCheck(), 650);
 }
-async function doCheck(username,ntfId,skId,ucId,avId,nameId,uidId,cb){
-  showFlex(skId);hide(ucId);setNtf(ntfId,"");
-  try{
-    const r=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
-    const d=await r.json();
-    hide(skId);
-    if(r.ok){
-      if(nameId)$(nameId).textContent=d.name;
-      if(uidId)$(uidId).textContent="User ID: "+d.userId;
-      try{
-        const ra=await fetch(`/api/avatar?userId=${d.userId}`);
-        const da=await ra.json();
-        if(ra.ok&&da.avatarUrl){if(avId)$(avId).src=da.avatarUrl;if(cb)cb(da.avatarUrl,d);}
-      }catch(_){}
-      if(ucId)showFlex(ucId);
-      setNtf(ntfId,"✅ Akun ditemukan: "+d.name,"ok");
-    }else setNtf(ntfId,"❌ "+(d.error||"Username tidak ditemukan"));
-  }catch(e){hide(skId);setNtf(ntfId,"❌ Gagal terhubung ke server")}
-}
-let avSrc5="",avSrcL="";
-setupAuto("u5","n5","sk5","uc5","av5","un5","ui5",src=>{avSrc5=src});
-setupAuto("uL","nL","skL","ucL","avL","unL","uiL",src=>{avSrcL=src});
-$("bCek5").onclick=()=>{const v=$("u5").value.trim();if(!v){setNtf("n5","Masukkan username Roblox!");return;}doCheck(v,"n5","sk5","uc5","av5","un5","ui5",src=>{avSrc5=src})};
-$("bCekL").onclick=()=>{const v=$("uL").value.trim();if(!v){setNtf("nL","Masukkan username Roblox!");return;}doCheck(v,"nL","skL","ucL","avL","unL","uiL",src=>{avSrcL=src})};
-
-/* PAKET */
-function bindPaket(gridId,selValId,selId,mode){
-  document.querySelectorAll(`#${gridId} .pcard`).forEach(c=>{
-    c.addEventListener("click",()=>{
-      c.closest(".card-bd,.admin-body").querySelectorAll(".pcard").forEach(x=>x.classList.remove("on"));
-      c.classList.add("on");
-      const robux=parseInt(c.dataset.v);
-      let harga;
-      if(mode==="login"){
-        harga=parseInt(c.dataset.h);
-        if(promoOn)harga=Math.round(harga*.9);
-        $(selId).dataset.value=robux;$(selId).dataset.harga=harga;$(selId).dataset.type=c.dataset.t||"robux";
-        $(selValId).textContent=`${c.dataset.t==="premium"?"Premium":"Robux"}: ${robux} Robux · ${rp(harga)}`;
-      }else{
-        harga=Math.round((robux/100)*hargaPer100);
-        if(promoOn)harga=Math.round(harga*.9);
-        const gp=Math.round((robux/100)*143);
-        $(selId).dataset.value=robux;$(selId).dataset.harga=harga;
-        $(selValId).textContent=`${robux} Robux · ${rp(harga)} · Gamepass #${gp}`;
-      }
-    });
-  });
-}
-bindPaket("g5","selVal5","sel5","5hari");
-bindPaket("gLP","selValL","selL","login");
-bindPaket("gLR","selValL","selL","login");
-$("cust").addEventListener("input",function(){
-  const robux=parseInt(this.value);
-  if(!robux||robux<100){$("selVal5").textContent="— Pilih paket di atas —";return;}
-  document.querySelectorAll("#g5 .pcard").forEach(c=>c.classList.remove("on"));
-  let harga=Math.round((robux/100)*hargaPer100);
-  if(promoOn)harga=Math.round(harga*.9);
-  const gp=Math.round((robux/100)*143);
-  $("sel5").dataset.value=robux;$("sel5").dataset.harga=harga;
-  $("selVal5").textContent=`${robux} Robux · ${rp(harga)} · Gamepass #${gp}`;
-});
-$("bPromo").onclick=()=>{
-  const v=$("promoInp").value.trim().toUpperCase();
-  promoOn=v==="DEX10OFF";
-  setNtf("nPromo",promoOn?"✅ Kode valid! Diskon 10% aktif.":"❌ Kode promo tidak valid.",promoOn?"ok":"er");
-};
-
-/* UPLOAD HANDLER */
-function handleUp(inp,zoneId,prevId,icoId,titleId,subId){
-  const file=inp.files[0];if(!file)return;
-  if(file.size>5*1024*1024){toast("⚠️ File terlalu besar! Maks 5MB");inp.value="";return;}
-  if(!["image/png","image/jpeg","image/jpg"].includes(file.type)){toast("⚠️ Format harus JPG/PNG");inp.value="";return;}
-  const r=new FileReader();
-  r.onload=e=>{
-    $(prevId).src=e.target.result;$(prevId).style.display="block";
-    $(zoneId).classList.add("ok");
-    $(icoId).textContent="✅";$(titleId).textContent=file.name;
-    if(subId)$(subId).textContent=(file.size/1024).toFixed(0)+" KB · Siap dikirim";
-  };
-  r.readAsDataURL(file);
-}
-function resetUp(fileId,zoneId,prevId,icoId,titleId,subId){
-  $(fileId).value="";$(zoneId).classList.remove("ok");
-  $(prevId).style.display="none";$(prevId).src="";
-  $(icoId).textContent="🖼️";$(titleId).textContent="Klik atau seret foto bukti transfer ke sini";
-  if(subId)$(subId).textContent="Format JPG / PNG · Maks 5 MB";
-}
-
-/* OPEN PAY MODAL */
-function openPay(username,paket,robux,harga,jenis,avSrc,isLogin,loginPass){
-  const oid=genOid(),total=harga+FEE;
-  $("mOid").textContent=oid;$("mUser").textContent=username;$("mPaket").textContent=paket;
-  $("mJenis").textContent=jenis==="5hari"?"Robux 5 Hari":"Via Login";
-  $("mHarga").textContent=rp(harga);$("mTotal").textContent=rp(total);$("mDue").textContent=rp(total);
-  resetUp("upFile","upZ","upPrev","upIco","upTitle","upSub");
-  const order={id:oid,username,paket,robux,harga,total,jenis:jenis==="5hari"?"Robux 5 Hari":"Via Login",status:"pending",avSrc,time:new Date().toISOString(),isLogin};
-  orders.unshift(order);
-  $("bPay").textContent="✅ Sudah Membayar";$("bPay").disabled=false;
-  $("bPay").onclick=async()=>{
-    const file=$("upFile").files[0];
-    if(!file){toast("⚠️ Upload bukti pembayaran terlebih dahulu!");return;}
-    $("bPay").innerHTML=`<span class="spinner"></span>Mengirim...`;$("bPay").disabled=true;
-    await uploadDiscord(file,username,robux,harga,total,oid,"QRIS");
-    const idx=orders.findIndex(x=>x.id===oid);if(idx>=0)orders[idx].status="paid";
-    $("bPay").textContent="✅ Sudah Membayar";$("bPay").disabled=false;
-    closePay();
-    if(isLogin){$("ldOid").textContent=oid;$("ldUser").value=username;$("ldPass").value=loginPass||"";openModal("ldModal");}
-    else sendWA(username,robux,total,oid);
-  };
-  openModal("payModal");
-}
-function closePay(){closeModal("payModal")}
-
-$("bGo5").onclick=()=>{
-  const u=$("u5").value.trim(),si=$("sel5"),robux=parseInt(si.dataset.value||0),harga=parseInt(si.dataset.harga||0),paket=$("selVal5").textContent;
-  if(!u){setNtf("n5","Masukkan username Roblox!");return;}
-  if(!robux){setNtf("nPkt","Pilih atau masukkan paket Robux!");return;}
-  openPay(u,paket,robux,harga,"5hari",avSrc5,false);
-};
-$("bGoL").onclick=()=>{
-  const u=$("uL").value.trim(),si=$("selL"),robux=parseInt(si.dataset.value||0),harga=parseInt(si.dataset.harga||0),paket=$("selValL").textContent;
-  const pass=$("passL").value;
-  if(!u){setNtf("nL","Masukkan username Roblox!");return;}
-  if(!robux){setNtf("nL","Pilih paket terlebih dahulu!");return;}
-  if(!pass){setNtf("nL","Masukkan password Roblox!");return;}
-  openPay(u,paket,robux,harga,"login",avSrcL,true,pass);
-};
-
-/* LOGIN DATA MODAL */
-$("bSendLd").onclick=()=>{
-  const pass=$("ldPass").value,user=$("ldUser").value,oid=$("ldOid").textContent;
-  if(!pass){toast("⚠️ Masukkan password Roblox!");return;}
-  const o=orders.find(x=>x.id===oid);
-  const profileUrl=`https://www.roblox.com/users/profile?username=${encodeURIComponent(user)}`;
-  const msg=[
-    `Halo Min DEXBLOX! Saya sudah bayar via Login.`,``,
-    `ID Pesanan: *${oid}*`,
-    `Username: *${user}*`,
-    `Password: *${pass}*`,
-    `Paket: ${o?o.paket:"-"}`,
-    `Total Dibayar: ${o?rp(o.total):"-"}`,
-    `Profil: ${profileUrl}`,
-    `Waktu: ${new Date().toLocaleString("id-ID")}`,``,
-    `_Mohon segera diproses. Terima kasih!_`
-  ].join("\n");
-  window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`,"_blank");
-  closeLd();toast("✅ Data dikirim ke admin via WhatsApp!");
-};
-function closeLd(){closeModal("ldModal")}
-
-/* DISCORD UPLOAD */
-async function uploadDiscord(file,username,robux,harga,total,oid,metode){
-  const fd=new FormData();
-  const msg=[
-    `**Bukti Pembayaran Baru**`,``,
-    `ID Pesanan: \`${oid}\``,
-    `Username: ${username}`,
-    `Robux: ${robux} Robux`,
-    `Harga Paket: ${rp(harga)}`,
-    `Biaya Admin QRIS: Rp 200`,
-    `Total Bayar: ${rp(total)}`,
-    `Metode: ${metode}`,
-    `Waktu: ${new Date().toLocaleString("id-ID")}`
-  ].join("\n");
-  fd.append("file",file,file.name);fd.append("payload_json",JSON.stringify({content:msg}));
-  try{await fetch(WH_BUKTI,{method:"POST",body:fd})}catch(e){console.error(e)}
-}
-
-/* WA */
-function sendWA(username,robux,total,oid){
-  const profileUrl=`https://www.roblox.com/users/profile?username=${encodeURIComponent(username)}`;
-  const msg=[
-    `Halo Min DEXBLOX! Saya sudah bayar.`,``,
-    `ID Pesanan: *${oid}*`,
-    `Username: *${username}*`,
-    `Robux: ${robux}`,
-    `Total: ${rp(total)}`,
-    `Profil: ${profileUrl}`,
-    `Waktu: ${new Date().toLocaleString("id-ID")}`,``,
-    `_Mohon segera diproses ya min!_`
-  ].join("\n");
-  window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg)}`,"_blank");
-}
-
-/* COPY OID */
-function copyOid(){
-  const id=$("mOid").textContent;
-  if(navigator.clipboard)navigator.clipboard.writeText(id).then(()=>toast("📋 "+id+" disalin!"));
-  else{const e=document.createElement("textarea");e.value=id;document.body.appendChild(e);e.select();document.execCommand("copy");document.body.removeChild(e);toast("📋 "+id+" disalin!")}
-}
-
-/* MODAL UTILS */
-function openModal(id){$(id).classList.add("open")}
-function closeModal(id){$(id).classList.remove("open")}
-function openTrack(){openModal("trackModal");renderOList()}
-function closeTrack(){closeModal("trackModal")}
-function closeAdmin(){closeModal("adminModal")}
-
-/* TRACK */
-function sClass(s){return {pending:"sp",paid:"sd",done:"ss",cancel:"sc"}[s]||"sp"}
-function sLabel(s){return {pending:"⏳ Menunggu",paid:"✅ Dibayar",done:"🎉 Selesai",cancel:"❌ Batal"}[s]||s}
-function renderOCard(o){return `<div class="ocard"><div class="ocard-top"><span class="ocard-id">${o.id}</span><span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span></div><div class="ocard-row"><span class="ocard-k">Username</span><span class="ocard-v">${o.username}</span></div><div class="ocard-row"><span class="ocard-k">Paket</span><span class="ocard-v">${o.paket}</span></div><div class="ocard-row"><span class="ocard-k">Jenis</span><span class="ocard-v">${o.jenis}</span></div><div class="ocard-row"><span class="ocard-k">Harga Paket</span><span class="ocard-v">${rp(o.harga)}</span></div><div class="ocard-row"><span class="ocard-k">Biaya QRIS</span><span class="ocard-v" style="color:var(--O)">+ Rp 200</span></div><div class="ocard-row"><span class="ocard-k">Total Bayar</span><span class="ocard-v" style="color:var(--P)">${rp(o.total)}</span></div><div class="ocard-row"><span class="ocard-k">Waktu</span><span class="ocard-v">${fmtDate(o.time)}</span></div></div>`}
-function renderOList(){
-  const el=$("olist");
-  if(!orders.length){el.innerHTML=`<div class="empty"><div class="empty-ico">📭</div><p style="font-size:.78rem">Belum ada pesanan sesi ini.</p></div>`;return;}
-  el.innerHTML=orders.slice(0,12).map(o=>`<div class="oitem" onclick="showFromList('${o.id}')"><div class="oitem-r1"><span class="oi-id">${o.id}</span><span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span></div><div class="oi-desc">${o.username} · ${o.paket}</div><div class="oi-t">${fmtDate(o.time)}</div></div>`).join("");
-}
-function showFromList(id){const o=orders.find(x=>x.id===id);if(!o)return;$("trackInp").value=id;$("trackRes").innerHTML=renderOCard(o);$("trackRes").style.display="block"}
-function doTrack(){
-  const q=$("trackInp").value.trim().toUpperCase();
-  if(!q){toast("Masukkan ID pesanan");return;}
-  const o=orders.find(x=>x.id===q);
-  if(o){$("trackRes").innerHTML=renderOCard(o);$("trackRes").style.display="block"}
-  else{$("trackRes").innerHTML=`<div class="empty"><div class="empty-ico">🔍</div><p style="font-size:.78rem">Pesanan <strong>${q}</strong> tidak ditemukan.<br><span style="color:var(--dim)">Coba hubungi CS via WhatsApp.</span></p></div>`;$("trackRes").style.display="block"}
-}
-$("trackInp").addEventListener("input",function(){this.value=this.value.toUpperCase()});
-
-/* ADMIN */
-$("fab").onclick=()=>openModal("adminModal");
-$("bAdmLogin").onclick=()=>{
-  if($("admPass").value==="54321"){$("adminTools").classList.add("vis");renderAdmOrders();}
-  else toast("❌ Password salah!");
-};
-$("bAdmOut").onclick=()=>{$("adminTools").classList.remove("vis");$("admPass").value=""};
-
-/* Admin: auto-check username with large avatar */
-$("admUn").addEventListener("input",function(){
-  const v=this.value.trim();
-  $("admAvBox").classList.remove("vis");hide("admSk");setNtf("admNtf","");
-  if(v.length<3)return;
-  clearTimeout(this._t);
-  this._t=setTimeout(()=>doAdmCheck(v),650);
-});
-$("bAdmCek").onclick=()=>{
-  const v=$("admUn").value.trim();if(!v){setNtf("admNtf","Masukkan username!");return;}
-  doAdmCheck(v);
-};
-async function doAdmCheck(username){
-  showFlex("admSk");$("admAvBox").classList.remove("vis");setNtf("admNtf","");
-  try{
-    const r=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username})});
-    const d=await r.json();
-    hide("admSk");
-    if(r.ok){
-      setNtf("admNtf","✅ "+d.name,"ok");
-      $("admAvName").textContent=d.name;$("admAvId").textContent="User ID: "+d.userId;
-      $("admUnConf").value=username;
-      try{
-        const ra=await fetch(`/api/avatar?userId=${d.userId}`);
-        const da=await ra.json();
-        if(ra.ok&&da.avatarUrl){admAvUrl=da.avatarUrl;$("admAvImg").src=da.avatarUrl;$("admAvBox").classList.add("vis")}
-      }catch(_){}
-    }else setNtf("admNtf","❌ "+(d.error||"Tidak ditemukan"));
-  }catch(e){hide("admSk");setNtf("admNtf","❌ Gagal terhubung")}
-}
-function dlAvatar(){
-  if(!admAvUrl){toast("Belum ada avatar");return;}
-  const un=$("admUn").value||"roblox";
-  const a=document.createElement("a");a.href=admAvUrl;a.download=`avatar-${un}.png`;a.target="_blank";document.body.appendChild(a);a.click();document.body.removeChild(a);
-  toast("⬇️ Mengunduh avatar...");
-}
-
-/* Avatar manual upload & download */
-let manualAvDataUrl="",manualAvFilename="avatar";
-function handleAvUpload(inp){
-  const file=inp.files[0];if(!file)return;
-  if(file.size>10*1024*1024){toast("File terlalu besar! Maks 10MB");inp.value="";return;}
-  manualAvFilename=file.name.replace(/\.[^.]+$/,"")||"avatar";
-  const reader=new FileReader();
-  reader.onload=e=>{
-    manualAvDataUrl=e.target.result;
-    $("avPreviewImg").src=manualAvDataUrl;
-    $("avPreviewName").textContent=file.name;
-    $("avPreviewBox").style.display="block";
-    $("avUpZ").classList.add("ok");
-    $("avUpIco").textContent="✅";
-    $("avUpTitle").textContent=file.name;
-  };
-  reader.readAsDataURL(file);
-}
-function dlAvatarManual(){
-  if(!manualAvDataUrl){toast("Belum ada avatar diupload");return;}
-  const a=document.createElement("a");
-  a.href=manualAvDataUrl;
-  a.download=manualAvFilename+".png";
-  document.body.appendChild(a);a.click();document.body.removeChild(a);
-  toast("Avatar berhasil didownload!");
-}
-function resetAvUpload(){
-  $("avUpFile").value="";
-  $("avUpZ").classList.remove("ok");
-  $("avUpIco").textContent="🖼️";
-  $("avUpTitle").textContent="Upload foto avatar Roblox";
-  $("avPreviewBox").style.display="none";
-  $("avPreviewImg").src="";
-  manualAvDataUrl="";manualAvFilename="avatar";
-}
-
-/* Admin: kirim ke Discord */
-$("bKirim").onclick=async()=>{
-  const username=$("admUnConf").value.trim()||$("admUn").value.trim();
-  const robux=$("admRbx").value.trim();
-  const metode=$("admMet").value;
-  const oid=$("admOid").value.trim()||"-";
-  const file=$("admUpFile").files[0];
-  if(!username||!robux||!metode){toast("⚠️ Lengkapi semua data!");return;}
-  if(!file){toast("⚠️ Upload bukti pembayaran!");return;}
-  $("bKirim").innerHTML=`<span class="spinner"></span>Mengirim...`;$("bKirim").disabled=true;
-  const now=new Date(),est=new Date(now.getTime()+3*864e5);
-  const msg=[
-    `**Konfirmasi Topup — Admin DEXBLOX**`,``,
-    `ID Pesanan: \`${oid}\``,
-    `Username: ${username}`,
-    `Robux: ${robux} Robux`,
-    `Metode: ${metode}`,
-    `Waktu: ${now.toLocaleString("id-ID")}`,
-    `Est. Selesai: ${est.toLocaleString("id-ID")}`,
-    ``,`_Dikonfirmasi oleh admin DEXBLOX_`
-  ].join("\n");
-  const fd=new FormData();
-  fd.append("file",file,file.name);
-  fd.append("payload_json",JSON.stringify({content:msg}));
-  try{await fetch(WH_CONF,{method:"POST",body:fd});toast("✅ Berhasil dikirim ke Discord!")}
-  catch(e){toast("❌ Gagal kirim ke Discord")}
-  $("bKirim").textContent="📤 Kirim ke Discord";$("bKirim").disabled=false;
-};
-
-function renderAdmOrders(){
-  const el=$("admOList");
-  if(!orders.length){el.innerHTML=`<p style="font-size:.75rem;color:var(--dim);text-align:center;padding:12px">Belum ada pesanan.</p>`;return;}
-  el.innerHTML=orders.map(o=>`<div class="ao-row"><div><div class="ao-id">${o.id}</div><div class="ao-desc">${o.username} · ${o.robux} R$ · ${o.jenis}</div></div><div style="display:flex;align-items:center;gap:5px"><span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span>${o.status==="paid"?`<button class="btn-done" onclick="markDone('${o.id}')">Selesai</button>`:""}</div></div>`).join("");
-}
-function markDone(id){const o=orders.find(x=>x.id===id);if(o){o.status="done";renderAdmOrders();toast("✅ Pesanan "+id+" selesai!")}}
-
-/* TOP RANK */
-const TOPLIST=[
-  {rank:1,username:"letdaisreal",display:"l**d**s**al",rbx:45200,tx:38},
-  {rank:2,username:"rioSlebew52",display:"r**S**b*w52",rbx:38750,tx:31},
-  {rank:3,username:"Kaen3v",display:"K**n3v",rbx:29300,tx:25},
-  {rank:4,username:"menglistecu",display:"m**g**s**cu",rbx:21100,tx:19},
-  {rank:5,username:"Roroemess",display:"R**o**ss",rbx:17640,tx:15},
-];
-async function loadRank(){
-  const cont=$("rankList");
-  cont.innerHTML=TOPLIST.map((p,i)=>{
-    const nc=["rn1","rn2","rn3","rno","rno"][i];
-    const crown=i===0?`<div class="rank-crown">👑</div>`:"";
-    return `<div class="rank-row" id="rr${i}">
-      <div class="rank-num ${nc}">${p.rank}</div>
-      <div class="rank-av-wrap">${crown}<div class="rank-av-sk" id="ras${i}"></div></div>
-      <div class="rank-info"><div class="rank-name">${p.display}</div><div class="rank-sub">${p.tx} transaksi</div></div>
-      <div class="rank-rbx">${p.rbx.toLocaleString("id-ID")} R$</div>
-    </div>`;
-  }).join("");
-  for(let i=0;i<TOPLIST.length;i++){
-    const p=TOPLIST[i];
-    try{
-      const r=await fetch("/api/user",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username:p.username})});
-      const d=await r.json();
-      if(r.ok&&d.userId){
-        const ra=await fetch(`/api/avatar?userId=${d.userId}`);
-        const da=await ra.json();
-        if(ra.ok&&da.avatarUrl){
-          const skel=$(`ras${i}`);
-          const img=document.createElement("img");
-          img.className="rank-av";img.src=da.avatarUrl;img.alt=p.display;
-          skel.replaceWith(img);
-        }
-      }
-    }catch(_){}
+async function doAdmCheck() {
+  const v = $('admUn').value.trim();
+  if (!v) return;
+  $('admSk').style.display = 'flex';
+  $('admAvBox').classList.remove('vis');
+  $('admNtf').textContent = '';
+  try {
+    const r = await fetch('/api/user', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username: v}) });
+    const d = await r.json();
+    $('admSk').style.display = 'none';
+    if (r.ok) {
+      $('admAvName').textContent = d.name;
+      $('admAvId').textContent   = 'User ID: ' + d.userId;
+      $('admUnConf').value       = v;
+      $('admNtf').textContent    = '✅ ' + d.name;
+      $('admNtf').style.color    = '#16a34a';
+      try {
+        const ra = await fetch('/api/avatar?userId=' + d.userId);
+        const da = await ra.json();
+        if (ra.ok && da.avatarUrl) { admAvUrl = da.avatarUrl; $('admAvImg').src = da.avatarUrl; }
+      } catch(_) {}
+      $('admAvBox').classList.add('vis');
+    } else {
+      $('admNtf').textContent = '❌ ' + (d.error || 'Tidak ditemukan');
+      $('admNtf').style.color = '#ef4444';
+    }
+  } catch(e) {
+    $('admSk').style.display = 'none';
+    // Fallback demo
+    $('admAvName').textContent = v;
+    $('admAvId').textContent   = 'User ID: Demo';
+    $('admUnConf').value       = v;
+    $('admNtf').textContent    = '✅ ' + v + ' (demo)';
+    $('admNtf').style.color    = '#16a34a';
+    $('admAvBox').classList.add('vis');
   }
 }
 
-/* REVIEWS */
-const REVIEWS=[
-  {stars:5,text:"Proses cepet banget, beli jam 2 pagi langsung masuk dalam 5 menit!",name:"Arya P.",pkg:"1000 Robux",color:"#2563EB"},
-  {stars:5,text:"Harga paling murah se-Indo, udah cek kemana-mana. Langsung jadi langganan!",name:"Sinta D.",pkg:"450 Robux",color:"#059669"},
-  {stars:5,text:"CS ramah banget, masalah selesai dalam hitungan menit. Sangat recommended!",name:"Rizky F.",pkg:"2200 Robux",color:"#EA580C"},
-  {stars:5,text:"Bayar DANA, kurang 5 menit langsung bisa dipakai beli item. TOP banget!",name:"Melisa P.",pkg:"800 Robux",color:"#7C3AED"},
-  {stars:5,text:"Udah 3 tahun langganan, ga pernah kecewa sama sekali. Terbaik di Indo!",name:"Farhan A.",pkg:"4500 Robux",color:"#DC2626"},
-  {stars:5,text:"Paling aman dan terpercaya! Ga ada yang nandingin harganya di internet.",name:"Nadia S.",pkg:"600 Robux",color:"#0891B2"},
-  {stars:5,text:"Topup malam-malam tetep diproses cepet, adminnya responsif 24 jam nonstop!",name:"Kevin R.",pkg:"1700 Robux",color:"#D97706"},
-  {stars:5,text:"Promo kodenya beneran kerja, hemat 10%! Selalu pake DEXBLOX sekarang.",name:"Putri M.",pkg:"320 Robux",color:"#BE185D"},
-];
-function buildReviews(){
-  const track=$("revTrack");
-  const all=[...REVIEWS,...REVIEWS];
-  track.innerHTML=all.map(r=>`<div class="rcard">
-    <div class="rcard-stars">${"★".repeat(r.stars).split("").map(s=>`<span style="color:#F59E0B">${s}</span>`).join("")}${"☆".repeat(5-r.stars).split("").map(s=>`<span style="color:#E2E8F0">${s}</span>`).join("")}</div>
-    <div class="rcard-text">"${r.text}"</div>
-    <div class="rcard-user">
-      <div class="rcard-av" style="background:${r.color}">${r.name[0]}</div>
-      <div><div class="rcard-name">${r.name}</div><div class="rcard-pkg">${r.pkg}</div></div>
-    </div>
-  </div>`).join("");
+function dlAvatar() {
+  if (!admAvUrl) { toast('Belum ada avatar untuk didownload'); return; }
+  const un = $('admUn').value || 'roblox';
+  const a  = document.createElement('a');
+  a.href = admAvUrl; a.download = 'avatar-'+un+'.png'; a.target='_blank';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  toast('⬇️ Mengunduh avatar...');
 }
 
-/* INIT */
-$("yr").textContent=new Date().getFullYear();
-loadRank();
-buildReviews();
+/* ── UPLOAD BUKTI (admin) ────────────────────────────── */
+function handleAdmUp() {
+  const file = $('admUpFile').files[0]; if (!file) return;
+  if (file.size > 5*1024*1024) { toast('⚠️ File terlalu besar! Maks 5MB'); return; }
+  const r = new FileReader();
+  r.onload = e => {
+    $('admUpPrev').src = e.target.result; $('admUpPrev').style.display='block';
+    $('admUpZone').style.borderColor='#22c55e'; $('admUpZone').style.borderStyle='solid';
+    $('admUpIco').textContent='✅'; $('admUpTitle').textContent=file.name;
+  };
+  r.readAsDataURL(file);
+}
+
+/* ── KIRIM KE DISCORD ────────────────────────────────── */
+async function kirimDiscord() {
+  const username = $('admUnConf').value.trim() || $('admUn').value.trim();
+  const robux    = $('admRbx').value.trim();
+  const metode   = $('admMet').value;
+  const oid      = $('admOid').value.trim() || '-';
+  const file     = $('admUpFile').files[0];
+  if (!username || !robux || !metode) { toast('⚠️ Lengkapi semua data!'); return; }
+  if (!file)                           { toast('⚠️ Upload bukti pembayaran!'); return; }
+
+  const btn = $('bKirim');
+  btn.textContent = '⏳ Mengirim...'; btn.disabled = true;
+
+  const now = new Date(), est = new Date(now.getTime() + 3*864e5);
+  const msg = [
+    '**Konfirmasi Topup — Admin DEXBLOX**','',
+    `ID Pesanan: \`${oid}\``,
+    `Username: ${username}`,
+    `Robux: ${robux} Robux`,
+    `Metode: ${metode}`,
+    `Waktu: ${now.toLocaleString('id-ID')}`,
+    `Est. Selesai: ${est.toLocaleString('id-ID')}`,
+    '',`_Dikonfirmasi oleh admin DEXBLOX_`
+  ].join('\n');
+
+  const fd = new FormData();
+  fd.append('file', file, file.name);
+  fd.append('payload_json', JSON.stringify({content: msg}));
+  try {
+    await fetch(WH_CONF, { method:'POST', body:fd });
+    toast('✅ Berhasil dikirim ke Discord!');
+    // Reset form
+    $('admUpFile').value=''; $('admUpPrev').style.display='none';
+    $('admUpIco').textContent='📎'; $('admUpTitle').textContent='Klik untuk upload bukti';
+    $('admUpZone').style.borderColor=''; $('admUpZone').style.borderStyle='dashed';
+    $('admRbx').value=''; $('admOid').value=''; $('admMet').value='';
+  } catch(e) { toast('❌ Gagal kirim ke Discord'); }
+
+  btn.textContent = '📤 Kirim ke Discord'; btn.disabled = false;
+}
+
+/* ── RENDER ORDERS ───────────────────────────────────── */
+function sClass(s) { return {pending:'sp', paid:'sd', done:'ss', cancel:'sc'}[s] || 'sp'; }
+function sLabel(s) { return {pending:'⏳ Menunggu', paid:'✅ Dibayar', done:'🎉 Selesai', cancel:'❌ Batal'}[s] || s; }
+
+function renderAdmOrders() {
+  const el = $('admOList');
+  const cnt = $('orderCount');
+  if (!orders.length) {
+    el.innerHTML = '<div class="admin-empty">📭 Belum ada pesanan sesi ini.</div>';
+    cnt.textContent = '';
+    return;
+  }
+  cnt.textContent = orders.length;
+  el.innerHTML = orders.map(o => `
+    <div class="ao-row">
+      <div>
+        <div class="ao-id">${o.id}</div>
+        <div class="ao-desc">${o.username} · ${o.rbx} Robux · ${o.jenis}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+        <span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span>
+        ${o.status==='paid' ? `<button class="btn-done-sm" onclick="markDone('${o.id}')">Selesai</button>` : ''}
+      </div>
+    </div>
+  `).join('');
+}
+
+function markDone(id) {
+  const o = orders.find(x => x.id===id);
+  if (o) { o.status='done'; renderAdmOrders(); toast('✅ Pesanan '+id+' selesai!'); }
+}
+
+/* Hook: push orders from main flow */
+function pushOrder(o) {
+  orders.unshift(o);
+}
 </script>
 </body>
 </html>
