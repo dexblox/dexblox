@@ -146,7 +146,27 @@
     .hero-stat .val { font-family:'Poppins',sans-serif; font-weight:800; font-size:1.3rem; color:var(--text); }
     .hero-stat .lbl { font-size:0.78rem; font-weight:600; color:var(--text-muted); }
 
-    .rating-card {
+    .hero-ad-slider {
+      position:relative; width:100%; max-width:340px; flex-shrink:0;
+      border-radius:16px; overflow:hidden; aspect-ratio:4/3;
+      box-shadow:0 4px 20px rgba(249,115,22,0.18);
+    }
+    .hero-ad-slide {
+      position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+      opacity:0; transition:opacity 0.7s ease;
+    }
+    .hero-ad-slide.active { opacity:1; }
+    .slider-dots {
+      position:absolute; bottom:9px; left:50%; transform:translateX(-50%);
+      display:flex; gap:6px; z-index:2;
+    }
+    .sdot-i {
+      width:7px; height:7px; border-radius:50%; background:rgba(255,255,255,0.55);
+      cursor:pointer; transition:all 0.3s;
+    }
+    .sdot-i.active { background:#fff; width:20px; border-radius:4px; }
+    @media (max-width:640px) { .hero-ad-slider { max-width:100%; } }
+
       background:var(--white); border:1.5px solid var(--orange-border); border-radius:16px;
       padding:1.25rem 1.6rem; display:flex; flex-direction:column;
       align-items:center; gap:0.2rem; cursor:pointer;
@@ -329,7 +349,7 @@
 
     .footer-top {
       max-width:1200px; margin:0 auto; padding:0 1.5rem;
-      display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr;
+      display:grid; grid-template-columns:1.6fr 1fr;
       gap:2.5rem; padding-bottom:2rem;
     }
 
@@ -781,7 +801,7 @@
 <nav>
   <div class="container nav-inner">
     <a href="#" class="logo">
-      <div class="logo-icon">🎮</div>
+      <div class="logo-icon"><img src="fishit.png" alt="FishIt" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" onerror="this.parentElement.textContent='🎮'" /></div>
       <span>DexBlox</span>
     </a>
     <ul class="nav-links">
@@ -881,56 +901,70 @@
   <div class="hero-wrap">
     <div>
       <div class="hero-badge">🔥 DexBlox — Top Up Terpercaya!</div>
-      <h1>Top Up <span class="hl">Robux</span><br>Murah &amp; Aman</h1>
+      <h1>Joki Akun <span class="hl">Roblox</span><br>&amp; Topup Robux<br>Termurah dan Amanah</h1>
       <p>DexBlox adalah tempat Top Up Robux Roblox murah, gamepass dengan proses serba otomatis. Setiap pembelian dilindungi garansi DexSecure.</p>
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <div class="val">⭐ 4.9</div>
-          <div class="lbl">Rating</div>
-        </div>
-        <div class="hero-stat">
-          <div class="val">34.800+</div>
-          <div class="lbl">Ulasan</div>
-        </div>
-        <div class="hero-stat">
-          <div class="val">10.000.000+</div>
-          <div class="lbl">Item Terjual</div>
-        </div>
+    </div>
+    <div class="hero-ad-slider" id="heroSlider">
+      <img src="iklan.png"  class="hero-ad-slide active" alt="Iklan DexBlox" onerror="this.style.display='none'" />
+      <img src="iklan1.png" class="hero-ad-slide"        alt="Iklan DexBlox 2" onerror="this.style.display='none'" />
+      <div class="slider-dots">
+        <span class="sdot-i active" onclick="goSlide(0)"></span>
+        <span class="sdot-i"        onclick="goSlide(1)"></span>
       </div>
     </div>
-    <div class="rating-card pulse">
-      <div class="stars">★★★★★</div>
-      <div class="score">4.9</div>
-      <div class="sub">Penilaian</div>
-    </div>
   </div>
 </div>
-
-<div class="divider"></div>
-
-<div class="divider"></div>
 
 <!-- ── PRODUK ────────────────────────────────────────────── -->
-<div class="container section fade d2">
-  <div class="section-row">
-    <div>
-      <div class="section-title">Pilih Metode Topup</div>
-      <div class="section-sub">Borong Robux, Jadi Nomor Satu!</div>
-    </div>
-    <a href="#" class="view-all">Lihat Semua →</a>
-  </div>
-</div>
 
 <!-- Banner full-width -->
 <div class="robux-banner-wrap">
   <div class="robux-banner">
-    <div class="robux-title">Top Up Robux Murah!</div>
-    <div class="robux-sub">Mulai Dari Rp108/Rbx. Termurah se-Universe!</div>
-    <div class="trust-row">
-      <div class="trust-chip light">🛡️ &nbsp;<span>GARANSI 100%<br>AKUN AMAN</span></div>
-      <div class="trust-chip dark">✅ &nbsp;<span>ROBUX<br>PASTI MASUK</span></div>
-    </div>
+    <div class="robux-title">Joki dan Topup Robux Murah!</div>
     <div class="type-cards">
+      <div class="type-card" onclick="openModalFromBanner('joki')">
+        <div class="type-inner" id="type-joki" style="background:linear-gradient(135deg,#a21caf,#7c3aed,#4f46e5);">
+          <div class="flash-badge" style="background:linear-gradient(135deg,#facc15,#f59e0b);box-shadow:0 4px 10px rgba(245,158,11,0.45);color:#78350f;">🔥 Paling Laris!</div>
+          <div class="type-top">
+            <div class="type-ico" style="background:rgba(255,255,255,0.18);">🗡️</div>
+            <div class="type-info">
+              <div class="type-name" style="color:#fff;">Joki Level Violence District</div>
+              <div class="type-desc" style="color:rgba(255,255,255,0.85);">Level naik sesuai pesanan! Di tengah joki level tetap sama.</div>
+              <!-- INFO HARGA -->
+              <div style="margin-top:7px;">
+                <span style="background:#fff;color:#7c3aed;font-size:0.72rem;font-weight:800;padding:4px 11px;border-radius:50px;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);">💰 10 Level = Rp 15.000</span>
+              </div>
+            </div>
+            <div class="type-arrow" style="background:rgba(255,255,255,0.18);color:#fff;">›</div>
+          </div>
+          <div class="type-foot" style="background:#3b0764;">
+            <span class="foot-label">Sangat ideal untuk:</span>
+            <span>Naikin level cepat 🗡️</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="type-card" onclick="openCloudPhoneModal()">
+        <div class="type-inner" id="type-cloudphone" style="background:linear-gradient(135deg,#0ea5e9,#38bdf8,#7dd3fc);">
+          <div class="flash-badge" style="background:linear-gradient(135deg,#0284c7,#0369a1);box-shadow:0 4px 10px rgba(2,132,199,0.45);color:#fff;">📱 Tersedia!</div>
+          <div class="type-top">
+            <div class="type-ico" style="background:rgba(255,255,255,0.28);">☁️</div>
+            <div class="type-info">
+              <div class="type-name" style="color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.15);">Cloud Phone Snapdragon 855</div>
+              <div class="type-desc" style="color:rgba(255,255,255,0.92);">AFK game bebas masalah, performa tinggi di cloud!</div>
+              <div style="margin-top:7px;">
+                <span style="background:#fff;color:#0284c7;font-size:0.72rem;font-weight:800;padding:4px 11px;border-radius:50px;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);">💰 Rp 10.000 / 20 Jam</span>
+              </div>
+            </div>
+            <div class="type-arrow" style="background:rgba(255,255,255,0.28);color:#fff;">›</div>
+          </div>
+          <div class="type-foot" style="background:rgba(2,132,199,0.35);backdrop-filter:blur(4px);">
+            <span class="foot-label" style="color:rgba(255,255,255,0.75);">Sangat ideal untuk:</span>
+            <span style="color:#fff;">AFK game tanpa gangguan ☁️</span>
+          </div>
+        </div>
+      </div>
+
       <div class="type-card" onclick="openModalFromBanner('slow')">
         <div class="type-inner" id="type-slow">
           <div class="flash-badge">Sedang Flashsale!</div>
@@ -941,7 +975,7 @@
               <div class="type-desc">Hemat dompet dan Min Dex rekomendasikan!</div>
               <!-- INFO HARGA -->
               <div style="margin-top:7px;">
-                <span style="background:#fff;color:var(--primary-dark);font-size:0.72rem;font-weight:800;padding:4px 11px;border-radius:50px;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);">💰 100 Robux = Rp 10.300</span>
+                <span style="background:#fff;color:var(--primary-dark);font-size:0.72rem;font-weight:800;padding:4px 11px;border-radius:50px;display:inline-block;box-shadow:0 2px 6px rgba(0,0,0,0.12);">💰 100 Robux = Rp 12.500</span>
               </div>
             </div>
             <div class="type-arrow">›</div>
@@ -1077,28 +1111,6 @@
   </div>
   <div class="game-grid">
     <div class="game-card">
-      <div class="game-img" style="background:linear-gradient(135deg,#fef3c7,#fde68a);">
-        <span style="position:relative;z-index:1;">🍎</span>
-        <div class="game-overlay"></div>
-        <div class="badge-hot">HOT</div>
-      </div>
-      <div class="game-info">
-        <div class="game-name">Blox Fruit</div>
-        <div class="game-status">🕒 Segera Hadir</div>
-      </div>
-    </div>
-    <div class="game-card">
-      <div class="game-img" style="background:linear-gradient(135deg,#d1fae5,#a7f3d0);">
-        <span style="position:relative;z-index:1;">🌱</span>
-        <div class="game-overlay"></div>
-        <div class="badge-hot">HOT</div>
-      </div>
-      <div class="game-info">
-        <div class="game-name">Grow A Garden</div>
-        <div class="game-status">🕒 Segera Hadir</div>
-      </div>
-    </div>
-    <div class="game-card">
       <div class="game-img" style="background:linear-gradient(135deg,#dbeafe,#bfdbfe);">
         <span style="position:relative;z-index:1;">🐟</span>
         <div class="game-overlay"></div>
@@ -1107,28 +1119,6 @@
       </div>
       <div class="game-info">
         <div class="game-name">Fish It!</div>
-        <div class="game-status">🕒 Segera Hadir</div>
-      </div>
-    </div>
-    <div class="game-card">
-      <div class="game-img" style="background:linear-gradient(135deg,#ffe4e6,#fecdd3);">
-        <span style="position:relative;z-index:1;">🔪</span>
-        <div class="game-overlay"></div>
-        <div class="badge-hot">HOT</div>
-      </div>
-      <div class="game-info">
-        <div class="game-name">Murder Mystery</div>
-        <div class="game-status">🕒 Segera Hadir</div>
-      </div>
-    </div>
-    <div class="game-card">
-      <div class="game-img" style="background:linear-gradient(135deg,#ede9fe,#ddd6fe);">
-        <span style="position:relative;z-index:1;">⚔️</span>
-        <div class="game-overlay"></div>
-        <div class="badge-hot">HOT</div>
-      </div>
-      <div class="game-info">
-        <div class="game-name">Rivals</div>
         <div class="game-status">🕒 Segera Hadir</div>
       </div>
     </div>
@@ -1147,57 +1137,21 @@
     <!-- Brand -->
     <div>
       <div class="footer-logo-wrap">
-        <div class="footer-logo-icon">🎮</div>
+        <div class="footer-logo-icon"><img src="fishit.png" alt="FishIt" style="width:100%;height:100%;object-fit:cover;border-radius:10px;" onerror="this.parentElement.textContent='🎮'" /></div>
         <div class="footer-logo-name">dexblox</div>
       </div>
       <p class="footer-desc">
         DexBlox adalah tempat Top Up Robux Roblox murah, gamepass dengan proses serba otomatis.
         Setiap pembelian dilindungi garansi <a href="#">DexSecure</a>.
       </p>
-      <div class="pay-label">Pembayaran</div>
-      <div class="pay-chips">
-        <div class="pay-chip">💳 DANA</div>
-        <div class="pay-chip">💚 GoPay</div>
-        <div class="pay-chip">💜 OVO</div>
-        <div class="pay-chip">🏦 Bank</div>
-        <div class="pay-chip">📱 QRIS</div>
-      </div>
     </div>
 
     <!-- Bantuan & Keluhan -->
     <div class="footer-col">
       <h4>Bantuan &amp; Keluhan</h4>
       <ul>
-        <li><a href="#">Whatsapp</a></li>
-        <li><a href="#">Instagram</a></li>
-        <li><a href="#">Sosial Media</a></li>
+        <li><a href="https://wa.me/6285362187740?text=Saya%20butuh%20bantuan%20min" target="_blank">Whatsapp</a></li>
       </ul>
-    </div>
-
-    <!-- Beli & Tentang Kami -->
-    <div class="footer-col">
-      <h4>Beli</h4>
-      <ul>
-        <li><a href="#">Robux</a></li>
-      </ul>
-      <h4 style="margin-top:1.75rem;">Tentang Kami</h4>
-      <ul>
-        <li><a href="#">Pusat Bantuan</a></li>
-        <li><a href="#">Kebijakan Privasi</a></li>
-        <li><a href="#">Syarat dan Ketentuan</a></li>
-        <li><a href="#">Blog</a></li>
-      </ul>
-    </div>
-
-    <!-- Ikuti Kami -->
-    <div class="footer-col">
-      <h4>Ikuti Kami</h4>
-      <div class="social-icons">
-        <a href="#" class="social-ico" title="YouTube">▶️</a>
-        <a href="#" class="social-ico" title="Instagram">📷</a>
-        <a href="#" class="social-ico" title="Discord">💬</a>
-        <a href="#" class="social-ico" title="WhatsApp">📞</a>
-      </div>
     </div>
 
   </div>
@@ -1280,6 +1234,111 @@
           <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);margin-top:2px;">Topup game favoritmu akan segera tersedia di DexBlox.</div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CLOUD PHONE MODAL ──────────────────────────────────── -->
+<div id="cpOverlay" style="display:none;position:fixed;inset:0;z-index:998;background:rgba(15,23,42,0.6);backdrop-filter:blur(5px);align-items:flex-end;justify-content:center;" onclick="if(event.target===this)closeCPModal()">
+  <div style="background:#fff;width:100%;max-width:480px;border-radius:20px 20px 0 0;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.3s cubic-bezier(.34,1.2,.64,1);" id="cpSheet">
+    <div style="width:36px;height:4px;background:#e2e8f0;border-radius:2px;margin:10px auto 0;"></div>
+
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#0ea5e9,#38bdf8,#7dd3fc);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:1.05rem;color:#fff;" id="cpTitle">☁️ Cloud Phone Snapdragon 855</div>
+        <div style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.8);margin-top:0.1rem;" id="cpSub">AFK game bebas masalah · Rp 10.000 / 20 Jam</div>
+      </div>
+      <button onclick="closeCPModal()" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+
+    <!-- Steps -->
+    <div style="display:flex;align-items:center;justify-content:center;padding:1rem 1.5rem 0;gap:0;" id="cpStepsBar">
+      <div class="step-dot"><div class="sdot active" id="cpSd1">1</div><div class="slbl active" id="cpSl1">Ringkasan</div></div>
+      <div class="step-line" id="cpLine1"></div>
+      <div class="step-dot"><div class="sdot" id="cpSd2">2</div><div class="slbl" id="cpSl2">Bayar</div></div>
+      <div class="step-line" id="cpLine2"></div>
+      <div class="step-dot"><div class="sdot" id="cpSd3">3</div><div class="slbl" id="cpSl3">Selesai</div></div>
+    </div>
+
+    <div style="padding:1.1rem 1.5rem 2rem;">
+
+      <!-- STEP 1: Ringkasan -->
+      <div id="cpPanel1">
+        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;margin-bottom:1.25rem;line-height:1.6;">
+          ☁️ <strong>Cloud Phone Snapdragon 855</strong> — Sewa HP cloud untuk AFK game, topup otomatis, dan kebutuhan lainnya. Diakses via remote, tidak perlu HP fisik!
+        </div>
+
+        <!-- Paket card -->
+        <div style="background:var(--primary-light);border:2px solid var(--primary);border-radius:14px;padding:1rem 1.25rem;display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;">
+          <div style="font-size:2rem;">☁️</div>
+          <div style="flex:1;">
+            <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:1rem;color:var(--text);">20 Jam</div>
+            <div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);margin-top:2px;">Cloud Phone Snapdragon 855 · AFK Game</div>
+          </div>
+          <div style="font-family:'Poppins',sans-serif;font-weight:800;font-size:1.15rem;color:var(--primary);">Rp 10.000</div>
+        </div>
+
+        <!-- Ringkasan biaya -->
+        <div class="qris-order">
+          <div class="qrow"><span class="qk">Paket</span><span class="qv">Cloud Phone 20 Jam</span></div>
+          <div class="qrow"><span class="qk">Harga Sewa</span><span class="qv">Rp 10.000</span></div>
+          <div class="qrow"><span class="qk">Biaya QRIS (0.7%)</span><span class="qv" style="color:var(--primary);">+ Rp 70</span></div>
+          <div class="qrow" style="border-top:1px solid var(--border);padding-top:0.4rem;margin-top:0.1rem;">
+            <span class="qk" style="font-weight:800;">Total Bayar</span>
+            <span class="qv orn" style="font-size:1rem;">Rp 10.070</span>
+          </div>
+        </div>
+
+        <button class="mbtn" onclick="cpGoStep(2)" style="margin-top:1rem;">Bayar Sekarang →</button>
+      </div>
+
+      <!-- STEP 2: QRIS + Upload -->
+      <div id="cpPanel2" style="display:none;">
+        <!-- QRIS box -->
+        <div class="qris-box">
+          <div class="qris-lbl">Scan QRIS untuk Membayar</div>
+          <div class="qris-amount">Rp 10.070</div>
+          <div class="qframe">
+            <img src="qris.png" alt="QRIS" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22166%22 height=%22166%22%3E%3Crect width=%22166%22 height=%22166%22 fill=%22%23f1f5f9%22 rx=%228%22/%3E%3Ctext x=%2283%22 y=%2272%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EQRIS belum tersedia%3C/text%3E%3Ctext x=%2283%22 y=%2290%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3EUpload file qris.png%3C/text%3E%3Ctext x=%2283%22 y=%22108%22 font-size=%2211%22 text-anchor=%22middle%22 fill=%22%2394a3b8%22%3Eke folder website%3C/text%3E%3C/svg%3E'">
+          </div>
+          <div class="qris-expire-row">⏱ Berlaku: <span class="qris-timer" id="cpTimer">14:59</span></div>
+          <div class="qris-methods">
+            <div class="qris-meth">GoPay</div><div class="qris-meth">OVO</div>
+            <div class="qris-meth">DANA</div><div class="qris-meth">ShopeePay</div>
+            <div class="qris-meth">m-BCA</div>
+          </div>
+        </div>
+
+        <!-- Upload bukti -->
+        <div style="margin-top:1rem;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:5px;">
+            Bukti Pembayaran <span style="color:#ef4444;font-size:0.65rem;">* Wajib</span>
+          </div>
+          <label id="cpUpZone" style="position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border:2px dashed var(--border);border-radius:12px;padding:18px 16px;background:var(--bg);cursor:pointer;transition:all 0.2s;text-align:center;overflow:hidden;">
+            <input type="file" id="cpUpFile" accept="image/png,image/jpeg,image/jpg" style="position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;" onchange="handleCPUp()" />
+            <div style="font-size:1.6rem;" id="cpUpIco">🖼️</div>
+            <div style="font-size:0.82rem;font-weight:700;color:var(--text-muted);" id="cpUpTitle">Klik atau seret foto bukti transfer</div>
+            <div style="font-size:0.68rem;color:var(--text-light);" id="cpUpSub">Format JPG / PNG · Maks 5 MB</div>
+          </label>
+          <img id="cpUpPrev" src="" alt="" style="display:none;width:100%;max-height:180px;object-fit:contain;border-radius:10px;margin-top:8px;border:1px solid var(--border);" />
+        </div>
+
+        <button class="mbtn" id="cpBtnPay" onclick="cpKonfirmBayar()">✅ Sudah Membayar</button>
+        <button class="mbtn-back" onclick="cpGoStep(1)">← Kembali</button>
+      </div>
+
+      <!-- STEP 3: Sukses -->
+      <div id="cpPanel3" style="display:none;">
+        <div class="success-wrap">
+          <div class="sico">🎉</div>
+          <div class="stit">Pembayaran Berhasil!</div>
+          <div class="ssub">Pesanan Cloud Phone kamu sedang diproses oleh admin.</div>
+          <div class="sdet" id="cpSuccessDetail"></div>
+          <button class="mbtn" onclick="closeCPModal()" style="margin-top:0.5rem;">Selesai 🚀</button>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1385,6 +1444,36 @@
           <button class="mbtn" id="btnFast1" onclick="goStepFast(2)" disabled>Lanjut Pilih Paket →</button>
         </div>
 
+        <!-- Panel Joki: username only -->
+        <div id="pnlJoki" style="display:none;">
+          <div class="inp-group">
+            <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;margin-bottom:1rem;line-height:1.55;">
+              ℹ️ Joki <strong>Level Violence District</strong>. Min. 10 level, kelipatan 10. Bisa custom asal di atas 10 level. <strong>Di tengah joki, level kamu tetap sama</strong> sampai selesai.
+            </div>
+            <label class="inp-label">Username Roblox</label>
+            <div style="display:flex;gap:8px;">
+              <input class="inp-field" id="uJ" type="text" placeholder="Masukkan username..." autocomplete="off" spellcheck="false" style="flex:1;" oninput="onUJInput()" />
+              <button style="background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;flex-shrink:0;" onclick="doCheckJ()">Cek</button>
+            </div>
+            <div class="inp-hint" id="nJ" style="margin-top:4px;min-height:16px;"></div>
+          </div>
+          <!-- Skeleton J -->
+          <div id="skJ" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;">
+            <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;flex-shrink:0;"></div>
+            <div style="flex:1;"><div style="height:9px;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;margin-bottom:7px;"></div><div style="height:9px;width:55%;border-radius:4px;background:linear-gradient(90deg,var(--bg2) 25%,#fff 50%,var(--bg2) 75%);background-size:200%;animation:skAnim 1.2s infinite;"></div></div>
+          </div>
+          <!-- User card J -->
+          <div id="ucJ" style="display:none;align-items:center;gap:12px;background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;padding:12px;margin-bottom:1rem;">
+            <img id="avJ" src="" alt="" style="width:48px;height:48px;border-radius:50%;border:2px solid var(--primary);object-fit:cover;flex-shrink:0;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2248%22 height=%2248%22%3E%3Ccircle cx=%2224%22 cy=%2224%22 r=%2224%22 fill=%22%23fed7aa%22/%3E%3Ctext x=%2224%22 y=%2230%22 font-size=%2220%22 text-anchor=%22middle%22 fill=%22%23ea580c%22%3E🎮%3C/text%3E%3C/svg%3E'" />
+            <div style="flex:1;min-width:0;">
+              <div style="font-weight:800;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="unJ">—</div>
+              <div style="font-size:0.68rem;color:var(--text-muted);margin-top:2px;" id="uiJ">—</div>
+              <div style="display:inline-flex;align-items:center;gap:3px;background:#f0fdf4;color:#16a34a;font-size:0.62rem;font-weight:700;padding:2px 8px;border-radius:50px;margin-top:4px;">✓ Akun Terverifikasi</div>
+            </div>
+          </div>
+          <button class="mbtn" id="btnJoki1" onclick="goStepJoki(2)" disabled>Lanjut Pilih Level →</button>
+        </div>
+
       </div>
 
       <!-- ── STEP 2: Pilih Paket ── -->
@@ -1419,6 +1508,17 @@
           <div class="paket-list" id="paketListFastP"></div>
           <div style="font-size:0.72rem;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.5px;margin:12px 0 8px;">💎 Robux Biasa</div>
           <div class="paket-list" id="paketListFastR"></div>
+        </div>
+
+        <!-- Paket Joki -->
+        <div id="paketJoki" style="display:none;">
+          <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Pilih Jumlah Level</div>
+          <div class="paket-list" id="paketListJoki"></div>
+          <div style="margin-top:1rem;">
+            <label class="inp-label">Custom Jumlah Level <span style="font-size:0.65rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--text-muted);">(opsional, harus di atas 10 level)</span></label>
+            <input class="inp-field" type="number" id="custLevel" placeholder="Min. 11 level" min="11" oninput="onCustLevelInput()" style="-webkit-user-select:text;user-select:text;" />
+            <div class="inp-hint">Harga dihitung otomatis: Rp 1.500/Level (10 Level = Rp 15.000)</div>
+          </div>
         </div>
 
         <div class="ringkasan" id="ringkasan" style="display:none;">
@@ -1495,19 +1595,20 @@
 <script>
 /* ── CONFIG ──────────────────────────────────────────── */
 const WA_NUM = '6285362187740';
-const FEE    = 200;
-const HARGA_PER_100 = 10300; // Rp per 100 Robux
+const QRIS_TAX  = 0.007; // 0.7%
+const qrisFee = harga => Math.ceil(harga * QRIS_TAX);
+const HARGA_PER_100 = 12500; // Rp per 100 Robux
 
 /* ── DATA PAKET ──────────────────────────────────────── */
 const paketSlow = [
-  { rbx:100,  harga:10300,  gp:143   },
-  { rbx:200,  harga:20600,  gp:286   },
-  { rbx:400,  harga:41200,  gp:572   },
-  { rbx:500,  harga:51500,  gp:715,  hot:'Populer' },
-  { rbx:800,  harga:82400,  gp:1144  },
-  { rbx:1000, harga:103000, gp:1430  },
-  { rbx:2200, harga:226600, gp:3146, hot:'Hemat' },
-  { rbx:4500, harga:463500, gp:6435  },
+  { rbx:100,  harga:12500,  gp:143   },
+  { rbx:200,  harga:25000,  gp:286   },
+  { rbx:400,  harga:50000,  gp:572   },
+  { rbx:500,  harga:62500,  gp:715,  hot:'Populer' },
+  { rbx:800,  harga:100000, gp:1144  },
+  { rbx:1000, harga:125000, gp:1430  },
+  { rbx:2200, harga:275000, gp:3146, hot:'Hemat' },
+  { rbx:4500, harga:562500, gp:6435  },
 ];
 const paketFastPremium = [
   { rbx:450,  harga:75000 },
@@ -1523,13 +1624,21 @@ const paketFastRobux = [
   { rbx:800,  harga:150000 },
   { rbx:1000, harga:187500 },
 ];
+const HARGA_PER_LEVEL = 1500; // Rp per level (10 level = Rp 15.000)
+const paketJoki = [
+  { lvl:10,  harga:15000 },
+  { lvl:20,  harga:30000 },
+  { lvl:30,  harga:45000, hot:'Populer' },
+  { lvl:50,  harga:75000 },
+  { lvl:100, harga:150000, hot:'Hemat' },
+];
 
 /* ── STATE ───────────────────────────────────────────── */
 let activeType    = 'slow';
 let selectedPaket = null; // { rbx, harga, label }
 let timerInterval = null;
 let timerSecs     = 899;
-let avSrc5 = '', avSrcL = '';
+let avSrc5 = '', avSrcL = '', avSrcJ = '';
 let currentOid   = '';
 let promoOn5     = false;
 
@@ -1570,10 +1679,11 @@ function openModalFromBanner(type) {
   // Show correct panel
   $('pnlSlow').style.display  = type === 'slow' ? 'block' : 'none';
   $('pnlFast').style.display  = type === 'fast' ? 'block' : 'none';
-  $('typeLabel').textContent   = type === 'slow' ? '⏳ Robux 5-7 Hari' : '⚡ Langsung Masuk';
-  $('modalTitle').textContent  = type === 'slow' ? 'Robux 5-7 Hari' : 'Langsung Masuk';
-  $('modalSub').textContent    = type === 'slow' ? 'Cek username Roblox kamu' : 'Masukkan username & password';
-  setTimeout(() => (type === 'slow' ? $('u5') : $('uL')).focus(), 300);
+  $('pnlJoki').style.display  = type === 'joki' ? 'block' : 'none';
+  $('typeLabel').textContent   = type === 'slow' ? '⏳ Robux 5-7 Hari' : type === 'joki' ? '🗡️ Joki Level Violence District' : '⚡ Langsung Masuk';
+  $('modalTitle').textContent  = type === 'slow' ? 'Robux 5-7 Hari' : type === 'joki' ? 'Joki Level Violence District' : 'Langsung Masuk';
+  $('modalSub').textContent    = type === 'slow' ? 'Cek username Roblox kamu' : type === 'joki' ? 'Cek username Roblox kamu' : 'Masukkan username & password';
+  setTimeout(() => (type === 'slow' ? $('u5') : type === 'joki' ? $('uJ') : $('uL')).focus(), 300);
 }
 
 function closeModal() {
@@ -1596,8 +1706,12 @@ function resetModal() {
   $('uL').value = ''; $('nL').textContent = ''; $('nL').style.color = '';
   $('ucL').style.display = 'none'; $('skL').style.display = 'none';
   $('passL').value = '';
+  $('uJ').value = ''; $('nJ').textContent = ''; $('nJ').style.color = '';
+  $('ucJ').style.display = 'none'; $('skJ').style.display = 'none';
+  if($('custLevel')) $('custLevel').value = '';
   $('btnSlow1').disabled = true;
   $('btnFast1').disabled = true;
+  $('btnJoki1').disabled = true;
   $('ringkasan').style.display = 'none';
   $('btnStep2').disabled = true;
   $('upFile').value = ''; $('upPrev').style.display = 'none'; $('upPrev').src = '';
@@ -1698,8 +1812,38 @@ function checkFastReady() {
   $('btnFast1').disabled = !(uOk && pOk);
 }
 
+// Joki auto
+let _tJ; function onUJInput() {
+  const v = $('uJ').value.trim();
+  $('ucJ').style.display='none'; setNtf('nJ',''); $('btnJoki1').disabled=true;
+  if(v.length<3) return;
+  clearTimeout(_tJ);
+  _tJ = setTimeout(() => doCheckJ(), 650);
+}
+function doCheckJ() {
+  const v = $('uJ').value.trim();
+  if (!v) { setNtf('nJ','Masukkan username Roblox!'); return; }
+  doCheckUser(v,'nJ','skJ','ucJ','avJ','unJ','uiJ', src => { avSrcJ=src; $('btnJoki1').disabled=false; });
+}
+
 /* ── PAKET ───────────────────────────────────────────── */
 function renderPaketList(listEl, items, mode) {
+  if (mode === 'joki') {
+    listEl.innerHTML = items.map((p, i) => `
+      <div class="paket-row" data-idx="${i}" data-mode="${mode}" onclick="selectPaketRow(this, ${JSON.stringify(p).replace(/"/g,"'")}, '${mode}')">
+        <div class="pico">🗡️</div>
+        <div class="pinf">
+          <div class="pnam">${p.lvl} Level</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0;">
+          <div class="ppri">${rp(p.harga)}</div>
+          ${p.hot ? `<span class="pbdg b-hot">${p.hot}</span>` : ''}
+        </div>
+        <div class="prad"></div>
+      </div>
+    `).join('');
+    return;
+  }
   listEl.innerHTML = items.map((p, i) => `
     <div class="paket-row ${mode==='slow'?'paket-row-slow':''}" data-idx="${i}" data-mode="${mode}" onclick="selectPaketRow(this, ${JSON.stringify(p).replace(/"/g,"'")}, '${mode}')">
       <div class="pico">${p.rbx >= 2000 ? '👑' : p.rbx >= 500 ? '💎' : '💰'}</div>
@@ -1724,15 +1868,35 @@ function renderPaketList(listEl, items, mode) {
 function selectPaketRow(el, p, mode) {
   document.querySelectorAll('.paket-row').forEach(r => r.classList.remove('sel'));
   el.classList.add('sel');
+  if (mode === 'joki') {
+    if($('custLevel')) $('custLevel').value = '';
+    selectedPaket = { lvl: p.lvl, harga: p.harga, label: p.lvl + ' Level' };
+    $('ringkasan').style.display = 'flex';
+    $('ringkasanVal').innerHTML = rp(p.harga + qrisFee(p.harga));
+    $('btnStep2').disabled = false;
+    return;
+  }
   const label = (mode==='premium' ? 'Premium ' : '') + p.rbx + ' Robux';
   let harga = p.harga;
   if (mode === 'slow' && promoOn5) harga = Math.round(harga * 0.9);
   selectedPaket = { rbx: p.rbx, harga, label, gp: p.gp || null };
   $('ringkasan').style.display = 'flex';
   const disc = (mode === 'slow' && promoOn5) ? ' <span style="font-size:0.68rem;background:#dcfce7;color:#16a34a;padding:1px 6px;border-radius:50px;font-weight:700;">-10%</span>' : '';
-  $('ringkasanVal').innerHTML = rp(harga + FEE) + disc;
+  $('ringkasanVal').innerHTML = rp(harga + qrisFee(harga)) + disc;
   $('btnStep2').disabled = false;
 }
+
+function onCustLevelInput() {
+  const lvl = parseInt($('custLevel').value);
+  if (!lvl || lvl <= 10) { selectedPaket = null; $('ringkasan').style.display='none'; $('btnStep2').disabled=true; return; }
+  document.querySelectorAll('.paket-row').forEach(r => r.classList.remove('sel'));
+  const harga = Math.round((lvl / 10) * HARGA_PER_LEVEL * 10);
+  selectedPaket = { lvl, harga, label: lvl + ' Level (custom)' };
+  $('ringkasan').style.display = 'flex';
+  $('ringkasanVal').innerHTML = rp(harga + qrisFee(harga));
+  $('btnStep2').disabled = false;
+}
+
 
 function onCustInput() {
   const robux = parseInt($('custRobux').value);
@@ -1744,7 +1908,7 @@ function onCustInput() {
   selectedPaket = { rbx: robux, harga, label: robux + ' Robux (custom)', gp };
   $('ringkasan').style.display = 'flex';
   const disc = promoOn5 ? ' <span style="font-size:0.68rem;background:#dcfce7;color:#16a34a;padding:1px 6px;border-radius:50px;font-weight:700;">-10%</span>' : '';
-  $('ringkasanVal').innerHTML = rp(harga + FEE) + disc;
+  $('ringkasanVal').innerHTML = rp(harga + qrisFee(harga)) + disc;
   $('btnStep2').disabled = false;
   const hint = $('custRobux').nextElementSibling;
   if (hint) hint.innerHTML = `🎮 Harga: ${rp(harga)} &nbsp;·&nbsp; Gamepass #${gp.toLocaleString('id-ID')}${promoOn5 ? ' &nbsp;✅ Promo aktif' : ''}`;
@@ -1756,6 +1920,7 @@ function goStepSlow(n) {
     if (!u || $('uc5').style.display !== 'flex') { setNtf('n5','Cek username terlebih dahulu!'); return; }
     $('paketSlow').style.display = 'block';
     $('paketFast').style.display = 'none';
+    $('paketJoki').style.display = 'none';
     renderPaketList($('paketListSlow'), paketSlow, 'slow');
     $('typeLabel').textContent = '⏳ Robux 5-7 Hari';
     goStepUI(2);
@@ -1771,6 +1936,7 @@ function goStepFast(n) {
     if (!p) { setNtf('nL','Masukkan password Roblox!'); return; }
     $('paketSlow').style.display = 'none';
     $('paketFast').style.display = 'block';
+    $('paketJoki').style.display = 'none';
     renderPaketList($('paketListFastP'), paketFastPremium, 'premium');
     renderPaketList($('paketListFastR'), paketFastRobux, 'robux');
     $('typeLabel').textContent = '⚡ Langsung Masuk';
@@ -1780,18 +1946,34 @@ function goStepFast(n) {
   }
 }
 
+function goStepJoki(n) {
+  if (n === 2) {
+    const u = $('uJ').value.trim();
+    if (!u || $('ucJ').style.display !== 'flex') { setNtf('nJ','Cek username terlebih dahulu!'); return; }
+    $('paketSlow').style.display = 'none';
+    $('paketFast').style.display = 'none';
+    $('paketJoki').style.display = 'block';
+    renderPaketList($('paketListJoki'), paketJoki, 'joki');
+    $('typeLabel').textContent = '🗡️ Joki Level Violence District';
+    goStepUI(2);
+    $('modalTitle').textContent = 'Pilih Level';
+    $('modalSub').textContent   = 'Pilih jumlah level yang kamu inginkan';
+  }
+}
+
 function goBackToStep1() {
   goStepUI(1);
-  $('modalTitle').textContent = activeType === 'slow' ? 'Robux 5-7 Hari' : 'Langsung Masuk';
-  $('modalSub').textContent   = activeType === 'slow' ? 'Cek username Roblox kamu' : 'Masukkan username & password';
+  $('modalTitle').textContent = activeType === 'slow' ? 'Robux 5-7 Hari' : activeType === 'joki' ? 'Joki Level Violence District' : 'Langsung Masuk';
+  $('modalSub').textContent   = activeType === 'slow' || activeType === 'joki' ? 'Cek username Roblox kamu' : 'Masukkan username & password';
 }
 
 /* ── GO TO PAY ───────────────────────────────────────── */
 function goToPay() {
   if (!selectedPaket) return;
-  const total  = selectedPaket.harga + FEE;
+  const fee    = qrisFee(selectedPaket.harga);
+  const total  = selectedPaket.harga + fee;
   currentOid   = genOid();
-  const uname  = activeType === 'slow' ? $('u5').value.trim() : $('uL').value.trim();
+  const uname  = activeType === 'slow' ? $('u5').value.trim() : activeType === 'joki' ? $('uJ').value.trim() : $('uL').value.trim();
 
   // Render order summary
   $('qrisOrder').innerHTML = `
@@ -1799,9 +1981,9 @@ function goToPay() {
     <div class="qrow"><span class="qk">Username</span>    <span class="qv">${uname}</span></div>
     <div class="qrow"><span class="qk">Paket</span>       <span class="qv">${selectedPaket.label}</span></div>
     ${activeType === 'slow' && selectedPaket.gp ? `<div class="qrow"><span class="qk">Gamepass</span>    <span class="qv" style="color:var(--primary);">🎮 #${selectedPaket.gp.toLocaleString('id-ID')}</span></div>` : ''}
-    <div class="qrow"><span class="qk">Tipe</span>        <span class="qv">${activeType==='slow'?'⏳ 5-7 Hari':'⚡ Langsung Masuk'}</span></div>
+    <div class="qrow"><span class="qk">Tipe</span>        <span class="qv">${activeType==='slow'?'⏳ 5-7 Hari':activeType==='joki'?'🗡️ Joki Level':'⚡ Langsung Masuk'}</span></div>
     <div class="qrow"><span class="qk">Harga Paket</span> <span class="qv">${rp(selectedPaket.harga)}</span></div>
-    <div class="qrow"><span class="qk">Biaya QRIS</span>  <span class="qv" style="color:var(--primary);">+ Rp 200</span></div>
+    <div class="qrow"><span class="qk">Biaya QRIS (0.7%)</span>  <span class="qv" style="color:var(--primary);">+ ${rp(fee)}</span></div>
     <div class="qrow" style="border-top:1px solid var(--border);padding-top:0.4rem;margin-top:0.1rem;">
       <span class="qk" style="font-weight:800;">Total Bayar</span>
       <span class="qv orn" style="font-size:1rem;">${rp(total)}</span>
@@ -1832,16 +2014,17 @@ function handleUp() {
 /* ── KONFIRMASI BAYAR ────────────────────────────────── */
 async function konfirmBayar() {
   const file  = $('upFile').files[0];
-  const uname = activeType==='slow' ? $('u5').value.trim() : $('uL').value.trim();
+  const uname = activeType==='slow' ? $('u5').value.trim() : activeType==='joki' ? $('uJ').value.trim() : $('uL').value.trim();
   const pass  = activeType==='fast' ? $('passL').value.trim() : '';
-  const total = selectedPaket.harga + FEE;
+  const total = selectedPaket.harga + qrisFee(selectedPaket.harga);
 
   if (!file) { toast('⚠️ Upload bukti pembayaran terlebih dahulu!'); return; }
 
   $('btnPay').textContent = '⏳ Mengirim...'; $('btnPay').disabled = true;
 
   // Simpan ke admin orders
-  pushOrder({ id: currentOid, username: uname, rbx: selectedPaket.rbx, harga: selectedPaket.harga, jenis: activeType==='slow'?'5-7 Hari':'Via Login', status:'paid' });
+  const jenisLabel = activeType==='slow'?'5-7 Hari':activeType==='joki'?'Joki Level':'Via Login';
+  pushOrder({ id: currentOid, username: uname, rbx: selectedPaket.rbx || selectedPaket.lvl, harga: selectedPaket.harga, jenis: jenisLabel, status:'paid' });
 
   // Kirim bukti ke Discord (jika ada webhook)
   try {
@@ -1851,11 +2034,11 @@ async function konfirmBayar() {
       '**Bukti Pembayaran Baru — DEXBLOX**','',
       `ID Pesanan: \`${currentOid}\``,
       `Username: ${uname}`,
-      `Robux: ${selectedPaket.rbx} Robux`,
+      activeType==='joki' ? `Level: ${selectedPaket.lvl} Level` : `Robux: ${selectedPaket.rbx} Robux`,
       `Harga: ${rp(selectedPaket.harga)}`,
-      `Biaya QRIS: Rp 200`,
+      `Biaya QRIS (0.7%): ${rp(qrisFee(selectedPaket.harga))}`,
       `Total: ${rp(total)}`,
-      `Tipe: ${activeType==='slow'?'5-7 Hari':'Via Login'}`,
+      `Tipe: ${jenisLabel}`,
       `Waktu: ${new Date().toLocaleString('id-ID')}`
     ].join('\n');
     fd.append('file', file, file.name);
@@ -1882,6 +2065,21 @@ async function konfirmBayar() {
       '_Mohon segera diproses. Terima kasih!_'
     ].join('\n');
     window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
+  } else if (activeType === 'joki') {
+    // Joki: kirim konfirmasi ke WA
+    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
+    const waMsg = [
+      'Halo Min DEXBLOX! Saya sudah bayar Joki Level Violence District.','',
+      `ID Pesanan: *${currentOid}*`,
+      `Username: *${uname}*`,
+      `Level: ${selectedPaket.lvl} Level`,
+      `Total: ${rp(total)}`,
+      `Profil: ${profileUrl}`,
+      `Waktu: ${new Date().toLocaleString('id-ID')}`,
+      '',
+      '_Mohon segera diproses ya min!_'
+    ].join('\n');
+    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
   } else {
     // 5-7 Hari: kirim konfirmasi ke WA
     const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
@@ -1903,6 +2101,8 @@ async function konfirmBayar() {
   // Tampilkan sukses
   $('successMsg').textContent  = activeType==='fast'
     ? 'Data akun dikirim ke admin via WhatsApp. Robux akan segera masuk!'
+    : activeType==='joki'
+    ? 'Pesanan joki kamu sedang diproses. Level akan segera naik!'
     : 'Pesanan kamu sedang diproses. Robux masuk dalam 5-7 hari kerja.';
   $('successDetail').innerHTML = `
     <div class="qrow"><span class="qk">Order ID</span>  <span class="qv" style="font-family:monospace;">${currentOid}</span></div>
@@ -1946,7 +2146,133 @@ function updateTimerDisplay() {
   const el=$('qrisTimer'); if(el) el.textContent=m+':'+s;
 }
 
-/* ── GAME TOPUP ──────────────────────────────────────── */
+/* ── CLOUD PHONE MODAL ───────────────────────────────── */
+const CP_JAM   = 20;
+const CP_HARGA = 10000;
+const CP_FEE   = Math.ceil(CP_HARGA * 0.007); // 70
+const CP_TOTAL = CP_HARGA + CP_FEE;            // 10070
+let cpTimerInterval = null;
+let cpTimerSecs     = 899;
+let cpOid = '';
+
+function openCloudPhoneModal() {
+  cpOid = genOid();
+  const overlay = $('cpOverlay');
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => { $('cpSheet').style.transform = 'translateY(0)'; }, 10);
+  // reset upload
+  $('cpUpFile').value = '';
+  $('cpUpPrev').style.display = 'none';
+  $('cpUpIco').textContent = '🖼️';
+  $('cpUpTitle').textContent = 'Klik atau seret foto bukti transfer';
+  $('cpUpSub').textContent = 'Format JPG / PNG · Maks 5 MB';
+  $('cpUpZone').style.borderColor = '';
+  $('cpUpZone').style.borderStyle = 'dashed';
+  cpGoStep(1);
+}
+
+function closeCPModal() {
+  $('cpSheet').style.transform = 'translateY(100%)';
+  stopCPTimer();
+  setTimeout(() => { $('cpOverlay').style.display = 'none'; document.body.style.overflow = ''; }, 300);
+}
+
+function cpGoStep(n) {
+  $('cpPanel1').style.display = n === 1 ? 'block' : 'none';
+  $('cpPanel2').style.display = n === 2 ? 'block' : 'none';
+  $('cpPanel3').style.display = n === 3 ? 'block' : 'none';
+  [1,2,3].forEach(i => {
+    const dot = $('cpSd'+i), lbl = $('cpSl'+i);
+    dot.className = 'sdot' + (i<n?' done': i===n?' active':'');
+    lbl.className = 'slbl' + (i===n?' active':'');
+    dot.textContent = i<n ? '✓' : String(i);
+  });
+  [1,2].forEach(i => { const l=$('cpLine'+i); if(l) l.className='step-line'+(i<n?' done':''); });
+  const titles = {1:'☁️ Cloud Phone Snapdragon 855', 2:'Pembayaran QRIS', 3:'🎉 Pesanan Berhasil'};
+  const subs   = {1:'AFK game bebas masalah · Rp 10.000 / 20 Jam', 2:'Scan QR & upload bukti bayar', 3:'Terima kasih!'};
+  $('cpTitle').textContent = titles[n];
+  $('cpSub').textContent   = subs[n];
+  $('cpSheet').scrollTop = 0;
+  if (n === 2) startCPTimer();
+  else stopCPTimer();
+}
+
+function startCPTimer() {
+  stopCPTimer(); cpTimerSecs = 899; updateCPTimer();
+  cpTimerInterval = setInterval(() => { cpTimerSecs--; updateCPTimer(); if(cpTimerSecs<=0) stopCPTimer(); }, 1000);
+}
+function stopCPTimer() { if(cpTimerInterval){ clearInterval(cpTimerInterval); cpTimerInterval=null; } }
+function updateCPTimer() {
+  const el = $('cpTimer'); if(!el) return;
+  const m=String(Math.floor(cpTimerSecs/60)).padStart(2,'0'), s=String(cpTimerSecs%60).padStart(2,'0');
+  el.textContent = m+':'+s;
+}
+
+function handleCPUp() {
+  const file = $('cpUpFile').files[0]; if (!file) return;
+  if (file.size > 5*1024*1024) { toast('⚠️ File terlalu besar! Maks 5MB'); $('cpUpFile').value=''; return; }
+  if (!['image/png','image/jpeg','image/jpg'].includes(file.type)) { toast('⚠️ Format harus JPG/PNG'); $('cpUpFile').value=''; return; }
+  const r = new FileReader();
+  r.onload = e => {
+    $('cpUpPrev').src = e.target.result; $('cpUpPrev').style.display = 'block';
+    $('cpUpZone').style.borderColor = '#22c55e'; $('cpUpZone').style.borderStyle = 'solid';
+    $('cpUpIco').textContent = '✅'; $('cpUpTitle').textContent = file.name;
+    $('cpUpSub').textContent = (file.size/1024).toFixed(0)+' KB · Siap dikirim';
+  };
+  r.readAsDataURL(file);
+}
+
+async function cpKonfirmBayar() {
+  const file = $('cpUpFile').files[0];
+  if (!file) { toast('⚠️ Upload bukti pembayaran terlebih dahulu!'); return; }
+
+  const btn = $('cpBtnPay');
+  btn.textContent = '⏳ Mengirim...'; btn.disabled = true;
+
+  // Kirim ke Discord
+  try {
+    const WH = 'https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU';
+    const msg = [
+      '**Bukti Pembayaran — Cloud Phone DEXBLOX**','',
+      `ID Pesanan: \`${cpOid}\``,
+      `Paket    : Cloud Phone Snapdragon 855 · 20 Jam`,
+      `Harga    : ${rp(CP_HARGA)}`,
+      `Biaya QRIS (0.7%): ${rp(CP_FEE)}`,
+      `Total    : ${rp(CP_TOTAL)}`,
+      `Waktu    : ${new Date().toLocaleString('id-ID')}`
+    ].join('\n');
+    const fd = new FormData();
+    fd.append('file', file, file.name);
+    fd.append('payload_json', JSON.stringify({content: msg}));
+    await fetch(WH, { method:'POST', body:fd });
+  } catch(_) {}
+
+  stopCPTimer();
+  btn.textContent = '✅ Sudah Membayar'; btn.disabled = false;
+
+  // Kirim WA
+  const waMsg = [
+    `Halo Min DEXBLOX! Saya sudah memesan Cloud Phone Snapdragon 855 (${rp(CP_TOTAL)} / 20 Jam).`,'',
+    `ID Pesanan: *${cpOid}*`,
+    `Paket    : Cloud Phone 20 Jam`,
+    `Total    : ${rp(CP_TOTAL)}`,
+    `Waktu    : ${new Date().toLocaleString('id-ID')}`,
+    '',
+    '_Mohon segera diproses ya min!_'
+  ].join('\n');
+  window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
+
+  // Sukses
+  $('cpSuccessDetail').innerHTML = `
+    <div class="qrow"><span class="qk">Order ID</span> <span class="qv" style="font-family:monospace;">${cpOid}</span></div>
+    <div class="qrow"><span class="qk">Paket</span>    <span class="qv">Cloud Phone 20 Jam</span></div>
+    <div class="qrow"><span class="qk">Total</span>    <span class="qv orn">${rp(CP_TOTAL)}</span></div>
+  `;
+  cpGoStep(3);
+}
+
+
 function openGameTopup() {
   $('gtopupOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -2444,6 +2770,24 @@ function markDone(id) {
 function pushOrder(o) {
   orders.unshift(o);
 }
+
+/* ── IKLAN SLIDER ───────────────────────────────────── */
+let sliderIdx = 0;
+const sliderTotal = 2;
+
+function goSlide(n) {
+  const slides = document.querySelectorAll('.hero-ad-slide');
+  const dots   = document.querySelectorAll('.sdot-i');
+  slides.forEach(s => s.classList.remove('active'));
+  dots.forEach(d => d.classList.remove('active'));
+  sliderIdx = n;
+  if (slides[sliderIdx]) slides[sliderIdx].classList.add('active');
+  if (dots[sliderIdx])   dots[sliderIdx].classList.add('active');
+}
+
+function nextSlide() { goSlide((sliderIdx + 1) % sliderTotal); }
+
+setInterval(nextSlide, 3500);
 </script>
 </body>
-  </html>
+</html>
