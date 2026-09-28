@@ -1,35 +1,21 @@
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
-  const { username } = req.body;
-  if (!username) {
-    return res.status(400).json({ error: "Username kosong!" });
-  }
-
+// POST /api/user  { username }  ->  { userId, name }
+module.exports = async function handler(req, res) {
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method tidak diizinkan' });
   try {
-    const response = await fetch("https://users.roblox.com/v1/usernames/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ usernames: [username] })
+    const { username } = req.body || {};
+    if (!username) return res.status(400).json({ error: 'Username wajib diisi' });
+
+    const r = await fetch('https://users.roblox.com/v1/usernames/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ usernames: [username], excludeBannedUsers: true })
     });
+    const data = await r.json();
+    const user = data && data.data && data.data[0];
+    if (!user) return res.status(404).json({ error: 'Username tidak ditemukan' });
 
-    const data = await response.json();
-
-    // cek apakah ada hasil
-    if (!data.data || data.data.length === 0) {
-      return res.status(404).json({ error: "Username tidak ditemukan!" });
-    }
-
-    const user = data.data[0];
-    res.status(200).json({
-      userId: user.id,
-      name: user.name,
-      displayName: user.displayName,
-      profileUrl: `https://www.roblox.com/users/${user.id}/profile`
-    });
-  } catch (err) {
-    res.status(500).json({ error: "Gagal ambil data dari Roblox", detail: err.message });
+    return res.status(200).json({ userId: user.id, name: user.name });
+  } catch (e) {
+    return res.status(500).json({ error: 'Gagal menghubungi Roblox API' });
   }
-}
+};
