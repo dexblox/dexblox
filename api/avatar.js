@@ -1,23 +1,19 @@
-export default async function handler(req, res) {
-  const { userId } = req.query;
-  if (!userId) {
-    return res.status(400).json({ error: "User ID kosong!" });
-  }
-
-  // Gunakan Thumbnail API v1
-  const url = `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`;
-
+// GET /api/avatar?userId=123  ->  { avatarUrl }
+module.exports = async function handler(req, res) {
+  if (req.method !== 'GET') return res.status(405).json({ error: 'Method tidak diizinkan' });
   try {
-    const response = await fetch(url);
-    const data = await response.json();
+    const { userId } = req.query;
+    if (!userId) return res.status(400).json({ error: 'userId wajib diisi' });
 
-    if (!data.data || data.data.length === 0) {
-      return res.status(404).json({ error: "Avatar tidak ditemukan!" });
-    }
+    const r = await fetch(
+      `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${encodeURIComponent(userId)}&size=150x150&format=Png&isCircular=false`
+    );
+    const data = await r.json();
+    const item = data && data.data && data.data[0];
+    if (!item || !item.imageUrl) return res.status(404).json({ error: 'Avatar tidak ditemukan' });
 
-    const avatarUrl = data.data[0].imageUrl;
-    res.status(200).json({ avatarUrl });
-  } catch (err) {
-    res.status(500).json({ error: "Gagal ambil avatar", detail: err.message });
+    return res.status(200).json({ avatarUrl: item.imageUrl });
+  } catch (e) {
+    return res.status(500).json({ error: 'Gagal menghubungi Roblox API' });
   }
-}
+};
