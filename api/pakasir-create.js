@@ -1,6 +1,4 @@
-// POST /api/pakasir-create  { order_id, amount }  ->  { success, payment }
-const { kvSet } = require('./_kv');
-
+// POST /api/pakasir-create  { order_id, amount }  -> { success, payment }
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ success: false, error: 'Method tidak diizinkan' });
   try {
@@ -28,12 +26,12 @@ module.exports = async function handler(req, res) {
       return res.status(502).json({ success: false, error: data.message || data.error || 'Gagal membuat transaksi Pakasir' });
     }
 
-    // Simpan mapping order_id -> txn_id (dibutuhkan untuk cek status nanti)
-    try { await kvSet(`txn:${order_id}`, data.txn_id); } catch (_) {}
-
     return res.status(200).json({
       success: true,
       payment: {
+        // txn_id dikirim ke frontend supaya bisa langsung dipakai cek status —
+        // tidak perlu database untuk menyimpan mapping order_id -> txn_id.
+        txn_id: data.txn_id,
         payment_number: data.qr_string,
         fee: data.fee,
         total_payment: data.total_payment,
