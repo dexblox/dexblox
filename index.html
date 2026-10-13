@@ -1252,7 +1252,7 @@
     .admin-overlay.open { display:flex; }
     .admin-sheet {
       background:var(--white); border-radius:20px;
-      width:100%; max-width:400px; max-height:90vh;
+      width:100%; max-width:400px; max-height:92vh;
       overflow-y:auto; box-shadow:0 24px 64px rgba(0,0,0,0.2);
       animation:fadeUp 0.28s ease both;
     }
@@ -1295,6 +1295,69 @@
     .btn-discord:hover    { background:#4752C4; transform:translateY(-1px); }
     .btn-discord:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
 
+
+/* ── RIWAYAT / CEK PESANAN (pembeli) & ADMIN DASHBOARD ── */
+.track-dot{display:none;position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;padding:0 4px;border-radius:50px;background:#ef4444;color:#fff;font-size:.6rem;font-weight:800;align-items:center;justify-content:center;line-height:1;}
+.track-dot.on{display:inline-flex;}
+#mobile-menu .track-dot{position:static;margin-left:8px;vertical-align:middle;}
+.stbadge{padding:3px 10px;border-radius:50px;font-size:.62rem;font-weight:800;white-space:nowrap;}
+.stbadge.st-unpaid{background:#eef2ff;color:#4338ca;}
+.stbadge.st-paid{background:#fffbeb;color:#b45309;}
+.stbadge.st-done{background:#f0fdf4;color:#15803d;}
+.stbadge.st-cancel{background:#fef2f2;color:#dc2626;}
+.trk-sheet{max-width:440px;}
+.trk-find{background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
+.trk-head{display:flex;align-items:center;justify-content:space-between;margin:1.2rem 0 .5rem;}
+.trk-refresh{background:var(--bg2);border:1px solid var(--border);padding:4px 12px;border-radius:50px;font-size:.68rem;font-weight:700;cursor:pointer;color:var(--text-muted);font-family:'Inter',sans-serif;}
+.trk-legend{font-size:.7rem;color:var(--text-muted);line-height:1.5;margin-bottom:.8rem;}
+.trk-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;border-left-width:4px;}
+.trk-card.st-unpaid{border-left-color:#6366f1;} .trk-card.st-paid{border-left-color:#f59e0b;} .trk-card.st-done{border-left-color:#22c55e;} .trk-card.st-cancel{border-left-color:#ef4444;}
+.trk-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:8px;}
+.trk-id{font-size:.82rem;font-weight:800;color:var(--primary);font-family:monospace;}
+.trk-row{display:flex;justify-content:space-between;gap:12px;padding:5px 0;border-bottom:1px solid var(--border);font-size:.78rem;}
+.trk-row span{color:var(--text-muted);font-weight:600;flex-shrink:0;} .trk-row b{color:var(--text);text-align:right;word-break:break-word;}
+.trk-note{font-size:.72rem;color:var(--text-muted);margin-top:8px;line-height:1.45;}
+.trk-cd-row{font-size:.74rem;margin-top:6px;color:#4338ca;font-weight:600;} .trk-cd{font-family:monospace;}
+.trk-wa{display:inline-block;margin-top:8px;font-size:.72rem;font-weight:700;color:#16a34a;text-decoration:underline;}
+.trk-steps{display:flex;gap:6px;margin-bottom:8px;}
+.trk-steps span{flex:1;font-size:.62rem;font-weight:700;color:var(--text-light);text-align:center;}
+.trk-steps span i{display:block;height:5px;border-radius:5px;background:var(--border);margin-bottom:4px;}
+.trk-steps span.on{color:var(--text);} .trk-steps span.on i{background:linear-gradient(90deg,#6556e0,#22c55e);}
+#adminSheet{max-width:560px;}
+.adm-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-bottom:12px;}
+.adm-stat{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px 12px;}
+.adm-stat span{display:block;font-size:.62rem;font-weight:800;text-transform:uppercase;letter-spacing:.4px;color:var(--text-muted);}
+.adm-stat b{display:block;font-size:1.15rem;font-weight:800;color:var(--text);margin:2px 0;}
+.adm-stat small{font-size:.62rem;color:var(--text-light);}
+.adm-stat.warn{background:#fffbeb;border-color:#fde68a;} .adm-stat.warn b{color:#b45309;}
+.adm-stat.ok{background:#f0fdf4;border-color:#bbf7d0;} .adm-stat.ok b{color:#15803d;}
+.adm-toolbar{display:flex;gap:8px;margin-bottom:8px;}
+.adm-refresh{width:42px;border:1px solid var(--border);background:var(--bg2);border-radius:10px;font-size:1.1rem;cursor:pointer;color:var(--text-muted);}
+.adm-chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:6px;}
+.adm-chip{flex-shrink:0;border:1px solid var(--border);background:var(--bg2);border-radius:50px;padding:5px 11px;font-size:.7rem;font-weight:700;color:var(--text-muted);cursor:pointer;font-family:'Inter',sans-serif;}
+.adm-chip i{font-style:normal;margin-left:6px;background:var(--border);border-radius:50px;padding:1px 6px;font-size:.62rem;}
+.adm-chip.on{background:var(--primary);border-color:var(--primary);color:#fff;} .adm-chip.on i{background:rgba(255,255,255,.25);}
+.adm-o{background:var(--bg);border:1px solid var(--border);border-left-width:4px;border-radius:12px;padding:11px 12px;margin-bottom:8px;}
+.adm-o.st-unpaid{border-left-color:#6366f1;} .adm-o.st-paid{border-left-color:#f59e0b;} .adm-o.st-done{border-left-color:#22c55e;} .adm-o.st-cancel{border-left-color:#ef4444;}
+.adm-o-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.adm-o-prod{font-size:.85rem;font-weight:800;color:var(--text);}
+.adm-o-meta{font-size:.72rem;color:var(--text-muted);margin-top:2px;word-break:break-word;}
+.adm-o-act{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;align-items:center;}
+.adm-btn{border:1px solid var(--border);background:var(--white);color:var(--text);border-radius:50px;padding:5px 13px;font-size:.7rem;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;}
+.adm-btn.ok{background:#16a34a;border-color:#16a34a;color:#fff;} .adm-btn.ok:hover{background:#15803d;}
+.adm-btn.bad{color:#dc2626;border-color:#fecaca;} .adm-btn.ghost{color:var(--text-muted);}
+.adm-hint{font-size:.64rem;color:var(--text-light);}
+.adm-more{margin-top:14px;border-top:1px solid var(--border);padding-top:12px;}
+.adm-more summary{cursor:pointer;font-size:.74rem;font-weight:800;color:var(--text-muted);margin-bottom:12px;}
+/* ── ALUR: data akun → pilih paket → bayar ── */
+.flow-steps{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
+.flow-steps span{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.74rem;font-weight:700;color:var(--text-muted);}
+.flow-steps span b{width:20px;height:20px;border-radius:50%;background:var(--border);color:var(--text-muted);display:inline-flex;align-items:center;justify-content:center;font-size:.68rem;}
+.flow-steps span.on{color:var(--text);border-color:#c7c0f7;} .flow-steps span.on b{background:linear-gradient(135deg,#6556e0,#7c6cf0);color:#fff;}
+.flow-steps span.cur{background:#f1efff;}
+.lock-hint{display:none;font-size:.78rem;color:var(--text-muted);background:var(--bg2);border:1px dashed var(--border-bright,#c7c0f7);border-radius:10px;padding:9px 12px;margin-bottom:12px;line-height:1.45;}
+.is-locked .lock-hint{display:block;}
+.is-locked .ml-packs,.is-locked .gm-cats{opacity:.45;filter:grayscale(.35);pointer-events:none;user-select:none;}
 
 @keyframes skAnim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
@@ -1642,14 +1705,14 @@
     </a>
     <nav class="main-links">
       <a href="#home">Home</a>
-      <a href="javascript:void(0)" onclick="openRobloxModal()">Top Rank</a>
       <a href="javascript:void(0)" onclick="openRobloxModal()">Robux</a>
       <a href="#promo">Promo</a>
       <a href="#tentang">Tentang Kami</a>
       <a href="#kontak">Kontak</a>
     </nav>
     <div class="nav-actions">
-      <button class="icon-btn" onclick="openCekPesanan()" aria-label="Cek Pesanan" title="Cek Pesanan Robux/Joki/Cloud Phone">
+      <button class="icon-btn" onclick="openCekPesanan()" aria-label="Cek Pesanan" title="Riwayat & Cek Pesanan">
+        <span class="track-dot" aria-hidden="true"></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </button>
       <button class="icon-btn" onclick="openAdminModal()" aria-label="Admin" title="Panel Admin" style="opacity:0.55;">
@@ -1665,12 +1728,11 @@
   </div>
   <div id="mobile-menu" style="display:none;flex-direction:column;padding:8px 28px 18px;gap:4px;border-top:1px solid var(--border);">
     <a href="#home" onclick="toggleMobileMenu()">Home</a>
-    <a href="javascript:void(0)" onclick="toggleMobileMenu();openRobloxModal()">Top Rank</a>
     <a href="javascript:void(0)" onclick="toggleMobileMenu();openRobloxModal()">Robux</a>
     <a href="#promo" onclick="toggleMobileMenu()">Promo</a>
     <a href="#tentang" onclick="toggleMobileMenu()">Tentang Kami</a>
     <a href="#kontak" onclick="toggleMobileMenu()">Kontak</a>
-    <a href="javascript:void(0)" onclick="toggleMobileMenu();openCekPesanan()">Cek Pesanan</a>
+    <a href="javascript:void(0)" onclick="toggleMobileMenu();openCekPesanan()">Cek Pesanan <span class="track-dot"></span></a>
     <a href="javascript:void(0)" onclick="toggleMobileMenu();openAdminModal()" style="opacity:0.6;">Admin</a>
   </div>
 </header>
@@ -1841,7 +1903,6 @@
         <h4>Navigasi</h4>
         <ul>
           <li><a href="#home">Home</a></li>
-          <li><a href="javascript:void(0)" onclick="openRobloxModal()">Top Rank</a></li>
           <li><a href="#promo">Promo</a></li>
           <li><a href="#tentang">Tentang Kami</a></li>
         </ul>
@@ -1909,13 +1970,9 @@
       <img src="assets/roblox.png" alt="Roblox" onerror="this.style.display='none'">
       <div class="rbx-ttl">
         <h3>Roblox</h3>
-        <p>Top Up Robux · Joki · Top Rank</p>
+        <p>Top Up Robux · Joki · Cloud Phone</p>
       </div>
       <button class="rbx-x" onclick="closeRobloxModal()" aria-label="Tutup"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
-    </div>
-    <div class="rbx-tabs">
-      <button class="rbx-tab active" data-target="robux" onclick="rbxGo('robux')">Top Up &amp; Joki</button>
-      <button class="rbx-tab" data-target="produk" onclick="rbxGo('produk')"><svg class="ic" aria-hidden="true"><use href="#i-trophy"/></svg>Top Rank</button>
     </div>
     <div class="rbx-scroll" id="rbxScroll">
       <div class="rbx-inner">
@@ -2310,6 +2367,7 @@
     </div>
     <div class="rbx-scroll">
       <div class="rbx-inner">
+        <div class="flow-steps" id="mlFlow"><span class="on"><b>1</b> Data Akun</span><span><b>2</b> Pilih Paket</span><span><b>3</b> Bayar</span></div>
         <div class="gm-card">
           <div class="ml-step"><i>1</i> Masukkan User ID</div>
           <div class="ml-ids">
@@ -2319,8 +2377,9 @@
           <button type="button" class="ml-check-btn" id="mlCheckBtn" onclick="mlCheckNickname()" disabled>Cek Nickname</button>
           <div class="ml-nick-result" id="mlNickResult" style="display:none;"></div>
         </div>
-        <div class="gm-card">
+        <div class="gm-card is-locked" id="mlPackCard">
           <div class="ml-step"><i>2</i> Pilih Nominal Diamond</div>
+          <div class="lock-hint">Isi User ID &amp; Zone ID, lalu tekan <b>Cek Nickname</b> untuk membuka pilihan paket.</div>
           <div class="ml-packs" id="ml-packs"></div>
         </div>
       </div>
@@ -2349,6 +2408,7 @@
     </div>
     <div class="rbx-scroll">
       <div class="rbx-inner">
+        <div class="flow-steps" id="gmFlow"><span class="on"><b>1</b> Data Akun</span><span><b>2</b> Pilih Paket</span><span><b>3</b> Bayar</span></div>
         <div class="gm-card gm-info">
           <div class="gm-info-txt">
             <h2 id="gmInfoTitle">Top Up</h2>
@@ -2365,8 +2425,9 @@
           </ol>
         </div>
         <div class="gm-layout">
-          <section class="gm-card gm-products">
-            <h3 class="gm-h">Pilih Produk</h3>
+          <section class="gm-card gm-products is-locked" id="gmPackCard">
+            <h3 class="gm-h">2. Pilih Produk</h3>
+            <div class="lock-hint">Isi data akun, lalu tekan <b>Cek Nickname</b> untuk membuka pilihan produk.</div>
             <div class="gm-cats" id="gmCats"></div>
             <div class="ml-packs" id="gm-packs"></div>
           </section>
@@ -2859,12 +2920,23 @@ function openMlModal(){
   document.getElementById('mlZoneId').value = '';
   document.getElementById('mlNickResult').style.display = 'none';
   document.getElementById('mlCheckBtn').disabled = true;
-  mlNickVerified = null;
+  mlNickVerified = null; mlSel = null;
+  renderMlPacks(); mlLockUpdate();
 }
 
+function flowSet(id, n){
+  const el = document.getElementById(id); if(!el) return;
+  [...el.children].forEach((c,i) => { c.classList.toggle('on', i < n); c.classList.toggle('cur', i === n-1); });
+}
+function mlLockUpdate(){
+  const c = document.getElementById('mlPackCard'); if(c) c.classList.toggle('is-locked', !mlNickVerified);
+  flowSet('mlFlow', !mlNickVerified ? 1 : (mlSel ? 3 : 2));
+}
 function mlSelect(id){
+  if(!mlNickVerified){ showToast('Isi & cek data akun dulu ya', true); return; }
   mlSel = ML_PACKS.find(k => k.id === id) || null;
   renderMlPacks();
+  mlLockUpdate();
 }
 
 /* ============ Cek Nickname Mobile Legends ============ */
@@ -2878,10 +2950,12 @@ function mlOnIdInput(){
   btn.disabled = !(/^\d{5,12}$/.test(uid) && /^\d{1,6}$/.test(zone));
   // kalau ID diubah lagi, hasil cek sebelumnya jadi tidak berlaku
   if(mlNickVerified && (mlNickVerified.uid !== uid || mlNickVerified.zone !== zone)){
-    mlNickVerified = null;
+    mlNickVerified = null; mlSel = null;
     const box = document.getElementById('mlNickResult');
     box.style.display = 'none';
+    renderMlPacks();
   }
+  mlLockUpdate();
 }
 
 async function mlCheckNickname(){
@@ -3218,13 +3292,20 @@ function openGameModal(key){
   document.getElementById('gmNickResult').style.display = 'none';
   document.getElementById('gmCheckBtn').disabled = true;
   renderGmPacks();
+  gmLockUpdate();
   openModal('game-modal');
 }
 
+function gmLockUpdate(){
+  const c = document.getElementById('gmPackCard'); if(c) c.classList.toggle('is-locked', !gmVerified);
+  flowSet('gmFlow', !gmVerified ? 1 : (gmSel ? 3 : 2));
+}
 function gmSelect(id){
   const g = GAMES[gmKey]; if(!g) return;
+  if(!gmVerified){ showToast('Isi & cek data akun dulu ya', true); return; }
   gmSel = g.packs.find(k => k.id === id) || null;
   renderGmPacks();
+  gmLockUpdate();
 }
 
 function gmOnIdInput(){
@@ -3232,9 +3313,11 @@ function gmOnIdInput(){
   const v = gmVals();
   document.getElementById('gmCheckBtn').disabled = !gmValid();
   if(gmVerified && (gmVerified.uid !== v.uid || gmVerified.srv !== v.srv)){
-    gmVerified = null;
+    gmVerified = null; gmSel = null;
     document.getElementById('gmNickResult').style.display = 'none';
+    renderGmPacks();
   }
+  gmLockUpdate();
 }
 
 async function gmCheckNickname(){
@@ -3358,6 +3441,9 @@ async function quickBuyGoToPay(){
   const fee   = payment.fee;
   const total = payment.total_payment;
 
+  persistOrder({ orderId: qbOid, txnId: qbTxnId, amount, produk: qbItem.name,
+    username: qbItem.gameId || '-', jenis: qbItem.jenis || 'Top Up ML', total: formatRp(total), demo: qbDemoMode });
+
   document.getElementById('qbOrderIdTxt').textContent   = qbOid;
   document.getElementById('qbSubtotalTxt').textContent  = formatRp(amount);
   document.getElementById('qbFeeTxt').textContent       = '+ ' + formatRp(fee);
@@ -3439,12 +3525,11 @@ async function quickBuyKonfirmBayar(){
 function handleQuickBuySuccess(){
   stopQbTimer();
   stopQbStatusPolling();
-  // Pesanan top up game (punya User ID) → simpan ke panel admin & server
+  orderMarkPaidLocal(qbOid);
+  // Pesanan top up game (punya User ID) → kirim detail ke Discord
   if(qbItem && qbItem.gameId && !qbItem.persisted){
     qbItem.persisted = true;
     const total = (document.getElementById('qbTotalPayTxt') || {}).textContent || formatRp(qbItem.price);
-    pushOrder({ id: qbOid, username: qbItem.gameId, rbx: '-', harga: qbItem.price, jenis: qbItem.jenis || 'Top Up ML', status: 'paid', produk: qbItem.name, total });
-    persistOrder({ orderId: qbOid, amount: qbItem.price, produk: qbItem.name, username: qbItem.gameId, jenis: qbItem.jenis || 'Top Up ML', total });
     // Kirim detail pesanan ke Discord (hanya pembayaran asli, bukan mode demo)
     if(!qbDemoMode){
       sendDiscord(WEBHOOK_ORDER, { username:'Meng Store · Order', embeds:[{
@@ -3955,22 +4040,24 @@ renderClouds();
 
 <!-- ── MODAL CEK PESANAN ──────────────────────────────────── -->
 <div class="admin-overlay" id="trackOverlay" onclick="if(event.target===this)closeTrack()">
-  <div class="admin-sheet">
+  <div class="admin-sheet trk-sheet">
     <div class="admin-hd">
       <div class="admin-hd-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.6"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></div>
-      <h3>Cek Pesanan</h3>
+      <h3>Riwayat &amp; Cek Pesanan</h3>
       <button class="rbx-modal-close" onclick="closeTrack()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <div class="admin-body">
       <div style="display:flex;gap:8px;margin-bottom:1rem;">
-        <input class="inp-field" id="trackInp" type="text" placeholder="Contoh: DBX-A3KW9PJ" style="flex:1;text-transform:uppercase;-webkit-user-select:text;user-select:text;" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doTrack()" />
-        <button style="background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;" onclick="doTrack()">Cari</button>
+        <input class="inp-field" id="trackInp" type="text" placeholder="Cari ID pesanan, mis. DBX-A3KW9PJ" style="flex:1;text-transform:uppercase;-webkit-user-select:text;user-select:text;" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doTrack()">
+        <button class="trk-find" onclick="doTrack()">Cari</button>
       </div>
       <div id="trackRes"></div>
-      <div style="margin-top:1rem;">
-        <div style="font-size:0.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);margin-bottom:0.75rem;">Riwayat Sesi Ini</div>
-        <div id="trackList"><div class="admin-empty">Belum ada pesanan sesi ini.</div></div>
+      <div class="trk-head">
+        <div class="admin-sec-lbl" style="margin-bottom:0;">Riwayat Transaksi</div>
+        <button class="trk-refresh" onclick="refreshTrackNow(this)">Perbarui</button>
       </div>
+      <div class="trk-legend">Menunggu Pembayaran → <b>Pending</b> (sedang diproses) → <b>Succeed</b> (selesai). Transaksi yang tidak dibayar hilang otomatis setelah 30 menit.</div>
+      <div id="trackList"><div class="admin-empty">Belum ada transaksi.</div></div>
     </div>
   </div>
 </div>
@@ -4009,6 +4096,17 @@ renderClouds();
           <button onclick="doAdminLogout()" style="background:var(--bg2);border:1px solid var(--border);padding:4px 12px;border-radius:50px;font-size:0.68rem;font-weight:700;cursor:pointer;color:var(--text-muted);font-family:'Inter',sans-serif;">Logout</button>
         </div>
 
+        <!-- Dashboard pesanan -->
+        <div class="adm-stats" id="admStats"></div>
+        <div class="adm-toolbar">
+          <input class="inp-field" id="admSearch" type="text" placeholder="Cari ID / akun / produk..." autocomplete="off" style="flex:1;-webkit-user-select:text;user-select:text;" oninput="admQuery=this.value;renderAdmOrders()" />
+          <button class="adm-refresh" onclick="loadOrdersFromServer()" title="Muat ulang" aria-label="Muat ulang">&#8635;</button>
+        </div>
+        <div class="adm-chips" id="admChips"></div>
+        <div id="admOList"><div class="admin-empty">Belum ada pesanan.</div></div>
+
+        <details class="adm-more">
+        <summary>Alat Admin Lainnya (Cek Username &amp; Discord)</summary>
         <!-- Cek Username -->
         <div class="admin-sec-lbl">Cek Username Roblox</div>
         <div style="display:flex;gap:8px;margin-bottom:6px;">
@@ -4064,14 +4162,7 @@ renderClouds();
         </div>
         <button class="btn-discord" id="bKirim" onclick="kirimDiscord()">Kirim ke Discord</button>
 
-        <div class="admin-divider"></div>
-
-        <!-- Daftar Pesanan -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.75rem;">
-          <div class="admin-sec-lbl" style="margin-bottom:0;">Pesanan Sesi Ini</div>
-          <span id="orderCount" style="background:var(--primary);color:#fff;font-size:0.62rem;font-weight:800;padding:2px 8px;border-radius:50px;"></span>
-        </div>
-        <div id="admOList"><div class="admin-empty">Belum ada pesanan.</div></div>
+        </details>
 
       </div>
     </div>
@@ -4873,6 +4964,13 @@ async function goToPay() {
   const fee   = payment.fee;
   const total = payment.total_payment;
 
+  // Simpan ke riwayat + server (status awal: menunggu pembayaran, hilang otomatis 30 menit)
+  persistOrder({ orderId: currentOid, txnId: currentTxnId, amount: selectedPaket.harga,
+    produk: activeType==='joki' ? `${selectedPaket.lvl} Level` : activeType==='follow' ? `${selectedPaket.flw} Pengikut` : `${selectedPaket.rbx} Robux`,
+    username: uname,
+    jenis: activeType==='slow'?'5-7 Hari':activeType==='joki'?'Joki Level':activeType==='vu'?'Via Username':activeType==='follow'?'Pengikut Roblox':'Via Login',
+    total: rp(total), demo: demoMode });
+
   // Render order summary
   $('qrisOrder').innerHTML = `
     <div class="qrow"><span class="qk">Order ID</span>    <span class="qv" style="font-family:monospace;font-size:0.88rem;">${currentOid}</span></div>
@@ -4950,8 +5048,7 @@ async function handlePaymentSuccess() {
   // Simpan ke admin orders
   const jenisLabel = activeType==='slow'?'5-7 Hari':activeType==='joki'?'Joki Level':activeType==='vu'?'Via Username':activeType==='follow'?'Pengikut Roblox':'Via Login';
   const produkLabel = activeType==='joki' ? `${selectedPaket.lvl} Level` : activeType==='follow' ? `${selectedPaket.flw} Pengikut` : `${selectedPaket.rbx} Robux`;
-  pushOrder({ id: currentOid, username: uname, rbx: selectedPaket.rbx || selectedPaket.lvl || selectedPaket.flw, harga: selectedPaket.harga, jenis: jenisLabel, status:'paid', produk: produkLabel, total });
-  persistOrder({ orderId: currentOid, amount: selectedPaket.harga, produk: produkLabel, username: uname, jenis: jenisLabel, total });
+  orderMarkPaidLocal(currentOid);
 
   // Kirim notifikasi ke Discord (pembayaran sudah terverifikasi via BuatQris)
   try {
@@ -5197,6 +5294,8 @@ async function cpGoToPay() {
 
   CP_FEE   = payment.fee;
   CP_TOTAL = payment.total_payment;
+  persistOrder({ orderId: cpOid, txnId: cpTxnId, amount: CP_HARGA, produk: `Redfingger Cloud Phone · VIP ${CP_HARI} Hari`,
+    username: '-', jenis: 'Cloud Phone', total: rp(CP_TOTAL), demo: cpDemoMode });
   $('cpRFee').textContent   = '+ ' + rp(CP_FEE);
   $('cpRTotal').textContent = rp(CP_TOTAL);
   $('cpQrImg').src = qrSrc(payment, 166);
@@ -5294,8 +5393,7 @@ async function cpHandlePaymentSuccess() {
   stopCPTimer();
 
   const produkLabel = `Redfingger Cloud Phone · VIP ${CP_HARI} Hari`;
-  pushOrder({ id: cpOid, username: '-', rbx: '-', harga: CP_HARGA, jenis: 'Cloud Phone', status:'paid', produk: produkLabel, total: rp(CP_TOTAL) });
-  persistOrder({ orderId: cpOid, amount: CP_HARGA, produk: produkLabel, username: '-', jenis: 'Cloud Phone', total: rp(CP_TOTAL) });
+  orderMarkPaidLocal(cpOid);
 
   // Kirim notifikasi ke Discord (pembayaran sudah terverifikasi via BuatQris)
   try {
@@ -5334,89 +5432,178 @@ async function cpHandlePaymentSuccess() {
 
 
 /* ── CEK PESANAN ─────────────────────────────────────── */
+/* ── RIWAYAT TRANSAKSI & CEK PESANAN (pembeli) ───────────
+   Status: unpaid (Menunggu Pembayaran, hilang otomatis 30 menit) → paid (Pending) → done (Succeed)  */
+const HIST_KEY = 'meng_orders_v1';
+const UNPAID_TTL = 30 * 60 * 1000;
+const ST_INFO = {
+  unpaid: { label:'Menunggu Pembayaran', note:'Selesaikan pembayaran QRIS. Transaksi yang tidak dibayar hilang otomatis setelah 30 menit.' },
+  paid:   { label:'Pending',             note:'Pembayaran diterima. Pesanan sedang diproses admin.' },
+  done:   { label:'Succeed',             note:'Pesanan sudah selesai diproses. Terima kasih sudah belanja!' },
+  cancel: { label:'Dibatalkan',          note:'Pesanan dibatalkan. Hubungi admin jika ada kendala.' }
+};
+let _trkTick = null, _trkSync = null;
+
+function histLoad(){ try { const a = JSON.parse(localStorage.getItem(HIST_KEY) || '[]'); return Array.isArray(a) ? a : []; } catch(_) { return []; } }
+function histSave(a){ try { localStorage.setItem(HIST_KEY, JSON.stringify(a.slice(0, 60))); } catch(_) {} }
+function histPrune(a){
+  const now = Date.now();
+  return a.filter(o => o && o.id && !(o.status === 'unpaid' && now - o.createdAt > UNPAID_TTL) && now - o.createdAt < 90 * 86400000);
+}
+function histUpsert(rec){
+  const a = histPrune(histLoad());
+  const i = a.findIndex(x => x.id === rec.id);
+  if (i >= 0) a[i] = Object.assign(a[i], rec); else a.unshift(rec);
+  histSave(a); updateTrackDot();
+}
+function orderMarkPaidLocal(id){
+  const a = histLoad(), o = a.find(x => x.id === id);
+  if (o && o.status === 'unpaid') { o.status = 'paid'; o.paidAt = Date.now(); histSave(a); }
+  updateTrackDot();
+}
+function updateTrackDot(){
+  const n = histPrune(histLoad()).filter(o => o.status === 'unpaid' || o.status === 'paid').length;
+  document.querySelectorAll('.track-dot').forEach(el => { el.textContent = n || ''; el.classList.toggle('on', n > 0); });
+}
+
+/* Simpan transaksi saat QR dibuat (lokal + server) */
+async function persistOrder({ orderId, txnId, amount, produk, username, jenis, total, demo }) {
+  histUpsert({ id: orderId, produk, jenis, total, username: username || '-', status: 'unpaid', createdAt: Date.now(), demo: !!demo });
+  if (demo) return;
+  try {
+    await fetch('/api/order-save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ order_id: orderId, txn_id: txnId || '', amount, produk, username, jenis, total })
+    });
+  } catch(_) {}
+}
+
+/* Samakan status riwayat lokal dengan server */
+async function histSync(){
+  let a = histPrune(histLoad());
+  const ids = a.filter(o => !o.demo && (o.status === 'unpaid' || o.status === 'paid')).map(o => o.id).slice(0, 20);
+  if (ids.length) {
+    try {
+      const r = await fetch('/api/order-lookup?ids=' + encodeURIComponent(ids.join(',')));
+      if (r.ok) {
+        const d = await r.json(), map = {};
+        (d.orders || []).forEach(o => map[o.order_id] = o);
+        a = a.filter(o => {
+          if (!ids.includes(o.id)) return true;
+          const sv = map[o.id];
+          if (!sv) return true; // tidak ada di server: tetap tampil, otomatis hilang saat lewat 30 menit
+          o.status = sv.status; o.paidAt = sv.paidAt; o.doneAt = sv.doneAt;
+          return true;
+        });
+      }
+    } catch(_) {}
+  }
+  histSave(a); updateTrackDot();
+  return a;
+}
+
+function fmtWaktu(ts){
+  if (!ts) return '-';
+  return new Date(ts).toLocaleString('id-ID', { day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit' });
+}
+function fmtCountdown(ms){
+  const t = Math.max(0, Math.floor(ms / 1000));
+  return String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+}
+
+function renderOrderCard(o) {
+  const info = ST_INFO[o.status] || ST_INFO.unpaid;
+  const rows = [['Produk', o.produk || '-'], ['Tipe', o.jenis || '-']];
+  if (o.username && o.username !== '-') rows.push(['Akun', o.username]);
+  rows.push(['Total', o.total || '-'], ['Dibuat', fmtWaktu(o.createdAt)]);
+  if (o.paidAt) rows.push(['Dibayar', fmtWaktu(o.paidAt)]);
+  if (o.doneAt) rows.push(['Selesai', fmtWaktu(o.doneAt)]);
+  const st = o.status === 'cancel' ? 0 : o.status === 'done' ? 3 : o.status === 'paid' ? 2 : 1;
+  const steps = o.status === 'cancel' ? '' : `
+    <div class="trk-steps">
+      <span class="${st >= 1 ? 'on' : ''}"><i></i>Dibuat</span>
+      <span class="${st >= 2 ? 'on' : ''}"><i></i>Dibayar</span>
+      <span class="${st >= 3 ? 'on' : ''}"><i></i>Succeed</span>
+    </div>`;
+  const cd = o.status === 'unpaid'
+    ? `<div class="trk-cd-row">Hilang otomatis dalam <b class="trk-cd" data-exp="${(o.createdAt || 0) + UNPAID_TTL}">${fmtCountdown((o.createdAt || 0) + UNPAID_TTL - Date.now())}</b></div>` : '';
+  const help = o.status === 'paid'
+    ? `<a class="trk-wa" target="_blank" rel="noopener" href="https://wa.me/${WA_NUM}?text=${encodeURIComponent('Halo Min, mau tanya status pesanan ' + o.id)}">Tanya admin via WhatsApp</a>` : '';
+  return `
+    <div class="trk-card st-${o.status}">
+      <div class="trk-top">
+        <span class="trk-id">${escHtml(o.id)}</span>
+        <span class="stbadge st-${o.status}">${info.label}</span>
+      </div>
+      ${steps}
+      ${rows.map(([k, v]) => `<div class="trk-row"><span>${k}</span><b>${escHtml(v)}</b></div>`).join('')}
+      <div class="trk-note">${info.note}</div>
+      ${cd}${help}
+    </div>`;
+}
+
+function renderTrackList(list) {
+  const el = document.getElementById('trackList');
+  const a = list || histPrune(histLoad());
+  if (!a.length) {
+    el.innerHTML = '<div class="admin-empty">Belum ada transaksi.<br><span style="font-size:.72rem;color:var(--text-light);">Pesanan yang kamu buat akan muncul di sini.</span></div>';
+    return;
+  }
+  el.innerHTML = a.map(renderOrderCard).join('');
+}
+
 function openCekPesanan() {
   document.getElementById('trackOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   renderTrackList();
+  const refresh = async () => { const a = await histSync(); if (document.getElementById('trackOverlay').classList.contains('open')) renderTrackList(a); };
+  refresh();
+  clearInterval(_trkSync); _trkSync = setInterval(refresh, 20000);
+  clearInterval(_trkTick);
+  _trkTick = setInterval(() => {
+    document.querySelectorAll('.trk-cd').forEach(el => {
+      const left = Number(el.dataset.exp) - Date.now();
+      el.textContent = fmtCountdown(left);
+      if (left <= 0) renderTrackList(histPrune(histLoad()));
+    });
+  }, 1000);
 }
 function closeTrack() {
   document.getElementById('trackOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  clearInterval(_trkSync); clearInterval(_trkTick);
 }
-
-function renderOrderCard(o) {
-  const sc = {pending:'sp', paid:'sd', done:'ss', cancel:'sc'};
-  const sl = {pending:'Menunggu', paid:'Dibayar', done:'Selesai', cancel:'Batal'};
-  const rows = [['Produk', o.produk || (o.rbx + ' Robux')]];
-  if (o.username && o.username !== '-') rows.push(['Username', o.username]);
-  rows.push(['Tipe', o.jenis]);
-  rows.push(['Total', o.total || rpFmt((o.harga||0) + 200)]);
-  return `
-    <div style="background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:13px;margin-bottom:10px;">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <span style="font-size:0.82rem;font-weight:800;color:var(--primary);font-family:monospace;">${o.id}</span>
-        <span class="sbadge ${sc[o.status]||'sp'}">${sl[o.status]||o.status}</span>
-      </div>
-      ${rows.map(([k,v]) => `
-        <div style="display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border);font-size:0.78rem;">
-          <span style="color:var(--text-muted);font-weight:600;">${k}</span>
-          <span style="font-weight:700;color:var(--text);">${v}</span>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-function renderTrackList() {
-  const el = document.getElementById('trackList');
-  if (!orders.length) { el.innerHTML = '<div class="admin-empty">Belum ada pesanan sesi ini.</div>'; return; }
-  el.innerHTML = orders.map(o => `
-    <div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:6px;cursor:pointer;transition:all 0.18s;" onclick="showTrackDetail('${o.id}')" onmouseover="this.style.borderColor='var(--primary)';this.style.background='var(--primary-light)'" onmouseout="this.style.borderColor='var(--border)';this.style.background='var(--bg)'">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:2px;">
-        <span style="font-size:0.75rem;font-weight:800;color:var(--primary);font-family:monospace;">${o.id}</span>
-        <span class="sbadge ${{pending:'sp',paid:'sd',done:'ss',cancel:'sc'}[o.status]||'sp'}">${sLabel(o.status)}</span>
-      </div>
-      <div style="font-size:0.73rem;color:var(--text-muted);">${o.username} · ${o.rbx} Robux · ${o.jenis}</div>
-    </div>
-  `).join('');
-}
-
-function showTrackDetail(id) {
-  const o = orders.find(x => x.id === id);
-  if (!o) return;
-  document.getElementById('trackInp').value = id;
-  document.getElementById('trackRes').innerHTML = renderOrderCard(o);
+async function refreshTrackNow(btn){
+  if (btn) { btn.disabled = true; btn.textContent = 'Memuat...'; }
+  const a = await histSync(); renderTrackList(a);
+  if (btn) { btn.disabled = false; btn.textContent = 'Perbarui'; }
 }
 
 async function doTrack() {
   const q = document.getElementById('trackInp').value.trim().toUpperCase();
   const res = document.getElementById('trackRes');
   if (!q) { toast('Masukkan ID pesanan'); return; }
-
-  const local = orders.find(x => x.id === q);
-  if (local) { res.innerHTML = renderOrderCard(local); return; }
-
   res.innerHTML = `<div class="admin-empty" style="padding:16px 0;">Mencari...</div>`;
   try {
-    const r = await fetch(`/api/order-lookup.php?order_id=${encodeURIComponent(q)}`);
+    const r = await fetch(`/api/order-lookup?order_id=${encodeURIComponent(q)}`);
     const data = await r.json();
     if (data.found) {
       const o = data.order;
-      res.innerHTML = renderOrderCard({ id: o.order_id, username: o.username, produk: o.produk, jenis: o.jenis, total: o.total, status: o.status });
+      res.innerHTML = renderOrderCard({ id: o.order_id, produk: o.produk, jenis: o.jenis, total: o.total, username: o.username, status: o.status, createdAt: o.createdAt, paidAt: o.paidAt, doneAt: o.doneAt });
       return;
     }
   } catch(_) {}
-
   res.innerHTML = `
     <div class="admin-empty" style="padding:16px 0;">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.6" style="margin-bottom:4px;"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg><br>
-      <span style="font-size:0.82rem;">Pesanan <strong>${q}</strong> tidak ditemukan.<br>
-      <span style="color:var(--text-light);font-size:0.75rem;">Hubungi CS via WhatsApp jika butuh bantuan.</span></span>
+      <span style="font-size:.82rem;">Pesanan <strong>${escHtml(q)}</strong> tidak ditemukan.<br>
+      <span style="color:var(--text-light);font-size:.75rem;">Transaksi yang belum dibayar hilang setelah 30 menit. Hubungi admin via WhatsApp jika sudah membayar.</span></span>
     </div>`;
 }
+updateTrackDot();
 
 /* ── ADMIN STATE ─────────────────────────────────────── */
-const ADMIN_PASS = '54321';
+let admPassVal = '';   // password hanya di memori, divalidasi server
 const WH_CONF    = 'https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7';
 let admAvUrl = '';
 let admLoggedIn = false;
@@ -5428,47 +5615,67 @@ function openAdminModal() {
   document.body.style.overflow = 'hidden';
   $('admPass').value = ''; $('admPassErr').textContent = '';
   if (!admLoggedIn) { $('adminGate').style.display='block'; $('adminTools').classList.remove('vis'); }
-  else { $('adminGate').style.display='none'; $('adminTools').classList.add('vis'); loadOrdersFromServer(); }
+  else { $('adminGate').style.display='none'; $('adminTools').classList.add('vis'); loadOrdersFromServer(); startAdmAuto(); }
 }
 function closeAdminModal() {
+  stopAdmAuto();
   $('adminOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
 function handleAdminOverlay(e) { if (e.target === $('adminOverlay')) closeAdminModal(); }
 
-/* ── LOGIN / LOGOUT ──────────────────────────────────── */
-function doAdminLogin() {
+/* ── LOGIN / LOGOUT (password dicek di server) ───────── */
+let admFilter = 'paid', admQuery = '', _admAuto = null, admLastPaid = -1, admStats = null;
+
+async function doAdminLogin() {
   const v = $('admPass').value;
-  if (v === ADMIN_PASS) {
-    admLoggedIn = true;
+  if (!v) return;
+  $('admPassErr').textContent = 'Memeriksa...';
+  try {
+    const r = await fetch('/api/order-list', { headers: { 'x-admin-pass': v } });
+    if (r.status === 401) { $('admPassErr').textContent = 'Password salah!'; $('admPass').value = ''; $('admPass').focus(); return; }
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok) { $('admPassErr').textContent = d.error || 'Server bermasalah, cek konfigurasi KV.'; return; }
+    admPassVal = v; admLoggedIn = true; admLastPaid = -1;
+    $('admPassErr').textContent = '';
     $('adminGate').style.display = 'none';
     $('adminTools').classList.add('vis');
-    loadOrdersFromServer();
-  } else {
-    $('admPassErr').textContent = 'Password salah!';
-    $('admPass').value = '';
-    $('admPass').focus();
+    applyAdmData(d);
+    startAdmAuto();
+  } catch(_) {
+    $('admPassErr').textContent = 'Gagal terhubung ke server.';
   }
 }
 
-async function loadOrdersFromServer() {
-  const el = $('admOList');
-  el.innerHTML = '<div class="admin-empty">Memuat data pesanan...</div>';
-  try {
-    const r = await fetch(`/api/order-list?pass=${encodeURIComponent(ADMIN_PASS)}`);
-    const data = await r.json();
-    if (data.orders) {
-      orders.length = 0;
-      data.orders.forEach(o => orders.push({
-        id: o.order_id, username: o.username, produk: o.produk,
-        jenis: o.jenis, total: o.total, harga: o.amount, status: o.status
-      }));
-    }
-  } catch(_) {}
+function applyAdmData(d) {
+  orders.length = 0;
+  (d.orders || []).forEach(o => orders.push(o));
+  admStats = d.stats || null;
+  const paidNow = orders.filter(o => o.status === 'paid').length;
+  if (admLastPaid >= 0 && paidNow > admLastPaid) toast('Ada pesanan baru yang sudah dibayar!', 4000);
+  admLastPaid = paidNow;
   renderAdmOrders();
 }
+
+async function loadOrdersFromServer(silent) {
+  const el = $('admOList');
+  if (!silent) el.innerHTML = '<div class="admin-empty">Memuat data pesanan...</div>';
+  try {
+    const r = await fetch('/api/order-list', { headers: { 'x-admin-pass': admPassVal } });
+    if (r.status === 401) { doAdminLogout(); $('admPassErr').textContent = 'Sesi berakhir, masuk lagi.'; return; }
+    const d = await r.json();
+    if (!r.ok) throw new Error(d.error || 'Gagal memuat');
+    applyAdmData(d);
+  } catch(e) {
+    if (!silent) el.innerHTML = `<div class="admin-empty">${escHtml(e.message || 'Gagal memuat pesanan')}</div>`;
+  }
+}
+function startAdmAuto() { stopAdmAuto(); _admAuto = setInterval(() => loadOrdersFromServer(true), 20000); }
+function stopAdmAuto()  { if (_admAuto) { clearInterval(_admAuto); _admAuto = null; } }
+
 function doAdminLogout() {
-  admLoggedIn = false;
+  admLoggedIn = false; admPassVal = ''; stopAdmAuto();
+  orders.length = 0;
   $('adminTools').classList.remove('vis');
   $('adminGate').style.display = 'block';
   $('admPass').value = ''; $('admPassErr').textContent = '';
@@ -5585,61 +5792,86 @@ async function kirimDiscord() {
 }
 
 /* ── RENDER ORDERS ───────────────────────────────────── */
-function sClass(s) { return {pending:'sp', paid:'sd', done:'ss', cancel:'sc'}[s] || 'sp'; }
-function sLabel(s) { return {pending:'Menunggu', paid:'Dibayar', done:'Selesai', cancel:'Batal'}[s] || s; }
+const ADM_ST = {
+  unpaid: 'Belum Bayar', paid: 'Pending', done: 'Succeed', cancel: 'Batal'
+};
+
+function admRupiah(n){ return 'Rp' + (Number(n) || 0).toLocaleString('id-ID'); }
+
+function renderAdmStats() {
+  const st = admStats || { unpaid:0, paid:0, done:0, revenue:0, revenueToday:0 };
+  $('admStats').innerHTML = `
+    <div class="adm-stat warn"><span>Perlu diproses</span><b>${st.paid || 0}</b><small>status Pending</small></div>
+    <div class="adm-stat ok"><span>Succeed</span><b>${st.done || 0}</b><small>pesanan selesai</small></div>
+    <div class="adm-stat"><span>Omzet hari ini</span><b>${admRupiah(st.revenueToday)}</b><small>harga paket</small></div>
+    <div class="adm-stat"><span>Total omzet</span><b>${admRupiah(st.revenue)}</b><small>${st.unpaid || 0} belum bayar</small></div>`;
+}
+
+function admSetFilter(f) { admFilter = f; renderAdmOrders(); }
 
 function renderAdmOrders() {
-  const el = $('admOList');
-  const cnt = $('orderCount');
-  if (!orders.length) {
-    el.innerHTML = '<div class="admin-empty">Belum ada pesanan.</div>';
-    cnt.textContent = '';
+  if (!$('admOList')) return;
+  renderAdmStats();
+  const cnt = s => orders.filter(o => o.status === s).length;
+  const chips = [['paid', 'Pending'], ['done', 'Succeed'], ['unpaid', 'Belum Bayar'], ['cancel', 'Batal'], ['all', 'Semua']];
+  $('admChips').innerHTML = chips.map(([k, l]) =>
+    `<button class="adm-chip${admFilter === k ? ' on' : ''}" onclick="admSetFilter('${k}')">${l}<i>${k === 'all' ? orders.length : cnt(k)}</i></button>`).join('');
+
+  const q = admQuery.trim().toLowerCase();
+  const list = orders.filter(o => (admFilter === 'all' || o.status === admFilter) &&
+    (!q || [o.order_id, o.username, o.produk, o.jenis].some(v => String(v || '').toLowerCase().includes(q))));
+
+  if (!list.length) {
+    $('admOList').innerHTML = `<div class="admin-empty">${admFilter === 'paid' && !q ? 'Tidak ada pesanan Pending. Semua beres!' : 'Tidak ada pesanan.'}</div>`;
     return;
   }
-  cnt.textContent = orders.length;
-  el.innerHTML = orders.map(o => `
-    <div class="ao-row">
-      <div>
-        <div class="ao-id">${o.id}</div>
-        <div class="ao-desc">${o.produk || (o.rbx + ' Robux')} · ${o.jenis}${o.username && o.username!=='-' ? ' · '+o.username : ''}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
-        <span class="sbadge ${sClass(o.status)}">${sLabel(o.status)}</span>
-        ${o.status==='paid' ? `<button class="btn-done-sm" onclick="markDone('${o.id}')">Selesai</button>` : ''}
-      </div>
-    </div>
-  `).join('');
+  $('admOList').innerHTML = list.map(o => {
+    const id = escHtml(o.order_id);
+    const acc = o.username && o.username !== '-' ? o.username : '';
+    let act = '';
+    if (o.status === 'paid')   act = `<button class="adm-btn ok" onclick="setOrderStatus('${id}','done')">Succeed</button><button class="adm-btn bad" onclick="setOrderStatus('${id}','cancel','Batalkan pesanan ${id}?')">Batal</button>`;
+    if (o.status === 'unpaid') act = `<button class="adm-btn ok" onclick="setOrderStatus('${id}','done','Pembayaran BELUM terverifikasi. Tetap tandai Succeed?')">Succeed</button><span class="adm-hint">hilang otomatis 30 menit</span>`;
+    if (o.status === 'done')   act = `<button class="adm-btn" onclick="setOrderStatus('${id}','paid','Kembalikan ke Pending?')">Kembalikan ke Pending</button>`;
+    return `
+    <div class="adm-o st-${o.status}">
+      <div class="adm-o-top"><span class="ao-id">${id}</span><span class="stbadge st-${o.status}">${ADM_ST[o.status] || o.status}</span></div>
+      <div class="adm-o-prod">${escHtml(o.produk || '-')}</div>
+      <div class="adm-o-meta">${escHtml(o.jenis || '-')}${acc ? ' · ' + escHtml(acc) : ''}</div>
+      <div class="adm-o-meta"><b>${escHtml(o.total || admRupiah(o.amount))}</b> · dibuat ${fmtWaktu(o.createdAt)}${o.doneAt ? ' · selesai ' + fmtWaktu(o.doneAt) : ''}</div>
+      <div class="adm-o-act">${act}${acc ? `<button class="adm-btn ghost" onclick="admCopy(this,'${escHtml(acc).replace(/'/g, '&#39;')}')">Salin akun</button>` : ''}</div>
+    </div>`;
+  }).join('');
 }
 
-async function markDone(id) {
-  const o = orders.find(x => x.id===id);
+function admCopy(btn, text) {
+  const done = () => { const t = btn.textContent; btn.textContent = 'Tersalin!'; setTimeout(() => btn.textContent = t, 1200); };
+  try { navigator.clipboard.writeText(text.replace(/&#39;/g, "'")).then(done, () => toast('Gagal menyalin')); } catch(_) { toast('Gagal menyalin'); }
+}
+
+async function setOrderStatus(id, status, confirmMsg) {
+  if (confirmMsg && !confirm(confirmMsg)) return;
+  const o = orders.find(x => x.order_id === id);
   if (!o) return;
-  o.status='done'; renderAdmOrders(); toast('Pesanan '+id+' selesai!');
+  const prev = { status: o.status, doneAt: o.doneAt };
+  o.status = status; if (status === 'done') o.doneAt = Date.now();
+  renderAdmOrders();
   try {
-    await fetch('/api/order-status-update', {
+    const r = await fetch('/api/order-status-update', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ pass: ADMIN_PASS, order_id: id, status: 'done' })
+      headers: { 'Content-Type': 'application/json', 'x-admin-pass': admPassVal },
+      body: JSON.stringify({ order_id: id, status })
     });
-  } catch(_) {}
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.success) throw new Error(d.error || 'Gagal update');
+    toast(status === 'done' ? 'Pesanan ' + id + ' → Succeed' : 'Status pesanan diperbarui');
+    loadOrdersFromServer(true);
+  } catch(e) {
+    o.status = prev.status; o.doneAt = prev.doneAt; renderAdmOrders();
+    toast(e.message || 'Gagal update pesanan');
+  }
 }
 
-/* Hook: push orders from main flow */
-function pushOrder(o) {
-  orders.unshift(o);
-}
-
-/* ── SIMPAN PESANAN KE SERVER (persisten) ────────────── */
-async function persistOrder({ orderId, amount, produk, username, jenis, total }) {
-  try {
-    await fetch('/api/order-save', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: orderId, amount, produk, username, jenis, total })
-    });
-  } catch(_) {}
-}
-
+function pushOrder() { /* tidak dipakai lagi: pesanan disimpan server saat QR dibuat */ }
 
 
 /* Ported: Top Rank leaderboard (from DexBlox) */
