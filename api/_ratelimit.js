@@ -15,8 +15,8 @@ async function rateLimit(req, name, limit, windowSec) {
   const key = `rl:${name}:${ip}:${bucket}`;
   const retryAfter = windowSec - (Math.floor(Date.now() / 1000) % windowSec);
 
-  const url = process.env.KV_REST_API_URL;
-  const token = process.env.KV_REST_API_TOKEN;
+  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
   if (url && token) {
     try {
       const r = await fetch(url.replace(/\/$/, '') + '/pipeline', {
