@@ -35,6 +35,7 @@ module.exports = async function handler(req, res) {
     }
     return res.status(200).json({ orders, stats });
   } catch (e) {
-    return res.status(500).json({ error: 'Gagal mengambil daftar pesanan' });
+    console.error('order-list:', e);
+    return res.status(500).json({ error: 'Gagal mengambil daftar pesanan: ' + String((e && e.message) || e).slice(0, 220) });
   }
 };

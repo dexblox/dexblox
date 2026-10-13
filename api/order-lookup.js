@@ -26,6 +26,7 @@ module.exports = async function handler(req, res) {
     if (single) return res.status(200).json(orders.length ? { found: true, order: orders[0] } : { found: false });
     return res.status(200).json({ orders });
   } catch (e) {
+    console.error('order-lookup.js:', e);
     return res.status(500).json({ error: 'Gagal mengambil data pesanan' });
   }
 };
