@@ -35,4 +35,12 @@ async function kvZrangeRev(key, start, stop) {
   return kvCommand(['zrange', key, String(start), String(stop), 'REV']);
 }
 
-module.exports = { kvSet, kvGet, kvZadd, kvZrangeRev };
+async function kvDel(key) {
+  return kvCommand(['del', key]);
+}
+
+async function kvZrem(key, member) {
+  return kvCommand(['zrem', key, member]);
+}
+
+module.exports = { kvSet, kvGet, kvDel, kvZadd, kvZrem, kvZrangeRev };
