@@ -9,14 +9,16 @@ index.html                  <- frontend (halaman toko)
 assets/                     <- semua gambar & musik (logo.png, ml.png, ff.png, ...)
 api/
   _kv.js                    <- helper penyimpanan (bukan endpoint, di-skip Vercel)
+  _orders.js                <- helper pesanan: aturan 30 menit, verifikasi bayar (bukan endpoint)
   user.js                   <- cari User ID Roblox by username
   avatar.js                 <- ambil foto avatar Roblox
   followers.js              <- ambil jumlah followers Roblox
   buatqris-create.js        <- bikin transaksi QRIS (BuatQris Open API)
   buatqris-status.js        <- cek status pembayaran QRIS
-  order-save.js             <- simpan pesanan baru
-  order-status-update.js    <- admin: tandai pesanan selesai
-  order-list.js             <- admin: lihat semua pesanan
+  order-save.js             <- simpan transaksi saat QR dibuat (status awal: unpaid)
+  order-lookup.js           <- pembeli: riwayat & cek status pesanan
+  order-status-update.js    <- admin: tandai Succeed / Pending / Batal
+  order-list.js             <- admin: dashboard pesanan + statistik
 package.json
 .env.example
 ```
@@ -57,7 +59,7 @@ Di **Settings → Environment Variables**, tambahkan:
 | `BUATQRIS_ACCOUNT_ID` | Account ID dari dasbor BuatQris (menu Open API) |
 | `BUATQRIS_SECRET_TOKEN` | Secret token dari BuatQris (aktifkan opsi **Sensitive**) |
 | `BUATQRIS_TEST` | `0` untuk live, `1` untuk mode sandbox (tes tanpa uang asli) |
-| `ADMIN_PASS` | Password admin (harus **sama** dengan yang ada di `index.html`) |
+| `ADMIN_PASS` | Password admin (hanya di sini, divalidasi server — tidak ada lagi di `index.html`) |
 
 Opsional:
 
@@ -69,15 +71,18 @@ Opsional:
 > Daftar/lihat Account ID & secret token di https://app.buatqris.site (menu Open API).
 > Jangan pernah menaruh secret token di `index.html` atau commit ke GitHub.
 
-## 5. Samakan password admin
+## 5. Alur pesanan & panel admin
 
-Buka `index.html`, cari baris:
+| Status | Tampil ke pembeli | Arti |
+|---|---|---|
+| `unpaid` | Menunggu Pembayaran | QR dibuat, belum dibayar. **Dihapus otomatis 30 menit** setelah dibuat |
+| `paid` | Pending | Sudah dibayar (diverifikasi server lewat BuatQris), menunggu diproses admin |
+| `done` | Succeed | Admin sudah menekan tombol **Succeed** |
+| `cancel` | Dibatalkan | Dibatalkan admin |
 
-```js
-const ADMIN_PASS = '...';
-```
-
-Ganti isinya dengan password yang sama persis dengan env var `ADMIN_PASS` di Vercel. Ini dipakai untuk gerbang login panel admin di sisi tampilan; validasi sesungguhnya tetap dicek ulang di server (`order-list.js`, `order-status-update.js`).
+- Pembeli melihat riwayat lewat ikon 🔍 **Cek Pesanan** (tersimpan di browser + dicek ke server setiap 20 detik).
+- Admin: ikon ⚙️ → masukkan `ADMIN_PASS` → dashboard (statistik, filter, pencarian, tombol Succeed, auto-refresh 20 detik).
+- Sebelum menghapus transaksi kedaluwarsa, server mengecek ke BuatQris dulu: kalau ternyata sudah dibayar, pesanan dinaikkan ke Pending (bukan dihapus), jadi pembeli yang menutup tab setelah bayar tetap aman.
 
 Pakai password yang kuat, bukan angka sederhana.
 
