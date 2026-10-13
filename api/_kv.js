@@ -2,17 +2,19 @@
 // Env yang dibutuhkan: KV_REST_API_URL, KV_REST_API_TOKEN
 // (otomatis terisi kalau kamu attach Storage > KV/Redis dari dashboard Vercel).
 
-const KV_URL   = process.env.KV_REST_API_URL;
-const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+// Nama env bisa berbeda tergantung integrasi: Vercel KV (KV_REST_API_*) atau Upstash langsung (UPSTASH_REDIS_REST_*).
+const KV_URL   = (process.env.KV_REST_API_URL   || process.env.UPSTASH_REDIS_REST_URL   || '').replace(/\/$/, '');
+const KV_TOKEN =  process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
 
 async function kvCommand(parts) {
   if (!KV_URL || !KV_TOKEN) {
-    throw new Error('KV belum dikonfigurasi (KV_REST_API_URL / KV_REST_API_TOKEN kosong)');
+    throw new Error('Penyimpanan KV belum terhubung (env KV_REST_API_URL / KV_REST_API_TOKEN kosong). Buka Vercel > Storage > hubungkan KV ke project ini, lalu Redeploy.');
   }
   const url = KV_URL + '/' + parts.map(encodeURIComponent).join('/');
   const r = await fetch(url, { headers: { Authorization: 'Bearer ' + KV_TOKEN } });
-  const data = await r.json();
-  if (data.error) throw new Error(data.error);
+  let data;
+  try { data = await r.json(); } catch (_) { throw new Error('KV membalas format tidak dikenal (HTTP ' + r.status + ')'); }
+  if (data.error) throw new Error('KV: ' + data.error);
   return data.result;
 }
 
@@ -32,7 +34,7 @@ async function kvZadd(key, score, member) {
 
 async function kvZrangeRev(key, start, stop) {
   // Urutan terbaru -> terlama
-  return kvCommand(['zrange', key, String(start), String(stop), 'REV']);
+  return kvCommand(['zrevrange', key, String(start), String(stop)]);
 }
 
 async function kvDel(key) {
