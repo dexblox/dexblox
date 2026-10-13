@@ -1,6 +1,7 @@
 // Vercel Serverless Function — cek status transaksi BuatQris.
 // Catatan: BuatQris membatasi 1 cek / 20 detik per transaksi (HTTP 429 + retry_after).
 const { rateLimit } = require('./_ratelimit');
+const { kvGet, kvSet } = require('./_kv');
 
 const API = 'https://api.buatqris.site';
 
@@ -38,6 +39,20 @@ module.exports = async function handler(req, res) {
       return res.status(200).json({ transaction: { status: 'pending' } });
     }
     const st = String(j.data.status || 'pending');
+
+    // Pembayaran lunas -> tandai pesanan "paid" di server (sumber kebenaran, bukan browser pembeli)
+    if (st === 'success') {
+      try {
+        const orderId = await kvGet(`txn:${txnId}`);
+        if (orderId) {
+          const rec = await kvGet(`order:${orderId}`);
+          if (rec && rec.status === 'unpaid') {
+            rec.status = 'paid'; rec.paidAt = Date.now();
+            await kvSet(`order:${orderId}`, rec);
+          }
+        }
+      } catch (_) { /* KV bermasalah: pembeli tetap dianggap lunas di browser */ }
+    }
     // Frontend memakai status 'completed' sebagai tanda lunas.
     return res.status(200).json({
       transaction: { status: st === 'success' ? 'completed' : st, raw_status: st }
