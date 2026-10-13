@@ -1359,6 +1359,45 @@
 .is-locked .lock-hint{display:block;}
 .is-locked .ml-packs,.is-locked .gm-cats{opacity:.45;filter:grayscale(.35);pointer-events:none;user-select:none;}
 
+/* ── Kartu riwayat bisa diklik + halaman bayar QRIS ── */
+.trk-card.trk-click{cursor:pointer;transition:transform .15s,box-shadow .15s;}
+.trk-card.trk-click:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(101,86,224,.14);}
+.trk-card.trk-click:active{transform:scale(.99);}
+.trk-pay-cta{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding:10px 12px;border-radius:10px;background:linear-gradient(135deg,#6556e0,#7c6cf0);color:#fff;font-size:.78rem;font-weight:800;}
+.trk-pay-cta span{font-size:1.1rem;line-height:1;}
+.trk-note.warn{color:#b45309;font-weight:600;}
+.pv-back{display:inline-flex;align-items:center;gap:6px;border:none;background:none;color:var(--text-muted);font-size:.8rem;font-weight:700;cursor:pointer;padding:2px 0 12px;font-family:'Inter',sans-serif;}
+.pv-back span{font-size:1.2rem;line-height:1;margin-top:-2px;}
+.pv-card{background:var(--white,#fff);border:1px solid var(--border);border-radius:22px;padding:22px 18px 18px;text-align:center;box-shadow:0 10px 34px rgba(101,86,224,.10);}
+.pv-pill{display:inline-flex;align-items:center;gap:7px;padding:5px 12px;border-radius:50px;background:#eef2ff;color:#4338ca;font-size:.7rem;font-weight:800;}
+.pv-pill i{width:7px;height:7px;border-radius:50%;background:#6366f1;animation:pvPulse 1.4s infinite;}
+@keyframes pvPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.pv-lbl{margin-top:14px;font-size:.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;}
+.pv-total{font-size:2rem;font-weight:800;color:var(--text);letter-spacing:-.5px;margin:2px 0 6px;}
+.pv-total.sm{font-size:1.3rem;margin:12px 0 14px;}
+.pv-timer{font-size:.78rem;color:var(--text-muted);font-weight:600;}
+.pv-timer b{font-family:monospace;font-size:.9rem;color:#4338ca;}
+.pv-bar{height:5px;border-radius:5px;background:var(--border);overflow:hidden;margin:10px auto 16px;max-width:260px;}
+.pv-bar i{display:block;height:100%;width:100%;border-radius:5px;background:linear-gradient(90deg,#6556e0,#22c55e);transition:width 1s linear;}
+.pv-qr{background:#fff;border:1px solid var(--border);border-radius:18px;padding:14px;width:min(250px,76%);margin:0 auto;box-shadow:inset 0 0 0 4px #f6f5ff;}
+.pv-qr img{display:block;width:100%;height:auto;border-radius:6px;image-rendering:pixelated;}
+.pv-scan{font-size:.72rem;color:var(--text-muted);line-height:1.5;margin:12px auto 16px;max-width:290px;}
+.pv-btn{width:100%;border:none;border-radius:14px;padding:13px;background:linear-gradient(135deg,#6556e0,#7c6cf0);color:#fff;font-size:.88rem;font-weight:800;cursor:pointer;font-family:'Inter',sans-serif;box-shadow:0 6px 18px rgba(101,86,224,.3);}
+.pv-btn:disabled{opacity:.7;cursor:wait;}
+.pv-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px;}
+.pv-links a{font-size:.72rem;font-weight:700;color:#6556e0;text-decoration:none;}
+.pv-links a:hover{text-decoration:underline;}
+.pv-steps{margin:16px 0 4px;padding-left:20px;font-size:.76rem;color:var(--text-muted);line-height:1.6;}
+.pv-steps li{margin-bottom:5px;} .pv-steps b{color:var(--text);}
+.pv-detail{margin-top:14px;background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:4px 14px;}
+.pv-detail .trk-row:last-child{border-bottom:none;}
+.pv-ok,.pv-exp{padding:30px 20px 22px;}
+.pv-check{width:60px;height:60px;border-radius:50%;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 8px 22px rgba(34,197,94,.35);}
+.pv-check.off{background:linear-gradient(135deg,#9ca3af,#6b7280);box-shadow:0 8px 22px rgba(107,114,128,.3);}
+.pv-ok-t{font-size:1.1rem;font-weight:800;color:var(--text);}
+.pv-ok-s{font-size:.8rem;color:var(--text-muted);line-height:1.55;margin:6px auto 0;max-width:290px;}
+.pv-ok .pv-btn,.pv-exp .pv-btn{margin-top:16px;}
+
 @keyframes skAnim { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
 
 
@@ -3442,7 +3481,8 @@ async function quickBuyGoToPay(){
   const total = payment.total_payment;
 
   persistOrder({ orderId: qbOid, txnId: qbTxnId, amount, produk: qbItem.name,
-    username: qbItem.gameId || '-', jenis: qbItem.jenis || 'Top Up ML', total: formatRp(total), demo: qbDemoMode });
+    username: qbItem.gameId || '-', jenis: qbItem.jenis || 'Top Up ML', total: formatRp(total), demo: qbDemoMode,
+    pay: { img: payment.qr_image, num: payment.payment_number, url: payment.payment_url, exp: payment.expired_at } });
 
   document.getElementById('qbOrderIdTxt').textContent   = qbOid;
   document.getElementById('qbSubtotalTxt').textContent  = formatRp(amount);
@@ -4047,6 +4087,7 @@ renderClouds();
       <button class="rbx-modal-close" onclick="closeTrack()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
     <div class="admin-body">
+      <div id="trackMain">
       <div style="display:flex;gap:8px;margin-bottom:1rem;">
         <input class="inp-field" id="trackInp" type="text" placeholder="Cari ID pesanan, mis. DBX-A3KW9PJ" style="flex:1;text-transform:uppercase;-webkit-user-select:text;user-select:text;" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doTrack()">
         <button class="trk-find" onclick="doTrack()">Cari</button>
@@ -4058,6 +4099,8 @@ renderClouds();
       </div>
       <div class="trk-legend">Menunggu Pembayaran → <b>Pending</b> (sedang diproses) → <b>Succeed</b> (selesai). Transaksi yang tidak dibayar hilang otomatis setelah 30 menit.</div>
       <div id="trackList"><div class="admin-empty">Belum ada transaksi.</div></div>
+      </div>
+      <div id="trackPay" style="display:none;"></div>
     </div>
   </div>
 </div>
@@ -4969,7 +5012,8 @@ async function goToPay() {
     produk: activeType==='joki' ? `${selectedPaket.lvl} Level` : activeType==='follow' ? `${selectedPaket.flw} Pengikut` : `${selectedPaket.rbx} Robux`,
     username: uname,
     jenis: activeType==='slow'?'5-7 Hari':activeType==='joki'?'Joki Level':activeType==='vu'?'Via Username':activeType==='follow'?'Pengikut Roblox':'Via Login',
-    total: rp(total), demo: demoMode });
+    total: rp(total), demo: demoMode,
+    pay: { img: payment.qr_image, num: payment.payment_number, url: payment.payment_url, exp: payment.expired_at } });
 
   // Render order summary
   $('qrisOrder').innerHTML = `
@@ -5295,7 +5339,8 @@ async function cpGoToPay() {
   CP_FEE   = payment.fee;
   CP_TOTAL = payment.total_payment;
   persistOrder({ orderId: cpOid, txnId: cpTxnId, amount: CP_HARGA, produk: `Redfingger Cloud Phone · VIP ${CP_HARI} Hari`,
-    username: '-', jenis: 'Cloud Phone', total: rp(CP_TOTAL), demo: cpDemoMode });
+    username: '-', jenis: 'Cloud Phone', total: rp(CP_TOTAL), demo: cpDemoMode,
+    pay: { img: payment.qr_image, num: payment.payment_number, url: payment.payment_url, exp: payment.expired_at } });
   $('cpRFee').textContent   = '+ ' + rp(CP_FEE);
   $('cpRTotal').textContent = rp(CP_TOTAL);
   $('cpQrImg').src = qrSrc(payment, 166);
@@ -5467,8 +5512,9 @@ function updateTrackDot(){
 }
 
 /* Simpan transaksi saat QR dibuat (lokal + server) */
-async function persistOrder({ orderId, txnId, amount, produk, username, jenis, total, demo }) {
-  histUpsert({ id: orderId, produk, jenis, total, username: username || '-', status: 'unpaid', createdAt: Date.now(), demo: !!demo });
+async function persistOrder({ orderId, txnId, amount, produk, username, jenis, total, demo, pay }) {
+  const p = pay ? { img: pay.img || null, num: pay.num || null, url: pay.url || null, exp: pay.exp || null } : null;
+  histUpsert({ id: orderId, txn: txnId || null, pay: p, produk, jenis, total, username: username || '-', status: 'unpaid', createdAt: Date.now(), demo: !!demo });
   if (demo) return;
   try {
     await fetch('/api/order-save', {
@@ -5514,6 +5560,8 @@ function fmtCountdown(ms){
 
 function renderOrderCard(o) {
   const info = ST_INFO[o.status] || ST_INFO.unpaid;
+  const expiredQr = o.status === 'unpaid' && o.pay && qrExpired(o);
+  const canPay = o.status === 'unpaid' && o.pay && !expiredQr && pvQrSrc(o);
   const rows = [['Produk', o.produk || '-'], ['Tipe', o.jenis || '-']];
   if (o.username && o.username !== '-') rows.push(['Akun', o.username]);
   rows.push(['Total', o.total || '-'], ['Dibuat', fmtWaktu(o.createdAt)]);
@@ -5531,7 +5579,7 @@ function renderOrderCard(o) {
   const help = o.status === 'paid'
     ? `<a class="trk-wa" target="_blank" rel="noopener" href="https://wa.me/${WA_NUM}?text=${encodeURIComponent('Halo Min, mau tanya status pesanan ' + o.id)}">Tanya admin via WhatsApp</a>` : '';
   return `
-    <div class="trk-card st-${o.status}">
+    <div class="trk-card st-${o.status}${canPay ? ' trk-click' : ''}"${canPay ? ` onclick="openPayView('${escHtml(o.id)}')" role="button" tabindex="0"` : ''}>
       <div class="trk-top">
         <span class="trk-id">${escHtml(o.id)}</span>
         <span class="stbadge st-${o.status}">${info.label}</span>
@@ -5540,6 +5588,8 @@ function renderOrderCard(o) {
       ${rows.map(([k, v]) => `<div class="trk-row"><span>${k}</span><b>${escHtml(v)}</b></div>`).join('')}
       <div class="trk-note">${info.note}</div>
       ${cd}${help}
+      ${canPay ? '<div class="trk-pay-cta">Ketuk untuk membuka QRIS &amp; bayar <span>›</span></div>' : ''}
+      ${expiredQr ? '<div class="trk-note warn">QR sudah kedaluwarsa. Buat pesanan baru jika masih ingin membeli.</div>' : ''}
     </div>`;
 }
 
@@ -5554,6 +5604,9 @@ function renderTrackList(list) {
 }
 
 function openCekPesanan() {
+  stopPvTimers(); _pvId = null;
+  document.getElementById('trackPay').style.display = 'none';
+  document.getElementById('trackMain').style.display = 'block';
   document.getElementById('trackOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   renderTrackList();
@@ -5570,6 +5623,7 @@ function openCekPesanan() {
   }, 1000);
 }
 function closeTrack() {
+  stopPvTimers();
   document.getElementById('trackOverlay').classList.remove('open');
   document.body.style.overflow = '';
   clearInterval(_trkSync); clearInterval(_trkTick);
@@ -5585,21 +5639,147 @@ async function doTrack() {
   const res = document.getElementById('trackRes');
   if (!q) { toast('Masukkan ID pesanan'); return; }
   res.innerHTML = `<div class="admin-empty" style="padding:16px 0;">Mencari...</div>`;
+  const loc = histLoad().find(x => x.id === q);
+  let srvErr = false;
   try {
     const r = await fetch(`/api/order-lookup?order_id=${encodeURIComponent(q)}`);
-    const data = await r.json();
-    if (data.found) {
+    const data = await r.json().catch(() => ({}));
+    if (r.ok && data.found) {
       const o = data.order;
-      res.innerHTML = renderOrderCard({ id: o.order_id, produk: o.produk, jenis: o.jenis, total: o.total, username: o.username, status: o.status, createdAt: o.createdAt, paidAt: o.paidAt, doneAt: o.doneAt });
+      res.innerHTML = renderOrderCard({ id: o.order_id, produk: o.produk, jenis: o.jenis, total: o.total, username: o.username, status: o.status, createdAt: o.createdAt, paidAt: o.paidAt, doneAt: o.doneAt, pay: loc && loc.pay, txn: loc && loc.txn, demo: loc && loc.demo });
       return;
     }
-  } catch(_) {}
+    if (!r.ok) srvErr = true;
+  } catch(_) { srvErr = true; }
+  if (loc) { res.innerHTML = renderOrderCard(loc); return; } // pesanan milik perangkat ini
   res.innerHTML = `
     <div class="admin-empty" style="padding:16px 0;">
-      <span style="font-size:.82rem;">Pesanan <strong>${escHtml(q)}</strong> tidak ditemukan.<br>
+      <span style="font-size:.82rem;">${srvErr ? 'Server pesanan belum bisa diakses. Coba lagi sebentar.' : `Pesanan <strong>${escHtml(q)}</strong> tidak ditemukan.`}<br>
       <span style="color:var(--text-light);font-size:.75rem;">Transaksi yang belum dibayar hilang setelah 30 menit. Hubungi admin via WhatsApp jika sudah membayar.</span></span>
     </div>`;
 }
+
+/* ── HALAMAN PEMBAYARAN QRIS (dibuka dari kartu riwayat) ─ */
+let _pvId = null, _pvTick = null, _pvPoll = null;
+const PV_CHECK_LABEL = 'Saya sudah bayar, cek status';
+
+function safeUrl(u){ return typeof u === 'string' && /^https:\/\//i.test(u) ? u : ''; }
+function qrExpired(o){ const t = o && o.pay && o.pay.exp ? Date.parse(o.pay.exp) : 0; return !!t && t < Date.now(); }
+function pvQrSrc(o){
+  const p = o.pay || {};
+  return safeUrl(p.img) || (p.num ? 'https://api.qrserver.com/v1/create-qr-code/?size=520x520&margin=0&data=' + encodeURIComponent(p.num) : '');
+}
+function stopPvTimers(){ clearInterval(_pvTick); clearInterval(_pvPoll); _pvTick = _pvPoll = null; }
+
+function openPayView(id){
+  const o = histLoad().find(x => x.id === id);
+  if (!o) return;
+  _pvId = id;
+  document.getElementById('trackMain').style.display = 'none';
+  document.getElementById('trackPay').style.display = 'block';
+  const sh = document.querySelector('#trackOverlay .admin-sheet'); if (sh) sh.scrollTop = 0;
+  const bd = document.querySelector('#trackOverlay .admin-body'); if (bd) bd.scrollTop = 0;
+  renderPayView(o);
+  if (o.status === 'unpaid' && !qrExpired(o)) {
+    stopPvTimers();
+    _pvTick = setInterval(pvTickFn, 1000); pvTickFn();
+    _pvPoll = setInterval(() => pvCheck(false), 6000);
+  }
+}
+function closePayView(){
+  stopPvTimers(); _pvId = null;
+  document.getElementById('trackPay').style.display = 'none';
+  document.getElementById('trackMain').style.display = 'block';
+  renderTrackList(histPrune(histLoad()));
+}
+
+function renderPayView(o){
+  const el = document.getElementById('trackPay');
+  const rows = [['ID Pesanan', o.id], ['Produk', o.produk || '-'], ['Tipe', o.jenis || '-']];
+  if (o.username && o.username !== '-') rows.push(['Akun', o.username]);
+  rows.push(['Dibuat', fmtWaktu(o.createdAt)]);
+  const detail = `<div class="pv-detail">${rows.map(([k, v]) => `<div class="trk-row"><span>${k}</span><b>${escHtml(v)}</b></div>`).join('')}</div>`;
+  let main = '';
+
+  if (o.status !== 'unpaid') {
+    const txt = o.status === 'done' ? 'Pesanan sudah selesai diproses (Succeed). Terima kasih!'
+              : o.status === 'cancel' ? 'Pesanan ini dibatalkan. Hubungi admin jika ada kendala.'
+              : 'Pembayaran diterima. Pesanan kamu berstatus <b>Pending</b> dan sedang diproses admin.';
+    main = `
+      <div class="pv-card pv-ok">
+        <div class="pv-check"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+        <div class="pv-ok-t">${o.status === 'cancel' ? 'Pesanan Dibatalkan' : 'Pembayaran Berhasil'}</div>
+        <div class="pv-ok-s">${txt}</div>
+        <div class="pv-total sm">${escHtml(o.total || '')}</div>
+        <button class="pv-btn" onclick="closePayView()">Lihat Riwayat</button>
+      </div>`;
+  } else if (qrExpired(o) || !pvQrSrc(o)) {
+    main = `
+      <div class="pv-card pv-exp">
+        <div class="pv-check off"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <div class="pv-ok-t">QR Kedaluwarsa</div>
+        <div class="pv-ok-s">Waktu pembayaran untuk QR ini sudah habis, dan transaksi akan hilang otomatis. Silakan buat pesanan baru.</div>
+        <button class="pv-btn" onclick="closeTrack()">Tutup</button>
+      </div>`;
+  } else {
+    const link = safeUrl(o.pay && o.pay.url);
+    main = `
+      <div class="pv-card">
+        <span class="pv-pill"><i></i>Menunggu Pembayaran</span>
+        <div class="pv-lbl">Total Pembayaran</div>
+        <div class="pv-total">${escHtml(o.total || '')}</div>
+        <div class="pv-timer">Bayar sebelum <b id="pvCd">--:--</b></div>
+        <div class="pv-bar"><i id="pvBar"></i></div>
+        <div class="pv-qr"><img src="${escHtml(pvQrSrc(o))}" alt="QRIS pembayaran ${escHtml(o.id)}"></div>
+        <div class="pv-scan">Scan dengan GoPay, OVO, DANA, ShopeePay, atau m-banking yang mendukung QRIS</div>
+        <button class="pv-btn" id="pvCheck" onclick="pvCheck(true)">${PV_CHECK_LABEL}</button>
+        <div class="pv-links">
+          ${link ? `<a href="${escHtml(link)}" target="_blank" rel="noopener">Buka halaman pembayaran</a>` : ''}
+          <a href="${escHtml(pvQrSrc(o))}" target="_blank" rel="noopener">Buka QR ukuran penuh</a>
+        </div>
+      </div>
+      <ol class="pv-steps">
+        <li>Buka aplikasi e-wallet atau m-banking, pilih <b>Scan / Bayar QRIS</b>.</li>
+        <li>Scan QR di atas, lalu pastikan nominal sama persis dengan total pembayaran.</li>
+        <li>Setelah bayar, status berubah otomatis menjadi <b>Pending</b> lalu <b>Succeed</b> setelah diproses admin.</li>
+      </ol>`;
+  }
+  el.innerHTML = `<button class="pv-back" onclick="closePayView()"><span>‹</span> Kembali ke riwayat</button>${main}${detail}`;
+}
+
+function pvTickFn(){
+  const o = histLoad().find(x => x.id === _pvId);
+  const cd = document.getElementById('pvCd');
+  if (!o || !cd) return;
+  const end = o.pay && o.pay.exp ? Date.parse(o.pay.exp) : o.createdAt + UNPAID_TTL;
+  const left = end - Date.now();
+  if (left <= 0) { stopPvTimers(); renderPayView(o); return; }
+  cd.textContent = fmtCountdown(left);
+  const bar = document.getElementById('pvBar');
+  if (bar) bar.style.width = Math.max(0, Math.min(100, left / Math.max(1, end - o.createdAt) * 100)) + '%';
+}
+
+async function pvCheck(manual){
+  const o = histLoad().find(x => x.id === _pvId);
+  if (!o || o.status !== 'unpaid') return;
+  if (o.demo || !o.txn) { if (manual) toast('Mode demo: pembayaran tidak bisa dicek'); return; }
+  const btn = document.getElementById('pvCheck');
+  if (manual && btn) { btn.disabled = true; btn.textContent = 'Memeriksa...'; }
+  try {
+    const r = await fetch('/api/buatqris-status?txn_id=' + encodeURIComponent(o.txn));
+    const d = await r.json();
+    if (d && d.transaction && d.transaction.status === 'completed') {
+      orderMarkPaidLocal(o.id); stopPvTimers();
+      const n = histLoad().find(x => x.id === o.id);
+      if (n && _pvId === o.id) renderPayView(n);
+      return;
+    }
+    if (manual) toast('Pembayaran belum terdeteksi. Coba lagi beberapa detik setelah bayar.');
+  } catch(_) { if (manual) toast('Gagal memeriksa, coba lagi'); }
+  const b2 = document.getElementById('pvCheck');
+  if (b2) { b2.disabled = false; b2.textContent = PV_CHECK_LABEL; }
+}
+
 updateTrackDot();
 
 /* ── ADMIN STATE ─────────────────────────────────────── */
