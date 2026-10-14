@@ -4203,6 +4203,31 @@ renderClouds();
 <div class="admin-overlay" id="trackOverlay" onclick="if(event.target===this)closeTrack()">
   <div class="admin-sheet trk-sheet">
     <div class="admin-hd">
+      <button class="adm-back" onclick="closeTrack()" aria-label="Kembali">←</button>
+      <h3>Cek Pesanan</h3>
+    </div>
+    <div class="admin-body">
+      <div id="trackMain">
+        <div class="inp-group">
+          <label class="inp-label">Cari dengan ID Pesanan</label>
+          <div style="display:flex;gap:8px;">
+            <input class="inp-field" id="trackInp" type="text" placeholder="Masukkan ID pesanan" style="-webkit-user-select:text;user-select:text;" onkeydown="if(event.key==='Enter') doTrack()" />
+            <button class="trk-find" onclick="doTrack()">Cari</button>
+          </div>
+        </div>
+        <div id="trackRes"></div>
+        <div class="trk-head"><div class="admin-sec-lbl" style="margin:0;">Riwayat Transaksi</div></div>
+        <div id="trackList"></div>
+      </div>
+      <div id="trackPay" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL ADMIN ────────────────────────────────────────── -->
+<div class="admin-overlay" id="adminOverlay" onclick="handleAdminOverlay(event)">
+  <div class="admin-sheet">
+    <div class="admin-hd">
       <button class="adm-back" onclick="closeAdminModal()" aria-label="Kembali">←</button>
       <h3>Admin Panel</h3>
     </div>
