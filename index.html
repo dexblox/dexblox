@@ -1051,7 +1051,7 @@
     .rbx-modal.single #panel2{order:2;}
     .rbx-modal.single #panel1{order:1;}
     .rbx-modal.single #panel1::before{content:'Data Akun';display:block;font-size:1.05rem;font-weight:800;margin-bottom:12px;color:var(--text);}
-    .rbx-modal.single .rbx-buybox{display:block;margin-top:6px;padding-top:14px;border-top:1px solid var(--border);}
+    .rbx-modal.single .rbx-buybox{display:block;order:3;background:#fff;border:1px solid var(--border);border-radius:16px;padding:16px;}
     .rbx-modal.single #btnSlow1,.rbx-modal.single #btnFast1,.rbx-modal.single #btnJoki1,.rbx-modal.single #btnVU1,.rbx-modal.single #btnFollow1{display:none;}
     .rbx-modal.single .ringkasan{margin:0 0 12px;}
     .rbx-modal.single .paket-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-height:none;overflow:visible;padding:0;}
@@ -1082,7 +1082,8 @@
       .rbx-modal.single{max-height:94vh;}
       .rbx-modal.single .modal-body{display:grid;grid-template-columns:360px minmax(0,1fr);gap:16px;align-items:start;padding:18px;}
       .rbx-modal.single #panel2{grid-column:2;grid-row:1;}
-      .rbx-modal.single #panel1{grid-column:1;grid-row:1;position:sticky;top:84px;}
+      .rbx-modal.single #panel1{grid-column:1;grid-row:1 / span 2;position:sticky;top:84px;}
+      .rbx-modal.single .rbx-buybox{grid-column:2;grid-row:2;}
       .rbx-modal.single .paket-list{grid-template-columns:repeat(3,1fr);}
     }
 
@@ -2257,16 +2258,6 @@
           <button class="mbtn" id="btnFollow1" onclick="goStepFollow(2)" disabled>Lanjut Pilih Paket →</button>
         </div>
 
-        <!-- Subtotal + tombol bayar (satu halaman, gaya marketplace) -->
-        <div class="rbx-buybox">
-          <div id="gpStatus" style="display:none;margin-bottom:12px;border-radius:10px;padding:10px 12px;font-size:0.76rem;font-weight:700;line-height:1.5;"></div>
-          <div class="ringkasan" id="ringkasan" style="display:none;">
-            <span class="rlbl">Harga Paket</span>
-            <span class="rval" id="ringkasanVal">—</span>
-          </div>
-          <button class="mbtn" id="btnStep2" onclick="goToPay()" disabled>Bayar Sekarang →</button>
-          <div class="rbx-buyhint">Cek username dulu, lalu bayar via QRIS. Biaya admin QRIS dihitung otomatis saat bayar.</div>
-        </div>
       </div>
 
       <!-- ── STEP 2: Pilih Paket ── -->
@@ -2308,6 +2299,17 @@
           <div class="paket-list" id="paketListFollow"></div>
         </div>
 
+      </div>
+
+      <!-- Subtotal + tombol bayar (satu halaman, gaya marketplace) -->
+      <div class="rbx-buybox">
+        <div id="gpStatus" style="display:none;margin-bottom:12px;border-radius:10px;padding:10px 12px;font-size:0.76rem;font-weight:700;line-height:1.5;"></div>
+        <div class="ringkasan" id="ringkasan" style="display:none;">
+          <span class="rlbl">Harga Paket</span>
+          <span class="rval" id="ringkasanVal">—</span>
+        </div>
+        <button class="mbtn" id="btnStep2" onclick="goToPay()" disabled>Bayar Sekarang →</button>
+        <div class="rbx-buyhint">Pastikan username sudah dicek, lalu bayar via QRIS. Biaya admin QRIS dihitung otomatis saat bayar.</div>
       </div>
 
       <!-- ── STEP 3: QRIS + Upload Bukti ── -->
@@ -2421,10 +2423,9 @@
           <button type="button" class="ml-check-btn" id="mlCheckBtn" onclick="mlCheckNickname()" disabled>Cek Nickname</button>
           <div class="ml-nick-result" id="mlNickResult" style="display:none;"></div>
         </div>
-        <div class="gm-card is-locked" id="mlPackCard">
+        <div class="gm-card" id="mlPackCard">
           <div class="ml-step"><i>2</i> Pilih Nominal Diamond</div>
-          <div class="lock-hint">Isi User ID &amp; Zone ID, lalu tekan <b>Cek Nickname</b> untuk membuka pilihan paket.</div>
-          <div class="ml-packs" id="ml-packs"></div>
+                    <div class="ml-packs" id="ml-packs"></div>
         </div>
       </div>
     </div>
@@ -2468,10 +2469,9 @@
           </ol>
         </div>
         <div class="gm-layout">
-          <section class="gm-card gm-products is-locked" id="gmPackCard">
+          <section class="gm-card gm-products" id="gmPackCard">
             <h3 class="gm-h">2. Pilih Produk</h3>
-            <div class="lock-hint">Isi data akun, lalu tekan <b>Cek Nickname</b> untuk membuka pilihan produk.</div>
-            <div class="gm-cats" id="gmCats"></div>
+                        <div class="gm-cats" id="gmCats"></div>
             <div class="ml-packs" id="gm-packs"></div>
           </section>
           <aside class="gm-card gm-side">
@@ -2973,11 +2973,9 @@ function flowSet(id, n){
   [...el.children].forEach((c,i) => { c.classList.toggle('on', i < n); c.classList.toggle('cur', i === n-1); });
 }
 function mlLockUpdate(){
-  const c = document.getElementById('mlPackCard'); if(c) c.classList.toggle('is-locked', !mlNickVerified);
-  flowSet('mlFlow', !mlNickVerified ? 1 : (mlSel ? 3 : 2));
+    flowSet('mlFlow', !mlNickVerified ? 1 : (mlSel ? 3 : 2));
 }
 function mlSelect(id){
-  if(!mlNickVerified){ showToast('Isi & cek data akun dulu ya', true); return; }
   mlSel = ML_PACKS.find(k => k.id === id) || null;
   renderMlPacks();
   mlLockUpdate();
@@ -3341,12 +3339,10 @@ function openGameModal(key){
 }
 
 function gmLockUpdate(){
-  const c = document.getElementById('gmPackCard'); if(c) c.classList.toggle('is-locked', !gmVerified);
-  flowSet('gmFlow', !gmVerified ? 1 : (gmSel ? 3 : 2));
+    flowSet('gmFlow', !gmVerified ? 1 : (gmSel ? 3 : 2));
 }
 function gmSelect(id){
   const g = GAMES[gmKey]; if(!g) return;
-  if(!gmVerified){ showToast('Isi & cek data akun dulu ya', true); return; }
   gmSel = g.packs.find(k => k.id === id) || null;
   renderGmPacks();
   gmLockUpdate();
