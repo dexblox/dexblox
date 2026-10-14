@@ -1,7 +1,10 @@
 // GET /api/media?id=<hex>  ->  file foto/GIF/video yang disimpan di Redis (upload kecil tanpa Vercel Blob).
 const { kvGet } = require('./_kv');
+const uploadHandler = require('./_media-upload');
 
 module.exports = async function handler(req, res) {
+  // POST (admin) = upload file; digabung ke sini agar jumlah Serverless Function <= 12 (batas Hobby).
+  if (req.method === 'POST') return uploadHandler(req, res);
   if (req.method !== 'GET') return res.status(405).end();
   const id = String((req.query && req.query.id) || '');
   if (!/^[a-f0-9]{16,40}$/.test(id)) return res.status(400).end();
@@ -19,3 +22,6 @@ module.exports = async function handler(req, res) {
     return res.status(500).end();
   }
 };
+
+// Body mentah dibutuhkan upload (POST); GET tidak terpengaruh.
+module.exports.config = { api: { bodyParser: false } };
