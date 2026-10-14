@@ -65,6 +65,10 @@ Opsional:
 
 | Key | Value |
 | --- | --- |
+| `BLOB_READ_WRITE_TOKEN` | Otomatis terisi bila kamu membuat **Storage → Blob** dan menghubungkannya. Dibutuhkan untuk upload video / foto & GIF besar (maks 4 MB) dari panel admin |
+
+| Key | Value |
+| --- | --- |
 | `BUATQRIS_FEE_BY` | `buyer` (default, biaya admin ditanggung pembeli) atau `user` (ditanggung toko) |
 | `BUATQRIS_METHOD` | Metode QRIS tertentu, mis. `qris_two` |
 
