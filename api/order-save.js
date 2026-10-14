@@ -23,15 +23,23 @@ module.exports = async function handler(req, res) {
     const existing = await kvGet(`order:${order_id}`);
     if (existing) return res.status(200).json({ success: true, existing: true });
 
-    const amount = Math.round(Number(b.amount)) || 0;
+    let amount = Math.round(Number(b.amount)) || 0;
+    let produk = clean(b.produk, 120);
+    let itemId = '', totalTxt = '';
+    // Nominal & nama produk diambil dari catatan server saat QR dibuat, bukan dari browser.
+    if (txn_id) {
+      const t = await kvGet(`txnitem:${txn_id}`);
+      if (t && typeof t === 'object') { amount = Math.round(Number(t.amount)) || amount; produk = clean(t.produk, 120) || produk; itemId = clean(t.item, 60); totalTxt = 'Rp' + amount.toLocaleString('id-ID'); }
+    }
     const record = {
       order_id,
       txn_id: txn_id || null,
       amount,
-      produk: clean(b.produk, 120),
+      item: itemId || undefined,
+      produk,
       username: clean(b.username, 120) || '-',
       jenis: clean(b.jenis, 60),
-      total: clean(b.total, 30) || String(amount),
+      total: totalTxt || clean(b.total, 30) || String(amount),
       status: 'unpaid',
       createdAt: Date.now()
     };

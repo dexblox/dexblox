@@ -3,6 +3,8 @@
 //   BUATQRIS_ACCOUNT_ID, BUATQRIS_SECRET_TOKEN
 // Env opsional: BUATQRIS_FEE_BY ("buyer" | "user", default "buyer"), BUATQRIS_METHOD (mis. qris_two)
 const { rateLimit } = require('./_ratelimit');
+const { resolveItem } = require('./_catalog');
+const { kvPost } = require('./_kv');
 
 const API = 'https://api.buatqris.site';
 
@@ -25,6 +27,18 @@ module.exports = async function handler(req, res) {
   const amount = Math.round(Number(body.amount));
   if (!orderId || !Number.isFinite(amount) || amount < 1000 || amount > 5000000)
     return res.status(400).json({ success: false, error: 'Nominal tidak valid (min Rp1.000)' });
+
+  // Harga dicocokkan dengan daftar harga SERVER (bukan angka dari browser).
+  // Donasi (item "donasi") bebas nominal; paket lain wajib persis sama dengan harga resmi.
+  const itemId = String(body.item || '').slice(0, 60);
+  let official = null;
+  if (itemId !== 'donasi') {
+    official = await resolveItem(itemId);
+    if (!official) return res.status(400).json({ success: false, error: 'Paket tidak dikenal. Muat ulang halaman lalu coba lagi.' });
+    if (official.price !== amount) {
+      return res.status(409).json({ success: false, error: 'Harga paket sudah berubah. Muat ulang halaman untuk melihat harga terbaru.' });
+    }
+  }
 
   // Semua transaksi (termasuk donasi): biaya ditanggung pembeli. Permintaan dari browser diabaikan.
   const feeBy = process.env.BUATQRIS_FEE_BY === 'user' ? 'user' : 'buyer';
@@ -53,6 +67,12 @@ module.exports = async function handler(req, res) {
     }
     const d = j.data;
     const total = Number(d.total_amount) || amount;
+    // Catat paket resmi untuk transaksi ini; order-save memakainya (bukan teks dari browser).
+    if (official) {
+      try {
+        await kvPost(['SET', 'txnitem:' + String(d.transaction_id), JSON.stringify({ item: official.id, amount: official.price, produk: official.produk }), 'EX', '86400']);
+      } catch (e) { console.error('txnitem:', e); }
+    }
     return res.status(200).json({
       success: true,
       payment: {

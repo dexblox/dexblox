@@ -18,6 +18,23 @@ async function kvCommand(parts) {
   return data.result;
 }
 
+// Kirim perintah lewat POST (body JSON) — dipakai untuk nilai besar (mis. file media base64)
+// yang tidak muat di URL. parts = ['SET', key, value, ...]
+async function kvPost(parts) {
+  if (!KV_URL || !KV_TOKEN) {
+    throw new Error('Penyimpanan KV belum terhubung (env KV_REST_API_URL / KV_REST_API_TOKEN kosong).');
+  }
+  const r = await fetch(KV_URL, {
+    method: 'POST',
+    headers: { Authorization: 'Bearer ' + KV_TOKEN, 'Content-Type': 'application/json' },
+    body: JSON.stringify(parts)
+  });
+  let data;
+  try { data = await r.json(); } catch (_) { throw new Error('KV membalas format tidak dikenal (HTTP ' + r.status + ')'); }
+  if (data.error) throw new Error('KV: ' + data.error);
+  return data.result;
+}
+
 async function kvSet(key, value) {
   return kvCommand(['set', key, JSON.stringify(value)]);
 }
@@ -45,4 +62,4 @@ async function kvZrem(key, member) {
   return kvCommand(['zrem', key, member]);
 }
 
-module.exports = { kvSet, kvGet, kvDel, kvZadd, kvZrem, kvZrangeRev };
+module.exports = { kvPost, kvSet, kvGet, kvDel, kvZadd, kvZrem, kvZrangeRev };
