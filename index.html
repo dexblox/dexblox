@@ -1765,6 +1765,107 @@
     .hero h1{animation:none;}
     .js-reveal .rv{opacity:1;transform:none;}
   }
+
+/* ── KATALOG: media kustom (foto / GIF / video) & banner ── */
+.tg-img video,.pk-ico video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
+.gm-card.gm-products .ml-pack .pk-ico.pk-photo video{object-fit:contain;z-index:1;}
+video.hero-char{pointer-events:none;}
+.about-visual video.ad-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;z-index:2;}
+.logo-mark video.logo-img{position:relative;z-index:2;width:100%;height:100%;object-fit:contain;display:block;border-radius:inherit;}
+.site-banner{display:block;position:relative;margin:0 0 1.1rem;border-radius:20px;overflow:hidden;background:#f1effc;border:1px solid #e6e4f5;box-shadow:0 18px 40px -26px rgba(84,67,199,.55);}
+.site-banner[hidden]{display:none;}
+.site-banner img,.site-banner video{display:block;width:100%;height:auto;max-height:260px;object-fit:cover;}
+.site-banner .sb-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;color:#fff;font-weight:800;font-size:.95rem;background:linear-gradient(to top,rgba(21,19,42,.72),transparent);}
+a.site-banner[href]{cursor:pointer;transition:transform .18s;}
+a.site-banner[href]:active{transform:scale(.99);}
+
+/* ── ADMIN: tab, harga & media ── */
+.adm-head-row{display:flex;align-items:center;gap:10px;margin-bottom:1rem;}
+.adm-tabs{flex:1;display:flex;gap:4px;padding:4px;background:#ecebf8;border-radius:16px;min-width:0;}
+.adm-tab{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px 6px;border-radius:12px;font:800 .8rem 'Inter',sans-serif;color:#6b6890;background:transparent;border:0;cursor:pointer;transition:background .18s,color .18s,box-shadow .18s;white-space:nowrap;}
+.adm-tab svg{width:16px;height:16px;flex-shrink:0;}
+.adm-tab.on{background:#fff;color:#4a3bc4;box-shadow:0 6px 14px -8px rgba(84,67,199,.6);}
+.adm-tab i{font-style:normal;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#ef4444;color:#fff;font-size:.62rem;display:inline-flex;align-items:center;justify-content:center;}
+.adm-tab i:empty{display:none;}
+.adm-pane[hidden]{display:none;}
+.adm-logout{background:#fff;border:1px solid #e6e4f5;padding:9px 13px;border-radius:12px;font:700 .72rem 'Inter',sans-serif;cursor:pointer;color:var(--text-muted);flex-shrink:0;}
+@media (max-width:420px){.adm-tab span{display:none;}.adm-tab svg{width:18px;height:18px;}}
+.adm-note{display:flex;gap:10px;align-items:flex-start;background:linear-gradient(135deg,#f4f2ff,#fbf9ff);border:1px solid #e3defb;border-radius:16px;padding:12px 14px;margin-bottom:14px;font-size:.76rem;line-height:1.55;color:#4b4873;}
+.adm-note b{display:block;color:#4a3bc4;font-size:.82rem;margin-bottom:1px;}
+.adm-note span{display:block;}
+.adm-note em{color:#b45309;font-style:normal;font-weight:700;}
+/* Harga */
+.pz-grp{background:#fff;border:1px solid #ececf5;border-radius:18px;margin-bottom:12px;overflow:hidden;box-shadow:0 10px 28px -24px rgba(84,67,199,.5);}
+.pz-grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:14px 16px;font-weight:800;font-size:.9rem;color:var(--text);-webkit-tap-highlight-color:transparent;}
+.pz-grp>summary::-webkit-details-marker{display:none;}
+.pz-grp>summary::after{content:'';width:8px;height:8px;border-right:2px solid #8b87b5;border-bottom:2px solid #8b87b5;transform:rotate(45deg);margin:-3px 2px 0 auto;transition:transform .2s;flex-shrink:0;}
+.pz-grp[open]>summary::after{transform:rotate(-135deg);margin-top:3px;}
+.pz-gn{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pz-gc{font-size:.66rem;font-weight:700;color:var(--text-muted);background:#f3f2fb;border-radius:20px;padding:3px 9px;white-space:nowrap;}
+.pz-gd{font-size:.66rem;font-weight:800;color:#92400e;background:#fef3c7;border-radius:20px;padding:3px 9px;white-space:nowrap;}
+.pz-tools{display:flex;align-items:center;gap:8px;padding:9px 16px;background:#faf9ff;border-top:1px solid #f1f0f8;font-size:.7rem;font-weight:700;color:var(--text-muted);}
+.pz-tools span{flex:1;}
+.pz-pct{display:flex;align-items:center;gap:3px;background:#fff;border:1.5px solid #e6e4f5;border-radius:10px;padding:0 8px;width:84px;}
+.pz-pct input{width:100%;min-width:0;border:0;outline:0;background:transparent;padding:7px 0;font:800 .8rem 'Inter',sans-serif;text-align:right;color:var(--text);-moz-appearance:textfield;}
+.pz-pct input::-webkit-outer-spin-button,.pz-pct input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.pz-pct em{font-style:normal;font-weight:800;color:#8b87b5;font-size:.75rem;}
+.pz-tools button{padding:8px 12px;border-radius:10px;background:#ecebf8;color:#4a3bc4;border:0;font:800 .7rem 'Inter',sans-serif;cursor:pointer;}
+.pz-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid #f1f0f8;}
+.pz-info{flex:1;min-width:0;}
+.pz-info b{display:block;font-size:.85rem;font-weight:700;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.pz-info small{display:block;font-size:.68rem;color:var(--text-muted);margin-top:1px;}
+.pz-inp{display:flex;align-items:center;gap:6px;width:150px;flex-shrink:0;background:#f7f7fc;border:1.5px solid #e6e4f5;border-radius:12px;padding:0 11px;transition:border-color .15s,box-shadow .15s,background .15s;}
+.pz-inp:focus-within{border-color:#7c6cf0;box-shadow:0 0 0 4px rgba(124,108,240,.15);background:#fff;}
+.pz-inp span{font-size:.74rem;font-weight:800;color:#8b87b5;}
+.pz-inp input{width:100%;min-width:0;border:0;background:transparent;outline:0;padding:10px 0;font:800 .92rem 'Inter',sans-serif;text-align:right;color:var(--text);-webkit-user-select:text;user-select:text;}
+.pz-row.custom .pz-inp{border-color:#c9c2fb;background:#f4f2ff;}
+.pz-row.changed .pz-inp{border-color:#f59e0b;background:#fffbeb;}
+.pz-row.bad .pz-inp{border-color:#ef4444;background:#fef2f2;}
+.pz-rst{width:34px;height:34px;flex-shrink:0;border-radius:10px;border:1px solid #e6e4f5;background:#fff;color:#6556e0;font-size:1rem;font-weight:800;cursor:pointer;visibility:hidden;}
+.pz-row.custom .pz-rst,.pz-row.changed .pz-rst{visibility:visible;}
+@media (max-width:480px){.pz-inp{width:124px;}.pz-row{padding:10px 12px;gap:8px;}.pz-tools span{display:none;}.pz-tools{justify-content:flex-end;}}
+.pz-bar{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:8px;margin-top:16px;padding:10px 10px 10px 18px;background:#1e1b3a;color:#fff;border-radius:18px;box-shadow:0 18px 40px -12px rgba(30,27,58,.65);z-index:5;animation:fadeUp .25s both;}
+.pz-bar[hidden]{display:none;}
+.pz-bar span{flex:1;font-size:.8rem;font-weight:700;}
+.pz-bar b{color:#fbbf24;}
+.pz-bar button{padding:11px 18px;border-radius:12px;border:0;font:800 .8rem 'Inter',sans-serif;cursor:pointer;}
+.pz-bar .ghost{background:rgba(255,255,255,.12);color:#fff;}
+.pz-bar .main{background:linear-gradient(135deg,#7c6cf0,#a78bfa);color:#fff;}
+.pz-bar button:disabled{opacity:.6;cursor:wait;}
+/* Media */
+.md-sec{margin-bottom:22px;}
+.md-sec-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin:0 2px 10px;}
+.md-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:12px;}
+.md-grp .md-grid{padding:4px 12px 14px;border-top:1px solid #f1f0f8;padding-top:12px;}
+.md-card{display:flex;gap:12px;padding:12px;background:#fff;border:1.5px solid #ececf5;border-radius:18px;transition:border-color .18s,box-shadow .18s,background .18s;box-shadow:0 10px 28px -26px rgba(84,67,199,.55);}
+.md-grp .md-card{box-shadow:none;background:#fcfcff;}
+.md-card.has{border-color:#d6cffb;}
+.md-card.drag{border-color:#7c6cf0;background:#f4f2ff;box-shadow:0 0 0 4px rgba(124,108,240,.15);}
+.md-prev{position:relative;flex:0 0 88px;height:88px;border-radius:14px;overflow:hidden;display:grid;place-items:center;background:#f1effc 
+  repeating-conic-gradient(#ecebf8 0 25%,#f8f7fe 0 50%) 0 0/14px 14px;border:1px solid #ececf5;}
+.md-prev img,.md-prev video{width:100%;height:100%;object-fit:contain;display:block;}
+.md-empty{font-size:.66rem;font-weight:800;color:#a19ec4;}
+.md-kind{position:absolute;left:5px;bottom:5px;font-style:normal;font-size:.54rem;font-weight:800;padding:2px 6px;border-radius:6px;background:rgba(21,19,42,.78);color:#fff;letter-spacing:.5px;}
+.md-kind.k-gif{background:#7c3aed;}.md-kind.k-video{background:#db2777;}
+.md-body{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.md-body b{font-size:.86rem;font-weight:800;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.md-body small{font-size:.7rem;line-height:1.4;color:var(--text-muted);}
+.md-body .md-sub{color:#7c6cf0;font-weight:700;}
+.md-act{display:flex;gap:6px;flex-wrap:wrap;margin-top:auto;padding-top:8px;}
+.md-b{padding:8px 13px;border-radius:10px;font:800 .72rem 'Inter',sans-serif;border:1px solid #e6e4f5;background:#fff;color:#4a3bc4;cursor:pointer;transition:transform .12s;}
+.md-b:active{transform:scale(.96);}
+.md-b.up{background:linear-gradient(135deg,#6556e0,#7c6cf0);color:#fff;border-color:transparent;}
+.md-b.del{color:#dc2626;border-color:#fecaca;background:#fff5f5;}
+.md-meta{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.md-meta input{width:100%;border:1.5px solid #e6e4f5;border-radius:10px;padding:8px 10px;font:600 .74rem 'Inter',sans-serif;outline:0;background:#fff;-webkit-user-select:text;user-select:text;}
+.md-meta input:focus{border-color:#7c6cf0;box-shadow:0 0 0 3px rgba(124,108,240,.15);}
+.md-meta .md-b{align-self:flex-start;}
+.md-prog{height:6px;border-radius:4px;background:#ecebf8;overflow:hidden;display:none;margin-top:8px;}
+.md-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#6556e0,#a78bfa);transition:width .15s;}
+.md-card.busy .md-prog{display:block;}
+.md-card.busy .md-act,.md-card.busy .md-meta{opacity:.45;pointer-events:none;}
+.md-stat{font-size:.68rem;font-weight:700;color:#6556e0;min-height:0;}
+@media (max-width:480px){.md-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -1797,7 +1898,7 @@
 <header class="nav">
   <div class="nav-inner">
     <a href="#home" class="logo">
-      <span class="logo-mark"><img class="logo-img" src="assets/logo.png" alt="Meng Store" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
+      <span class="logo-mark"><img class="logo-img" data-slot="logo" src="assets/logo.png" alt="Meng Store" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="mIceHead" x1="12" y1="5" x2="12" y2="19" gradientUnits="userSpaceOnUse">
@@ -1859,7 +1960,7 @@
       </a>
     </div>
     <div class="pending-panel-wrap">
-      <img class="hero-char" src="assets/shinobu.png" alt="" aria-hidden="true" loading="eager" decoding="async" onerror="this.remove()">
+      <img class="hero-char" data-slot="hero" src="assets/shinobu.png" alt="" aria-hidden="true" loading="eager" decoding="async" onerror="this.remove()">
       <div class="pending-anchor">
         <div class="pending-panel" id="pendingPanel" title="Diperbarui otomatis setiap jam">
           <span class="pending-dot"></span>
@@ -1878,6 +1979,7 @@
 <!-- ============ PROMO ============ -->
 <section id="promo" class="section-alt">
   <div class="wrap">
+    <a class="site-banner" id="siteBanner" hidden></a>
     <div class="tg-head">
       <div class="tg-tabs" role="tablist" aria-label="Kategori top up">
         <button type="button" class="tg-tab active" role="tab" aria-selected="true" data-tab="game" onclick="tgTab('game')">
@@ -1928,7 +2030,7 @@
       </div>
     </div>
     <div class="about-visual reveal">
-      <img class="ad-img" src="assets/iklan.png" alt="Iklan Meng Store" loading="lazy" onerror="this.parentNode.classList.add('no-img');this.remove()">
+      <img class="ad-img" data-slot="iklan" src="assets/iklan.png" alt="Iklan Meng Store" loading="lazy" onerror="this.parentNode.classList.add('no-img');this.remove()">
       <svg viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.4"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4" stroke-width="1.6"/></svg>
     </div>
   </div>
@@ -1986,7 +2088,7 @@
     <div class="footer-grid">
       <div class="footer-about">
         <a href="#home" class="logo">
-          <span class="logo-mark"><img class="logo-img" src="assets/logo.png" alt="Meng Store" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
+          <span class="logo-mark"><img class="logo-img" data-slot="logo" src="assets/logo.png" alt="Meng Store" onload="this.parentNode.classList.add('has-img')" onerror="this.remove()">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <defs>
             <linearGradient id="mIceFoot" x1="12" y1="5" x2="12" y2="19" gradientUnits="userSpaceOnUse">
@@ -2751,6 +2853,74 @@ let currentUser = null;
 
 function formatRp(n){ return 'Rp' + n.toLocaleString('id-ID'); }
 
+/* ============ KATALOG: harga & media yang diatur dari Admin ============
+   Data dari /api/catalog -> { prices:{idPaket:harga}, media:{kunci:{url,kind,...}} }.
+   Kunci media: game:<id> (ikon beranda) · pack:<id> (gambar paket) · site:hero|iklan|logo|banner */
+let CATALOG = {prices:{}, media:{}, updatedAt:0};
+const CAT_LS = 'meng_catalog_v1';
+const SLOT_DEF = {hero:'assets/shinobu.png', iklan:'assets/iklan.png', logo:'assets/logo.png'};
+function catMedia(key){ const m = CATALOG.media && CATALOG.media[key]; return (m && m.url) ? m : null; }
+/* <img> atau <video> (untuk video) sesuai media kustom; bila kosong pakai gambar bawaan */
+function mediaTag(key, def, err){
+  const m = catMedia(key);
+  if(m && m.kind === 'video') return `<video src="${escHtml(m.url)}" autoplay muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true"></video>`;
+  return `<img src="${escHtml(m ? m.url : def)}" alt="" loading="lazy" onerror="${err}">`;
+}
+function catSiteSlots(){
+  Object.keys(SLOT_DEF).forEach(slot => {
+    const m = catMedia('site:' + slot);
+    const wantVid = !!(m && m.kind === 'video');
+    const src = m ? m.url : SLOT_DEF[slot];
+    document.querySelectorAll('[data-slot="' + slot + '"]').forEach(el => {
+      const parent = el.parentNode;
+      let cur = el;
+      if(wantVid === (el.tagName === 'VIDEO')){
+        if(el.getAttribute('src') !== src) el.setAttribute('src', src);
+      } else {
+        const n = document.createElement(wantVid ? 'video' : 'img');
+        n.className = el.className; n.setAttribute('data-slot', slot);
+        if(wantVid){ n.muted = true; n.loop = true; n.autoplay = true; n.playsInline = true; n.setAttribute('muted',''); n.setAttribute('playsinline',''); n.setAttribute('aria-hidden','true'); }
+        else { n.alt = el.getAttribute('alt') || ''; if(el.getAttribute('aria-hidden')) n.setAttribute('aria-hidden', el.getAttribute('aria-hidden')); }
+        n.setAttribute('src', src);
+        el.replaceWith(n); cur = n;
+      }
+      if(slot === 'logo' && parent) parent.classList.add('has-img');
+      if(slot === 'iklan' && parent) parent.classList.remove('no-img');
+      if(cur.tagName === 'VIDEO'){ const pl = cur.play && cur.play(); if(pl && pl.catch) pl.catch(()=>{}); }
+    });
+  });
+}
+function catBanner(){
+  const el = document.getElementById('siteBanner'); if(!el) return;
+  const m = catMedia('site:banner');
+  if(!m){ el.hidden = true; el.innerHTML = ''; el.removeAttribute('href'); return; }
+  el.innerHTML = mediaTag('site:banner', '', 'this.remove()') + (m.caption ? `<span class="sb-cap">${escHtml(m.caption)}</span>` : '');
+  if(m.link){ el.href = m.link; el.target = '_blank'; el.rel = 'noopener'; } else { el.removeAttribute('href'); el.removeAttribute('target'); }
+  el.hidden = false;
+}
+function catalogApply(c){
+  CATALOG = {prices:(c && c.prices) || {}, media:(c && c.media) || {}, updatedAt:(c && c.updatedAt) || 0};
+  try{ if(typeof applyCatalogPrices === 'function') applyCatalogPrices(); }catch(e){ console.warn('harga katalog', e); }
+  try{ catSiteSlots(); catBanner(); }catch(e){ console.warn('media situs', e); }
+  try{ renderPromos(); renderClouds(); }catch(_){}
+  try{ if(document.getElementById('ml-packs')) renderMlPacks(); }catch(_){}
+  try{ if(typeof gmKey !== 'undefined' && gmKey && document.getElementById('gm-packs')) renderGmPacks(); }catch(_){}
+  try{ localStorage.setItem(CAT_LS, JSON.stringify(CATALOG)); }catch(_){}
+}
+let _catFetchedAt = 0;
+async function catalogLoad(){
+  _catFetchedAt = Date.now();
+  try{ const raw = localStorage.getItem(CAT_LS); if(raw && !CATALOG.updatedAt){ const c = JSON.parse(raw); if(c && typeof c === 'object') catalogApply(c); } }catch(_){}
+  try{
+    const r = await fetch('/api/catalog', {cache:'no-store'});
+    if(!r.ok) return;
+    const c = await r.json();
+    if(!c || c.degraded) return;
+    if((c.updatedAt || 0) !== CATALOG.updatedAt) catalogApply(c);
+  }catch(_){}
+}
+document.addEventListener('visibilitychange', () => { if(!document.hidden && Date.now() - _catFetchedAt > 60000) catalogLoad(); });
+
 /* ============ PANEL PESANAN PENDING ============ */
 /* Setiap tanggal punya angka awal (jam 00:00) & pola penurunan acak sendiri,
    lalu tiap jam angkanya turun dengan langkah acak (selalu turun) sepanjang
@@ -2876,7 +3046,7 @@ function renderPromos(){
     <button type="button" class="tg-item" onclick="tgOpen('${p.id}')" aria-label="Top up ${p.name}">
       <span class="tg-img">
         <span class="tg-fb">${ICONS[p.icon]}</span>
-        <img src="${p.img}" alt="" loading="lazy" onerror="this.closest('.tg-item').classList.add('no-img');this.remove()">
+        ${mediaTag('game:'+p.id, p.img, "this.closest('.tg-item').classList.add('no-img');this.remove()")}
       </span>
       <span class="tg-name">${p.name}</span>
     </button>`).join('');
@@ -2892,7 +3062,7 @@ function renderClouds(){
     <button type="button" class="tg-item" onclick="tgCloudOpen(this)" aria-label="Sewa ${c.name} Cloud Phone">
       <span class="tg-img">
         <span class="tg-fb">${CLOUD_ICON}</span>
-        <img src="${c.img}" alt="" loading="lazy" onerror="this.closest('.tg-item').classList.add('no-img');this.remove()">
+        ${mediaTag('game:'+c.id, c.img, "this.closest('.tg-item').classList.add('no-img');this.remove()")}
       </span>
       <span class="tg-name">${c.name}</span>
     </button>`).join('');
@@ -2946,7 +3116,7 @@ function renderMlPacks(){
   document.getElementById('ml-packs').innerHTML = ML_PACKS.map(k => `
     <button type="button" class="ml-pack${mlSel && mlSel.id===k.id ? ' active' : ''}" onclick="mlSelect('${k.id}')">
       ${k.tag ? `<span class="ml-pack-tag">${k.tag}</span>` : ''}
-      <span class="pk-ico">${ICONS.diamond}<img src="assets/ml.png" alt="" loading="lazy" onerror="this.remove()"></span>
+      <span class="pk-ico">${ICONS.diamond}${mediaTag('pack:'+k.id, 'assets/ml.png', 'this.remove()')}</span>
       <span class="ml-pack-name">${k.name}</span>
       ${k.old ? `<span class="ml-pack-old">${formatRp(k.old)}</span>` : ''}
       <span class="ml-pack-price">${formatRp(k.price)}</span>
@@ -3387,7 +3557,7 @@ function renderGmPacks(){
   document.getElementById('gm-packs').innerHTML = g.packs.filter(k => gmCatOf(k) === gmCat).map(k => `
     <button type="button" class="ml-pack${gmSel && gmSel.id===k.id ? ' active' : ''}" onclick="gmSelect('${k.id}')">
       ${k.tag ? `<span class="ml-pack-tag">${k.tag}</span>` : ''}
-      <span class="pk-ico${k.img ? ' pk-photo' : ''}">${ICONS[g.icon]}<img src="${k.img || g.img}" alt="" loading="lazy" onerror="this.remove()"></span>
+      <span class="pk-ico${(k.img || catMedia('pack:'+k.id)) ? ' pk-photo' : ''}">${ICONS[g.icon]}${mediaTag('pack:'+k.id, k.img || g.img, 'this.remove()')}</span>
       <span class="ml-pack-name">${k.name}</span>
       ${k.old ? `<span class="ml-pack-old">${formatRp(k.old)}</span>` : ''}
       <span class="ml-pack-price">${formatRp(k.price)}</span>
@@ -3582,7 +3752,7 @@ async function quickBuyGoToPay(){
     const res  = await fetch('/api/buatqris-create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: qbOid, amount })
+      body: JSON.stringify({ order_id: qbOid, amount, item: qbItem.id })
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.error || 'Gagal membuat transaksi');
@@ -3590,7 +3760,7 @@ async function quickBuyGoToPay(){
     qbTxnId = payment.txn_id || null;
     qbDemoMode = false;
   } catch(err){
-    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar dengan QRIS →'; showToast(PAY_ERR, true); return; }
+    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar dengan QRIS →'; showToast(payErrMsg(err), true); return; }
     qbDemoMode = true;
     qbTxnId = null;
     payment = makeDemoPayment(amount, qbOid);
@@ -3781,7 +3951,7 @@ async function donationGoToPay(){
     const res  = await fetch('/api/buatqris-create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: donationOid, amount: charge })
+      body: JSON.stringify({ order_id: donationOid, amount: charge, item: 'donasi' })
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.error || 'Gagal membuat transaksi');
@@ -3789,7 +3959,7 @@ async function donationGoToPay(){
     donTxnId = payment.txn_id || null;
     donDemoMode = false;
   } catch(err){
-    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar dengan QRIS →'; showToast(PAY_ERR, true); return; }
+    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar dengan QRIS →'; showToast(payErrMsg(err), true); return; }
     donDemoMode = true;
     donTxnId = null;
     payment = { fee: 0, total_payment: amount, payment_number: 'DEMO-QRIS-' + donationOid, expired_at: new Date(Date.now() + 15 * 60 * 1000).toISOString() };
@@ -3969,6 +4139,8 @@ function toggleMobileMenu(){
 /* Mode demo pembayaran hanya boleh jalan saat dites lokal, bukan di toko asli */
 const IS_DEV = location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|\[::1\]|192\.168\.)/.test(location.hostname);
 const PAY_ERR = 'Server pembayaran sedang bermasalah. Coba lagi sebentar.';
+/* Pesan dari server soal harga/paket (mis. harga baru diubah admin) ditampilkan apa adanya */
+const payErrMsg = e => (e && /harga|paket/i.test(e.message || '')) ? e.message : PAY_ERR;
 const WEBHOOK_CONTACT = 'https://discord.com/api/webhooks/1558469329862004786/vvcuysW_5MWjr_6TQsiv4-YYF3YR3fqHpNtN2DgVCbwPwIbbylWHStWxN9JRpBKWOFKJ';
 const WEBHOOK_ORDER   = 'https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU';
 async function sendDiscord(url, payload){
@@ -4252,11 +4424,17 @@ renderClouds();
 
       <!-- Tools: setelah login -->
       <div id="adminTools">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-          <div style="font-size:1.05rem;font-weight:800;color:var(--text);">Pesanan</div>
-          <button onclick="doAdminLogout()" style="background:var(--bg2);border:1px solid var(--border);padding:4px 12px;border-radius:50px;font-size:0.68rem;font-weight:700;cursor:pointer;color:var(--text-muted);font-family:'Inter',sans-serif;">Logout</button>
+        <div class="adm-head-row">
+          <div class="adm-tabs" role="tablist" aria-label="Menu admin">
+            <button type="button" class="adm-tab on" data-t="orders" role="tab" onclick="admSetTab('orders')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg><span>Pesanan</span><i id="admTabCnt"></i></button>
+            <button type="button" class="adm-tab" data-t="price" role="tab" onclick="admSetTab('price')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L2 12V2h10l8.6 8.6a2 2 0 010 2.8z"/><circle cx="7" cy="7" r="1.2"/></svg><span>Harga</span></button>
+            <button type="button" class="adm-tab" data-t="media" role="tab" onclick="admSetTab('media')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg><span>Media</span></button>
+          </div>
+          <button type="button" class="adm-logout" onclick="doAdminLogout()">Logout</button>
         </div>
 
+        <!-- TAB PESANAN -->
+        <div class="adm-pane" id="admPaneOrders">
         <!-- Dashboard pesanan -->
         <div class="adm-stats" id="admStats"></div>
         <div class="adm-toolbar">
@@ -4324,6 +4502,22 @@ renderClouds();
         <button class="btn-discord" id="bKirim" onclick="kirimDiscord()">Kirim ke Discord</button>
 
         </details>
+        </div>
+
+        <!-- TAB HARGA -->
+        <div class="adm-pane" id="admPanePrice" hidden>
+          <div class="adm-note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div><b>Ubah harga tanpa deploy ulang</b><span>Ketik harga baru lalu tekan <i>Simpan</i>. Hasilnya langsung tampil di toko. Tombol ↺ mengembalikan harga bawaan.</span></div></div>
+          <div class="adm-toolbar"><input class="inp-field" id="pzSearch" type="text" placeholder="Cari paket atau game..." autocomplete="off" style="flex:1;-webkit-user-select:text;user-select:text;" oninput="pzQuery=this.value;pzRender()" /></div>
+          <div id="pzList"></div>
+          <div class="pz-bar" id="pzBar" hidden><span><b id="pzCount">0</b> perubahan belum disimpan</span><button type="button" class="ghost" onclick="pzDiscard()">Batal</button><button type="button" class="main" id="pzSaveBtn" onclick="pzSave()">Simpan</button></div>
+        </div>
+
+        <!-- TAB MEDIA -->
+        <div class="adm-pane" id="admPaneMedia" hidden>
+          <div class="adm-note" id="mdNote"></div>
+          <div id="mdList"></div>
+        </div>
+        <input type="file" id="mdFile" hidden accept="image/png,image/jpeg,image/webp,image/avif,image/gif,video/mp4,video/webm" onchange="mdFileChosen(this)" />
 
       </div>
     </div>
@@ -4898,15 +5092,16 @@ function renderPaketList(listEl, items, mode) {
 function selectPaketRow(el, p, mode) {
   document.querySelectorAll('.paket-row').forEach(r => r.classList.remove('sel'));
   el.classList.add('sel');
+  const pid = ({slow:'slow-', premium:'prem-', robux:'fast-', vu:'vu-', follow:'flw-', joki:'joki-'}[mode] || mode + '-') + (p.lvl || p.flw || p.rbx);
   if (mode === 'joki') {
-    selectedPaket = { lvl: p.lvl, harga: p.harga, label: p.lvl + ' Level' };
+    selectedPaket = { id: pid, lvl: p.lvl, harga: p.harga, label: p.lvl + ' Level' };
     $('ringkasan').style.display = 'flex';
     $('ringkasanVal').innerHTML = rp(p.harga);
     $('btnStep2').disabled = false;
     return;
   }
   if (mode === 'follow') {
-    selectedPaket = { flw: p.flw, harga: p.harga, label: p.flw.toLocaleString('id-ID') + ' Pengikut' };
+    selectedPaket = { id: pid, flw: p.flw, harga: p.harga, label: p.flw.toLocaleString('id-ID') + ' Pengikut' };
     $('ringkasan').style.display = 'flex';
     $('ringkasanVal').innerHTML = rp(p.harga);
     $('btnStep2').disabled = false;
@@ -4914,7 +5109,7 @@ function selectPaketRow(el, p, mode) {
   }
   const label = (mode==='premium' ? 'Premium ' : '') + p.rbx + ' Robux';
   let harga = p.harga;
-  selectedPaket = { rbx: p.rbx, harga, label, gp: p.gp || null };
+  selectedPaket = { id: pid, rbx: p.rbx, harga, label, gp: p.gp || null };
   $('ringkasan').style.display = 'flex';
   $('ringkasanVal').innerHTML = rp(harga);
   gpCheckSoon();
@@ -5077,14 +5272,14 @@ async function goToPay() {
     const res  = await fetch('/api/buatqris-create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: currentOid, amount: selectedPaket.harga })
+      body: JSON.stringify({ order_id: currentOid, amount: selectedPaket.harga, item: selectedPaket.id })
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.error || 'Gagal membuat transaksi');
     payment = data.payment;
     currentTxnId = payment.txn_id || null;
   } catch (err) {
-    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar Sekarang →'; showToast(PAY_ERR, true); return; }
+    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar Sekarang →'; showToast(payErrMsg(err), true); return; }
     // Tidak ada backend pembayaran aktif — jalankan mode demo lokal
     demoMode = true;
     currentTxnId = null;
@@ -5409,14 +5604,14 @@ async function cpGoToPay() {
     const res  = await fetch('/api/buatqris-create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: cpOid, amount: CP_HARGA })
+      body: JSON.stringify({ order_id: cpOid, amount: CP_HARGA, item: 'cp-' + CP_HARI })
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.error || 'Gagal membuat transaksi');
     payment = data.payment;
     cpTxnId = payment.txn_id || null;
   } catch (err) {
-    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar Sekarang →'; showToast(PAY_ERR, true); return; }
+    if(!IS_DEV){ btn.disabled = false; btn.textContent = 'Bayar Sekarang →'; showToast(payErrMsg(err), true); return; }
     cpDemoMode = true;
     cpTxnId = null;
     payment = makeDemoPayment(CP_HARGA, cpOid);
@@ -5947,6 +6142,7 @@ function doAdminLogout() {
   $('adminTools').classList.remove('vis');
   $('adminGate').style.display = 'block';
   $('admPass').value = ''; $('admPassErr').textContent = '';
+  admCatReset();
 }
 
 /* ── CEK USER (admin) ────────────────────────────────── */
@@ -6080,6 +6276,7 @@ function admSetFilter(f) { admFilter = f; renderAdmOrders(); }
 function renderAdmOrders() {
   if (!$('admOList')) return;
   renderAdmStats();
+  { const pc = orders.filter(o => o.status === 'paid').length; $('admTabCnt').textContent = pc ? (pc > 99 ? '99+' : pc) : ''; }
   const cnt = s => orders.filter(o => o.status === s).length;
   const chips = [['paid', 'Pending'], ['done', 'Succeed'], ['unpaid', 'Belum Bayar'], ['cancel', 'Batal'], ['all', 'Semua']];
   $('admChips').innerHTML = chips.map(([k, l]) =>
@@ -6143,6 +6340,338 @@ function pushOrder() { /* tidak dipakai lagi: pesanan disimpan server saat QR di
 
 
 /* Ported: Top Rank leaderboard (from DexBlox) */
+/* ── KATALOG: registri paket (harga) & slot media ─────── */
+let _PR = null;
+function priceRegistry(){
+  if(_PR) return _PR;
+  const out = [];
+  const lst = (group, list, prefix, key, nameFn, prodFn) => list.forEach(p => out.push({group, id: prefix + p[key], name: nameFn(p), produk: prodFn(p), base: p.harga, set: v => { p.harga = v; }}));
+  lst('Robux 5–7 Hari',          paketSlow,         'slow-', 'rbx', p => p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
+  lst('Robux Via Login · Premium', paketFastPremium, 'prem-', 'rbx', p => 'Premium ' + p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
+  lst('Robux Via Login · Robux',   paketFastRobux,    'fast-', 'rbx', p => p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
+  lst('Robux Via Username',      paketUsername,     'vu-',   'rbx', p => p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
+  lst('Pengikut Roblox',         paketFollower,     'flw-',  'flw', p => p.flw.toLocaleString('id-ID') + ' Pengikut', p => p.flw + ' Pengikut');
+  lst('Joki Level',              paketJoki,         'joki-', 'lvl', p => p.lvl + ' Level', p => p.lvl + ' Level');
+  document.querySelectorAll('.cp-paket-card').forEach(card => {
+    out.push({group:'Cloud Phone Redfingger', id:'cp-' + card.dataset.hari, name:'VIP ' + card.dataset.hari + ' Hari', produk:'Redfingger Cloud Phone · VIP ' + card.dataset.hari + ' Hari', base: parseInt(card.dataset.harga, 10),
+      set: v => {
+        card.dataset.harga = String(v);
+        const pe = Array.from(card.children).reverse().find(e => /^Rp/.test(e.textContent.trim()));
+        if(pe) pe.textContent = rp(v);
+      }});
+  });
+  ML_PACKS.forEach(k => out.push({group:'Mobile Legends', id:k.id, name:k.name, produk:'ML – ' + k.name, base:k.price, set: v => { k.price = v; }, media:true, def:'assets/ml.png'}));
+  Object.keys(GAMES).forEach(key => { const g = GAMES[key];
+    g.packs.forEach(k => out.push({group:g.short, id:k.id, name:k.name, produk:g.short + ' – ' + k.name, base:k.price, set: v => { k.price = v; }, media:true, def:k.img || g.img}));
+  });
+  return (_PR = out);
+}
+function applyCatalogPrices(){
+  priceRegistry().forEach(it => {
+    const o = Number(CATALOG.prices[it.id]);
+    it.set(Number.isFinite(o) && o > 0 ? Math.round(o) : it.base);
+  });
+}
+function catalogInit(){ priceRegistry(); catalogLoad(); }
+
+/* ── ADMIN: tab ───────────────────────────────────────── */
+let admTab = 'orders';
+function admSetTab(t){
+  admTab = t;
+  document.querySelectorAll('.adm-tab').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  [['orders','admPaneOrders'],['price','admPanePrice'],['media','admPaneMedia']].forEach(([k,id]) => { $(id).hidden = (k !== t); });
+  if(t === 'price') pzRender();
+  if(t === 'media') mdRender();
+}
+function admCatReset(){ pzDraft = {}; pzQuery = ''; mdBusy = {}; admSetTab('orders'); }
+
+/* Panggilan API admin (JSON) */
+async function admApi(path, body){
+  const r = await fetch(path, {method:'POST', headers:{'Content-Type':'application/json','x-admin-pass':admPassVal}, body:JSON.stringify(body)});
+  const d = await r.json().catch(() => ({}));
+  if(r.status === 401){ doAdminLogout(); $('admPassErr').textContent = 'Sesi berakhir, masuk lagi.'; throw new Error('Sesi berakhir'); }
+  if(!r.ok || !d.success) throw new Error(d.error || ('Gagal (HTTP ' + r.status + ')'));
+  return d;
+}
+
+/* ── ADMIN: HARGA ─────────────────────────────────────── */
+let pzDraft = {};            // id -> override baru (angka) atau null (kembali ke harga bawaan); hanya yang berbeda dari server
+let pzQuery = '';
+const pzOpen = new Set();
+const PZ_MAX = 100000000;
+const pzSrv  = id => (CATALOG.prices[id] == null ? null : Number(CATALOG.prices[id]));
+const pzById = id => priceRegistry().find(x => x.id === id);
+function pzCur(it){ if(it.id in pzDraft) return pzDraft[it.id] == null ? it.base : pzDraft[it.id]; const s = pzSrv(it.id); return s == null ? it.base : s; }
+function pzTarget(it, n){ return n === it.base ? null : n; }
+function pzSet(it, n){ const t = pzTarget(it, n); if(t === pzSrv(it.id)) delete pzDraft[it.id]; else pzDraft[it.id] = t; }
+const pzFmt = n => Number(n).toLocaleString('id-ID');
+
+function pzRowHtml(it){
+  const cur = pzCur(it), custom = pzSrv(it.id) != null, changed = it.id in pzDraft;
+  return `<div class="pz-row${custom ? ' custom' : ''}${changed ? ' changed' : ''}" data-id="${it.id}">
+    <div class="pz-info"><b>${escHtml(it.name)}</b><small>${cur !== it.base ? 'Bawaan Rp' + pzFmt(it.base) : 'Harga bawaan'}</small></div>
+    <label class="pz-inp"><span>Rp</span><input inputmode="numeric" autocomplete="off" value="${pzFmt(cur)}" aria-label="Harga ${escHtml(it.name)}" oninput="pzInput(this)" onblur="pzBlur(this)" onfocus="this.select()"></label>
+    <button type="button" class="pz-rst" title="Kembalikan harga bawaan" aria-label="Kembalikan harga bawaan" onclick="pzReset('${it.id}')">↺</button>
+  </div>`;
+}
+function pzRender(){
+  const q = pzQuery.trim().toLowerCase();
+  const groups = new Map();
+  priceRegistry().forEach(it => {
+    if(q && !(it.name + ' ' + it.group + ' ' + it.id).toLowerCase().includes(q)) return;
+    if(!groups.has(it.group)) groups.set(it.group, []);
+    groups.get(it.group).push(it);
+  });
+  if(!groups.size){ $('pzList').innerHTML = '<div class="admin-empty">Tidak ada paket yang cocok.</div>'; pzBar(); return; }
+  $('pzList').innerHTML = Array.from(groups.entries()).map(([g, items]) => {
+    const n = items.filter(i => i.id in pzDraft).length;
+    return `<details class="pz-grp" data-g="${escHtml(g)}"${(q || pzOpen.has(g)) ? ' open' : ''} ontoggle="pzToggle(this)">
+      <summary><span class="pz-gn">${escHtml(g)}</span><span class="pz-gc">${items.length} paket</span>${n ? `<span class="pz-gd">${n} diubah</span>` : ''}</summary>
+      <div class="pz-tools"><span>Ubah semua harga grup ini</span>
+        <label class="pz-pct"><input type="number" step="1" inputmode="decimal" placeholder="±" aria-label="Persen perubahan"><em>%</em></label>
+        <button type="button" onclick="pzBulk(this)">Terapkan</button></div>
+      ${items.map(pzRowHtml).join('')}
+    </details>`;
+  }).join('');
+  pzBar();
+}
+function pzToggle(d){ if(pzQuery.trim()) return; const g = d.dataset.g; if(d.open) pzOpen.add(g); else pzOpen.delete(g); }
+function pzRefreshRow(id){
+  const row = document.querySelector('.pz-row[data-id="' + id + '"]'); if(!row) return;
+  const it = pzById(id), cur = pzCur(it);
+  row.classList.toggle('custom', pzSrv(id) != null);
+  row.classList.toggle('changed', id in pzDraft);
+  row.querySelector('small').textContent = cur !== it.base ? 'Bawaan Rp' + pzFmt(it.base) : 'Harga bawaan';
+  const grp = row.closest('.pz-grp');
+  if(grp){
+    const n = Array.from(grp.querySelectorAll('.pz-row')).filter(r => r.dataset.id in pzDraft).length;
+    let tag = grp.querySelector('.pz-gd');
+    if(n){ if(!tag){ tag = document.createElement('span'); tag.className = 'pz-gd'; grp.querySelector('summary').appendChild(tag); } tag.textContent = n + ' diubah'; }
+    else if(tag) tag.remove();
+  }
+}
+function pzBar(){
+  const n = Object.keys(pzDraft).length;
+  $('pzBar').hidden = !n;
+  $('pzCount').textContent = n;
+}
+function pzInput(el){
+  const row = el.closest('.pz-row'), id = row.dataset.id, it = pzById(id);
+  const digits = el.value.replace(/\D/g, '');
+  el.value = digits ? pzFmt(parseInt(digits, 10)) : '';
+  const n = digits ? parseInt(digits, 10) : NaN;
+  const bad = !(n >= 1 && n <= PZ_MAX);
+  row.classList.toggle('bad', bad);
+  if(bad) return;
+  pzSet(it, n); pzRefreshRow(id); pzBar();
+}
+function pzBlur(el){
+  const row = el.closest('.pz-row'), it = pzById(row.dataset.id);
+  row.classList.remove('bad'); el.value = pzFmt(pzCur(it));
+}
+function pzReset(id){
+  const it = pzById(id);
+  if(pzSrv(id) == null) delete pzDraft[id]; else pzDraft[id] = null;
+  const row = document.querySelector('.pz-row[data-id="' + id + '"]');
+  if(row){ row.classList.remove('bad'); row.querySelector('input').value = pzFmt(it.base); }
+  pzRefreshRow(id); pzBar();
+}
+function pzBulk(btn){
+  const grp = btn.closest('.pz-grp'), inp = grp.querySelector('.pz-pct input');
+  const pct = parseFloat(inp.value);
+  if(!Number.isFinite(pct) || pct === 0 || pct < -90 || pct > 500){ toast('Isi persen antara -90 dan 500 (contoh 10 = naik 10%)'); inp.focus(); return; }
+  const g = grp.dataset.g;
+  priceRegistry().filter(it => it.group === g).forEach(it => {
+    let n = pzCur(it) * (1 + pct / 100);
+    n = n >= 1000 ? Math.round(n / 100) * 100 : Math.round(n);
+    n = Math.min(PZ_MAX, Math.max(1, n));
+    pzSet(it, n);
+    pzRefreshRow(it.id);
+    const row = grp.querySelector('.pz-row[data-id="' + it.id + '"] input'); if(row) row.value = pzFmt(pzCur(it));
+  });
+  inp.value = ''; pzBar();
+  toast('Harga grup ' + g + (pct > 0 ? ' naik ' : ' turun ') + Math.abs(pct) + '% — tekan Simpan');
+}
+function pzDiscard(){ pzDraft = {}; pzRender(); }
+async function pzSave(){
+  const n = Object.keys(pzDraft).length; if(!n) return;
+  const b = $('pzSaveBtn'); b.disabled = true; b.textContent = 'Menyimpan…';
+  try{
+    const d = await admApi('/api/catalog-save', {prices: pzDraft});
+    pzDraft = {};
+    catalogApply(d.catalog);
+    pzRender();
+    toast('✓ ' + n + ' harga tersimpan & langsung tampil di toko', 3500);
+  }catch(e){ toast(e.message || 'Gagal menyimpan', 4500); }
+  b.disabled = false; b.textContent = 'Simpan';
+}
+
+/* ── ADMIN: MEDIA (foto · GIF · video) ────────────────── */
+let mdBusy = {};
+let mdTarget = '';
+let mdStore = '';
+const MD_MAX = 4 * 1024 * 1024;
+const MD_SOFT = 600 * 1024;     // foto lebih besar dari ini dikompres otomatis ke WebP
+const MD_OK = ['image/png','image/jpeg','image/webp','image/avif','image/gif','video/mp4','video/webm'];
+const MD_KIND = {image:'FOTO', gif:'GIF', video:'VIDEO'};
+const mdBytes = n => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
+
+function mdSections(){
+  const secs = [{title:'Tampilan Situs', open:true, items:[
+    {key:'site:banner', name:'Banner Promo', desc:'Tampil di atas daftar game. Bisa foto, GIF atau video + link.', def:'', banner:true},
+    {key:'site:hero',   name:'Karakter Hero', desc:'Gambar di samping panel pesanan.', def:SLOT_DEF.hero},
+    {key:'site:iklan',  name:'Visual Iklan', desc:'Gambar di bagian Tentang.', def:SLOT_DEF.iklan},
+    {key:'site:logo',   name:'Logo', desc:'Logo di navbar & footer.', def:SLOT_DEF.logo}
+  ]}, {title:'Ikon Game di Beranda', open:true, items:
+    PROMOS.map(p => ({key:'game:' + p.id, name:p.name, def:p.img}))
+      .concat(CLOUDS.map(c => ({key:'game:' + c.id, name:c.name + ' · Cloud Phone', def:c.img})))
+  }];
+  const byG = new Map();
+  priceRegistry().filter(i => i.media).forEach(i => { if(!byG.has(i.group)) byG.set(i.group, []); byG.get(i.group).push({key:'pack:' + i.id, name:i.name, def:i.def}); });
+  byG.forEach((items, g) => secs.push({title:'Gambar Paket · ' + g, items, pack:true}));
+  return secs;
+}
+function mdPrev(m, def){
+  if(m && m.kind === 'video') return `<video src="${escHtml(m.url)}" autoplay muted loop playsinline preload="metadata"></video>`;
+  const src = m ? m.url : def;
+  return src ? `<img src="${escHtml(src)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md-empty',textContent:'Kosong'}))">` : '<span class="md-empty">Kosong</span>';
+}
+function mdCardHtml(it){
+  const m = CATALOG.media[it.key] || null, busy = mdBusy[it.key];
+  const sub = m ? `Kustom · ${MD_KIND[m.kind] || ''}${m.size ? ' · ' + mdBytes(m.size) : ''}` : (it.def ? 'Memakai gambar bawaan' : 'Belum diisi');
+  return `<div class="md-card${m ? ' has' : ''}${busy ? ' busy' : ''}" data-key="${it.key}" ondragover="mdDrag(event,1)" ondragleave="mdDrag(event,0)" ondrop="mdDrop(event)">
+    <div class="md-prev">${mdPrev(m, it.def)}${m ? `<i class="md-kind k-${m.kind}">${MD_KIND[m.kind] || ''}</i>` : ''}</div>
+    <div class="md-body">
+      <b>${escHtml(it.name)}</b>
+      <small>${it.desc ? escHtml(it.desc) : escHtml(sub)}</small>
+      ${it.desc ? `<small class="md-sub">${escHtml(sub)}</small>` : ''}
+      ${it.banner && m ? `<div class="md-meta"><input type="text" maxlength="120" placeholder="Teks di banner (opsional)" value="${escHtml(m.caption || '')}" data-f="caption"><input type="url" maxlength="300" placeholder="Link saat banner diketuk (https://…)" value="${escHtml(m.link || '')}" data-f="link"><button type="button" class="md-b" onclick="mdSaveMeta('${it.key}')">Simpan teks & link</button></div>` : ''}
+      <div class="md-act">
+        <button type="button" class="md-b up" onclick="mdPick('${it.key}')">${m ? 'Ganti' : 'Upload'}</button>
+        <button type="button" class="md-b" onclick="mdLink('${it.key}')">Link</button>
+        ${m ? `<button type="button" class="md-b del" onclick="mdRemove('${it.key}')">Hapus</button>` : ''}
+      </div>
+      <div class="md-prog"><i style="width:${busy ? busy.pct : 0}%"></i></div>
+      <div class="md-stat">${busy ? escHtml(busy.msg) : ''}</div>
+    </div></div>`;
+}
+function mdRender(){
+  const secs = mdSections();
+  $('mdNote').innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg><div><b>Foto, GIF &amp; video</b><span>PNG · JPG · WebP · GIF · MP4 · WebM, maks 4&nbsp;MB per file. Foto besar dikompres otomatis. Tarik file ke kartu atau tekan <i>Upload</i>.${mdStore === 'kv' ? ' <em>Penyimpanan bawaan aktif: GIF/video besar butuh Vercel Blob (Storage → Blob), atau tempel Link.</em>' : ''}</span></div>`;
+  $('mdList').innerHTML = secs.map(s => s.pack
+    ? `<details class="pz-grp md-grp" data-g="m:${escHtml(s.title)}"${pzOpen.has('m:' + s.title) ? ' open' : ''} ontoggle="pzToggle(this)"><summary><span class="pz-gn">${escHtml(s.title)}</span><span class="pz-gc">${s.items.length} gambar</span></summary><div class="md-grid">${s.items.map(mdCardHtml).join('')}</div></details>`
+    : `<div class="md-sec"><div class="md-sec-h">${escHtml(s.title)}</div><div class="md-grid">${s.items.map(mdCardHtml).join('')}</div></div>`).join('');
+}
+function mdCard(key){ return document.querySelector('.md-card[data-key="' + key + '"]'); }
+function mdProgress(key, pct, msg){
+  mdBusy[key] = {pct, msg};
+  const c = mdCard(key); if(!c) return;
+  c.classList.add('busy'); c.querySelector('.md-prog i').style.width = pct + '%'; c.querySelector('.md-stat').textContent = msg;
+}
+function mdDone(key){ delete mdBusy[key]; }
+function mdDrag(e, on){ e.preventDefault(); const c = e.currentTarget; if(on) c.classList.add('drag'); else c.classList.remove('drag'); }
+function mdDrop(e){ e.preventDefault(); const c = e.currentTarget; c.classList.remove('drag'); const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if(f) mdUpload(c.dataset.key, f); }
+function mdPick(key){ mdTarget = key; const f = $('mdFile'); f.value = ''; f.click(); }
+function mdFileChosen(inp){ const f = inp.files && inp.files[0]; if(f && mdTarget) mdUpload(mdTarget, f); inp.value = ''; }
+
+function mdType(file){
+  if(MD_OK.includes(file.type)) return file.type;
+  const ext = (file.name.split('.').pop() || '').toLowerCase();
+  return {png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', webp:'image/webp', avif:'image/avif', gif:'image/gif', mp4:'video/mp4', webm:'video/webm'}[ext] || '';
+}
+/* Foto diperkecil & dikompres ke WebP supaya selalu muat; GIF/video diunggah apa adanya. */
+async function mdPrepare(file, type){
+  if(type === 'image/gif' || type.startsWith('video/')) return {blob:file, type};
+  let bmp;
+  try{ bmp = await createImageBitmap(file); }catch(_){ if(file.size <= MD_MAX) return {blob:file, type}; throw new Error('Foto tidak bisa dibaca. Coba format PNG/JPG/WebP.'); }
+  const big = Math.max(bmp.width, bmp.height) > 1800;
+  if(file.size <= MD_SOFT && !big && type !== 'image/avif'){ bmp.close && bmp.close(); return {blob:file, type}; }
+  let scale = Math.min(1, 1600 / Math.max(bmp.width, bmp.height));
+  for(let tries = 0; tries < 6; tries++){
+    const c = document.createElement('canvas');
+    c.width = Math.max(1, Math.round(bmp.width * scale)); c.height = Math.max(1, Math.round(bmp.height * scale));
+    c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+    for(const q of [.9, .8, .7, .6, .5]){
+      const b = await new Promise(r => c.toBlob(r, 'image/webp', q));
+      if(b && b.type === 'image/webp' && b.size <= MD_SOFT){ bmp.close && bmp.close(); return {blob:b, type:'image/webp'}; }
+    }
+    scale *= .8;
+  }
+  bmp.close && bmp.close();
+  throw new Error('Foto terlalu besar, kecilkan dulu resolusinya.');
+}
+function mdSend(blob, type, onProg){
+  return new Promise((resolve, reject) => {
+    const x = new XMLHttpRequest();
+    x.open('POST', '/api/media-upload');
+    x.setRequestHeader('x-admin-pass', admPassVal);
+    x.setRequestHeader('Content-Type', type);
+    x.upload.onprogress = e => { if(e.lengthComputable) onProg(Math.round(e.loaded / e.total * 100)); };
+    x.onload = () => {
+      let d = {}; try{ d = JSON.parse(x.responseText); }catch(_){}
+      if(x.status === 401) return reject(Object.assign(new Error('Sesi berakhir'), {auth:true}));
+      if(x.status >= 200 && x.status < 300 && d.success) return resolve(d);
+      reject(new Error(d.error || (x.status === 413 ? 'File terlalu besar (maks 4 MB).' : 'Upload gagal (HTTP ' + x.status + ')')));
+    };
+    x.onerror = () => reject(new Error('Koneksi terputus saat upload'));
+    x.send(blob);
+  });
+}
+async function mdSaveEntry(key, entry){
+  const d = await admApi('/api/catalog-save', {media:{[key]: entry}});
+  catalogApply(d.catalog);
+  return d;
+}
+async function mdUpload(key, file){
+  if(mdBusy[key]) return;
+  const type = mdType(file);
+  if(!type){ toast('Format tidak didukung. Pakai PNG, JPG, WebP, GIF, MP4 atau WebM.', 4500); return; }
+  mdProgress(key, 3, 'Menyiapkan…');
+  try{
+    const p = await mdPrepare(file, type);
+    if(p.blob.size > MD_MAX) throw new Error('File ' + mdBytes(p.blob.size) + ' terlalu besar (maks 4 MB). ' + (type.startsWith('video/') ? 'Kompres video atau tempel Link.' : 'Kecilkan file dulu.'));
+    const note = p.blob !== file ? ' (dikompres ' + mdBytes(file.size) + ' → ' + mdBytes(p.blob.size) + ')' : '';
+    mdProgress(key, 5, 'Mengunggah…' + note);
+    const up = await mdSend(p.blob, p.type, pct => mdProgress(key, Math.max(5, Math.min(95, pct)), 'Mengunggah ' + pct + '%' + note));
+    mdStore = up.store;
+    mdProgress(key, 97, 'Menyimpan…');
+    const old = CATALOG.media[key] || {};
+    await mdSaveEntry(key, {url:up.url, kind:up.kind, mime:up.mime, size:up.size, caption:old.caption || '', link:old.link || ''});
+    mdDone(key); mdRender();
+    toast('✓ ' + (MD_KIND[up.kind] || 'Media') + ' berhasil dipasang', 3000);
+  }catch(e){
+    mdDone(key); mdRender();
+    if(!e.auth){ toast(e.message || 'Upload gagal', 5500); } else { doAdminLogout(); $('admPassErr').textContent = 'Sesi berakhir, masuk lagi.'; }
+  }
+}
+async function mdLink(key){
+  const u = (prompt('Tempel link https:// untuk foto, GIF, atau video (MP4/WebM):') || '').trim();
+  if(!u) return;
+  if(!/^https:\/\//i.test(u) || u.length > 600){ toast('Link harus diawali https:// (maks 600 karakter)', 4000); return; }
+  const kind = /\.(mp4|webm)(\?|#|$)/i.test(u) ? 'video' : /\.gif(\?|#|$)/i.test(u) ? 'gif' : 'image';
+  mdProgress(key, 60, 'Menyimpan link…');
+  try{
+    const old = CATALOG.media[key] || {};
+    await mdSaveEntry(key, {url:u, kind, mime:'', size:0, caption:old.caption || '', link:old.link || ''});
+    toast('✓ Link dipasang', 2500);
+  }catch(e){ toast(e.message, 4500); }
+  mdDone(key); mdRender();
+}
+async function mdRemove(key){
+  if(!confirm('Hapus media kustom ini dan kembali ke gambar bawaan?')) return;
+  mdProgress(key, 60, 'Menghapus…');
+  try{ const d = await admApi('/api/catalog-save', {media:{[key]: null}}); catalogApply(d.catalog); toast('Kembali ke gambar bawaan', 2500); }
+  catch(e){ toast(e.message, 4500); }
+  mdDone(key); mdRender();
+}
+async function mdSaveMeta(key){
+  const c = mdCard(key), m = CATALOG.media[key]; if(!c || !m) return;
+  const caption = c.querySelector('[data-f="caption"]').value.trim(), link = c.querySelector('[data-f="link"]').value.trim();
+  if(link && !/^https?:\/\//i.test(link)){ toast('Link harus diawali http:// atau https://', 4000); return; }
+  try{ await mdSaveEntry(key, {url:m.url, kind:m.kind, mime:m.mime || '', size:m.size || 0, caption, link}); toast('✓ Banner diperbarui', 2500); mdRender(); }
+  catch(e){ toast(e.message, 4500); }
+}
+
 /* ── TOP RANK DATA ───────────────────────────────────── */
 const TOPLIST = [
   { rank:1,  username:'letdaisreal',  display:'let***real',  rbx:20900 },
@@ -6267,6 +6796,7 @@ function toggleRankAll() {
 }
 
 loadRank();
+catalogInit();
 </script>
 
 <script>
