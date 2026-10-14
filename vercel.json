@@ -1,6 +1,8 @@
 {
   "version": 2,
   "routes": [
+    { "src": "/api/catalog-save", "dest": "/api/catalog.js" },
+    { "src": "/api/media-upload", "dest": "/api/media.js" },
     { "src": "/api/(.*)", "dest": "/api/$1.js" }
   ]
 }
