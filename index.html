@@ -1269,6 +1269,37 @@
       align-items:center; justify-content:center; padding:1rem;
     }
     .admin-overlay.open { display:flex; }
+
+    /* ── ADMIN: tampilan modern & clean ── */
+    #adminOverlay,#adminOverlay .admin-sheet{background:#f5f6fb;}
+    #adminOverlay .admin-hd{gap:12px;padding:calc(.8rem + env(safe-area-inset-top,0px)) 1rem .8rem;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid #ececf5;}
+    #adminOverlay .admin-hd h3{font-size:1.05rem;letter-spacing:-.01em;}
+    .adm-back{width:40px;height:40px;border-radius:12px;background:#fff;border:1px solid #e6e4f5;color:var(--text);font-size:1.15rem;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .15s,transform .15s;}
+    .adm-back:active{transform:scale(.94);background:#f1efff;}
+    #adminOverlay .admin-body{padding:1.1rem 1rem calc(2rem + env(safe-area-inset-bottom,0px));}
+    #adminGate{max-width:420px;margin:9vh auto 0;background:#fff;border:1px solid #ececf5;border-radius:24px;padding:28px 22px 22px;box-shadow:0 24px 56px -32px rgba(84,67,199,.45);}
+    #adminOverlay .inp-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.5px;color:var(--text-muted);}
+    #adminOverlay .inp-field{background:#fff;border:1.5px solid #e6e4f5;border-radius:14px;padding:.8rem 1rem;transition:border-color .15s,box-shadow .15s;}
+    #adminOverlay .inp-field:focus{border-color:#7c6cf0;box-shadow:0 0 0 4px rgba(124,108,240,.15);outline:none;}
+    #adminGate .mbtn{width:100%;border-radius:14px;padding:.9rem;}
+    .adm-gate-back{display:block;width:100%;margin-top:10px;padding:.75rem;border-radius:14px;background:transparent;color:var(--text-muted);font-weight:700;font-size:.85rem;}
+    .adm-gate-back:hover{background:#f5f6fb;}
+    #adminOverlay .adm-stat{background:#fff;border:1px solid #ececf5;border-radius:18px;padding:14px;box-shadow:0 10px 28px -22px rgba(84,67,199,.5);}
+    #adminOverlay .adm-stat.warn{background:#fffbeb;border-color:#fde68a;} #adminOverlay .adm-stat.ok{background:#f0fdf4;border-color:#bbf7d0;}
+    #adminOverlay .adm-stat b{font-size:1.35rem;}
+    #adminOverlay .adm-refresh{border-radius:14px;width:46px;background:#fff;border-color:#e6e4f5;}
+    #adminOverlay .adm-chip{background:#fff;border-color:#e6e4f5;padding:7px 14px;}
+    #adminOverlay .adm-chip.on{background:linear-gradient(135deg,#6556e0,#7c6cf0);border-color:transparent;}
+    #adminOverlay .adm-o{background:#fff;border:1px solid #ececf5;border-left-width:4px;border-radius:16px;padding:14px;box-shadow:0 10px 28px -24px rgba(21,19,42,.6);}
+    #adminOverlay .adm-btn{padding:7px 15px;}
+    #adminOverlay .adm-more{background:#fff;border:1px solid #ececf5;border-radius:18px;padding:14px;margin-top:18px;}
+    #adminOverlay .adm-more summary{margin-bottom:0;}
+    #adminOverlay .adm-more[open] summary{margin-bottom:12px;}
+    #adminOverlay .btn-discord{border-radius:14px;}
+    #adminOverlay{padding:0;align-items:stretch;justify-content:stretch;background:var(--bg);backdrop-filter:none;z-index:2100;}
+    #adminOverlay .admin-sheet{max-width:none;max-height:none;width:100%;height:100%;border-radius:0;box-shadow:none;animation:none;background:var(--bg);}
+    #adminOverlay .admin-hd{padding-top:calc(1.2rem + env(safe-area-inset-top,0px));background:var(--bg);}
+    #adminOverlay .admin-body{max-width:760px;margin:0 auto;padding-bottom:calc(2rem + env(safe-area-inset-bottom,0px));}
     .admin-sheet {
       background:var(--white); border-radius:20px;
       width:100%; max-width:400px; max-height:92vh;
@@ -1368,6 +1399,25 @@
 .adm-hint{font-size:.64rem;color:var(--text-light);}
 .adm-more{margin-top:14px;border-top:1px solid var(--border);padding-top:12px;}
 .adm-more summary{cursor:pointer;font-size:.74rem;font-weight:800;color:var(--text-muted);margin-bottom:12px;}
+
+/* ── TAB Top Up / Akun (ML & Game) ── */
+.gm-tabs{display:flex;gap:8px;margin-bottom:14px;}
+.gm-tabs button{flex:1;padding:11px 14px;border-radius:14px;background:var(--bg2);border:1px solid var(--border);font-size:.92rem;font-weight:800;color:var(--text-muted);transition:all .18s;}
+.gm-tabs button.on{background:#f1efff;border-color:#c7c0f7;color:var(--text);box-shadow:inset 0 -3px 0 #3d7bd6;}
+.gm-akun{display:none;}
+.gm-tabs button.is-locked-tab{opacity:.55;background:var(--bg2);box-shadow:none;}
+.akun-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+.akun-card{background:#fff;border:1px solid var(--border);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 28px -22px rgba(84,67,199,.5);}
+.akun-img{aspect-ratio:4/3;background:linear-gradient(135deg,#ece9ff,#dff1ff);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.akun-img img{width:100%;height:100%;object-fit:cover;display:block;}
+.akun-body{padding:12px;display:flex;flex-direction:column;gap:4px;flex:1;}
+.akun-t{font-size:.88rem;font-weight:800;color:var(--text);line-height:1.3;}
+.akun-d{font-size:.74rem;color:var(--text-muted);line-height:1.4;}
+.akun-p{font-size:1rem;font-weight:800;color:#e8590c;margin-top:auto;padding-top:6px;}
+.akun-buy{margin-top:8px;padding:10px;border-radius:12px;background:linear-gradient(135deg,#6556e0,#7c6cf0);color:#fff;font-weight:800;font-size:.82rem;}
+.akun-empty{text-align:center;padding:36px 12px;color:var(--text-muted);font-size:.88rem;}
+.rbx-inner[data-tab="akun"] > :not(.gm-tabs):not(.gm-akun){display:none !important;}
+.rbx-inner[data-tab="akun"] > .gm-akun{display:block;}
 /* ── ALUR: data akun → pilih paket → bayar ── */
 .flow-steps{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .flow-steps span{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:50px;background:var(--bg2);border:1px solid var(--border);font-size:.74rem;font-weight:700;color:var(--text-muted);}
@@ -2414,8 +2464,9 @@
       </div>
     </div>
     <div class="rbx-scroll">
-      <div class="rbx-inner">
-        <div class="flow-steps" id="mlFlow"><span class="on"><b>1</b> Data Akun</span><span><b>2</b> Pilih Paket</span><span><b>3</b> Bayar</span></div>
+      <div class="rbx-inner" id="mlInner" data-tab="topup">
+        <div class="gm-tabs" role="tablist"><button class="on" onclick="gmTabSwitch('mlInner','topup',this)">Top Up</button><button class="is-locked-tab" onclick="gmTabSwitch('mlInner','akun',this)"><svg class="ic" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-right:5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="11" width="15" height="9.5" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Akun</button></div>
+        <div class="gm-akun"><div class="akun-grid" id="mlAkunGrid"></div></div>
         <div class="gm-card">
           <div class="ml-step"><i>1</i> Masukkan User ID</div>
           <div class="ml-ids">
@@ -2453,8 +2504,9 @@
       </div>
     </div>
     <div class="rbx-scroll">
-      <div class="rbx-inner">
-        <div class="flow-steps" id="gmFlow"><span class="on"><b>1</b> Data Akun</span><span><b>2</b> Pilih Paket</span><span><b>3</b> Bayar</span></div>
+      <div class="rbx-inner" id="gmInner" data-tab="topup">
+        <div class="gm-tabs" role="tablist"><button class="on" onclick="gmTabSwitch('gmInner','topup',this)">Top Up</button><button class="is-locked-tab" onclick="gmTabSwitch('gmInner','akun',this)"><svg class="ic" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-right:5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="11" width="15" height="9.5" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Akun</button></div>
+        <div class="gm-akun"><div class="akun-grid" id="gmAkunGrid"></div></div>
         <div class="gm-card gm-info">
           <div class="gm-info-txt">
             <h2 id="gmInfoTitle">Top Up</h2>
@@ -2959,6 +3011,8 @@ function rbxGo(id){
 })();
 
 function openMlModal(){
+  gmTabReset('mlInner');
+  renderAkun('mlAkunGrid','ml');
   renderMlPacks();
   lockPage(true);
   openModal('ml-modal');
@@ -2970,6 +3024,56 @@ function openMlModal(){
   renderMlPacks(); mlLockUpdate();
 }
 
+
+/* Tab Akun dikunci sampai ada akun yang dijual. Ubah ke false untuk membuka. */
+const AKUN_LOCKED = true;
+function gmTabSwitch(innerId, tab, btn){
+  if(tab === 'akun' && AKUN_LOCKED){ showToast('Akun belum tersedia, segera hadir', true); return; }
+  const el = document.getElementById(innerId); if(!el) return;
+  el.dataset.tab = tab;
+  const bar = el.querySelector('.gm-tabs');
+  if(bar) [...bar.children].forEach(b => b.classList.toggle('on', b === btn));
+  const sc = el.closest('.rbx-scroll'); if(sc) sc.scrollTop = 0;
+}
+document.addEventListener('DOMContentLoaded', () => { if(!AKUN_LOCKED) document.querySelectorAll('.gm-tabs .is-locked-tab').forEach(b => b.classList.remove('is-locked-tab')); });
+function gmTabReset(innerId){
+  const el = document.getElementById(innerId); if(!el) return;
+  el.dataset.tab = 'topup';
+  const bar = el.querySelector('.gm-tabs');
+  if(bar) [...bar.children].forEach((b,i) => b.classList.toggle('on', i === 0));
+}
+/* ====================== DAFTAR AKUN DIJUAL ======================
+   Isi per game (kunci: ml, ff, ss, gi, hsr, zzz, valo, codm, aov, sm).
+   Tiap akun: { id, title, desc, price (angka rupiah), img (foto) }
+   Contoh di bawah hanya CONTOH — ganti / hapus sesuai akun yang kamu jual. */
+const AKUN_LIST = {
+  ml: [
+    {id:'ml-a1', title:'Contoh Akun ML Mythic', desc:'Skin banyak · Hero lengkap', price:150000, img:'assets/akun-ml-1.png'}
+  ],
+  ff: [
+    {id:'ff-a1', title:'Contoh Akun FF Sultan', desc:'Bundle langka · Level 70', price:200000, img:'assets/akun-ff-1.png'}
+  ]
+};
+function renderAkun(gridId, key){
+  const el = document.getElementById(gridId); if(!el) return;
+  const list = AKUN_LIST[key] || [];
+  if(!list.length){ el.innerHTML = '<div class="akun-empty" style="grid-column:1/-1;">Belum ada akun yang dijual.</div>'; return; }
+  el.innerHTML = list.map(a => `
+    <div class="akun-card">
+      <div class="akun-img"><img src="${a.img || ''}" alt="" loading="lazy" onerror="this.remove()"></div>
+      <div class="akun-body">
+        <div class="akun-t">${escHtml(a.title)}</div>
+        ${a.desc ? `<div class="akun-d">${escHtml(a.desc)}</div>` : ''}
+        <div class="akun-p">${rp(a.price)}</div>
+        <button class="akun-buy" onclick="akunBuy('${key}','${a.id}')">Beli Akun</button>
+      </div>
+    </div>`).join('');
+}
+function akunBuy(key, id){
+  const a = (AKUN_LIST[key] || []).find(x => x.id === id); if(!a) return;
+  const msg = 'Halo Min, saya mau beli akun:\n' + a.title + '\nHarga: ' + rp(a.price) + '\nID: ' + a.id;
+  window.open('https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(msg), '_blank');
+}
 function flowSet(id, n){
   const el = document.getElementById(id); if(!el) return;
   [...el.children].forEach((c,i) => { c.classList.toggle('on', i < n); c.classList.toggle('cur', i === n-1); });
@@ -3315,6 +3419,8 @@ function gmValid(){
 function openGameModal(key){
   const g = GAMES[key]; if(!g) return;
   gmKey = key; gmSel = null; gmVerified = null; gmCat = null;
+  gmTabReset('gmInner');
+  renderAkun('gmAkunGrid', key);
   document.getElementById('gmInfoTitle').textContent = g.short;
   const iImg = document.getElementById('gmInfoImg'); iImg.style.display = ''; iImg.src = g.img; iImg.alt = g.short;
   document.getElementById('gmTips').classList.remove('open');
@@ -4097,37 +4203,8 @@ renderClouds();
 <div class="admin-overlay" id="trackOverlay" onclick="if(event.target===this)closeTrack()">
   <div class="admin-sheet trk-sheet">
     <div class="admin-hd">
-      <div class="admin-hd-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.6"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8M12 13v8"/></svg></div>
-      <h3>Riwayat &amp; Cek Pesanan</h3>
-      <button class="rbx-modal-close" onclick="closeTrack()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
-    </div>
-    <div class="admin-body">
-      <div id="trackMain">
-      <div style="display:flex;gap:8px;margin-bottom:1rem;">
-        <input class="inp-field" id="trackInp" type="text" placeholder="Cari ID pesanan, mis. DBX-A3KW9PJ" style="flex:1;text-transform:uppercase;-webkit-user-select:text;user-select:text;" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')doTrack()">
-        <button class="trk-find" onclick="doTrack()">Cari</button>
-      </div>
-      <div id="trackRes"></div>
-      <div class="trk-head">
-        <div class="admin-sec-lbl" style="margin-bottom:0;">Riwayat Transaksi</div>
-        <button class="trk-refresh" onclick="refreshTrackNow(this)">Perbarui</button>
-      </div>
-      <div class="trk-legend">Menunggu Pembayaran → <b>Pending</b> (sedang diproses) → <b>Succeed</b> (selesai). Transaksi yang tidak dibayar hilang otomatis setelah 30 menit.</div>
-      <div id="trackList"><div class="admin-empty">Belum ada transaksi.</div></div>
-      </div>
-      <div id="trackPay" style="display:none;"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ── ADMIN MODAL ──────────────────────────────────────── -->
-<div class="admin-overlay" id="adminOverlay" onclick="handleAdminOverlay(event)">
-  <div class="admin-sheet" id="adminSheet">
-
-    <div class="admin-hd">
-      <div class="admin-hd-ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.6"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 13.5a1.6 1.6 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.6 1.6 0 00-1.8-.3 1.6 1.6 0 00-1 1.5V19a2 2 0 11-4 0v-.1a1.6 1.6 0 00-1-1.5 1.6 1.6 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.6 1.6 0 00.3-1.8 1.6 1.6 0 00-1.5-1H5a2 2 0 110-4h.1a1.6 1.6 0 001.5-1 1.6 1.6 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.6 1.6 0 001.8.3H11a1.6 1.6 0 001-1.5V5a2 2 0 114 0v.1a1.6 1.6 0 001 1.5 1.6 1.6 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.6 1.6 0 00-.3 1.8V11a1.6 1.6 0 001.5 1h.1a2 2 0 110 4h-.1a1.6 1.6 0 00-1.5 1z"/></svg></div>
+      <button class="adm-back" onclick="closeAdminModal()" aria-label="Kembali">←</button>
       <h3>Admin Panel</h3>
-      <button class="rbx-modal-close" onclick="closeAdminModal()"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
 
     <div class="admin-body">
@@ -4145,12 +4222,13 @@ renderClouds();
           <div id="admPassErr" style="font-size:0.73rem;color:#ef4444;font-weight:700;margin-top:4px;min-height:16px;"></div>
         </div>
         <button class="mbtn" onclick="doAdminLogin()">Masuk →</button>
+        <button class="adm-gate-back" onclick="closeAdminModal()">← Kembali</button>
       </div>
 
       <!-- Tools: setelah login -->
       <div id="adminTools">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;">
-          <div style="font-size:0.82rem;font-weight:800;color:var(--text);">Admin Tools</div>
+          <div style="font-size:1.05rem;font-weight:800;color:var(--text);">Pesanan</div>
           <button onclick="doAdminLogout()" style="background:var(--bg2);border:1px solid var(--border);padding:4px 12px;border-radius:50px;font-size:0.68rem;font-weight:700;cursor:pointer;color:var(--text-muted);font-family:'Inter',sans-serif;">Logout</button>
         </div>
 
