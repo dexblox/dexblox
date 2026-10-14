@@ -410,6 +410,8 @@
   .gm-card.gm-products .ml-pack{align-items:flex-start;text-align:left;gap:0;padding:0;border-radius:12px;background:#fff;border:1.5px solid var(--border);overflow:hidden;box-shadow:none;}
   .gm-card.gm-products .ml-pack .pk-ico{width:38px;height:38px;border-radius:50%;margin:12px 12px 8px;background:linear-gradient(135deg,#ffe58a,#f5b301);}
   .gm-card.gm-products .ml-pack .pk-ico svg{width:20px;height:20px;color:#7a5200;stroke:#7a5200;}
+  .gm-card.gm-products .ml-pack .pk-ico.pk-photo{width:56px;height:44px;border-radius:8px;background:transparent;margin:10px 12px 6px;}
+  .gm-card.gm-products .ml-pack .pk-ico.pk-photo img{object-fit:contain;z-index:1;}
   .gm-card.gm-products .ml-pack-name{padding:0 12px 12px;font-size:.84rem;font-weight:600;line-height:1.3;color:var(--text);flex:1;}
   .gm-card.gm-products .ml-pack-old{padding:0 12px;}
   .gm-card.gm-products .ml-pack-price{display:block;width:100%;padding:10px 12px;background:#e8f1fd;color:#e8590c;font-weight:800;font-size:.9rem;}
@@ -1024,7 +1026,7 @@
     .rbx-art{position:relative;display:grid;place-items:center;background:linear-gradient(160deg,#d62f2f,#8e1616);}
     .rbx-art.art-follow{background:linear-gradient(160deg,#b04be0,#5b2bd1);}
     .rbx-art svg{width:64px;height:64px;}
-    .paket-row .pico .rbx-ico{width:1.7em;height:1.7em;object-fit:contain;display:block;}
+    .paket-row .pico .rbx-ico{width:1.35em;height:1.35em;object-fit:contain;display:block;}
     .rbx-art .ra-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
     #rbxOrderHost{margin-top:16px;}
     .modal-overlay.embedded{position:static;inset:auto;z-index:auto;background:none;backdrop-filter:none;display:block;padding:0;opacity:1;pointer-events:all;transition:none;}
@@ -3060,20 +3062,30 @@ function mlBuy(){
 const GAME_NICK_BASE = ML_NICK_API.replace(/\/ml$/, '');
 const GAMES = {
   ff: {
-    title:'Top Up Free Fire', short:'Free Fire', sub:'Top Up Diamond · Member Mingguan', img:'assets/ff.png', ep:'/ff', jenis:'Top Up FF',
+    title:'Top Up Free Fire', short:'Free Fire', sub:'Top Up Diamond · Membership · Diamond Bonus', img:'assets/ff.png', ep:'/ff', jenis:'Top Up FF',
     idLabel:'Player ID', idRe:/^\d{5,12}$/, max:12, icon:'gem',
     packs:[
-      {id:'ff-5',   name:'5 Diamonds',    price:900},
-      {id:'ff-12',  name:'12 Diamonds',   price:1800},
-      {id:'ff-50',  name:'50 Diamonds',   price:7200, tag:'HOT'},
-      {id:'ff-70',  name:'70 Diamonds',   price:9000},
-      {id:'ff-140', name:'140 Diamonds',  price:18000},
-      {id:'ff-355', name:'355 Diamonds',  price:45000},
-      {id:'ff-720', name:'720 Diamonds',  price:90100, tag:'HOT'},
-      {id:'ff-1450',name:'1450 Diamonds', price:180200},
-      {id:'ff-2180',name:'2180 Diamonds', price:270300},
-      {id:'ff-3640',name:'3640 Diamonds', price:450500},
-      {id:'ff-7290',name:'7290 Diamonds', price:900900}
+      {id:'ff-720', name:'720 Diamonds', price:90100, cat:'Top Up Diamonds', tag:'HOT'},
+      {id:'ff-1450', name:'1450 Diamonds', price:180200, cat:'Top Up Diamonds'},
+      {id:'ff-2180', name:'2180 Diamonds', price:270300, cat:'Top Up Diamonds'},
+      {id:'ff-3640', name:'3640 Diamonds', price:450500, cat:'Top Up Diamonds'},
+      {id:'ff-7290', name:'7290 Diamonds', price:900900, cat:'Top Up Diamonds'},
+      {id:'ff-m1', name:'Member Mingguan', price:25382, cat:'Membership', img:'assets/ffmember.png'},
+      {id:'ff-m2', name:'Member Bulanan', price:76101, cat:'Membership', img:'assets/ffmember2.png'},
+      {id:'ff-m3', name:'Booyah Pass', price:38140, cat:'Membership', img:'assets/ffmember3.png'},
+      {id:'ff-b1', name:'310 + 341 Diamonds', price:77970, cat:'Diamond Bonus Top Up', img:'assets/ffbonus1.png'},
+      {id:'ff-b2', name:'645 + 162 Diamonds', price:94670, cat:'Diamond Bonus Top Up', img:'assets/ffbonus2.png'},
+      {id:'ff-b3', name:'520 + 572 Diamonds', price:127117, cat:'Diamond Bonus Top Up', img:'assets/ffbonus2.png'},
+      {id:'ff-b4', name:'530 + 583 Diamonds', price:130804, cat:'Diamond Bonus Top Up', img:'assets/ffbonus2.png'},
+      {id:'ff-b5', name:'1080 + 270 Diamonds', price:158136, cat:'Diamond Bonus Top Up', img:'assets/ffbonus2.png'},
+      {id:'ff-b6', name:'1060 + 1166 Diamonds', price:257016, cat:'Diamond Bonus Top Up', img:'assets/ffbonus3.png'},
+      {id:'ff-b7', name:'1080 + 1183 Diamonds', price:261603, cat:'Diamond Bonus Top Up', img:'assets/ffbonus3.png'},
+      {id:'ff-b8', name:'2200 + 550 Diamonds', price:318330, cat:'Diamond Bonus Top Up', img:'assets/ffbonus4.png'},
+      {id:'ff-b9', name:'2180 + 2398 Diamonds', price:527968, cat:'Diamond Bonus Top Up', img:'assets/ffbonus5.png'},
+      {id:'ff-b10', name:'2200 + 2420 Diamonds', price:532521, cat:'Diamond Bonus Top Up', img:'assets/ffbonus4.png'},
+      {id:'ff-b11', name:'4450 + 1113 Diamonds', price:641469, cat:'Diamond Bonus Top Up', img:'assets/ffbonus4.png'},
+      {id:'ff-b12', name:'6900 + 1725 Diamonds', price:992765, cat:'Diamond Bonus Top Up', img:'assets/ffbonus6.png'},
+      {id:'ff-b13', name:'5600 + 6160 Diamonds', price:1352742, cat:'Diamond Bonus Top Up', img:'assets/ffbonus6.png'}
     ]
   },
   ss: {
@@ -3258,7 +3270,7 @@ const GAMES = {
 };
 let gmKey = null, gmSel = null, gmVerified = null, gmCat = null; // gmVerified = {uid, name}
 const GM_CUR = {ff:'Diamond', ss:'Candy', gi:'Genesis Crystal', hsr:'Oneiric Shard', zzz:'Monochrome', valo:'Valorant Points', codm:'COD Points', aov:'Vouchers', sm:'Candies', pb:'PB Cash', mcgg:'Diamonds', pgr:'Rainbow Cards', lad:'Crystals'};
-function gmCatOf(k){ return /pass|membership|pack\b/i.test(k.name) ? 'Pass & Paket' : (GM_CUR[gmKey] || 'Top Up'); }
+function gmCatOf(k){ if(k.cat) return k.cat; return /pass|membership|pack\b/i.test(k.name) ? 'Pass & Paket' : (GM_CUR[gmKey] || 'Top Up'); }
 
 function renderGmPacks(){
   const g = GAMES[gmKey]; if(!g) return;
@@ -3269,7 +3281,7 @@ function renderGmPacks(){
   document.getElementById('gm-packs').innerHTML = g.packs.filter(k => gmCatOf(k) === gmCat).map(k => `
     <button type="button" class="ml-pack${gmSel && gmSel.id===k.id ? ' active' : ''}" onclick="gmSelect('${k.id}')">
       ${k.tag ? `<span class="ml-pack-tag">${k.tag}</span>` : ''}
-      <span class="pk-ico">${ICONS[g.icon]}<img src="${g.img}" alt="" loading="lazy" onerror="this.remove()"></span>
+      <span class="pk-ico${k.img ? ' pk-photo' : ''}">${ICONS[g.icon]}<img src="${k.img || g.img}" alt="" loading="lazy" onerror="this.remove()"></span>
       <span class="ml-pack-name">${k.name}</span>
       ${k.old ? `<span class="ml-pack-old">${formatRp(k.old)}</span>` : ''}
       <span class="ml-pack-price">${formatRp(k.price)}</span>
