@@ -1,7 +1,8 @@
 // Helper pesanan (bukan endpoint — diawali "_" jadi di-skip Vercel).
 //
 // Status pesanan:
-//   unpaid -> QR dibuat, belum dibayar. Otomatis DIHAPUS 30 menit setelah dibuat.
+//   unpaid  -> QR dibuat, belum dibayar. Setelah 30 menit jadi "expired" (setelah dicek terakhir kali ke BuatQris).
+//   expired -> pembeli tidak jadi bayar. Disimpan sebagai riwayat (EXPIRED_KEEP_MS), bisa dihapus admin. Tidak tampil ke pembeli.
 //   paid   -> sudah dibayar (diverifikasi server lewat BuatQris), menunggu diproses admin ("Pending" di mata pembeli)
 //   done   -> sudah diproses admin ("Succeed")
 //   cancel -> dibatalkan admin
@@ -9,6 +10,7 @@ const crypto = require('crypto');
 const { kvGet, kvSet, kvDel, kvZrem } = require('./_kv');
 
 const UNPAID_TTL_MS = 30 * 60 * 1000;   // transaksi belum bayar hilang setelah 30 menit
+const EXPIRED_KEEP_MS = 7 * 24 * 60 * 60 * 1000; // riwayat "tidak jadi" dihapus otomatis setelah 7 hari
 const GATEWAY_CHECK_GAP_MS = 21 * 1000; // BuatQris: maks 1 cek / 20 detik per transaksi
 const API = 'https://api.buatqris.site';
 
@@ -56,6 +58,10 @@ async function removeOrder(record) {
 // Return record terbaru, atau null kalau pesanan sudah hilang.
 async function refreshOrder(record, opts = {}) {
   if (!record) return null;
+  if (record.status === 'expired') {
+    if (Date.now() - (record.expiredAt || record.createdAt || 0) > EXPIRED_KEEP_MS) { await removeOrder(record); return null; }
+    return record;
+  }
   if (record.status !== 'unpaid') return record;
 
   const now = Date.now();
@@ -73,8 +79,15 @@ async function refreshOrder(record, opts = {}) {
   }
 
   if (now - (record.createdAt || 0) > UNPAID_TTL_MS) {
-    await removeOrder(record);
-    return null;
+    // Cek terakhir ke BuatQris supaya pembayaran yang telat masuk tidak hilang begitu saja
+    if (opts.allowGateway !== false && record.txn_id && !canCheck && await gatewayStatus(record.txn_id) === 'success') {
+      record.status = 'paid'; record.paidAt = now;
+      await kvSet(`order:${record.order_id}`, record);
+      return record;
+    }
+    record.status = 'expired'; record.expiredAt = now;
+    try { await kvSet(`order:${record.order_id}`, record); } catch (_) {}
+    return record;
   }
   return record;
 }
@@ -103,4 +116,4 @@ function publicOrder(r) {
 
 function clean(v, max) { return String(v == null ? '' : v).slice(0, max); }
 
-module.exports = { UNPAID_TTL_MS, isAdmin, gatewayStatus, refreshOrder, removeOrder, publicOrder, clean };
+module.exports = { UNPAID_TTL_MS, EXPIRED_KEEP_MS, isAdmin, gatewayStatus, refreshOrder, removeOrder, publicOrder, clean };

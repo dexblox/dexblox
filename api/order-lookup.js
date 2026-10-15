@@ -20,7 +20,7 @@ module.exports = async function handler(req, res) {
   try {
     const results = await Promise.all(ids.map(async (id) => {
       const rec = await refreshOrder(await kvGet(`order:${id}`));
-      return rec ? publicOrder(rec) : null;
+      return rec && rec.status !== 'expired' ? publicOrder(rec) : null;   // riwayat "tidak jadi" hanya untuk admin
     }));
     const orders = results.filter(Boolean);
     if (single) return res.status(200).json(orders.length ? { found: true, order: orders[0] } : { found: false });

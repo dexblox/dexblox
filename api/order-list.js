@@ -22,6 +22,7 @@ module.exports = async function handler(req, res) {
     const records = await Promise.all(ids.map(async (id) => {
       const rec = await kvGet(`order:${id}`);
       if (!rec) { try { await kvZrem('orders:index', id); } catch (_) {} return null; }
+      if (rec.status === 'expired') return refreshOrder(rec);   // hanya merapikan riwayat yang sudah > 7 hari
       if (rec.status === 'unpaid') {
         const allow = gatewayBudget > 0; if (allow) gatewayBudget--;
         return refreshOrder(rec, { allowGateway: allow });
@@ -30,7 +31,7 @@ module.exports = async function handler(req, res) {
     }));
 
     const orders = records.filter(Boolean);
-    const stats = { total: orders.length, unpaid: 0, paid: 0, done: 0, cancel: 0, revenue: 0, revenueToday: 0 };
+    const stats = { total: orders.length, unpaid: 0, paid: 0, done: 0, cancel: 0, expired: 0, revenue: 0, revenueToday: 0 };
     const startOfDay = new Date(); startOfDay.setHours(0, 0, 0, 0);
     for (const o of orders) {
       if (stats[o.status] != null) stats[o.status]++;
