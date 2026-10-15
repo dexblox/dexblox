@@ -1946,6 +1946,20 @@ a.site-banner[href]:active{transform:scale(.99);}
 .st-hint{margin-top:2px;}
 @media (max-width:340px){.st-grid{grid-template-columns:1fr;}}
 
+
+.sh-tabs{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px;margin:0 0 12px;}
+.sh-tabs::-webkit-scrollbar{display:none;}
+.sh-tab{flex:1 0 auto;padding:10px 14px;border-radius:12px;border:1px solid #e1eaf8;background:#fff;color:var(--text-muted);font:800 .8rem 'Inter',sans-serif;cursor:pointer;white-space:nowrap;}
+.sh-tab.on{background:linear-gradient(135deg,#8b7cf6,#5443c7);color:#fff;border-color:transparent;box-shadow:0 10px 22px -12px rgba(84,67,199,.75);}
+.sh-rtabs .sh-tab{flex:0 0 auto;font-size:.74rem;padding:8px 12px;}
+.sh-home{background:#eef3fd;border:1px solid #e1eaf8;border-radius:20px;padding:18px 10px;}
+.sh-home .tg-grid{grid-template-columns:repeat(3,1fr);justify-content:stretch;gap:18px 10px;}
+.sh-home .tg-name{max-width:none;font-size:.76rem;}
+.tg-item.sh-off{opacity:.45;}
+.sh-newtile .tg-img{display:grid;place-items:center;background:#f7f5ff;border:2px dashed #b9b0f7;clip-path:none;box-shadow:none;}
+.sh-newtile .tg-img b{font-size:2rem;color:#6556e0;}
+@media (min-width:520px){.sh-home .tg-grid{grid-template-columns:repeat(4,1fr);}}
+
 /* Media */
 .md-sec{margin-bottom:22px;}
 .md-sec-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin:0 2px 10px;}
@@ -6838,23 +6852,34 @@ function shTargetList(){
   return out;
 }
 
-/* ── tampilan daftar ── */
+/* ── tampilan daftar: sama seperti beranda (tab Game / Cloud Phone / Aplikasi), ketuk kartu = edit ── */
+let shTab = 'game';
+function shTiles(tab){
+  const sh = shEnsure(), meta = k => sh.meta[k] || {}, out = [];
+  if(tab === 'game'){
+    PROMOS_BASE.forEach(pr => {
+      if(pr.modal === 'roblox') return out.push({tid:'g:vu', title:pr.name, img:pr.img, mk:'game:' + pr.id});
+      const key = pr.modal === 'ml' ? 'ml' : pr.game;
+      out.push({tid:key, title:pr.name, img:pr.img, mk:'game:' + pr.id, hidden:!!meta(key).hidden});
+    });
+    sh.products.filter(p => p.kind === 'game').forEach(p => out.push({tid:p.id, title:p.name || 'Produk baru', mk:'game:' + p.id, hidden:p.hidden, custom:true}));
+  } else if(tab === 'cloud'){
+    CLOUDS_BASE.forEach(c => out.push({tid:c.id, title:c.name, img:c.img, mk:'game:' + c.id, hidden:!!meta(c.id).hidden}));
+    sh.products.filter(p => p.kind === 'cloud').forEach(p => out.push({tid:p.id, title:p.name || 'Produk baru', mk:'game:' + p.id, hidden:p.hidden, custom:true}));
+  } else sh.products.filter(p => p.kind === 'app').forEach(p => out.push({tid:p.id, title:p.name || 'Produk baru', mk:'game:' + p.id, hidden:p.hidden, custom:true}));
+  return out;
+}
 function shListHtml(){
-  const q = shQuery.trim().toLowerCase();
-  const list = shTargetList().filter(x => !q || x.t.title.toLowerCase().includes(q));
-  const secs = ['Game', 'Cloud Phone', 'Aplikasi', 'Roblox'];
-  const addBtn = {Game:'game', 'Cloud Phone':'cloud', Aplikasi:'app'};
-  return `<div class="adm-toolbar"><input class="inp-field" type="text" placeholder="Cari produk..." value="${escHtml(shQuery)}" autocomplete="off" style="flex:1;-webkit-user-select:text;user-select:text;" oninput="shQuery=this.value;shRender(true)"></div>` +
-    secs.map(sec => {
-      const items = list.filter(x => x.sec === sec);
-      const add = addBtn[sec] ? `<button type="button" class="sh-add" data-a="new" data-kind="${addBtn[sec]}">+ ${sec === 'Game' ? 'Tambah Game' : sec === 'Cloud Phone' ? 'Tambah Cloud Phone' : 'Tambah Aplikasi'}</button>` : '';
-      const empty = !items.length ? `<div class="sh-empty">${q ? 'Tidak ada yang cocok.' : 'Belum ada ' + sec.toLowerCase() + ' baru. Tekan tombol di atas untuk menambah.'}</div>` : '';
-      return `<div class="sh-sec"><div class="sh-sec-h"><b>${sec}</b>${add}</div>` +
-        items.map(x => `<button type="button" class="sh-item${x.hidden ? ' off' : ''}" data-a="open" data-tid="${escHtml(x.t.tid)}">
-          <span class="sh-th">${x.roblox ? '<svg viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.6" stroke-linejoin="round"><polygon points="12,2 20.5,7 20.5,17 12,22 3.5,17 3.5,7"/></svg>' : mdPrev(CATALOG.media[x.mk] || null, x.img || '')}</span>
-          <span class="sh-tx"><b>${escHtml(x.t.title)}</b><small>${x.n} paket${x.custom ? ' · Kustom' : ''}${x.hidden ? ' · Disembunyikan' : (x.custom && !x.n ? ' · Belum tampil (tanpa paket)' : '')}</small></span>
-          <span class="sh-go">›</span></button>`).join('') + (q && !items.length && !add ? '' : empty) + '</div>';
-    }).join('');
+  const tabs = [['game', 'Game', 'Tambah Game'], ['cloud', 'Cloud Phone', 'Tambah Cloud Phone'], ['app', 'Aplikasi', 'Tambah Aplikasi']];
+  const cur = tabs.find(t => t[0] === shTab) || tabs[0];
+  const tiles = shTiles(cur[0]);
+  return `<div class="sh-note st-hint">Sama seperti beranda toko. <b>Ketuk kartu</b> untuk mengedit isinya (paket, harga, deskripsi).</div>
+    <div class="sh-tabs">${tabs.map(t => `<button type="button" class="sh-tab${t[0] === cur[0] ? ' on' : ''}" data-a="tab" data-tab="${t[0]}">${t[1]}</button>`).join('')}</div>
+    <div class="sh-home"><div class="tg-grid">${tiles.map(x => `<button type="button" class="tg-item${x.hidden ? ' sh-off' : ''}" data-a="open" data-tid="${escHtml(x.tid)}">
+        <span class="tg-img">${mdPrev(CATALOG.media[x.mk] || null, x.img || '')}</span>
+        <span class="tg-name">${escHtml(x.title)}${x.hidden ? ' · disembunyikan' : ''}</span></button>`).join('')}
+      <button type="button" class="tg-item sh-newtile" data-a="new" data-kind="${cur[0]}"><span class="tg-img"><b>+</b></span><span class="tg-name">${cur[2]}</span></button></div></div>
+    ${cur[0] === 'game' ? '<div class="sh-note">Roblox punya beberapa jenis (Via Username, Pengikut, dll). Ketuk Roblox lalu pilih jenisnya di bagian atas.</div>' : ''}`;
 }
 
 /* ── tampilan editor satu produk ── */
@@ -6942,6 +6967,7 @@ function shEditorHtml(){
 
   return `<div class="sh-top"><button type="button" class="sh-back" data-a="back">‹ Semua produk</button><h3>${escHtml(T.title)}</h3></div>
     <div class="sh-note st-hint">Tampilan ini sama seperti di toko. <b>Ketuk kotak bergaris ungu</b> untuk mengubah teks, jumlah, atau harga, lalu tekan <b>Simpan</b>.</div>
+    ${isRbx ? `<div class="sh-tabs sh-rtabs">${RBX_GROUPS.map(g => `<button type="button" class="sh-tab${g.gid === G.gid ? ' on' : ''}" data-a="open" data-tid="g:${g.gid}">${escHtml(g.group.replace('Robux ', '').replace('Pengikut Roblox', 'Pengikut'))}</button>`).join('')}</div>` : ''}
     ${head}${acct}${packs}
     ${p ? '<button type="button" class="sh-b del sh-delprod" data-a="delprod">Hapus produk ini</button>' : ''}
     <datalist id="shCats">${cats.map(c => `<option value="${escHtml(c)}">`).join('')}</datalist>`;
@@ -7037,6 +7063,7 @@ function shBlur(ev){
 async function shClick(ev){
   const b = ev.target.closest('[data-a]'); if(!b) return;
   const a = b.dataset.a;
+  if(a === 'tab'){ shTab = b.dataset.tab; shRender(); return; }
   if(a === 'open'){ shView = b.dataset.tid; shRender(); $('admPaneShop').scrollIntoView({block:'start'}); return; }
   if(a === 'new'){
     const kind = b.dataset.kind;
