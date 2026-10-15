@@ -4,7 +4,8 @@
 const { isAdmin } = require('./_orders');
 const { rateLimit } = require('./_ratelimit');
 const {
-  MAX_PRICE, PRICE_ID_RE, MEDIA_KEY_RE, SITE_SLOTS, loadCatalog, saveCatalog, validMediaUrl, deleteStoredMedia
+  MAX_PRICE, PRICE_ID_RE, MEDIA_KEY_RE, SITE_SLOTS, loadCatalog, saveCatalog, validMediaUrl, deleteStoredMedia,
+  sanitizeShop, orphanMediaKeys, ShopError
 } = require('./_catalog');
 
 const KINDS = ['image', 'gif', 'video'];
@@ -59,10 +60,17 @@ module.exports = async function handler(req, res) {
       }
     }
 
+    if (body.shop && typeof body.shop === 'object') {
+      cat.shop = sanitizeShop(body.shop);
+      // media produk/paket kustom yang sudah dihapus ikut dibersihkan
+      for (const k of orphanMediaKeys(cat.media, cat.shop)) { trash.push(cat.media[k]); delete cat.media[k]; }
+    }
+
     await saveCatalog(cat);
     for (const o of trash) await deleteStoredMedia(o);
     return res.status(200).json({ success: true, catalog: cat });
   } catch (e) {
+    if (e instanceof ShopError) return res.status(400).json({ success: false, error: e.message });
     console.error('catalog-save:', e);
     return res.status(500).json({ success: false, error: 'Gagal menyimpan katalog: ' + String((e && e.message) || e).slice(0, 200) });
   }
