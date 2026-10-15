@@ -1899,6 +1899,53 @@ a.site-banner[href]:active{transform:scale(.99);}
 .sh-delprod{width:100%;margin-top:6px;padding:12px;}
 @media (max-width:420px){.sh-r1{grid-template-columns:1fr;}}
 
+
+/* Editor produk gaya toko */
+.st-card{background:#fff;border:1px solid #e6e4f5;border-radius:20px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:8px;box-shadow:0 12px 30px -26px rgba(84,67,199,.55);}
+.st-head{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:start;}
+.st-htx{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.st-art{display:flex;flex-direction:column;align-items:center;gap:6px;max-width:104px;text-align:center;}
+.st-art small{font-size:.6rem;color:var(--text-muted);line-height:1.3;}
+.st-imgp{width:92px;height:108px;border-radius:14px;background:linear-gradient(160deg,#b04be0,#5b2bd1);}
+.st-lbl{display:block;font-size:.62rem;font-weight:800;color:#8b87b5;text-transform:uppercase;letter-spacing:.3px;margin-top:4px;}
+.st-title-s{font-size:1.25rem;font-weight:800;margin:0;line-height:1.25;}
+.st-ok{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--text-muted);margin:2px 0;}
+.st-ok i{width:16px;height:16px;border-radius:50%;background:#1f8a63;flex-shrink:0;}
+.st-h{font-size:1.05rem;font-weight:800;margin:0;}
+.st-static{font-size:.9rem;font-weight:800;}
+.st-in{width:100%;min-width:0;box-sizing:border-box;border:1.5px dashed #b9b0f7;background:#faf9ff;border-radius:10px;padding:8px 10px;font:700 .86rem 'Inter',sans-serif;color:var(--text);outline:0;-webkit-user-select:text;user-select:text;transition:border-color .15s,box-shadow .15s,background .15s;}
+.st-in:focus{border:1.5px solid #7c6cf0;background:#fff;box-shadow:0 0 0 4px rgba(124,108,240,.15);}
+.st-title{font-size:1.15rem;font-weight:800;}
+.st-line{font-weight:600;}
+.st-tips{font-weight:600;line-height:1.5;resize:vertical;}
+.st-ptitle{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 12px;}
+.st-chip{font-size:.76rem;font-weight:700;color:#2f6fcf;background:#eaf2ff;border-radius:50px;padding:3px 10px;}
+.st-cap{font-size:.7rem;font-weight:800;color:#6b6890;text-transform:uppercase;letter-spacing:.5px;}
+.st-mock{display:flex;gap:8px;align-items:center;border:1.5px solid #e6e4f5;border-radius:12px;padding:12px;background:#f7f7fc;color:#a09cc8;font-weight:600;font-size:.86rem;}
+.st-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:10px;}
+.st-grid .sh-pack{padding:0;gap:0;margin:0;overflow:hidden;border:1.5px solid #e6e4f5;border-radius:14px;background:#fff;box-shadow:none;}
+.st-grid .sh-pack.changed{border-color:#f5c451;background:#fffdf5;}
+.st-grid .sh-pack.new{border-color:#c9c2fb;}
+.st-top{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:10px 10px 4px;}
+.st-ico{width:30px;height:30px;display:grid;place-items:center;flex-shrink:0;}
+.st-ico svg{width:28px;height:28px;}
+.st-tag{width:70px;padding:5px 7px;font-size:.68rem;text-transform:uppercase;text-align:center;}
+.st-mid{display:flex;flex-direction:column;gap:5px;padding:0 10px 10px;}
+.st-name{font-size:.9rem;}
+.st-desc{font-size:.72rem;font-weight:600;padding:6px 8px;}
+.st-price{position:relative;background:#e8f1fd;padding:8px 10px;}
+.st-price i{position:absolute;left:18px;top:50%;transform:translateY(-50%);font-style:normal;font-weight:800;font-size:.8rem;color:#e8590c;}
+.st-price input{background:#fff;border-color:#f3c9a8;color:#e8590c;font-weight:800;font-size:.92rem;text-align:right;padding-left:34px;}
+.st-acts{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:8px 10px;border-top:1px solid #f1f0f8;}
+.st-acts em{font-style:normal;font-size:.64rem;font-weight:700;color:#92400e;margin-right:auto;}
+.st-acts .sh-b{padding:6px 9px;font-size:.66rem;}
+.st-add{min-height:150px;border:2px dashed #b9b0f7;border-radius:14px;background:#f7f5ff;color:#4a3bc4;font:800 .76rem 'Inter',sans-serif;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;}
+.st-add b{font-size:1.6rem;line-height:1;}
+.st-cek{margin-left:auto;background:#6556e0;color:#fff;border-radius:10px;padding:8px 14px;font-size:.8rem;}
+.st-grid .sh-pack.bad .st-in{border-color:#ef4444;background:#fef2f2;}
+.st-hint{margin-top:2px;}
+@media (max-width:340px){.st-grid{grid-template-columns:1fr;}}
+
 /* Media */
 .md-sec{margin-bottom:22px;}
 .md-sec-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin:0 2px 10px;}
@@ -6473,11 +6520,13 @@ const RBX_GROUPS = [
 const SHOP_NOIMG = 'assets/none.png';   // sengaja tidak ada -> tampil ikon bawaan
 const GP_RATE = 1.43;                   // harga gamepass = jumlah Robux × 1,43 (sama dengan data bawaan)
 let _GROUPS = null, SUB0 = {}, ML_SUB0 = '', CPDESC0 = null;
+let RBX_INFO0 = null;
 
 
 /* Daftar grup paket bawaan + snapshot barisnya (dibuat sekali, SEBELUM katalog pertama diterapkan) */
 function shGroups(){
   if(_GROUPS) return _GROUPS;
+  RBX_INFO0 = JSON.parse(JSON.stringify(RBX_INFO));
   const out = [];
   RBX_GROUPS.forEach(G => out.push({gid:G.gid, group:G.group, mode:'rbx', unit:G.unit, pre:G.pre, key:G.key, list:G.list,
     rows:G.list.map(p => ({id:G.prefix + p[G.key], qty:p[G.key], name:G.pre + p[G.key] + ' ' + G.unit, price:p.harga, tag:p.hot || '', gp:p.gp}))}));
@@ -6562,6 +6611,10 @@ function applyShop(){
   if(md){ md.textContent = mm.desc || ''; md.hidden = !mm.desc; }
   const cd = document.getElementById('cpDesc');
   if(cd && CPDESC0 != null){ if(M.rf && M.rf.desc) cd.textContent = M.rf.desc; else cd.innerHTML = CPDESC0; }
+
+  // teks header Roblox (deskripsi singkat & catatan Cara Beli) dari admin
+  Object.keys(RBX_TYPE).forEach(gid => { const t = RBX_TYPE[gid], m = M[gid] || {}, b = RBX_INFO0[t]; RBX_INFO[t].desc = m.sub || b.desc; RBX_INFO[t].extra = m.desc || b.extra; });
+  if(typeof activeType !== 'undefined' && RBX_INFO[activeType] && $('rbxInfoDesc')){ $('rbxInfoDesc').textContent = RBX_INFO[activeType].desc; $('rbxTipsExtra').textContent = RBX_INFO[activeType].extra; }
 
   // daftar beranda: produk bawaan (kecuali disembunyikan) + produk baru
   Object.keys(GAMES).forEach(k => { if(GAMES[k].custom) delete GAMES[k]; });
@@ -6760,7 +6813,7 @@ const shKinds = {game:'Game', cloud:'Cloud Phone', app:'Aplikasi'};
 function shTarget(tid){
   const sh = shEnsure();
   if(!tid) return null;
-  if(tid.startsWith('g:')){ const G = shGroup(tid.slice(2)); return G ? {tid, G, title:G.group, kind:'roblox'} : null; }
+  if(tid.startsWith('g:')){ const G = shGroup(tid.slice(2)); return G ? {tid, G, title:G.group, kind:'roblox', metaKey:RBX_TYPE[G.gid] ? G.gid : undefined} : null; }
   if(tid === 'ml'){ const G = shGroup('ml'); return {tid, G, title:'Mobile Legends', kind:'game', metaKey:'ml', media:'game:d1'}; }
   if(tid === 'rf'){ const G = shGroup('cp'); return {tid, G, title:'Redfingger', kind:'cloud', metaKey:'rf', media:'game:rf', priceOnly:true}; }
   const p = sh.products.find(x => x.id === tid);
@@ -6809,66 +6862,87 @@ function shRowsOf(T){
   if(T.product) return T.product.packs.map(k => ({id:k.id, base:false, custom:true, obj:k, name:k.name, price:k.price, tag:k.tag || '', desc:k.desc || ''}));
   return shEffRows(T.G, shDraft, shPriceOf);
 }
+/* Tampilan editor = tampilan toko: kotak bergaris ungu = bisa diedit langsung */
+const RBX_TYPE = {vu:'vu', slow:'slow', fast:'fast', flw:'follow'};   // grup Roblox -> jenis (tab) di toko
+const ST_ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="#c026d3" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2" fill="#e879f9" stroke="none"/><path d="M3.5 19c0-3.3 2.5-5.5 5.5-5.5s5.5 2.2 5.5 5.5"/><circle cx="17" cy="7" r="2.6" fill="#e879f9" stroke="none"/><path d="M17 5.8v2.4M15.8 7h2.4" stroke="#fff" stroke-width="1.4"/></svg>';
+const ST_GEM = '<svg viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.8" stroke-linejoin="round"><polygon points="12,3 20,9 12,21 4,9" fill="#e9e5ff"/><path d="M4 9h16M9 9l3 12 3-12"/></svg>';
+
 function shRowHtml(T, r){
   const G = T.G, rbx = G && G.mode === 'rbx';
   const first = rbx
-    ? `<label class="sh-f sh-q"><span>Jumlah (${G.unit})</span><input data-f="qty" inputmode="numeric" autocomplete="off" value="${r.qty.toLocaleString('id-ID')}"></label>`
-    : T.priceOnly ? `<div class="sh-nm"><span>Paket</span><b>${escHtml(r.name)}</b></div>`
-    : `<label class="sh-f sh-nm"><span>Nama paket</span><input data-f="name" maxlength="80" autocomplete="off" value="${escHtml(r.name)}"></label>`;
-  const price = `<label class="sh-f sh-p"><span>Harga</span><i>Rp</i><input data-f="price" inputmode="numeric" autocomplete="off" value="${Number(r.price).toLocaleString('id-ID')}"></label>`;
-  let more = '', acts = '';
+    ? `<span class="st-lbl">Jumlah (${G.unit})</span><input class="st-in st-name" data-f="qty" inputmode="numeric" autocomplete="off" value="${r.qty.toLocaleString('id-ID')}">`
+    : T.priceOnly ? `<span class="st-lbl">Paket</span><b class="st-static">${escHtml(r.name)}</b>`
+    : `<span class="st-lbl">Nama paket</span><input class="st-in st-name" data-f="name" maxlength="80" autocomplete="off" value="${escHtml(r.name)}">`;
+  let top = `<span class="st-ico">${rbx && G.unit === 'Pengikut' ? ST_ICO : ST_GEM}</span>`, more = '', acts = '';
   if(!T.priceOnly){
-    more = `<label class="sh-f sh-d"><span>Deskripsi paket (opsional)</span><input data-f="desc" maxlength="200" autocomplete="off" placeholder="Mis. Bonus, masa aktif, syarat…" value="${escHtml(r.desc)}"></label>
-      <label class="sh-f sh-t"><span>Label</span><input data-f="tag" maxlength="12" autocomplete="off" placeholder="HOT" value="${escHtml(r.tag)}"></label>`;
-    if(G && G.mode === 'list' && !r.base && G.gid !== 'ml') more += `<label class="sh-f sh-c"><span>Kategori</span><input data-f="cat" maxlength="40" list="shCats" autocomplete="off" placeholder="Otomatis" value="${escHtml(r.cat || '')}"></label>`;
-    if(r.base) acts = `<button type="button" class="sh-b" data-a="hide">${r.hidden ? 'Tampilkan' : 'Sembunyikan'}</button>`;
-    else acts = `<button type="button" class="sh-b del" data-a="del">Hapus</button>`;
+    top += `<input class="st-in st-tag" data-f="tag" maxlength="12" autocomplete="off" placeholder="Label" title="Label kecil, mis. HOT" value="${escHtml(r.tag)}">`;
+    more = `<input class="st-in st-desc" data-f="desc" maxlength="200" autocomplete="off" placeholder="Deskripsi paket (opsional)" value="${escHtml(r.desc)}">`;
+    if(G && G.mode === 'list' && !r.base && G.gid !== 'ml') more += `<input class="st-in st-desc" data-f="cat" maxlength="40" list="shCats" autocomplete="off" placeholder="Kategori (otomatis)" value="${escHtml(r.cat || '')}">`;
+    acts = r.base ? `<button type="button" class="sh-b" data-a="hide">${r.hidden ? 'Tampilkan' : 'Sembunyikan'}</button>` : `<button type="button" class="sh-b del" data-a="del">Hapus</button>`;
   }
   const changed = r.base && (!!(shDraft.items[r.id] && Object.keys(shDraft.items[r.id]).length) || (r.id in pzDraft));
-  if(r.base && (changed || r.hidden) && !T.priceOnly) acts += `<button type="button" class="sh-b" data-a="reset" title="Kembalikan ke bawaan">↺ Bawaan</button>`;
-  else if(r.base && T.priceOnly && changed) acts += `<button type="button" class="sh-b" data-a="reset">↺ Bawaan</button>`;
+  if(r.base && (changed || (r.hidden && !T.priceOnly))) acts += `<button type="button" class="sh-b" data-a="reset" title="Kembalikan ke bawaan">↺ Bawaan</button>`;
   return `<div class="sh-pack${r.hidden ? ' off' : ''}${changed ? ' changed' : ''}${!r.base ? ' new' : ''}" data-id="${escHtml(r.id)}">
-    <div class="sh-r1">${first}${price}</div>
-    ${more ? `<div class="sh-r2">${more}</div>` : ''}
-    ${acts ? `<div class="sh-r3">${r.hidden ? '<em>Disembunyikan dari toko</em>' : (!r.base && !r.custom ? '<em>Paket baru</em>' : '')}${acts}</div>` : ''}
+    <div class="st-top">${top}</div>
+    <div class="st-mid">${first}${more}</div>
+    <div class="st-price"><i>Rp</i><input class="st-in" data-f="price" inputmode="numeric" autocomplete="off" value="${Number(r.price).toLocaleString('id-ID')}"></div>
+    ${acts || r.hidden ? `<div class="st-acts">${r.hidden ? '<em>Disembunyikan</em>' : (!r.base && !r.custom ? '<em>Baru</em>' : '')}${acts}</div>` : ''}
   </div>`;
 }
 function shEditorHtml(){
   const T = shTarget(shView); if(!T){ shView = null; return shListHtml(); }
-  const sh = shDraft, p = T.product, m = T.metaKey ? (sh.meta[T.metaKey] || {}) : {};
+  const sh = shDraft, p = T.product, G = T.G, isRbx = T.kind === 'roblox';
+  const m = T.metaKey ? (sh.meta[T.metaKey] || {}) : {};
+  const rbxInfo = isRbx && RBX_TYPE[G.gid] ? RBX_INFO0[RBX_TYPE[G.gid]] : null;
   const hidden = p ? p.hidden : !!m.hidden;
-  let card = '';
-  const fld = (lbl, f, val, o = {}) => `<label class="sh-f sh-w"><span>${lbl}</span>${o.area ? `<textarea data-p="${f}" maxlength="${o.max}" rows="3" placeholder="${escHtml(o.ph || '')}">${escHtml(val)}</textarea>` : `<input data-p="${f}" maxlength="${o.max}" autocomplete="off" placeholder="${escHtml(o.ph || '')}" value="${escHtml(val)}">`}</label>`;
-  if(p){
-    const mk = T.media, mm = CATALOG.media[mk] || null;
-    card = `<div class="sh-card">
-      <div class="sh-kind">${shKinds[p.kind]} · ID produk <code>${p.id}</code></div>
-      ${fld('Nama ' + shKinds[p.kind].toLowerCase(), 'name', p.name, {max:50, ph:p.kind === 'game' ? 'Mis. Valorant' : p.kind === 'cloud' ? 'Mis. UGPhone' : 'Mis. Netflix Premium'})}
-      ${fld('Subjudul singkat (di bawah nama)', 'sub', p.sub, {max:120, ph:'Mis. Top up VP · Proses otomatis'})}
-      ${fld('Deskripsi', 'desc', p.desc, {max:600, area:true, ph:'Penjelasan produk, cara aktivasi, syarat & ketentuan…'})}
-      ${fld('Label kolom data pembeli', 'idLabel', p.idLabel, {max:40, ph:p.kind === 'game' ? 'Player ID' : 'Email / No. WhatsApp'})}
-      <div class="sh-img"><div class="sh-imgp" id="shImgP">${mdPrev(mm, '')}</div>
-        <div class="sh-imga"><span>Gambar / ikon di beranda</span>
-          <div><button type="button" class="md-b up" data-a="img-up">${mm ? 'Ganti' : 'Upload'}</button> <button type="button" class="md-b" data-a="img-link">Link</button>${mm ? ' <button type="button" class="md-b del" data-a="img-del">Hapus</button>' : ''}</div>
-          <small id="shImgStat">PNG · JPG · WebP · GIF · MP4 (maks 4 MB)</small></div></div>
-      <label class="sh-sw"><input type="checkbox" data-p="show" ${p.hidden ? '' : 'checked'}><span>Tampilkan di toko</span></label>
-      <div class="sh-note">Pembeli mengisi satu kolom data (sesuai label di atas), memilih paket, lalu bayar QRIS. Pesanan masuk ke tab Pesanan. Produk baru baru tampil di toko setelah punya minimal 1 paket.</div>
-    </div>`;
-  } else if(T.metaKey){
-    card = `<div class="sh-card">
-      ${fld('Subjudul singkat', 'sub', m.sub || '', {max:120, ph:T.metaKey === 'rf' ? '(tidak dipakai untuk Redfingger)' : (T.metaKey === 'ml' ? ML_SUB0 : (SUB0[T.metaKey] || ''))})}
-      ${fld('Deskripsi', 'desc', m.desc || '', {max:600, area:true, ph:'Ditampilkan di halaman produk. Kosongkan untuk memakai teks bawaan.'})}
-      <label class="sh-sw"><input type="checkbox" data-p="show" ${hidden ? '' : 'checked'}><span>Tampilkan di beranda</span></label>
+  const inp = (f, val, o) => `<input class="st-in ${o.cls || ''}" data-p="${f}" maxlength="${o.max}" autocomplete="off" placeholder="${escHtml(o.ph || '')}" value="${escHtml(val)}">`;
+
+  /* kartu 1: judul, deskripsi, ikon (seperti kartu atas di toko) */
+  let head = '';
+  if(p || (T.metaKey && !isRbx) || rbxInfo){
+    const mm = CATALOG.media[T.media || ''] || null;
+    const title = p ? inp('name', p.name, {max:50, cls:'st-title', ph:p.kind === 'game' ? 'Nama game, mis. Valorant' : p.kind === 'cloud' ? 'Nama, mis. UGPhone' : 'Nama, mis. Netflix Premium'}) : `<h2 class="st-title-s">${escHtml(T.title)}</h2>`;
+    const sub = T.metaKey === 'rf' ? '' : `<textarea class="st-in st-line" data-p="sub" maxlength="120" rows="2" placeholder="${escHtml(p ? 'Deskripsi singkat, mis. Top up VP · Proses otomatis' : (rbxInfo ? rbxInfo.desc : (T.metaKey === 'ml' ? ML_SUB0 : (SUB0[T.metaKey] || 'Deskripsi singkat'))))}">${escHtml(p ? p.sub : (m.sub || ''))}</textarea>`;
+    const tips = `<textarea class="st-in st-tips" data-p="desc" maxlength="600" rows="3" placeholder="${escHtml(rbxInfo ? rbxInfo.extra : 'Cara beli, syarat & ketentuan… (opsional)')}">${escHtml(p ? p.desc : (m.desc || ''))}</textarea>`;
+    const def = isRbx ? 'assets/roblox.png' : T.tid === 'rf' ? 'assets/redfinger.png' : (G && G.img) || '';
+    const art = p
+      ? `<div class="st-art"><div class="sh-imgp st-imgp" id="shImgP">${mdPrev(mm, '')}</div>
+          <div class="sh-imga"><div><button type="button" class="md-b up" data-a="img-up">${mm ? 'Ganti' : 'Upload'}</button> <button type="button" class="md-b" data-a="img-link">Link</button>${mm ? ' <button type="button" class="md-b del" data-a="img-del">Hapus</button>' : ''}</div><small id="shImgStat">Gambar / ikon di beranda · maks 4 MB</small></div></div>`
+      : `<div class="st-art"><div class="sh-imgp st-imgp">${isRbx && G.gid === 'flw' ? ST_ICO : mdPrev(mm, def)}</div><small>Ikon diganti lewat tab Media</small></div>`;
+    head = `<div class="st-card"><div class="st-head"><div class="st-htx">
+        <span class="st-lbl">${p ? 'Nama ' + shKinds[p.kind].toLowerCase() : 'Judul'}</span>${title}
+        <div class="st-ok"><i></i> Tersedia di <b>Indonesia</b></div>
+        ${sub ? `<span class="st-lbl">Deskripsi singkat (baris ⚡ di toko)</span>${sub}` : ''}
+        <span class="st-lbl">${rbxInfo ? 'Catatan di “Cara Beli & Tips”' : 'Deskripsi / Cara Beli & Tips'}</span>${tips}
+      </div>${art}</div>
+      ${isRbx ? '' : `<label class="sh-sw"><input type="checkbox" data-p="show" ${hidden ? '' : 'checked'}><span>Tampilkan di ${p ? 'toko' : 'beranda'}</span></label>`}
+      ${p ? `<div class="sh-kind">${shKinds[p.kind]} · ID produk <code>${p.id}</code></div>` : ''}
     </div>`;
   }
+
+  /* kartu 2: Data Akun (pratinjau; label hanya bisa diubah untuk produk baru) */
+  let acct = '';
+  const showAcct = p || (!T.priceOnly && (!isRbx || ['vu', 'flw', 'slow'].includes(G.gid)));
+  if(showAcct){
+    const lbl = p ? inp('idLabel', p.idLabel, {max:40, cls:'st-line', ph:p.kind === 'game' ? 'Player ID' : 'Email / No. WhatsApp'})
+      : `<b class="st-static">${isRbx ? 'Username Roblox' : (T.tid === 'ml' ? 'User ID & Zone ID' : escHtml((GAMES[T.tid] && GAMES[T.tid].idLabel) || 'Player ID'))}</b>`;
+    acct = `<div class="st-card"><h3 class="st-h">Data Akun</h3>
+      <span class="st-lbl">${p ? 'Label kolom data pembeli' : 'Kolom data pembeli (pratinjau, tidak bisa diubah)'}</span>${lbl}
+      <div class="st-mock"><span>Masukkan data…</span>${p ? '' : '<b class="st-cek">Cek</b>'}</div></div>`;
+  }
+
+  /* kartu 3: Pilih Produk -> kotak paket yang bisa diedit */
   const rows = shRowsOf(T);
-  const cats = T.G && T.G.mode === 'list' ? [...new Set([...T.G.rows.map(r => r.cat).filter(Boolean), GM_CUR[T.G.gid] || 'Top Up', 'Pass & Paket'])] : [];
+  const cats = G && G.mode === 'list' ? [...new Set([...G.rows.map(r => r.cat).filter(Boolean), GM_CUR[G.gid] || 'Top Up', 'Pass & Paket'])] : [];
   const canAdd = !T.priceOnly;
-  return `<div class="sh-top"><button type="button" class="sh-back" data-a="back">‹ Semua produk</button><h3>${escHtml(T.title)}</h3></div>
-    ${card}
-    <div class="sh-sec-h"><b>Paket (${rows.length})</b>${canAdd ? '<button type="button" class="sh-add" data-a="addpack">+ Tambah paket</button>' : ''}</div>
+  const packs = `<div class="st-card"><div class="st-ptitle"><h3 class="st-h">Pilih Produk</h3><span class="st-chip">${escHtml(T.title)}</span></div>
+    <div class="st-cap">Pilih paket · ${rows.length} paket</div>
     ${T.priceOnly ? '<div class="sh-note">Paket Redfingger memakai alur khusus; di sini hanya harga yang bisa diubah.</div>' : ''}
-    ${rows.length ? rows.map(r => shRowHtml(T, r)).join('') : '<div class="sh-empty">Belum ada paket. Tekan “+ Tambah paket”.</div>'}
+    <div class="st-grid">${rows.map(r => shRowHtml(T, r)).join('')}${canAdd ? '<button type="button" class="st-add" data-a="addpack"><b>+</b>Tambah paket</button>' : ''}</div></div>`;
+
+  return `<div class="sh-top"><button type="button" class="sh-back" data-a="back">‹ Semua produk</button><h3>${escHtml(T.title)}</h3></div>
+    <div class="sh-note st-hint">Tampilan ini sama seperti di toko. <b>Ketuk kotak bergaris ungu</b> untuk mengubah teks, jumlah, atau harga, lalu tekan <b>Simpan</b>.</div>
+    ${head}${acct}${packs}
     ${p ? '<button type="button" class="sh-b del sh-delprod" data-a="delprod">Hapus produk ini</button>' : ''}
     <datalist id="shCats">${cats.map(c => `<option value="${escHtml(c)}">`).join('')}</datalist>`;
 }
