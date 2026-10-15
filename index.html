@@ -1570,6 +1570,13 @@
   .tg-view[hidden]{display:none;}
   .tg-view:not([hidden]){animation:tgView .3s ease;}
   @keyframes tgView{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .pdesc{font-size:.72rem;font-weight:600;color:var(--text-muted);margin-top:2px;line-height:1.35;}
+  .ml-pack-desc{display:block;font-size:.68rem;font-weight:600;color:var(--text-muted);line-height:1.3;margin:1px 0 2px;}
+  .gm-desc{margin:8px 0 2px;font-size:.82rem;line-height:1.55;color:var(--text-muted);white-space:pre-line;}
+  .gm-desc[hidden]{display:none;}
+  .gm-desc-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin:0 0 12px;}
+  .gm-tips[hidden]{display:none;}
+  .tg-grid[hidden],.tg-empty[hidden]{display:none;}
   .tg-empty{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:34px 12px;color:var(--text-muted);font-size:.86rem;}
   .tg-empty b{color:var(--text);font-size:1rem;}
   .tg-empty-ic{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;background:linear-gradient(135deg,#e9f6ff,#eae6ff);color:var(--cyan);margin-bottom:4px;}
@@ -1832,6 +1839,66 @@ a.site-banner[href]:active{transform:scale(.99);}
 .pz-bar .ghost{background:rgba(255,255,255,.12);color:#fff;}
 .pz-bar .main{background:linear-gradient(135deg,#7c6cf0,#a78bfa);color:#fff;}
 .pz-bar button:disabled{opacity:.6;cursor:wait;}
+/* ── Admin: tab Produk ── */
+.sh-sec{margin:14px 0 6px;}
+.sh-sec-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:14px 0 8px;}
+.sh-sec-h b{font-size:.9rem;font-weight:800;color:var(--text);}
+.sh-add{padding:8px 12px;border-radius:10px;border:1.5px dashed #b9b0f7;background:#f7f5ff;color:#4a3bc4;font:800 .72rem 'Inter',sans-serif;cursor:pointer;}
+.sh-item{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#fff;border:1px solid #ececf5;border-radius:16px;padding:10px 12px;margin-bottom:8px;cursor:pointer;font-family:inherit;box-shadow:0 8px 22px -22px rgba(84,67,199,.6);-webkit-tap-highlight-color:transparent;}
+.sh-item:active{transform:scale(.99);}
+.sh-item.off{opacity:.55;}
+.sh-th{width:44px;height:44px;border-radius:12px;background:#f3f2fb;display:grid;place-items:center;overflow:hidden;flex-shrink:0;position:relative;}
+.sh-th img,.sh-th video{width:100%;height:100%;object-fit:cover;display:block;}
+.sh-th svg{width:24px;height:24px;}
+.sh-th .md-empty{font-size:.6rem;color:#a09cc8;}
+.sh-tx{flex:1;min-width:0;}
+.sh-tx b{display:block;font-size:.88rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sh-tx small{display:block;font-size:.7rem;color:var(--text-muted);margin-top:1px;}
+.sh-go{color:#8b87b5;font-size:1.4rem;line-height:1;}
+.sh-empty{padding:14px;border:1.5px dashed #e1def5;border-radius:14px;text-align:center;font-size:.76rem;color:var(--text-muted);margin-bottom:8px;}
+.sh-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.sh-top h3{font-size:1rem;font-weight:800;margin:0;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.sh-back{padding:9px 13px;border-radius:12px;border:1px solid #e6e4f5;background:#fff;color:#4a3bc4;font:800 .75rem 'Inter',sans-serif;cursor:pointer;flex-shrink:0;}
+.sh-card{background:#fff;border:1px solid #ececf5;border-radius:18px;padding:14px;margin-bottom:6px;display:flex;flex-direction:column;gap:10px;box-shadow:0 10px 28px -24px rgba(84,67,199,.5);}
+.sh-kind{font-size:.7rem;font-weight:700;color:var(--text-muted);}
+.sh-kind code{background:#f3f2fb;border-radius:6px;padding:1px 6px;font-size:.68rem;}
+.sh-f{display:flex;flex-direction:column;gap:4px;min-width:0;position:relative;}
+.sh-f>span{font-size:.66rem;font-weight:800;color:#6b6890;text-transform:uppercase;letter-spacing:.3px;}
+.sh-f input,.sh-f textarea{width:100%;min-width:0;box-sizing:border-box;border:1.5px solid #e6e4f5;background:#f7f7fc;border-radius:12px;padding:10px 12px;font:700 .86rem 'Inter',sans-serif;color:var(--text);outline:0;resize:vertical;-webkit-user-select:text;user-select:text;transition:border-color .15s,box-shadow .15s,background .15s;}
+.sh-f textarea{font-weight:600;line-height:1.5;}
+.sh-f input:focus,.sh-f textarea:focus{border-color:#7c6cf0;box-shadow:0 0 0 4px rgba(124,108,240,.15);background:#fff;}
+.sh-w{width:100%;}
+.sh-p i{position:absolute;left:12px;bottom:11px;font-style:normal;font-size:.76rem;font-weight:800;color:#8b87b5;}
+.sh-p input{padding-left:34px;text-align:right;}
+.sh-sw{display:flex;align-items:center;gap:8px;font-size:.8rem;font-weight:700;cursor:pointer;}
+.sh-sw input{width:18px;height:18px;accent-color:#6556e0;}
+.sh-note{font-size:.72rem;line-height:1.5;color:#6b6890;background:#faf9ff;border-radius:12px;padding:9px 11px;margin-bottom:8px;}
+.sh-img{display:flex;gap:12px;align-items:center;}
+.sh-imgp{width:72px;height:72px;border-radius:16px;background:#f3f2fb;display:grid;place-items:center;overflow:hidden;flex-shrink:0;border:1px solid #ececf5;}
+.sh-imgp img,.sh-imgp video{width:100%;height:100%;object-fit:cover;}
+.sh-imga{display:flex;flex-direction:column;gap:6px;min-width:0;}
+.sh-imga>span{font-size:.66rem;font-weight:800;color:#6b6890;text-transform:uppercase;letter-spacing:.3px;}
+.sh-imga small{font-size:.66rem;color:var(--text-muted);}
+.sh-pack{background:#fff;border:1px solid #ececf5;border-radius:16px;padding:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:9px;box-shadow:0 8px 22px -22px rgba(84,67,199,.6);}
+.sh-pack.changed{border-color:#f5c451;background:#fffdf5;}
+.sh-pack.new{border-color:#c9c2fb;background:#fbfaff;}
+.sh-pack.off{opacity:.6;}
+.sh-pack.bad input[data-f]:focus,.sh-pack.bad .sh-f input:focus{border-color:#ef4444;box-shadow:0 0 0 4px rgba(239,68,68,.15);}
+.sh-pack.bad .sh-p input,.sh-pack.bad .sh-q input,.sh-pack.bad .sh-nm input{border-color:#ef4444;background:#fef2f2;}
+.sh-r1{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:9px;align-items:end;}
+.sh-r2{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:9px;}
+.sh-r2 .sh-c{grid-column:1/-1;}
+.sh-nm>span{font-size:.66rem;font-weight:800;color:#6b6890;text-transform:uppercase;letter-spacing:.3px;display:block;margin-bottom:4px;}
+.sh-nm>b{font-size:.9rem;}
+.sh-r3{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.sh-r3 em{font-style:normal;font-size:.68rem;font-weight:700;color:#92400e;margin-right:auto;}
+.sh-r3 .sh-b:first-of-type{margin-left:auto;}
+.sh-r3 em+.sh-b{margin-left:0;}
+.sh-b{padding:8px 12px;border-radius:10px;border:1px solid #e6e4f5;background:#fff;color:#4a3bc4;font:800 .72rem 'Inter',sans-serif;cursor:pointer;}
+.sh-b.del{color:#dc2626;border-color:#fecaca;background:#fff5f5;}
+.sh-delprod{width:100%;margin-top:6px;padding:12px;}
+@media (max-width:420px){.sh-r1{grid-template-columns:1fr;}}
+
 /* Media */
 .md-sec{margin-bottom:22px;}
 .md-sec-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin:0 2px 10px;}
@@ -1997,7 +2064,8 @@ a.site-banner[href]:active{transform:scale(.99);}
       <div class="tg-view" id="tg-v-game"><div class="tg-grid" id="promo-grid"></div></div>
       <div class="tg-view" id="tg-v-cloud" hidden><div class="tg-grid" id="cloud-grid"></div></div>
       <div class="tg-view" id="tg-v-app" hidden>
-        <div class="tg-empty">
+        <div class="tg-grid" id="app-grid" hidden></div>
+        <div class="tg-empty" id="app-empty">
           <span class="tg-empty-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><rect x="3.5" y="3.5" width="7" height="7" rx="2"/><rect x="13.5" y="3.5" width="7" height="7" rx="2"/><rect x="3.5" y="13.5" width="7" height="7" rx="2"/><rect x="13.5" y="13.5" width="7" height="7" rx="2"/></svg></span>
           <b>Layanan aplikasi segera hadir</b>
           <span>Kami sedang menyiapkannya. Pantau terus Meng Store.</span>
@@ -2562,11 +2630,12 @@ a.site-banner[href]:active{transform:scale(.99);}
       <img src="assets/ml.png" alt="Mobile Legends" onerror="this.style.display='none'">
       <div class="rbx-ttl">
         <h3>Mobile Legends</h3>
-        <p>Top Up Diamond · Proses otomatis · Garansi penuh</p>
+        <p id="mlSubTitle">Top Up Diamond · Proses otomatis · Garansi penuh</p>
       </div>
     </div>
     <div class="rbx-scroll">
       <div class="rbx-inner" id="mlInner" data-tab="topup">
+        <p class="gm-desc gm-desc-card" id="mlDesc" hidden></p>
         <div class="gm-tabs" role="tablist"><button class="on" onclick="gmTabSwitch('mlInner','topup',this)">Top Up</button><button class="is-locked-tab" onclick="gmTabSwitch('mlInner','akun',this)"><svg class="ic" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-right:5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="11" width="15" height="9.5" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Akun</button></div>
         <div class="gm-akun"><div class="akun-grid" id="mlAkunGrid"></div></div>
         <div class="gm-card">
@@ -2614,6 +2683,7 @@ a.site-banner[href]:active{transform:scale(.99);}
             <h2 id="gmInfoTitle">Top Up</h2>
             <div class="gm-info-line"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1f8a63"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Tersedia di <b>Indonesia</b></div>
             <div class="gm-info-line"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z" fill="#f59f00"/></svg> Proses otomatis · Garansi penuh</div>
+            <p class="gm-desc" id="gmDesc" hidden></p>
             <button type="button" class="gm-tips-btn" onclick="document.getElementById('gmTips').classList.toggle('open')">Cara Beli &amp; Tips</button>
           </div>
           <div class="gm-info-img"><img id="gmInfoImg" src="" alt="" onerror="this.style.display='none'"></div>
@@ -2622,6 +2692,11 @@ a.site-banner[href]:active{transform:scale(.99);}
             <li>Pastikan nickname sudah sesuai akunmu.</li>
             <li>Pilih nominal, tekan <b>Beli Sekarang</b>, dan bayar via QRIS.</li>
             <li>Item masuk otomatis. Butuh bantuan? Hubungi admin 24/7.</li>
+          </ol>
+          <ol class="gm-tips" id="gmTipsAlt" hidden>
+            <li>Isi data yang diminta di kolom sebelah (mis. email atau nomor WhatsApp).</li>
+            <li>Pilih paket, tekan <b>Beli Sekarang</b>, lalu bayar via QRIS.</li>
+            <li>Pesanan diproses admin setelah pembayaran terkonfirmasi. Butuh bantuan? Hubungi admin 24/7.</li>
           </ol>
         </div>
         <div class="gm-layout">
@@ -2635,7 +2710,7 @@ a.site-banner[href]:active{transform:scale(.99);}
               <img id="gmSideImg" src="" alt="" onerror="this.style.display='none'">
               <div>
                 <strong id="gmSideTitle">Top Up</strong>
-                <span class="gm-online"><i></i> Online · Cek username otomatis</span>
+                <span class="gm-online"><i></i> <span id="gmOnlineTxt">Online · Cek username otomatis</span></span>
               </div>
             </div>
             <div class="ml-step"><i>1</i> <span id="gmStepLbl">Masukkan ID</span></div>
@@ -2856,7 +2931,8 @@ function formatRp(n){ return 'Rp' + n.toLocaleString('id-ID'); }
 /* ============ KATALOG: harga & media yang diatur dari Admin ============
    Data dari /api/catalog -> { prices:{idPaket:harga}, media:{kunci:{url,kind,...}} }.
    Kunci media: game:<id> (ikon beranda) · pack:<id> (gambar paket) · site:hero|iklan|logo|banner */
-let CATALOG = {prices:{}, media:{}, updatedAt:0};
+function shNorm(x){ x = (x && typeof x === 'object') ? x : {}; return {items:x.items || {}, extra:x.extra || {}, meta:x.meta || {}, products:Array.isArray(x.products) ? x.products : []}; }
+let CATALOG = {prices:{}, media:{}, shop:shNorm(null), updatedAt:0};
 const CAT_LS = 'meng_catalog_v1';
 const SLOT_DEF = {hero:'assets/shinobu.png', iklan:'assets/iklan.png', logo:'assets/logo.png'};
 function catMedia(key){ const m = CATALOG.media && CATALOG.media[key]; return (m && m.url) ? m : null; }
@@ -2899,10 +2975,10 @@ function catBanner(){
   el.hidden = false;
 }
 function catalogApply(c){
-  CATALOG = {prices:(c && c.prices) || {}, media:(c && c.media) || {}, updatedAt:(c && c.updatedAt) || 0};
+  CATALOG = {prices:(c && c.prices) || {}, media:(c && c.media) || {}, shop:shNorm(c && c.shop), updatedAt:(c && c.updatedAt) || 0};
   try{ if(typeof applyCatalogPrices === 'function') applyCatalogPrices(); }catch(e){ console.warn('harga katalog', e); }
   try{ catSiteSlots(); catBanner(); }catch(e){ console.warn('media situs', e); }
-  try{ renderPromos(); renderClouds(); }catch(_){}
+  try{ renderPromos(); renderClouds(); renderApps(); }catch(_){}
   try{ if(document.getElementById('ml-packs')) renderMlPacks(); }catch(_){}
   try{ if(typeof gmKey !== 'undefined' && gmKey && document.getElementById('gm-packs')) renderGmPacks(); }catch(_){}
   try{ localStorage.setItem(CAT_LS, JSON.stringify(CATALOG)); }catch(_){}
@@ -3056,21 +3132,37 @@ function renderPromos(){
 const CLOUDS = [
   {id:'rf', name:'Redfingger', img:'assets/redfinger.png'}
 ];
+const CLOUDS_BASE = CLOUDS.slice(), PROMOS_BASE = PROMOS.slice();
 const CLOUD_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.6 4.2 4.2 0 0 0 7 18Z"/></svg>`;
 function renderClouds(){
   document.getElementById('cloud-grid').innerHTML = CLOUDS.map(c => `
-    <button type="button" class="tg-item" onclick="tgCloudOpen(this)" aria-label="Sewa ${c.name} Cloud Phone">
+    <button type="button" class="tg-item" onclick="tgCloudOpen(this${c.game ? ",'" + c.game + "'" : ''})" aria-label="Sewa ${escHtml(c.name)} Cloud Phone">
       <span class="tg-img">
         <span class="tg-fb">${CLOUD_ICON}</span>
         ${mediaTag('game:'+c.id, c.img, "this.closest('.tg-item').classList.add('no-img');this.remove()")}
       </span>
-      <span class="tg-name">${c.name}</span>
+      <span class="tg-name">${escHtml(c.name)}</span>
     </button>`).join('');
 }
-function tgCloudOpen(btn){
+function tgCloudOpen(btn, gameKey){
   btn.classList.remove('tg-pop'); void btn.offsetWidth; btn.classList.add('tg-pop');
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  setTimeout(openCloudPhoneModal, reduce ? 0 : 160);
+  setTimeout(gameKey ? () => openGameModal(gameKey) : openCloudPhoneModal, reduce ? 0 : 160);
+}
+/* Aplikasi (produk jenis "app" dari Admin → Produk) */
+let APPS = [];
+function renderApps(){
+  const grid = document.getElementById('app-grid'), empty = document.getElementById('app-empty');
+  if(!grid) return;
+  grid.hidden = !APPS.length; empty.hidden = !!APPS.length;
+  grid.innerHTML = APPS.map(a => `
+    <button type="button" class="tg-item" onclick="tgCloudOpen(this,'${a.game}')" aria-label="Beli ${escHtml(a.name)}">
+      <span class="tg-img">
+        <span class="tg-fb">${ICONS.card || CLOUD_ICON}</span>
+        ${mediaTag('game:'+a.id, a.img, "this.closest('.tg-item').classList.add('no-img');this.remove()")}
+      </span>
+      <span class="tg-name">${escHtml(a.name)}</span>
+    </button>`).join('');
 }
 function tgTab(name){
   document.querySelectorAll('.tg-tab').forEach(t=>{
@@ -3115,9 +3207,9 @@ let mlSel = null;
 function renderMlPacks(){
   document.getElementById('ml-packs').innerHTML = ML_PACKS.map(k => `
     <button type="button" class="ml-pack${mlSel && mlSel.id===k.id ? ' active' : ''}" onclick="mlSelect('${k.id}')">
-      ${k.tag ? `<span class="ml-pack-tag">${k.tag}</span>` : ''}
+      ${k.tag ? `<span class="ml-pack-tag">${escHtml(k.tag)}</span>` : ''}
       <span class="pk-ico">${ICONS.diamond}${mediaTag('pack:'+k.id, 'assets/ml.png', 'this.remove()')}</span>
-      <span class="ml-pack-name">${k.name}</span>
+      <span class="ml-pack-name">${escHtml(k.name)}</span>${k.desc ? `<span class="ml-pack-desc">${escHtml(k.desc)}</span>` : ''}
       ${k.old ? `<span class="ml-pack-old">${formatRp(k.old)}</span>` : ''}
       <span class="ml-pack-price">${formatRp(k.price)}</span>
     </button>
@@ -3556,9 +3648,9 @@ function renderGmPacks(){
     `<button type="button" class="gm-cat${c===gmCat?' active':''}" onclick="gmSetCat(this.dataset.c)" data-c="${escHtml(c)}">${escHtml(c)}</button>`).join('');
   document.getElementById('gm-packs').innerHTML = g.packs.filter(k => gmCatOf(k) === gmCat).map(k => `
     <button type="button" class="ml-pack${gmSel && gmSel.id===k.id ? ' active' : ''}" onclick="gmSelect('${k.id}')">
-      ${k.tag ? `<span class="ml-pack-tag">${k.tag}</span>` : ''}
+      ${k.tag ? `<span class="ml-pack-tag">${escHtml(k.tag)}</span>` : ''}
       <span class="pk-ico${(k.img || catMedia('pack:'+k.id)) ? ' pk-photo' : ''}">${ICONS[g.icon]}${mediaTag('pack:'+k.id, k.img || g.img, 'this.remove()')}</span>
-      <span class="ml-pack-name">${k.name}</span>
+      <span class="ml-pack-name">${escHtml(k.name)}</span>${k.desc ? `<span class="ml-pack-desc">${escHtml(k.desc)}</span>` : ''}
       ${k.old ? `<span class="ml-pack-old">${formatRp(k.old)}</span>` : ''}
       <span class="ml-pack-price">${formatRp(k.price)}</span>
     </button>
@@ -3597,6 +3689,10 @@ function openGameModal(key){
   document.getElementById('gmTitle').textContent = g.title;
   document.getElementById('gmStepLbl').textContent = 'Masukkan ' + g.idLabel + (g.srv ? ' & ' + (g.srv.type === 'select' ? 'Server' : g.srv.label) : '');
   document.getElementById('gmSub').textContent = g.sub || 'Proses otomatis · Garansi penuh';
+  const dEl = document.getElementById('gmDesc'); dEl.textContent = g.desc || ''; dEl.hidden = !g.desc;
+  document.getElementById('gmCheckBtn').style.display = g.noCheck ? 'none' : '';
+  document.getElementById('gmOnlineTxt').textContent = g.noCheck ? 'Online · Proses cepat' : 'Online · Cek username otomatis';
+  document.getElementById('gmTips').hidden = !!g.noCheck; document.getElementById('gmTipsAlt').hidden = !g.noCheck;
   lockPage(true);
   const img = document.getElementById('gmImg');
   img.style.display = ''; img.src = g.img; img.alt = g.short;
@@ -3623,6 +3719,7 @@ function openGameModal(key){
   }
   document.getElementById('gmNickResult').style.display = 'none';
   document.getElementById('gmCheckBtn').disabled = true;
+  if(g.noCheck){ inp.placeholder = g.idLabel; }
   renderGmPacks();
   gmLockUpdate();
   openModal('game-modal');
@@ -3642,6 +3739,13 @@ function gmOnIdInput(){
   const g = GAMES[gmKey]; if(!g) return;
   const v = gmVals();
   document.getElementById('gmCheckBtn').disabled = !gmValid();
+  if(g.noCheck){ // produk tanpa cek nickname: data yang diisi langsung dianggap siap
+    const was = !!gmVerified;
+    gmVerified = gmValid() ? {uid: v.uid, srv: v.srv, name: ''} : null;
+    if(was !== !!gmVerified) renderGmPacks();
+    gmLockUpdate();
+    return;
+  }
   if(gmVerified && (gmVerified.uid !== v.uid || gmVerified.srv !== v.srv)){
     gmVerified = null; gmSel = null;
     document.getElementById('gmNickResult').style.display = 'none';
@@ -3702,13 +3806,14 @@ function gmBuy(){
   const v = gmVals();
   if(!g.idRe.test(v.uid)){ showToast('Masukkan ' + g.idLabel + ' yang valid ya', true); return; }
   if(g.srv && !g.srv.re.test(v.srv)){ showToast((g.srv.type === 'select' ? 'Pilih server' : 'Masukkan ' + g.srv.label + ' yang valid') + ' dulu ya', true); return; }
+  if(g.noCheck && gmValid()) gmVerified = {uid: v.uid, srv: v.srv, name: ''};
   if(!gmVerified || gmVerified.uid !== v.uid || gmVerified.srv !== v.srv){
     showToast('Cek nickname dulu sebelum lanjut ya', true);
     return;
   }
   if(!gmSel){ showToast('Pilih nominal dulu', true); return; }
   const idTxt = v.uid + (g.srv ? '(' + v.srv + ')' : '');
-  const item = {id:gmSel.id, name:g.short + ' – ' + gmSel.name, price:gmSel.price, gameId: idTxt + ' · ' + gmVerified.name, jenis:g.jenis};
+  const item = {id:gmSel.id, name:g.short + ' – ' + gmSel.name, price:gmSel.price, gameId: idTxt + (gmVerified.name ? ' · ' + gmVerified.name : ''), jenis:g.jenis};
   closeModal('game-modal');
   quickBuyOpen(item);
 }
@@ -4249,6 +4354,7 @@ revealEls.forEach(el => io.observe(el));
 // renderProducts(); // Produk Terlaris dihapus, diganti Top Rank
 renderPromos();
 renderClouds();
+renderApps();
 /* Favicon ikut logo.png bila file-nya ada */
 (function(){var t=new Image();t.onload=function(){var l=document.querySelector('link[rel="icon"]');if(l){l.type='image/png';l.href='assets/logo.png';}};t.src='assets/logo.png';})();
 </script>
@@ -4281,7 +4387,7 @@ renderClouds();
 
       <!-- STEP 1: Ringkasan -->
       <div id="cpPanel1">
-        <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;margin-bottom:1.25rem;line-height:1.6;">
+        <div id="cpDesc" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;margin-bottom:1.25rem;line-height:1.6;">
           <strong>Redfingger Cloud Phone</strong> — Sewa HP cloud untuk AFK game, topup otomatis, dan kebutuhan lainnya. Diakses via remote, tidak perlu HP fisik! Aktivasi VIP dikirim <strong>via kode</strong> setelah pembayaran dikonfirmasi.
         </div>
 
@@ -4428,6 +4534,7 @@ renderClouds();
           <div class="adm-tabs" role="tablist" aria-label="Menu admin">
             <button type="button" class="adm-tab on" data-t="orders" role="tab" onclick="admSetTab('orders')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg><span>Pesanan</span><i id="admTabCnt"></i></button>
             <button type="button" class="adm-tab" data-t="price" role="tab" onclick="admSetTab('price')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L2 12V2h10l8.6 8.6a2 2 0 010 2.8z"/><circle cx="7" cy="7" r="1.2"/></svg><span>Harga</span></button>
+            <button type="button" class="adm-tab" data-t="shop" role="tab" onclick="admSetTab('shop')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span>Produk</span></button>
             <button type="button" class="adm-tab" data-t="media" role="tab" onclick="admSetTab('media')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg><span>Media</span></button>
           </div>
           <button type="button" class="adm-logout" onclick="doAdminLogout()">Logout</button>
@@ -4510,6 +4617,13 @@ renderClouds();
           <div class="adm-toolbar"><input class="inp-field" id="pzSearch" type="text" placeholder="Cari paket atau game..." autocomplete="off" style="flex:1;-webkit-user-select:text;user-select:text;" oninput="pzQuery=this.value;pzRender()" /></div>
           <div id="pzList"></div>
           <div class="pz-bar" id="pzBar" hidden><span><b id="pzCount">0</b> perubahan belum disimpan</span><button type="button" class="ghost" onclick="pzDiscard()">Batal</button><button type="button" class="main" id="pzSaveBtn" onclick="pzSave()">Simpan</button></div>
+        </div>
+
+        <!-- TAB PRODUK -->
+        <div class="adm-pane" id="admPaneShop" hidden>
+          <div class="adm-note"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/></svg><div><b>Kelola produk</b><span>Ubah jumlah Robux / item, nama &amp; deskripsi paket, sembunyikan paket, atau tambah <em>game</em>, <em>cloud phone</em> dan <em>aplikasi</em> baru. Tekan <i>Simpan</i> agar tampil di toko tanpa deploy ulang.</span></div></div>
+          <div id="shRoot" oninput="shInput(event)" onchange="shInput(event)" onclick="shClick(event)" onfocusout="shBlur(event)"></div>
+          <div class="pz-bar" id="shBar" hidden><span>Ada <b>perubahan</b> belum disimpan</span><button type="button" class="ghost" onclick="shDiscard()">Batal</button><button type="button" class="main" id="shSaveBtn" onclick="shSave()">Simpan</button></div>
         </div>
 
         <!-- TAB MEDIA -->
@@ -5044,10 +5158,10 @@ function doCheckFollow() {
 function renderPaketList(listEl, items, mode) {
   if (mode === 'joki') {
     listEl.innerHTML = items.map((p, i) => `
-      <div class="paket-row" data-idx="${i}" data-mode="${mode}" onclick="selectPaketRow(this, ${JSON.stringify(p).replace(/"/g,"'")}, '${mode}')">
+      <div class="paket-row" data-idx="${i}" data-mode="${mode}" onclick="selectPaketAt(this, ${i}, '${mode}')">
         <div class="pico"><svg width="1em" height="1em" viewBox="0 0 24 24"><defs><linearGradient id="jokiPicoGrad${i}" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#cfc8ff"/><stop offset="50%" stop-color="#7c6cf0"/><stop offset="100%" stop-color="#4a3bb5"/></linearGradient></defs><path d="M12 2 L20 5.2 V11 C20 16.2 16.6 20.2 12 22 C7.4 20.2 4 16.2 4 11 V5.2 Z" fill="url(#jokiPicoGrad${i})" stroke="url(#jokiPicoGrad${i})" stroke-width="1" stroke-linejoin="round"/><path d="M7.8 13.2l4.2-3.7 4.2 3.7" fill="none" stroke="#08181c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <div class="pinf">
-          <div class="pnam">${p.lvl} Level</div>
+          <div class="pnam">${p.lvl} Level</div>${p.desc ? `<div class="pdesc">${escHtml(p.desc)}</div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div class="ppri">${rp(p.harga)}</div>
@@ -5060,10 +5174,10 @@ function renderPaketList(listEl, items, mode) {
   }
   if (mode === 'follow') {
     listEl.innerHTML = items.map((p, i) => `
-      <div class="paket-row" data-idx="${i}" data-mode="${mode}" onclick="selectPaketRow(this, ${JSON.stringify(p).replace(/"/g,"'")}, '${mode}')">
+      <div class="paket-row" data-idx="${i}" data-mode="${mode}" onclick="selectPaketAt(this, ${i}, '${mode}')">
         <div class="pico"><svg width="1.1em" height="1.1em" viewBox="0 0 24 24"><defs><linearGradient id="folg${i}" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f5d0fe"/><stop offset="50%" stop-color="#d946ef"/><stop offset="100%" stop-color="#701a75"/></linearGradient></defs><circle cx="9.6" cy="8.6" r="4" fill="url(#folg${i})"/><path d="M3.2 20.2c0-3.6 2.9-6.3 6.4-6.3s6.4 2.7 6.4 6.3" fill="none" stroke="url(#folg${i})" stroke-width="2" stroke-linecap="round"/><circle cx="18.3" cy="7.3" r="3.2" fill="none" stroke="url(#folg${i})" stroke-width="1.6"/><path d="M18.3 5.6v3.4M16.6 7.3h3.4" stroke="url(#folg${i})" stroke-width="1.6" stroke-linecap="round"/></svg></div>
         <div class="pinf">
-          <div class="pnam">${p.flw.toLocaleString('id-ID')} Pengikut</div>
+          <div class="pnam">${p.flw.toLocaleString('id-ID')} Pengikut</div>${p.desc ? `<div class="pdesc">${escHtml(p.desc)}</div>` : ''}
         </div>
         <div style="text-align:right;flex-shrink:0;">
           <div class="ppri">${rp(p.harga)}</div>
@@ -5075,10 +5189,10 @@ function renderPaketList(listEl, items, mode) {
     return;
   }
   listEl.innerHTML = items.map((p, i) => `
-    <div class="paket-row ${mode==='slow'?'paket-row-slow':''}" data-idx="${i}" data-mode="${mode}" onclick="selectPaketRow(this, ${JSON.stringify(p).replace(/"/g,"'")}, '${mode}')">
+    <div class="paket-row ${mode==='slow'?'paket-row-slow':''}" data-idx="${i}" data-mode="${mode}" onclick="selectPaketAt(this, ${i}, '${mode}')">
       <div class="pico"><img class="rbx-ico" src="assets/robux.png" alt="" onerror="var s=this.nextElementSibling;s.style.display='';this.remove()"><svg style="display:none" width="1.15em" height="1.15em" viewBox="0 0 24 24"><defs><linearGradient id="rbxg${i}" x1="4" y1="2" x2="20" y2="22" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#f7dfa0"/><stop offset="45%" stop-color="#d9ae42"/><stop offset="100%" stop-color="#93691a"/></linearGradient></defs><polygon points="12,1.4 20.6,6.6 20.6,16.4 12,22.6 3.4,16.4 3.4,6.6" fill="url(#rbxg${i})" stroke="url(#rbxg${i})" stroke-width="1.3" stroke-linejoin="round"/><rect x="9" y="9" width="6" height="6" rx="1.6" fill="#26190a"/></svg></div>
       <div class="pinf">
-        <div class="pnam">${mode==='premium' ? 'Premium ' : ''}${p.rbx} Robux</div>
+        <div class="pnam">${mode==='premium' ? 'Premium ' : ''}${p.rbx} Robux</div>${p.desc ? `<div class="pdesc">${escHtml(p.desc)}</div>` : ''}
       </div>
       <div style="text-align:right;flex-shrink:0;">
         <div class="ppri">${rp(p.harga)}</div>
@@ -5089,10 +5203,14 @@ function renderPaketList(listEl, items, mode) {
   `).join('');
 }
 
+function selectPaketAt(el, i, mode) {
+  const list = ({slow:paketSlow, premium:paketFastPremium, robux:paketFastRobux, vu:paketUsername, follow:paketFollower, joki:paketJoki})[mode];
+  if (list && list[i]) selectPaketRow(el, list[i], mode);
+}
 function selectPaketRow(el, p, mode) {
   document.querySelectorAll('.paket-row').forEach(r => r.classList.remove('sel'));
   el.classList.add('sel');
-  const pid = ({slow:'slow-', premium:'prem-', robux:'fast-', vu:'vu-', follow:'flw-', joki:'joki-'}[mode] || mode + '-') + (p.lvl || p.flw || p.rbx);
+  const pid = p._id || (({slow:'slow-', premium:'prem-', robux:'fast-', vu:'vu-', follow:'flw-', joki:'joki-'}[mode] || mode + '-') + (p.lvl || p.flw || p.rbx));
   if (mode === 'joki') {
     selectedPaket = { id: pid, lvl: p.lvl, harga: p.harga, label: p.lvl + ' Level' };
     $('ringkasan').style.display = 'flex';
@@ -6340,50 +6458,164 @@ function pushOrder() { /* tidak dipakai lagi: pesanan disimpan server saat QR di
 
 
 /* Ported: Top Rank leaderboard (from DexBlox) */
-/* ── KATALOG: registri paket (harga) & slot media ─────── */
-let _PR = null;
-function priceRegistry(){
-  if(_PR) return _PR;
+/* ── KATALOG: registri paket, perubahan admin & produk kustom ─────── */
+/* Data bawaan (paketSlow, ML_PACKS, GAMES, kartu Cloud Phone) di-snapshot sekali, lalu setiap katalog
+   dari server diterapkan ulang di atas snapshot itu: harga, jumlah/nama, deskripsi, paket tambahan,
+   paket yang disembunyikan, dan produk baru (game / cloud phone / aplikasi). */
+const RBX_GROUPS = [
+  {gid:'slow', group:'Robux 5–7 Hari',            list:paketSlow,        prefix:'slow-', key:'rbx', unit:'Robux',    pre:''},
+  {gid:'prem', group:'Robux Via Login · Premium', list:paketFastPremium, prefix:'prem-', key:'rbx', unit:'Robux',    pre:'Premium '},
+  {gid:'fast', group:'Robux Via Login · Robux',   list:paketFastRobux,   prefix:'fast-', key:'rbx', unit:'Robux',    pre:''},
+  {gid:'vu',   group:'Robux Via Username',        list:paketUsername,    prefix:'vu-',   key:'rbx', unit:'Robux',    pre:''},
+  {gid:'flw',  group:'Pengikut Roblox',           list:paketFollower,    prefix:'flw-',  key:'flw', unit:'Pengikut', pre:''},
+  {gid:'joki', group:'Joki Level',                list:paketJoki,        prefix:'joki-', key:'lvl', unit:'Level',    pre:''}
+];
+const SHOP_NOIMG = 'assets/none.png';   // sengaja tidak ada -> tampil ikon bawaan
+const GP_RATE = 1.43;                   // harga gamepass = jumlah Robux × 1,43 (sama dengan data bawaan)
+let _GROUPS = null, SUB0 = {}, ML_SUB0 = '', CPDESC0 = null;
+
+
+/* Daftar grup paket bawaan + snapshot barisnya (dibuat sekali, SEBELUM katalog pertama diterapkan) */
+function shGroups(){
+  if(_GROUPS) return _GROUPS;
   const out = [];
-  const lst = (group, list, prefix, key, nameFn, prodFn) => list.forEach(p => out.push({group, id: prefix + p[key], name: nameFn(p), produk: prodFn(p), base: p.harga, set: v => { p.harga = v; }}));
-  lst('Robux 5–7 Hari',          paketSlow,         'slow-', 'rbx', p => p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
-  lst('Robux Via Login · Premium', paketFastPremium, 'prem-', 'rbx', p => 'Premium ' + p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
-  lst('Robux Via Login · Robux',   paketFastRobux,    'fast-', 'rbx', p => p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
-  lst('Robux Via Username',      paketUsername,     'vu-',   'rbx', p => p.rbx.toLocaleString('id-ID') + ' Robux', p => p.rbx + ' Robux');
-  lst('Pengikut Roblox',         paketFollower,     'flw-',  'flw', p => p.flw.toLocaleString('id-ID') + ' Pengikut', p => p.flw + ' Pengikut');
-  lst('Joki Level',              paketJoki,         'joki-', 'lvl', p => p.lvl + ' Level', p => p.lvl + ' Level');
-  document.querySelectorAll('.cp-paket-card').forEach(card => {
-    out.push({group:'Cloud Phone Redfingger', id:'cp-' + card.dataset.hari, name:'VIP ' + card.dataset.hari + ' Hari', produk:'Redfingger Cloud Phone · VIP ' + card.dataset.hari + ' Hari', base: parseInt(card.dataset.harga, 10),
-      set: v => {
+  RBX_GROUPS.forEach(G => out.push({gid:G.gid, group:G.group, mode:'rbx', unit:G.unit, pre:G.pre, key:G.key, list:G.list,
+    rows:G.list.map(p => ({id:G.prefix + p[G.key], qty:p[G.key], name:G.pre + p[G.key] + ' ' + G.unit, price:p.harga, tag:p.hot || '', gp:p.gp}))}));
+  const ml = document.getElementById('mlSubTitle'); ML_SUB0 = ml ? ml.textContent : '';
+  const cd = document.getElementById('cpDesc'); CPDESC0 = cd ? cd.innerHTML : null;
+  out.push({gid:'ml', group:'Mobile Legends', mode:'list', produkPre:'ML – ', img:'assets/ml.png', list:ML_PACKS,
+    rows:ML_PACKS.map(k => ({id:k.id, name:k.name, price:k.price, tag:k.tag || '', cat:k.cat || '', raw:Object.assign({}, k)}))});
+  Object.keys(GAMES).forEach(key => { const g = GAMES[key]; if(g.custom) return; SUB0[key] = g.sub || '';
+    out.push({gid:key, group:g.short, mode:'list', produkPre:g.short + ' – ', img:g.img, list:g.packs, cats:true,
+      rows:g.packs.map(k => ({id:k.id, name:k.name, price:k.price, tag:k.tag || '', cat:k.cat || '', img:k.img, raw:Object.assign({}, k)}))});
+  });
+  const cp = [];
+  document.querySelectorAll('.cp-paket-card').forEach(card => cp.push({id:'cp-' + card.dataset.hari, name:'VIP ' + card.dataset.hari + ' Hari', price:parseInt(card.dataset.harga, 10)}));
+  out.push({gid:'cp', group:'Cloud Phone Redfingger', mode:'cp', rows:cp});
+  return (_GROUPS = out);
+}
+const shGroup = gid => shGroups().find(G => G.gid === gid);
+
+/* Baris efektif sebuah grup: paket bawaan (+ perubahan admin) lalu paket tambahan.
+   `sh` = katalog toko (terapan atau draf), `priceOf(id, hargaBawaan)` = harga yang berlaku. */
+function shEffRows(G, sh, priceOf){
+  const out = [];
+  G.rows.forEach(s => {
+    const o = (G.mode === 'cp' ? null : sh.items[s.id]) || {};
+    const r = {id:s.id, base:true, snap:s, hidden:!!o.hidden, desc:o.desc || '', price:priceOf(s.id, s.price), tag:o.tag != null ? o.tag : (s.tag || ''), cat:s.cat || ''};
+    if(G.mode === 'rbx'){ r.qty = o.qty || s.qty; r.name = G.pre + r.qty + ' ' + G.unit; r.gp = (o.qty && o.qty !== s.qty) ? Math.round(r.qty * GP_RATE) : s.gp; }
+    else r.name = o.name || s.name;
+    out.push(r);
+  });
+  if(G.mode === 'cp') return out;
+  (sh.extra[G.gid] || []).forEach(e => {
+    const r = {id:e.id, base:false, extra:e, hidden:false, desc:e.desc || '', price:e.price, tag:e.tag || '', cat:e.cat || ''};
+    if(G.mode === 'rbx'){ r.qty = e.qty; r.name = G.pre + e.qty + ' ' + G.unit; r.gp = Math.round(e.qty * GP_RATE); }
+    else r.name = e.name || String(e.qty);
+    out.push(r);
+  });
+  return out;
+}
+const shProduk = (G, r) => G.mode === 'rbx' ? r.qty + ' ' + G.unit : (G.produkPre || '') + r.name;
+
+/* Terapkan katalog ke data toko (dipanggil tiap katalog baru dari server). */
+function applyShop(){
+  const sh = CATALOG.shop, M = sh.meta;
+  const priceOf = (id, b) => { const o = Number(CATALOG.prices[id]); return Number.isFinite(o) && o > 0 ? Math.round(o) : b; };
+
+  shGroups().forEach(G => {
+    if(G.mode === 'cp'){
+      document.querySelectorAll('.cp-paket-card').forEach(card => {
+        const id = 'cp-' + card.dataset.hari, s = G.rows.find(r => r.id === id); if(!s) return;
+        const v = priceOf(id, s.price);
         card.dataset.harga = String(v);
         const pe = Array.from(card.children).reverse().find(e => /^Rp/.test(e.textContent.trim()));
         if(pe) pe.textContent = rp(v);
-      }});
+      });
+      return;
+    }
+    const rows = shEffRows(G, sh, priceOf).filter(r => !r.hidden);
+    G.list.length = 0;
+    if(G.mode === 'rbx'){
+      rows.sort((a, b) => a.qty - b.qty).forEach(r => {
+        const p = {_id:r.id, harga:r.price}; p[G.key] = r.qty;
+        if(r.tag) p.hot = r.tag;
+        if(r.desc) p.desc = r.desc;
+        if(G.gid === 'slow') p.gp = r.gp;
+        G.list.push(p);
+      });
+    } else {
+      rows.forEach(r => {
+        const k = Object.assign({}, (r.snap && r.snap.raw) || {}, {id:r.id, name:r.name, price:r.price});
+        if(r.tag) k.tag = r.tag; else delete k.tag;
+        if(r.desc) k.desc = r.desc; else delete k.desc;
+        if(!r.base && r.cat) k.cat = r.cat;
+        G.list.push(k);
+      });
+    }
   });
-  ML_PACKS.forEach(k => out.push({group:'Mobile Legends', id:k.id, name:k.name, produk:'ML – ' + k.name, base:k.price, set: v => { k.price = v; }, media:true, def:'assets/ml.png'}));
-  Object.keys(GAMES).forEach(key => { const g = GAMES[key];
-    g.packs.forEach(k => out.push({group:g.short, id:k.id, name:k.name, produk:g.short + ' – ' + k.name, base:k.price, set: v => { k.price = v; }, media:true, def:k.img || g.img}));
+
+  // subjudul & deskripsi produk bawaan
+  Object.keys(GAMES).forEach(k => { const g = GAMES[k]; if(g.custom) return; const m = M[k] || {}; g.sub = m.sub || SUB0[k] || g.sub; g.desc = m.desc || ''; });
+  const mm = M.ml || {}, mt = document.getElementById('mlSubTitle'), md = document.getElementById('mlDesc');
+  if(mt) mt.textContent = mm.sub || ML_SUB0;
+  if(md){ md.textContent = mm.desc || ''; md.hidden = !mm.desc; }
+  const cd = document.getElementById('cpDesc');
+  if(cd && CPDESC0 != null){ if(M.rf && M.rf.desc) cd.textContent = M.rf.desc; else cd.innerHTML = CPDESC0; }
+
+  // daftar beranda: produk bawaan (kecuali disembunyikan) + produk baru
+  Object.keys(GAMES).forEach(k => { if(GAMES[k].custom) delete GAMES[k]; });
+  PROMOS.length = 0;
+  PROMOS_BASE.forEach(p => { const key = p.modal === 'game' ? p.game : p.modal === 'ml' ? 'ml' : ''; if(key && M[key] && M[key].hidden) return; PROMOS.push(p); });
+  CLOUDS.length = 0;
+  CLOUDS_BASE.forEach(c => { if(M[c.id] && M[c.id].hidden) return; CLOUDS.push(c); });
+  APPS = [];
+  sh.products.forEach(p => {
+    if(p.hidden || !p.packs.length) return;   // tanpa paket = belum siap dijual
+    const m = catMedia('game:' + p.id), img = (m && m.kind !== 'video') ? m.url : SHOP_NOIMG;
+    const isGame = p.kind === 'game';
+    GAMES[p.id] = {custom:true, noCheck:true, title:p.name, short:p.name, sub:p.sub || '', desc:p.desc || '', img,
+      jenis:(isGame ? 'Top Up ' : p.kind === 'cloud' ? 'Cloud Phone ' : 'Aplikasi ') + p.name,
+      idLabel:p.idLabel, idRe:/^[\s\S]{2,80}$/, max:80, icon:isGame ? 'gem' : 'card', text:true,
+      packs:p.packs.map(k => ({id:k.id, name:k.name, price:k.price, tag:k.tag || undefined, desc:k.desc || undefined, cat:isGame ? 'Top Up' : 'Paket'}))};
+    const tile = {id:p.id, name:p.name, game:p.id, img:SHOP_NOIMG};
+    if(isGame) PROMOS.push({id:p.id, name:p.name, icon:'gem', modal:'game', game:p.id, img:SHOP_NOIMG});
+    else if(p.kind === 'cloud') CLOUDS.push(tile);
+    else APPS.push(tile);
   });
-  return (_PR = out);
+
+  // pilihan yang sedang terbuka mengikuti data terbaru
+  if(typeof mlSel !== 'undefined' && mlSel) mlSel = ML_PACKS.find(k => k.id === mlSel.id) || null;
+  if(typeof gmKey !== 'undefined' && gmKey){
+    if(GAMES[gmKey]) gmSel = gmSel ? (GAMES[gmKey].packs.find(k => k.id === gmSel.id) || null) : null;
+    else { gmKey = null; gmSel = null; }
+  }
 }
-function applyCatalogPrices(){
-  priceRegistry().forEach(it => {
-    const o = Number(CATALOG.prices[it.id]);
-    it.set(Number.isFinite(o) && o > 0 ? Math.round(o) : it.base);
-  });
+
+/* Registri harga untuk tab Harga: hanya paket bawaan, memakai harga bawaan asli (snapshot). */
+function priceRegistry(){
+  const out = [], items = CATALOG.shop.items;
+  shGroups().forEach(G => G.rows.forEach(s => {
+    const o = (G.mode === 'cp' ? null : items[s.id]) || {};
+    const name = G.mode === 'rbx' ? G.pre + (o.qty || s.qty) + ' ' + G.unit : (o.name || s.name);
+    out.push({group:G.group, id:s.id, name, base:s.price, media:G.mode === 'list', def:s.img || G.img});
+  }));
+  return out;
 }
-function catalogInit(){ priceRegistry(); catalogLoad(); }
+function applyCatalogPrices(){ applyShop(); }
+function catalogInit(){ shGroups(); catalogLoad(); }
 
 /* ── ADMIN: tab ───────────────────────────────────────── */
 let admTab = 'orders';
 function admSetTab(t){
   admTab = t;
   document.querySelectorAll('.adm-tab').forEach(b => b.classList.toggle('on', b.dataset.t === t));
-  [['orders','admPaneOrders'],['price','admPanePrice'],['media','admPaneMedia']].forEach(([k,id]) => { $(id).hidden = (k !== t); });
+  [['orders','admPaneOrders'],['price','admPanePrice'],['shop','admPaneShop'],['media','admPaneMedia']].forEach(([k,id]) => { $(id).hidden = (k !== t); });
   if(t === 'price') pzRender();
+  if(t === 'shop') shRender();
   if(t === 'media') mdRender();
 }
-function admCatReset(){ pzDraft = {}; pzQuery = ''; mdBusy = {}; admSetTab('orders'); }
+function admCatReset(){ pzDraft = {}; pzQuery = ''; mdBusy = {}; shDraft = null; shView = null; shQuery = ''; admSetTab('orders'); }
 
 /* Panggilan API admin (JSON) */
 async function admApi(path, body){
@@ -6506,6 +6738,328 @@ async function pzSave(){
   b.disabled = false; b.textContent = 'Simpan';
 }
 
+/* ── ADMIN: PRODUK (jumlah, nama, deskripsi, game / cloud phone / aplikasi baru) ───────── */
+let shDraft = null;      // salinan kerja katalog toko; null = belum ada yang disentuh
+let shView = null;       // null = daftar produk; selain itu id produk yang sedang diedit
+let shQuery = '';
+const shClone = o => JSON.parse(JSON.stringify(o));
+const shRid = n => { const c = 'abcdefghijklmnopqrstuvwxyz0123456789'; let s = ''; for(let i = 0; i < n; i++) s += c[Math.floor(Math.random() * c.length)]; return s; };
+function shEnsure(){ if(!shDraft) shDraft = shClone(CATALOG.shop); return shDraft; }
+function shClean(d){
+  Object.keys(d.items).forEach(id => { if(!Object.keys(d.items[id]).length) delete d.items[id]; });
+  Object.keys(d.extra).forEach(g => { if(!d.extra[g].length) delete d.extra[g]; });
+  Object.keys(d.meta).forEach(k => { if(!Object.keys(d.meta[k]).length) delete d.meta[k]; });
+  return d;
+}
+const shChanged = () => !!shDraft && JSON.stringify(shClean(shClone(shDraft))) !== JSON.stringify(shClean(shClone(CATALOG.shop)));
+function shBar(){ const on = shChanged() || Object.keys(pzDraft).length > 0; const b = $('shBar'); if(b) b.hidden = !on; }
+const shPriceOf = (id, b) => pzCur({id, base:b});
+const shKinds = {game:'Game', cloud:'Cloud Phone', app:'Aplikasi'};
+
+/* Target yang bisa diedit: produk bawaan, grup Roblox, atau produk baru */
+function shTarget(tid){
+  const sh = shEnsure();
+  if(!tid) return null;
+  if(tid.startsWith('g:')){ const G = shGroup(tid.slice(2)); return G ? {tid, G, title:G.group, kind:'roblox'} : null; }
+  if(tid === 'ml'){ const G = shGroup('ml'); return {tid, G, title:'Mobile Legends', kind:'game', metaKey:'ml', media:'game:d1'}; }
+  if(tid === 'rf'){ const G = shGroup('cp'); return {tid, G, title:'Redfingger', kind:'cloud', metaKey:'rf', media:'game:rf', priceOnly:true}; }
+  const p = sh.products.find(x => x.id === tid);
+  if(p) return {tid, product:p, title:p.name || 'Produk baru', kind:p.kind, media:'game:' + p.id};
+  const G = shGroup(tid);
+  if(G && G.mode === 'list' && GAMES[tid]) { const pr = PROMOS_BASE.find(x => x.game === tid); return {tid, G, title:G.group, kind:'game', metaKey:tid, media:'game:' + (pr ? pr.id : tid)}; }
+  return null;
+}
+function shTargetList(){
+  const sh = shEnsure(), out = [];
+  const meta = k => sh.meta[k] || {};
+  out.push({sec:'Game', t:{tid:'ml', title:'Mobile Legends'}, img:'assets/ml.png', mk:'game:d1', hidden:!!meta('ml').hidden, n:shGroup('ml').rows.length + (sh.extra.ml || []).length});
+  Object.keys(GAMES).filter(k => !GAMES[k].custom).forEach(k => {
+    const G = shGroup(k), pr = PROMOS_BASE.find(x => x.game === k);
+    out.push({sec:'Game', t:{tid:k, title:G.group}, img:G.img, mk:'game:' + (pr ? pr.id : k), hidden:!!meta(k).hidden, n:G.rows.length + (sh.extra[k] || []).length});
+  });
+  sh.products.filter(p => p.kind === 'game').forEach(p => out.push({sec:'Game', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
+  out.push({sec:'Cloud Phone', t:{tid:'rf', title:'Redfingger'}, img:'assets/redfinger.png', mk:'game:rf', hidden:!!meta('rf').hidden, n:shGroup('cp').rows.length});
+  sh.products.filter(p => p.kind === 'cloud').forEach(p => out.push({sec:'Cloud Phone', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
+  sh.products.filter(p => p.kind === 'app').forEach(p => out.push({sec:'Aplikasi', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
+  RBX_GROUPS.forEach(G => out.push({sec:'Roblox', t:{tid:'g:' + G.gid, title:G.group}, roblox:true, n:shGroup(G.gid).rows.length + (sh.extra[G.gid] || []).length}));
+  return out;
+}
+
+/* ── tampilan daftar ── */
+function shListHtml(){
+  const q = shQuery.trim().toLowerCase();
+  const list = shTargetList().filter(x => !q || x.t.title.toLowerCase().includes(q));
+  const secs = ['Game', 'Cloud Phone', 'Aplikasi', 'Roblox'];
+  const addBtn = {Game:'game', 'Cloud Phone':'cloud', Aplikasi:'app'};
+  return `<div class="adm-toolbar"><input class="inp-field" type="text" placeholder="Cari produk..." value="${escHtml(shQuery)}" autocomplete="off" style="flex:1;-webkit-user-select:text;user-select:text;" oninput="shQuery=this.value;shRender(true)"></div>` +
+    secs.map(sec => {
+      const items = list.filter(x => x.sec === sec);
+      const add = addBtn[sec] ? `<button type="button" class="sh-add" data-a="new" data-kind="${addBtn[sec]}">+ ${sec === 'Game' ? 'Tambah Game' : sec === 'Cloud Phone' ? 'Tambah Cloud Phone' : 'Tambah Aplikasi'}</button>` : '';
+      const empty = !items.length ? `<div class="sh-empty">${q ? 'Tidak ada yang cocok.' : 'Belum ada ' + sec.toLowerCase() + ' baru. Tekan tombol di atas untuk menambah.'}</div>` : '';
+      return `<div class="sh-sec"><div class="sh-sec-h"><b>${sec}</b>${add}</div>` +
+        items.map(x => `<button type="button" class="sh-item${x.hidden ? ' off' : ''}" data-a="open" data-tid="${escHtml(x.t.tid)}">
+          <span class="sh-th">${x.roblox ? '<svg viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.6" stroke-linejoin="round"><polygon points="12,2 20.5,7 20.5,17 12,22 3.5,17 3.5,7"/></svg>' : mdPrev(CATALOG.media[x.mk] || null, x.img || '')}</span>
+          <span class="sh-tx"><b>${escHtml(x.t.title)}</b><small>${x.n} paket${x.custom ? ' · Kustom' : ''}${x.hidden ? ' · Disembunyikan' : (x.custom && !x.n ? ' · Belum tampil (tanpa paket)' : '')}</small></span>
+          <span class="sh-go">›</span></button>`).join('') + (q && !items.length && !add ? '' : empty) + '</div>';
+    }).join('');
+}
+
+/* ── tampilan editor satu produk ── */
+function shRowsOf(T){
+  if(T.product) return T.product.packs.map(k => ({id:k.id, base:false, custom:true, obj:k, name:k.name, price:k.price, tag:k.tag || '', desc:k.desc || ''}));
+  return shEffRows(T.G, shDraft, shPriceOf);
+}
+function shRowHtml(T, r){
+  const G = T.G, rbx = G && G.mode === 'rbx';
+  const first = rbx
+    ? `<label class="sh-f sh-q"><span>Jumlah (${G.unit})</span><input data-f="qty" inputmode="numeric" autocomplete="off" value="${r.qty.toLocaleString('id-ID')}"></label>`
+    : T.priceOnly ? `<div class="sh-nm"><span>Paket</span><b>${escHtml(r.name)}</b></div>`
+    : `<label class="sh-f sh-nm"><span>Nama paket</span><input data-f="name" maxlength="80" autocomplete="off" value="${escHtml(r.name)}"></label>`;
+  const price = `<label class="sh-f sh-p"><span>Harga</span><i>Rp</i><input data-f="price" inputmode="numeric" autocomplete="off" value="${Number(r.price).toLocaleString('id-ID')}"></label>`;
+  let more = '', acts = '';
+  if(!T.priceOnly){
+    more = `<label class="sh-f sh-d"><span>Deskripsi paket (opsional)</span><input data-f="desc" maxlength="200" autocomplete="off" placeholder="Mis. Bonus, masa aktif, syarat…" value="${escHtml(r.desc)}"></label>
+      <label class="sh-f sh-t"><span>Label</span><input data-f="tag" maxlength="12" autocomplete="off" placeholder="HOT" value="${escHtml(r.tag)}"></label>`;
+    if(G && G.mode === 'list' && !r.base && G.gid !== 'ml') more += `<label class="sh-f sh-c"><span>Kategori</span><input data-f="cat" maxlength="40" list="shCats" autocomplete="off" placeholder="Otomatis" value="${escHtml(r.cat || '')}"></label>`;
+    if(r.base) acts = `<button type="button" class="sh-b" data-a="hide">${r.hidden ? 'Tampilkan' : 'Sembunyikan'}</button>`;
+    else acts = `<button type="button" class="sh-b del" data-a="del">Hapus</button>`;
+  }
+  const changed = r.base && (!!(shDraft.items[r.id] && Object.keys(shDraft.items[r.id]).length) || (r.id in pzDraft));
+  if(r.base && (changed || r.hidden) && !T.priceOnly) acts += `<button type="button" class="sh-b" data-a="reset" title="Kembalikan ke bawaan">↺ Bawaan</button>`;
+  else if(r.base && T.priceOnly && changed) acts += `<button type="button" class="sh-b" data-a="reset">↺ Bawaan</button>`;
+  return `<div class="sh-pack${r.hidden ? ' off' : ''}${changed ? ' changed' : ''}${!r.base ? ' new' : ''}" data-id="${escHtml(r.id)}">
+    <div class="sh-r1">${first}${price}</div>
+    ${more ? `<div class="sh-r2">${more}</div>` : ''}
+    ${acts ? `<div class="sh-r3">${r.hidden ? '<em>Disembunyikan dari toko</em>' : (!r.base && !r.custom ? '<em>Paket baru</em>' : '')}${acts}</div>` : ''}
+  </div>`;
+}
+function shEditorHtml(){
+  const T = shTarget(shView); if(!T){ shView = null; return shListHtml(); }
+  const sh = shDraft, p = T.product, m = T.metaKey ? (sh.meta[T.metaKey] || {}) : {};
+  const hidden = p ? p.hidden : !!m.hidden;
+  let card = '';
+  const fld = (lbl, f, val, o = {}) => `<label class="sh-f sh-w"><span>${lbl}</span>${o.area ? `<textarea data-p="${f}" maxlength="${o.max}" rows="3" placeholder="${escHtml(o.ph || '')}">${escHtml(val)}</textarea>` : `<input data-p="${f}" maxlength="${o.max}" autocomplete="off" placeholder="${escHtml(o.ph || '')}" value="${escHtml(val)}">`}</label>`;
+  if(p){
+    const mk = T.media, mm = CATALOG.media[mk] || null;
+    card = `<div class="sh-card">
+      <div class="sh-kind">${shKinds[p.kind]} · ID produk <code>${p.id}</code></div>
+      ${fld('Nama ' + shKinds[p.kind].toLowerCase(), 'name', p.name, {max:50, ph:p.kind === 'game' ? 'Mis. Valorant' : p.kind === 'cloud' ? 'Mis. UGPhone' : 'Mis. Netflix Premium'})}
+      ${fld('Subjudul singkat (di bawah nama)', 'sub', p.sub, {max:120, ph:'Mis. Top up VP · Proses otomatis'})}
+      ${fld('Deskripsi', 'desc', p.desc, {max:600, area:true, ph:'Penjelasan produk, cara aktivasi, syarat & ketentuan…'})}
+      ${fld('Label kolom data pembeli', 'idLabel', p.idLabel, {max:40, ph:p.kind === 'game' ? 'Player ID' : 'Email / No. WhatsApp'})}
+      <div class="sh-img"><div class="sh-imgp" id="shImgP">${mdPrev(mm, '')}</div>
+        <div class="sh-imga"><span>Gambar / ikon di beranda</span>
+          <div><button type="button" class="md-b up" data-a="img-up">${mm ? 'Ganti' : 'Upload'}</button> <button type="button" class="md-b" data-a="img-link">Link</button>${mm ? ' <button type="button" class="md-b del" data-a="img-del">Hapus</button>' : ''}</div>
+          <small id="shImgStat">PNG · JPG · WebP · GIF · MP4 (maks 4 MB)</small></div></div>
+      <label class="sh-sw"><input type="checkbox" data-p="show" ${p.hidden ? '' : 'checked'}><span>Tampilkan di toko</span></label>
+      <div class="sh-note">Pembeli mengisi satu kolom data (sesuai label di atas), memilih paket, lalu bayar QRIS. Pesanan masuk ke tab Pesanan. Produk baru baru tampil di toko setelah punya minimal 1 paket.</div>
+    </div>`;
+  } else if(T.metaKey){
+    card = `<div class="sh-card">
+      ${fld('Subjudul singkat', 'sub', m.sub || '', {max:120, ph:T.metaKey === 'rf' ? '(tidak dipakai untuk Redfingger)' : (T.metaKey === 'ml' ? ML_SUB0 : (SUB0[T.metaKey] || ''))})}
+      ${fld('Deskripsi', 'desc', m.desc || '', {max:600, area:true, ph:'Ditampilkan di halaman produk. Kosongkan untuk memakai teks bawaan.'})}
+      <label class="sh-sw"><input type="checkbox" data-p="show" ${hidden ? '' : 'checked'}><span>Tampilkan di beranda</span></label>
+    </div>`;
+  }
+  const rows = shRowsOf(T);
+  const cats = T.G && T.G.mode === 'list' ? [...new Set([...T.G.rows.map(r => r.cat).filter(Boolean), GM_CUR[T.G.gid] || 'Top Up', 'Pass & Paket'])] : [];
+  const canAdd = !T.priceOnly;
+  return `<div class="sh-top"><button type="button" class="sh-back" data-a="back">‹ Semua produk</button><h3>${escHtml(T.title)}</h3></div>
+    ${card}
+    <div class="sh-sec-h"><b>Paket (${rows.length})</b>${canAdd ? '<button type="button" class="sh-add" data-a="addpack">+ Tambah paket</button>' : ''}</div>
+    ${T.priceOnly ? '<div class="sh-note">Paket Redfingger memakai alur khusus; di sini hanya harga yang bisa diubah.</div>' : ''}
+    ${rows.length ? rows.map(r => shRowHtml(T, r)).join('') : '<div class="sh-empty">Belum ada paket. Tekan “+ Tambah paket”.</div>'}
+    ${p ? '<button type="button" class="sh-b del sh-delprod" data-a="delprod">Hapus produk ini</button>' : ''}
+    <datalist id="shCats">${cats.map(c => `<option value="${escHtml(c)}">`).join('')}</datalist>`;
+}
+function shRender(keepFocus){
+  const root = $('shRoot'); if(!root) return;
+  shEnsure();
+  let html;
+  try{ html = shView ? shEditorHtml() : shListHtml(); }catch(e){ console.error(e); html = '<div class="admin-empty">Gagal menampilkan produk: ' + escHtml(e.message) + '</div>'; }
+  if(keepFocus){ // pencarian: render ulang tanpa kehilangan fokus kolom cari
+    const f = root.querySelector('.adm-toolbar input'), pos = f ? f.selectionStart : 0;
+    root.innerHTML = html;
+    const n = root.querySelector('.adm-toolbar input'); if(n){ n.focus(); try{ n.setSelectionRange(pos, pos); }catch(_){} }
+  } else root.innerHTML = html;
+  shBar();
+}
+
+/* ── mengubah isi draf ── */
+function shBaseRef(id){ for(const G of shGroups()){ const s = G.rows.find(r => r.id === id); if(s) return {G, s}; } return null; }
+function shRowStore(T, id){
+  if(T.product){ const k = T.product.packs.find(x => x.id === id); return k ? {kind:'custom', k} : null; }
+  const ex = (shDraft.extra[T.G.gid] || []).find(x => x.id === id);
+  if(ex) return {kind:'extra', k:ex};
+  const s = T.G.rows.find(x => x.id === id);
+  return s ? {kind:'base', s} : null;
+}
+function shNumDigits(el){ const d = el.value.replace(/\D/g, ''); el.value = d ? parseInt(d, 10).toLocaleString('id-ID') : ''; return d ? parseInt(d, 10) : NaN; }
+function shInput(ev){
+  const el = ev.target; if(!el || !el.dataset) return;
+  const T = shTarget(shView); if(!T) return;
+  if(el.dataset.p){ shSetProd(T, el); return; }
+  const f = el.dataset.f, row = el.closest('.sh-pack'); if(!f || !row) return;
+  const st = shRowStore(T, row.dataset.id); if(!st) return;
+  let bad = false;
+  if(f === 'price' || f === 'qty'){
+    const n = shNumDigits(el);
+    if(f === 'price'){
+      const lo = st.kind === 'base' ? 1 : 1000, hi = st.kind === 'base' ? PZ_MAX : 5000000;
+      if(!(n >= lo && n <= hi)) bad = true;
+      else if(st.kind === 'base') pzSet({id:row.dataset.id, base:st.s.price}, n);
+      else st.k.price = n;
+    } else {
+      if(!(n >= 1 && n <= 100000000)) bad = true;
+      else if(st.kind === 'extra') st.k.qty = n;
+      else { const o = (shDraft.items[row.dataset.id] = shDraft.items[row.dataset.id] || {}); if(n === st.s.qty) delete o.qty; else o.qty = n; }
+    }
+  } else {
+    const v = el.value.trim();
+    if(f === 'name'){
+      if(!v) bad = true;
+      else if(st.kind === 'base'){ const o = (shDraft.items[row.dataset.id] = shDraft.items[row.dataset.id] || {}); if(v === st.s.name) delete o.name; else o.name = v; }
+      else st.k.name = v;
+    } else if(f === 'desc'){
+      if(st.kind === 'base'){ const o = (shDraft.items[row.dataset.id] = shDraft.items[row.dataset.id] || {}); if(v) o.desc = v; else delete o.desc; }
+      else if(v) st.k.desc = v; else delete st.k.desc;
+    } else if(f === 'tag'){
+      const t = v.toUpperCase();
+      if(st.kind === 'base'){ const o = (shDraft.items[row.dataset.id] = shDraft.items[row.dataset.id] || {}); if(t === (st.s.tag || '')) delete o.tag; else o.tag = t; }
+      else if(t) st.k.tag = t; else delete st.k.tag;
+    } else if(f === 'cat'){
+      if(v) st.k.cat = v; else delete st.k.cat;
+    }
+  }
+  row.classList.toggle('bad', bad);
+  if(st.kind === 'base') row.classList.toggle('changed', !!(shDraft.items[row.dataset.id] && Object.keys(shDraft.items[row.dataset.id]).length) || (row.dataset.id in pzDraft));
+  shBar();
+}
+function shSetProd(T, el){
+  const f = el.dataset.p, p = T.product;
+  if(f === 'show'){ if(p) p.hidden = !el.checked; else { const m = (shDraft.meta[T.metaKey] = shDraft.meta[T.metaKey] || {}); if(el.checked) delete m.hidden; else m.hidden = true; } shBar(); return; }
+  const v = el.value;
+  if(p){
+    if(f === 'name'){ p.name = v.trim() ? v : ''; const h = document.querySelector('.sh-top h3'); if(h) h.textContent = v.trim() || 'Produk baru'; }
+    else p[f] = v;
+  } else {
+    const m = (shDraft.meta[T.metaKey] = shDraft.meta[T.metaKey] || {});
+    if(v.trim()) m[f] = v; else delete m[f];
+  }
+  shBar();
+}
+function shBlur(ev){
+  const el = ev.target; if(!el || !el.dataset || !el.dataset.f) return;
+  const T = shTarget(shView); if(!T) return;
+  const row = el.closest('.sh-pack'); if(!row) return;
+  const r = shRowsOf(T).find(x => x.id === row.dataset.id); if(!r) return;
+  row.classList.remove('bad');
+  const f = el.dataset.f;
+  if(f === 'price') el.value = Number(r.price).toLocaleString('id-ID');
+  else if(f === 'qty') el.value = Number(r.qty).toLocaleString('id-ID');
+  else if(f === 'name') el.value = r.name;
+}
+
+async function shClick(ev){
+  const b = ev.target.closest('[data-a]'); if(!b) return;
+  const a = b.dataset.a;
+  if(a === 'open'){ shView = b.dataset.tid; shRender(); $('admPaneShop').scrollIntoView({block:'start'}); return; }
+  if(a === 'new'){
+    const kind = b.dataset.kind;
+    const p = {id:'u-' + shRid(6), kind, name:'', sub:'', desc:'', idLabel:kind === 'game' ? 'Player ID' : 'Email / No. WhatsApp', hidden:false, packs:[]};
+    shEnsure().products.push(p); shView = p.id; shRender();
+    const n = document.querySelector('[data-p="name"]'); if(n) n.focus();
+    return;
+  }
+  const T = shTarget(shView);
+  if(a === 'back'){
+    if(T && T.product && !T.product.name.trim() && !T.product.packs.length) shDraft.products = shDraft.products.filter(x => x !== T.product);
+    shView = null; shRender(); return;
+  }
+  if(!T) return;
+  if(a === 'addpack'){
+    const id = T.product ? T.product.id + '-' + shRid(5) : 'x-' + T.G.gid + '-' + shRid(5);
+    if(T.product){ if(T.product.packs.length >= 80){ toast('Maksimal 80 paket per produk'); return; } T.product.packs.push({id, name:'', price:10000}); }
+    else { const L = (shDraft.extra[T.G.gid] = shDraft.extra[T.G.gid] || []); if(L.length >= 60){ toast('Maksimal 60 paket tambahan di grup ini'); return; }
+      const e = {id, price:10000}; if(T.G.mode === 'rbx') e.qty = 100; else e.name = ''; L.push(e); }
+    shRender();
+    const row = document.querySelector('.sh-pack[data-id="' + id + '"]');
+    if(row){ row.scrollIntoView({block:'center', behavior:'smooth'}); const i = row.querySelector('input'); if(i) i.focus(); }
+    return;
+  }
+  if(a === 'delprod'){
+    if(!confirm('Hapus produk “' + (T.product.name || 'baru') + '” beserta semua paketnya? (tekan Simpan untuk menerapkan)')) return;
+    shDraft.products = shDraft.products.filter(x => x !== T.product); shView = null; shRender(); return;
+  }
+  if(a === 'img-up'){ mdPick(T.media); return; }
+  if(a === 'img-link'){ mdLink(T.media); return; }
+  if(a === 'img-del'){ mdRemove(T.media); return; }
+  const row = b.closest('.sh-pack'); if(!row) return;
+  const id = row.dataset.id, st = shRowStore(T, id); if(!st) return;
+  if(a === 'hide' && st.kind === 'base'){
+    const o = (shDraft.items[id] = shDraft.items[id] || {}); if(o.hidden) delete o.hidden; else o.hidden = true; shRender(); return;
+  }
+  if(a === 'reset' && st.kind === 'base'){
+    delete shDraft.items[id];
+    if(pzSrv(id) == null) delete pzDraft[id]; else pzDraft[id] = null;
+    shRender(); return;
+  }
+  if(a === 'del'){
+    if(st.kind === 'custom') T.product.packs = T.product.packs.filter(x => x.id !== id);
+    else if(st.kind === 'extra') shDraft.extra[T.G.gid] = shDraft.extra[T.G.gid].filter(x => x.id !== id);
+    shRender();
+  }
+}
+
+function shDiscard(){ shDraft = null; pzDraft = {}; shRender(); if($('pzList') && admTab === 'price') pzRender(); }
+async function shSave(){
+  const d = shClean(shClone(shEnsure()));
+  // cek di sisi browser supaya pesan galatnya jelas
+  for(const p of d.products){
+    if(!p.name.trim()){ toast('Ada produk baru tanpa nama — isi dulu.', 4000); return; }
+    for(const k of p.packs){
+      if(!k.name.trim()){ toast('Ada paket tanpa nama di “' + p.name + '”.', 4000); return; }
+      if(!(k.price >= 1000 && k.price <= 5000000)){ toast('Harga “' + k.name + '” harus Rp1.000 – Rp5.000.000', 4500); return; }
+    }
+  }
+  for(const g of Object.keys(d.extra)){
+    const G = shGroup(g);
+    for(const e of d.extra[g]){
+      if(G.mode !== 'rbx' && !(e.name || '').trim()){ toast('Ada paket tambahan tanpa nama di ' + G.group + '.', 4000); return; }
+      if(!(e.price >= 1000 && e.price <= 5000000)){ toast('Harga paket tambahan di ' + G.group + ' harus Rp1.000 – Rp5.000.000', 4500); return; }
+    }
+  }
+  // teks produk yang dicatat di pesanan
+  Object.keys(d.items).forEach(id => {
+    const o = d.items[id], ref = shBaseRef(id);
+    if(!ref){ delete d.items[id]; return; }
+    if(o.qty != null || o.name != null) o.produk = shProduk(ref.G, ref.G.mode === 'rbx' ? {qty:o.qty || ref.s.qty} : {name:o.name || ref.s.name}); else delete o.produk;
+  });
+  Object.keys(d.extra).forEach(g => { const G = shGroup(g); d.extra[g].forEach(e => { e.produk = shProduk(G, {qty:e.qty, name:e.name || String(e.qty)}); }); });
+  const body = {shop:d}; if(Object.keys(pzDraft).length) body.prices = pzDraft;
+  const btn = $('shSaveBtn'); btn.disabled = true; btn.textContent = 'Menyimpan…';
+  try{
+    const res = await admApi('/api/catalog-save', body);
+    shDraft = null; pzDraft = {};
+    catalogApply(res.catalog);
+    shRender();
+    if(admTab === 'price') pzRender();
+    toast('✓ Perubahan tersimpan & langsung tampil di toko', 3500);
+  }catch(e){ toast(e.message || 'Gagal menyimpan', 5000); }
+  btn.disabled = false; btn.textContent = 'Simpan';
+}
+/* umpan balik upload gambar produk kustom (dipanggil dari modul Media) */
+function shMediaProgress(key, pct, msg){ const s = document.getElementById('shImgStat'); if(s && shView && key === 'game:' + shView) s.textContent = msg; }
+function shMediaRefresh(key){
+  if(!shView || key !== 'game:' + shView) return;
+  const T = shTarget(shView); if(!T || !T.product) return;
+  const mm = CATALOG.media[key] || null, box = document.getElementById('shImgP');
+  if(box) box.innerHTML = mdPrev(mm, '');
+  const a = document.querySelector('.sh-imga > div');
+  if(a) a.innerHTML = `<button type="button" class="md-b up" data-a="img-up">${mm ? 'Ganti' : 'Upload'}</button> <button type="button" class="md-b" data-a="img-link">Link</button>${mm ? ' <button type="button" class="md-b del" data-a="img-del">Hapus</button>' : ''}`;
+  const s = document.getElementById('shImgStat'); if(s) s.textContent = 'PNG · JPG · WebP · GIF · MP4 (maks 4 MB)';
+}
+
 /* ── ADMIN: MEDIA (foto · GIF · video) ────────────────── */
 let mdBusy = {};
 let mdTarget = '';
@@ -6525,6 +7079,7 @@ function mdSections(){
   ]}, {title:'Ikon Game di Beranda', open:true, items:
     PROMOS.map(p => ({key:'game:' + p.id, name:p.name, def:p.img}))
       .concat(CLOUDS.map(c => ({key:'game:' + c.id, name:c.name + ' · Cloud Phone', def:c.img})))
+      .concat(APPS.map(a => ({key:'game:' + a.id, name:a.name + ' · Aplikasi', def:a.img})))
   }];
   const byG = new Map();
   priceRegistry().filter(i => i.media).forEach(i => { if(!byG.has(i.group)) byG.set(i.group, []); byG.get(i.group).push({key:'pack:' + i.id, name:i.name, def:i.def}); });
@@ -6565,10 +7120,11 @@ function mdRender(){
 function mdCard(key){ return document.querySelector('.md-card[data-key="' + key + '"]'); }
 function mdProgress(key, pct, msg){
   mdBusy[key] = {pct, msg};
+  try{ shMediaProgress(key, pct, msg); }catch(_){}
   const c = mdCard(key); if(!c) return;
   c.classList.add('busy'); c.querySelector('.md-prog i').style.width = pct + '%'; c.querySelector('.md-stat').textContent = msg;
 }
-function mdDone(key){ delete mdBusy[key]; }
+function mdDone(key){ delete mdBusy[key]; try{ shMediaRefresh(key); }catch(_){} }
 function mdDrag(e, on){ e.preventDefault(); const c = e.currentTarget; if(on) c.classList.add('drag'); else c.classList.remove('drag'); }
 function mdDrop(e){ e.preventDefault(); const c = e.currentTarget; c.classList.remove('drag'); const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if(f) mdUpload(c.dataset.key, f); }
 function mdPick(key){ mdTarget = key; const f = $('mdFile'); f.value = ''; f.click(); }
