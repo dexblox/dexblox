@@ -1,5 +1,5 @@
 // GET/POST /api/order-list  (header x-admin-pass)  ->  { orders: [...], stats: {...} }
-const { kvGet, kvZrem, kvZrangeRev } = require('./_kv');
+const { kvGet, kvZrem, kvZrangeRev, kvUsage } = require('./_kv');
 const { isAdmin, refreshOrder } = require('./_orders');
 const { rateLimit } = require('./_ratelimit');
 
@@ -9,6 +9,12 @@ module.exports = async function handler(req, res) {
   const rl = await rateLimit(req, 'olist', 30, 60);
   if (!rl.ok) return res.status(429).json({ error: 'Terlalu banyak permintaan' });
   if (!isAdmin(req)) return res.status(401).json({ error: 'Password admin salah' });
+
+  // GET /api/order-list?usage=1 -> pemakaian Redis (memori, kunci, perintah bulan ini); dipanggil manual dari panel admin
+  if (req.query && req.query.usage) {
+    try { return res.status(200).json({ usage: await kvUsage() }); }
+    catch (e) { return res.status(500).json({ error: 'Gagal membaca pemakaian: ' + String((e && e.message) || e).slice(0, 200) }); }
+  }
 
   try {
     const ids = (await kvZrangeRev('orders:index', 0, 199)) || []; // 200 pesanan terbaru
