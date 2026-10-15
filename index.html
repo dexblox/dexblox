@@ -1355,6 +1355,7 @@
 .stbadge.st-paid{background:#fffbeb;color:#b45309;}
 .stbadge.st-done{background:#f0fdf4;color:#15803d;}
 .stbadge.st-cancel{background:#fef2f2;color:#dc2626;}
+.stbadge.st-expired{background:#f1f5f9;color:#64748b;}
 .trk-sheet{max-width:440px;}
 .trk-find{background:var(--primary);color:#fff;border:none;padding:0 16px;border-radius:10px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;flex-shrink:0;}
 .trk-head{display:flex;align-items:center;justify-content:space-between;margin:1.2rem 0 .5rem;}
@@ -1388,7 +1389,8 @@
 .adm-chip i{font-style:normal;margin-left:6px;background:var(--border);border-radius:50px;padding:1px 6px;font-size:.62rem;}
 .adm-chip.on{background:var(--primary);border-color:var(--primary);color:#fff;} .adm-chip.on i{background:rgba(255,255,255,.25);}
 .adm-o{background:var(--bg);border:1px solid var(--border);border-left-width:4px;border-radius:12px;padding:11px 12px;margin-bottom:8px;}
-.adm-o.st-unpaid{border-left-color:#6366f1;} .adm-o.st-paid{border-left-color:#f59e0b;} .adm-o.st-done{border-left-color:#22c55e;} .adm-o.st-cancel{border-left-color:#ef4444;}
+.adm-o.st-unpaid{border-left-color:#6366f1;} .adm-o.st-paid{border-left-color:#f59e0b;} .adm-o.st-done{border-left-color:#22c55e;} .adm-o.st-cancel{border-left-color:#ef4444;} .adm-o.st-expired{border-left-color:#94a3b8;opacity:.85;}
+.adm-purge{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:9px 12px;margin-bottom:10px;font-size:.74rem;color:#64748b;}
 .adm-o-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
 .adm-o-prod{font-size:.85rem;font-weight:800;color:var(--text);}
 .adm-o-meta{font-size:.72rem;color:var(--text-muted);margin-top:2px;word-break:break-word;}
@@ -1656,6 +1658,8 @@
     background:linear-gradient(135deg,#ece9ff,#dff1ff);margin-bottom:2px;}
   .pk-ico svg{width:24px;height:24px;margin:0;}
   .pk-ico img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  /* Ikon bawaan hanya cadangan: kalau ada foto/video, sembunyikan supaya tidak tembus di belakang foto transparan */
+  .pk-ico:has(img) svg,.pk-ico:has(video) svg{display:none;}
   .gm-card .ml-pack-name{font-size:.84rem;line-height:1.3;}
   .gm-card .ml-pack-price{font-size:.9rem;}
   .gm-card .ml-pack:active{transform:scale(.97);}
@@ -6324,7 +6328,8 @@ async function loadOrdersFromServer(silent) {
     if (!silent) el.innerHTML = `<div class="admin-empty">${escHtml(e.message || 'Gagal memuat pesanan')}</div>`;
   }
 }
-function startAdmAuto() { stopAdmAuto(); _admAuto = setInterval(() => loadOrdersFromServer(true), 20000); }
+// Tidak ada auto-refresh (hemat perintah Redis). Muat ulang manual dengan tombol ↻.
+function startAdmAuto() { stopAdmAuto(); }
 function stopAdmAuto()  { if (_admAuto) { clearInterval(_admAuto); _admAuto = null; } }
 
 function doAdminLogout() {
@@ -6448,7 +6453,7 @@ async function kirimDiscord() {
 
 /* ── RENDER ORDERS ───────────────────────────────────── */
 const ADM_ST = {
-  unpaid: 'Belum Bayar', paid: 'Pending', done: 'Succeed', cancel: 'Batal'
+  unpaid: 'Belum Bayar', paid: 'Pending', done: 'Succeed', cancel: 'Batal', expired: 'Tidak Jadi'
 };
 
 function admRupiah(n){ return 'Rp' + (Number(n) || 0).toLocaleString('id-ID'); }
@@ -6469,7 +6474,7 @@ function renderAdmOrders() {
   renderAdmStats();
   { const pc = orders.filter(o => o.status === 'paid').length; $('admTabCnt').textContent = pc ? (pc > 99 ? '99+' : pc) : ''; }
   const cnt = s => orders.filter(o => o.status === s).length;
-  const chips = [['paid', 'Pending'], ['done', 'Succeed'], ['unpaid', 'Belum Bayar'], ['cancel', 'Batal'], ['all', 'Semua']];
+  const chips = [['paid', 'Pending'], ['done', 'Succeed'], ['unpaid', 'Belum Bayar'], ['expired', 'Tidak Jadi'], ['cancel', 'Batal'], ['all', 'Semua']];
   $('admChips').innerHTML = chips.map(([k, l]) =>
     `<button class="adm-chip${admFilter === k ? ' on' : ''}" onclick="admSetFilter('${k}')">${l}<i>${k === 'all' ? orders.length : cnt(k)}</i></button>`).join('');
 
@@ -6478,22 +6483,24 @@ function renderAdmOrders() {
     (!q || [o.order_id, o.username, o.produk, o.jenis].some(v => String(v || '').toLowerCase().includes(q))));
 
   if (!list.length) {
-    $('admOList').innerHTML = `<div class="admin-empty">${admFilter === 'paid' && !q ? 'Tidak ada pesanan Pending. Semua beres!' : 'Tidak ada pesanan.'}</div>`;
+    $('admOList').innerHTML = `<div class="admin-empty">${admFilter === 'paid' && !q ? 'Tidak ada pesanan Pending. Semua beres!' : admFilter === 'expired' && !q ? 'Belum ada riwayat transaksi yang tidak jadi dibeli.' : 'Tidak ada pesanan.'}</div>`;
     return;
   }
-  $('admOList').innerHTML = list.map(o => {
+  const purgeBar = admFilter === 'expired' ? `<div class="adm-purge"><span>${list.length} transaksi tidak jadi dibeli · dihapus otomatis setelah 7 hari</span><button class="adm-btn bad" onclick="purgeExpired()">Hapus semua</button></div>` : '';
+  $('admOList').innerHTML = purgeBar + list.map(o => {
     const id = escHtml(o.order_id);
     const acc = o.username && o.username !== '-' ? o.username : '';
     let act = '';
     if (o.status === 'paid')   act = `<button class="adm-btn ok" onclick="setOrderStatus('${id}','done')">Succeed</button><button class="adm-btn bad" onclick="setOrderStatus('${id}','cancel','Batalkan pesanan ${id}?')">Batal</button>`;
-    if (o.status === 'unpaid') act = `<button class="adm-btn ok" onclick="setOrderStatus('${id}','done','Pembayaran BELUM terverifikasi. Tetap tandai Succeed?')">Succeed</button><span class="adm-hint">hilang otomatis 30 menit</span>`;
+    if (o.status === 'unpaid') act = `<button class="adm-btn ok" onclick="setOrderStatus('${id}','done','Pembayaran BELUM terverifikasi. Tetap tandai Succeed?')">Succeed</button><span class="adm-hint">jadi riwayat "Tidak Jadi" setelah 30 menit</span>`;
+    if (o.status === 'expired' || o.status === 'cancel') act = `<button class="adm-btn bad" onclick="deleteOrder('${id}')">Hapus</button>${o.status === 'expired' ? '<span class="adm-hint">hilang otomatis 7 hari</span>' : ''}`;
     if (o.status === 'done')   act = `<button class="adm-btn" onclick="setOrderStatus('${id}','paid','Kembalikan ke Pending?')">Kembalikan ke Pending</button>`;
     return `
     <div class="adm-o st-${o.status}">
       <div class="adm-o-top"><span class="ao-id">${id}</span><span class="stbadge st-${o.status}">${ADM_ST[o.status] || o.status}</span></div>
       <div class="adm-o-prod">${escHtml(o.produk || '-')}</div>
       <div class="adm-o-meta">${escHtml(o.jenis || '-')}${acc ? ' · ' + escHtml(acc) : ''}</div>
-      <div class="adm-o-meta"><b>${escHtml(o.total || admRupiah(o.amount))}</b> · dibuat ${fmtWaktu(o.createdAt)}${o.doneAt ? ' · selesai ' + fmtWaktu(o.doneAt) : ''}</div>
+      <div class="adm-o-meta"><b>${escHtml(o.total || admRupiah(o.amount))}</b> · dibuat ${fmtWaktu(o.createdAt)}${o.doneAt ? ' · selesai ' + fmtWaktu(o.doneAt) : ''}${o.expiredAt ? ' · tidak dibayar' : ''}</div>
       <div class="adm-o-act">${act}${acc ? `<button class="adm-btn ghost" onclick="admCopy(this,'${escHtml(acc).replace(/'/g, '&#39;')}')">Salin akun</button>` : ''}</div>
     </div>`;
   }).join('');
@@ -6525,6 +6532,27 @@ async function setOrderStatus(id, status, confirmMsg) {
     o.status = prev.status; o.doneAt = prev.doneAt; renderAdmOrders();
     toast(e.message || 'Gagal update pesanan');
   }
+}
+
+async function deleteOrder(id) {
+  if (!confirm('Hapus riwayat ' + id + '? Tidak bisa dikembalikan.')) return;
+  try {
+    const r = await fetch('/api/order-status-update', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pass': admPassVal }, body: JSON.stringify({ order_id: id, status: 'delete' }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.success) throw new Error(d.error || 'Gagal menghapus');
+    const i = orders.findIndex(x => x.order_id === id); if (i >= 0) orders.splice(i, 1);
+    renderAdmOrders(); toast('Riwayat ' + id + ' dihapus');
+  } catch(e) { toast(e.message || 'Gagal menghapus'); }
+}
+async function purgeExpired() {
+  const n = orders.filter(o => o.status === 'expired').length;
+  if (!n || !confirm('Hapus semua ' + n + ' riwayat transaksi yang tidak jadi dibeli? Tidak bisa dikembalikan.')) return;
+  try {
+    const r = await fetch('/api/order-status-update', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pass': admPassVal }, body: JSON.stringify({ status: 'purge' }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.success) throw new Error(d.error || 'Gagal menghapus');
+    toast(d.removed + ' riwayat dihapus'); loadOrdersFromServer(true);
+  } catch(e) { toast(e.message || 'Gagal menghapus'); }
 }
 
 function pushOrder() { /* tidak dipakai lagi: pesanan disimpan server saat QR dibuat */ }
