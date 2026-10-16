@@ -14,7 +14,7 @@ const BASE_PRICES = require('./_prices');
 
 const CATALOG_KEY = 'catalog:v1';
 const MAX_PRICE = 100000000;
-const SITE_SLOTS = ['hero', 'iklan', 'banner', 'logo'];
+const SITE_SLOTS = ['hero', 'iklan', 'banner', 'logo', 'musik', 'musikbanner'];
 
 const PRICE_ID_RE = /^[A-Za-z0-9_.\-]{1,60}$/;
 const MEDIA_KEY_RE = /^(game|pack|site):[A-Za-z0-9_.\-]{1,60}$/;
@@ -22,20 +22,34 @@ const MEDIA_KEY_RE = /^(game|pack|site):[A-Za-z0-9_.\-]{1,60}$/;
 const MIME_KIND = {
   'image/png': 'image', 'image/jpeg': 'image', 'image/webp': 'image', 'image/avif': 'image',
   'image/gif': 'gif',
-  'video/mp4': 'video', 'video/webm': 'video'
+  'video/mp4': 'video', 'video/webm': 'video',
+  'audio/mpeg': 'audio', 'audio/mp4': 'audio', 'audio/ogg': 'audio', 'audio/wav': 'audio'
 };
 
 const emptyShop = () => ({ items: {}, extra: {}, meta: {}, products: [] });
 
 async function loadCatalog() {
   const c = await kvGet(CATALOG_KEY);
-  if (!c || typeof c !== 'object') return { prices: {}, media: {}, shop: emptyShop(), updatedAt: 0 };
+  if (!c || typeof c !== 'object') return { prices: {}, media: {}, shop: emptyShop(), theme: null, updatedAt: 0 };
   const sh = (c.shop && typeof c.shop === 'object') ? c.shop : {};
   return {
     prices: c.prices || {}, media: c.media || {},
     shop: { items: sh.items || {}, extra: sh.extra || {}, meta: sh.meta || {}, products: Array.isArray(sh.products) ? sh.products : [] },
+    theme: (c.theme && typeof c.theme === 'object') ? c.theme : null,
     updatedAt: c.updatedAt || 0
   };
+}
+
+// Tema warna website: { accent, accent2, bg, text } (hex #rrggbb). null = warna bawaan.
+const THEME_KEYS = ['accent', 'accent2', 'bg', 'text'];
+function sanitizeTheme(t) {
+  if (!t || typeof t !== 'object') return null;
+  const out = {};
+  for (const k of THEME_KEYS) {
+    const v = String(t[k] == null ? '' : t[k]).trim().toLowerCase();
+    if (/^#[0-9a-f]{6}$/.test(v)) out[k] = v;
+  }
+  return Object.keys(out).length ? out : null;
 }
 
 // ── Validasi & pembersihan data toko (produk, paket, deskripsi) dari admin ──
@@ -244,5 +258,5 @@ module.exports = {
   resolveItem, BASE_PRICES,
   CATALOG_KEY, MAX_PRICE, SITE_SLOTS, PRICE_ID_RE, MEDIA_KEY_RE, MIME_KIND,
   loadCatalog, saveCatalog, validMediaUrl, deleteStoredMedia, kvPost,
-  sanitizeShop, orphanMediaKeys, ShopError
+  sanitizeShop, sanitizeTheme, orphanMediaKeys, ShopError
 };
