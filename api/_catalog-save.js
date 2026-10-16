@@ -53,6 +53,7 @@ module.exports = async function handler(req, res) {
         const next = {
           url: v.url, kind: v.kind, mime: clip(v.mime, 40), size: Math.max(0, Number(v.size) || 0),
           caption: clip(v.caption, 120), link: /^https?:\/\//i.test(String(v.link || '')) ? clip(v.link, 300) : '',
+          sound: v.sound !== false,   // video banner bersuara (bawaan: ya)
           updatedAt: Date.now()
         };
         if (old && old.url !== next.url) trash.push(old); // file lama dibersihkan setelah disimpan
