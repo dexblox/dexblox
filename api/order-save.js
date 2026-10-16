@@ -5,6 +5,23 @@ const { kvSet, kvGet, kvZadd } = require('./_kv');
 const { rateLimit } = require('./_ratelimit');
 const { clean } = require('./_orders');
 
+// Ambil jumlah followers awal dari Roblox -> { followStart, followUserId, followQty } atau null
+async function followStart(username, qty) {
+  const ctl = new AbortController(); const t = setTimeout(() => ctl.abort(), 4000);
+  try {
+    const ur = await fetch('https://users.roblox.com/v1/usernames/users', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl.signal,
+      body: JSON.stringify({ usernames: [username], excludeBannedUsers: false })
+    });
+    const u = ((await ur.json()).data || [])[0];
+    if (!u) return null;
+    const cr = await fetch(`https://friends.roblox.com/v1/users/${u.id}/followers/count`, { signal: ctl.signal });
+    const c = await cr.json();
+    if (typeof c.count !== 'number') return null;
+    return { followStart: c.count, followUserId: u.id, followQty: qty || 0 };
+  } catch (_) { return null; } finally { clearTimeout(t); }
+}
+
 module.exports = async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ success: false, error: 'Method tidak diizinkan' });
 
@@ -31,6 +48,11 @@ module.exports = async function handler(req, res) {
       const t = await kvGet(`txnitem:${txn_id}`);
       if (t && typeof t === 'object') { amount = Math.round(Number(t.amount)) || amount; produk = clean(t.produk, 120) || produk; itemId = clean(t.item, 60); totalTxt = 'Rp' + amount.toLocaleString('id-ID'); }
     }
+    // Pesanan Pengikut Roblox: catat jumlah followers SAAT DIPESAN (batas waktu 4 dtk, gagal = diabaikan)
+    let follow = null;
+    const uname = clean(b.username, 120).trim();
+    const fm = /(\d[\d.]*)\s*pengikut/i.exec(produk);
+    if (fm && uname && uname !== '-') follow = await followStart(uname, Number(fm[1].replace(/\./g, '')));
     const record = {
       order_id,
       txn_id: txn_id || null,
@@ -41,7 +63,8 @@ module.exports = async function handler(req, res) {
       jenis: clean(b.jenis, 60),
       total: totalTxt || clean(b.total, 30) || String(amount),
       status: 'unpaid',
-      createdAt: Date.now()
+      createdAt: Date.now(),
+      ...(follow || {})
     };
 
     await kvSet(`order:${order_id}`, record);
