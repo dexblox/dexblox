@@ -1975,6 +1975,14 @@ a.site-banner[href]:active{transform:scale(.99);}
 .usg-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#8b7cf6,#5443c7);}
 .usg-bar.warn i{background:#f59f00;} .usg-bar.bad i{background:#e03131;}
 
+
+.adm-flw{margin:8px 0 2px;padding:9px 11px;border-radius:12px;background:#f5f3ff;border:1px solid #e4defc;font-size:.76rem;color:#4b4775;display:flex;flex-direction:column;gap:4px;}
+.flw-now{font-size:.82rem;} .flw-now b{font-size:.95rem;color:#2d2a5c;}
+.flw-now em{font-style:normal;font-weight:800;margin-left:4px;} .flw-now em.up{color:#16a34a;} .flw-now em.dn{color:#dc2626;}
+.flw-bar{height:8px;border-radius:99px;background:#e4defc;overflow:hidden;} .flw-bar i{display:block;height:100%;background:linear-gradient(90deg,#8b7cf6,#5443c7);border-radius:99px;transition:width .4s;}
+.flw-bar.done i{background:#16a34a;}
+.flw-s{font-size:.66rem;color:#7a76a3;} .flw-s.ok{color:#15803d;font-weight:800;} .flw-s.bad{color:#b45309;}
+
 /* Media */
 .md-sec{margin-bottom:22px;}
 .md-sec-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin:0 2px 10px;}
@@ -4708,7 +4716,7 @@ renderApps();
           <div class="adm-note" id="mdNote"></div>
           <div id="mdList"></div>
         </div>
-        <input type="file" id="mdFile" hidden accept="image/png,image/jpeg,image/webp,image/avif,image/gif,video/mp4,video/webm" onchange="mdFileChosen(this)" />
+        <input type="file" id="mdFile" hidden accept="image/*,video/*,.gif,.mp4,.webm,.webp,.avif" onchange="mdFileChosen(this)" />
 
       </div>
     </div>
@@ -6324,12 +6332,14 @@ async function loadOrdersFromServer(silent) {
     const d = await r.json();
     if (!r.ok) throw new Error(d.error || 'Gagal memuat');
     applyAdmData(d);
+    pollFollowers();
   } catch(e) {
     if (!silent) el.innerHTML = `<div class="admin-empty">${escHtml(e.message || 'Gagal memuat pesanan')}</div>`;
   }
 }
 // Tidak ada auto-refresh (hemat perintah Redis). Muat ulang manual dengan tombol ↻.
-function startAdmAuto() { stopAdmAuto(); }
+// Cek followers Roblox tiap 1 menit untuk pesanan Pengikut yang masih Pending (tidak memakai Redis)
+function startAdmAuto() { stopAdmAuto(); _admAuto = setInterval(pollFollowers, 60000); }
 function stopAdmAuto()  { if (_admAuto) { clearInterval(_admAuto); _admAuto = null; } }
 
 function doAdminLogout() {
@@ -6501,9 +6511,49 @@ function renderAdmOrders() {
       <div class="adm-o-prod">${escHtml(o.produk || '-')}</div>
       <div class="adm-o-meta">${escHtml(o.jenis || '-')}${acc ? ' · ' + escHtml(acc) : ''}</div>
       <div class="adm-o-meta"><b>${escHtml(o.total || admRupiah(o.amount))}</b> · dibuat ${fmtWaktu(o.createdAt)}${o.doneAt ? ' · selesai ' + fmtWaktu(o.doneAt) : ''}${o.expiredAt ? ' · tidak dibayar' : ''}</div>
+      ${isFlwOrder(o) ? `<div class="adm-flw" data-flw="${id}">${flwInner(o)}</div>` : ''}
       <div class="adm-o-act">${act}${acc ? `<button class="adm-btn ghost" onclick="admCopy(this,'${escHtml(acc).replace(/'/g, '&#39;')}')">Salin akun</button>` : ''}</div>
     </div>`;
   }).join('');
+}
+
+/* ── Followers Roblox: awal (saat dipesan) → sekarang, dicek tiap 1 menit ── */
+const flwNow = {};   // order_id -> { n, at } atau { err, at }
+const isFlwOrder = o => /pengikut/i.test(o.produk || '') || String(o.item || '').startsWith('flw-');
+function flwQty(o){ if(o.followQty) return o.followQty; const m = /(\d[\d.]*)\s*pengikut/i.exec(o.produk || ''); return m ? Number(m[1].replace(/\./g, '')) : 0; }
+function flwInner(o){
+  const nf = n => Number(n).toLocaleString('id-ID'), st = flwNow[o.order_id], start = o.followStart, qty = flwQty(o);
+  const live = o.status === 'paid';
+  let line = '<b>Followers</b> · ';
+  line += start != null ? `awal ${nf(start)}${qty ? ` · target ${nf(start + qty)}` : ''}` : 'awal tidak tercatat';
+  if(!live) return `<div class="flw-l">${line}</div>`;
+  if(!st) return `<div class="flw-l">${line}</div><div class="flw-s">Mengecek followers…</div>`;
+  if(st.err) return `<div class="flw-l">${line}</div><div class="flw-s bad">Gagal cek (${escHtml(st.err)}) · coba lagi otomatis</div>`;
+  const gain = start != null ? st.n - start : null, hit = gain != null && qty && gain >= qty;
+  const pc = gain != null && qty ? Math.max(0, Math.min(100, gain / qty * 100)) : 0;
+  const t = new Date(st.at).toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+  return `<div class="flw-l">${line}</div>
+    <div class="flw-now">Sekarang <b>${nf(st.n)}</b>${gain != null ? ` <em class="${gain >= 0 ? 'up' : 'dn'}">${gain >= 0 ? '+' : ''}${nf(gain)}${qty ? ' / ' + nf(qty) : ''}</em>` : ''}</div>
+    ${gain != null && qty ? `<div class="flw-bar${hit ? ' done' : ''}"><i style="width:${pc}%"></i></div>` : ''}
+    <div class="flw-s${hit ? ' ok' : ''}">${hit ? '✅ Target tercapai · ' : ''}dicek ${t}</div>`;
+}
+let _flwBusy = false;
+async function pollFollowers(){
+  if(_flwBusy || !admLoggedIn || document.hidden) return;
+  const todo = orders.filter(o => o.status === 'paid' && isFlwOrder(o) && o.username && o.username !== '-').slice(0, 10);
+  if(!todo.length) return;
+  _flwBusy = true;
+  try{
+    for(const o of todo){
+      try{
+        const q = o.followUserId ? 'userId=' + o.followUserId : 'username=' + encodeURIComponent(o.username);
+        const r = await fetch('/api/followers?' + q), d = await r.json().catch(() => ({}));
+        flwNow[o.order_id] = (r.ok && typeof d.followerCount === 'number') ? {n:d.followerCount, at:Date.now()} : {err:d.error || ('HTTP ' + r.status), at:Date.now()};
+      }catch(_){ flwNow[o.order_id] = {err:'koneksi', at:Date.now()}; }
+      const el = document.querySelector('[data-flw="' + o.order_id + '"]'); if(el) el.innerHTML = flwInner(o);
+      await new Promise(r => setTimeout(r, 350));
+    }
+  } finally { _flwBusy = false; }
 }
 
 function admCopy(btn, text) {
@@ -7267,7 +7317,8 @@ function mdCardHtml(it){
       ${it.desc ? `<small class="md-sub">${escHtml(sub)}</small>` : ''}
       ${it.banner && m ? `<div class="md-meta"><input type="text" maxlength="120" placeholder="Teks di banner (opsional)" value="${escHtml(m.caption || '')}" data-f="caption"><input type="url" maxlength="300" placeholder="Link saat banner diketuk (https://…)" value="${escHtml(m.link || '')}" data-f="link"><button type="button" class="md-b" onclick="mdSaveMeta('${it.key}')">Simpan teks & link</button></div>` : ''}
       <div class="md-act">
-        <button type="button" class="md-b up" onclick="mdPick('${it.key}')">${m ? 'Ganti' : 'Upload'}</button>
+        <button type="button" class="md-b up" onclick="mdPick('${it.key}')">${m ? 'Ganti' : 'Upload'}${it.banner ? ' foto' : ''}</button>
+        ${it.banner ? `<button type="button" class="md-b up" onclick="mdPick('${it.key}','video')">Video / GIF</button>` : ''}
         <button type="button" class="md-b" onclick="mdLink('${it.key}')">Link</button>
         ${m ? `<button type="button" class="md-b del" onclick="mdRemove('${it.key}')">Hapus</button>` : ''}
       </div>
@@ -7292,7 +7343,8 @@ function mdProgress(key, pct, msg){
 function mdDone(key){ delete mdBusy[key]; try{ shMediaRefresh(key); }catch(_){} }
 function mdDrag(e, on){ e.preventDefault(); const c = e.currentTarget; if(on) c.classList.add('drag'); else c.classList.remove('drag'); }
 function mdDrop(e){ e.preventDefault(); const c = e.currentTarget; c.classList.remove('drag'); const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if(f) mdUpload(c.dataset.key, f); }
-function mdPick(key){ mdTarget = key; const f = $('mdFile'); f.value = ''; f.click(); }
+const MD_ACC_ALL = 'image/*,video/*,.gif,.mp4,.webm,.webp,.avif', MD_ACC_VID = 'video/*,image/gif,.mp4,.webm,.gif';
+function mdPick(key, mode){ mdTarget = key; const f = $('mdFile'); f.value = ''; f.accept = mode === 'video' ? MD_ACC_VID : MD_ACC_ALL; f.click(); }
 function mdFileChosen(inp){ const f = inp.files && inp.files[0]; if(f && mdTarget) mdUpload(mdTarget, f); inp.value = ''; }
 
 function mdType(file){
