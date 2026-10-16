@@ -4716,7 +4716,7 @@ renderApps();
           <div class="adm-note" id="mdNote"></div>
           <div id="mdList"></div>
         </div>
-        <input type="file" id="mdFile" hidden accept="image/*,video/*,.gif,.mp4,.webm,.webp,.avif" onchange="mdFileChosen(this)" />
+        <input type="file" id="mdFile" hidden onchange="mdFileChosen(this)" />
 
       </div>
     </div>
@@ -7317,8 +7317,7 @@ function mdCardHtml(it){
       ${it.desc ? `<small class="md-sub">${escHtml(sub)}</small>` : ''}
       ${it.banner && m ? `<div class="md-meta"><input type="text" maxlength="120" placeholder="Teks di banner (opsional)" value="${escHtml(m.caption || '')}" data-f="caption"><input type="url" maxlength="300" placeholder="Link saat banner diketuk (https://…)" value="${escHtml(m.link || '')}" data-f="link"><button type="button" class="md-b" onclick="mdSaveMeta('${it.key}')">Simpan teks & link</button></div>` : ''}
       <div class="md-act">
-        <button type="button" class="md-b up" onclick="mdPick('${it.key}')">${m ? 'Ganti' : 'Upload'}${it.banner ? ' foto' : ''}</button>
-        ${it.banner ? `<button type="button" class="md-b up" onclick="mdPick('${it.key}','video')">Video / GIF</button>` : ''}
+        <button type="button" class="md-b up" onclick="mdPick('${it.key}')">${m ? 'Ganti' : 'Upload'}</button>
         <button type="button" class="md-b" onclick="mdLink('${it.key}')">Link</button>
         ${m ? `<button type="button" class="md-b del" onclick="mdRemove('${it.key}')">Hapus</button>` : ''}
       </div>
@@ -7343,8 +7342,9 @@ function mdProgress(key, pct, msg){
 function mdDone(key){ delete mdBusy[key]; try{ shMediaRefresh(key); }catch(_){} }
 function mdDrag(e, on){ e.preventDefault(); const c = e.currentTarget; if(on) c.classList.add('drag'); else c.classList.remove('drag'); }
 function mdDrop(e){ e.preventDefault(); const c = e.currentTarget; c.classList.remove('drag'); const f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if(f) mdUpload(c.dataset.key, f); }
-const MD_ACC_ALL = 'image/*,video/*,.gif,.mp4,.webm,.webp,.avif', MD_ACC_VID = 'video/*,image/gif,.mp4,.webm,.gif';
-function mdPick(key, mode){ mdTarget = key; const f = $('mdFile'); f.value = ''; f.accept = mode === 'video' ? MD_ACC_VID : MD_ACC_ALL; f.click(); }
+/* Tanpa filter "accept": pemilih file Android menampilkan SEMUA file, termasuk dari ZArchiver / file manager lain
+   (filter jenis file sering menyembunyikan file yang tipenya tidak terdeteksi). Format dicek di mdType() & server. */
+function mdPick(key){ mdTarget = key; const f = $('mdFile'); f.value = ''; f.removeAttribute('accept'); f.click(); }
 function mdFileChosen(inp){ const f = inp.files && inp.files[0]; if(f && mdTarget) mdUpload(mdTarget, f); inp.value = ''; }
 
 function mdType(file){
