@@ -1983,6 +1983,21 @@ a.site-banner[href]:active{transform:scale(.99);}
 .flw-bar.done i{background:#16a34a;}
 .flw-s{font-size:.66rem;color:#7a76a3;} .flw-s.ok{color:#15803d;font-weight:800;} .flw-s.bad{color:#b45309;}
 
+
+.music-btn{position:fixed;left:14px;bottom:18px;z-index:850;width:46px;height:46px;border-radius:50%;border:1px solid var(--border-bright);background:var(--surface);color:var(--cyan-soft);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 26px -10px rgba(84,67,199,.55);}
+.music-btn.off{color:var(--text-faint);}
+.music-btn[hidden]{display:none;}
+.md-aud{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;height:100%;font-size:1.6rem;} .md-aud audio{width:92%;height:30px;}
+.th-card{background:#fff;border:1px solid #e6e4f5;border-radius:18px;padding:14px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
+.th-h{font-size:.95rem;font-weight:800;margin:0;} .th-note{font-size:.72rem;color:#6b6890;line-height:1.5;}
+.th-row{display:flex;align-items:center;gap:10px;font-size:.82rem;font-weight:700;}
+.th-row input[type=color]{width:46px;height:34px;border:1px solid #e1ddf5;border-radius:8px;padding:2px;background:#fff;cursor:pointer;}
+.th-row span{flex:1;} .th-hex{font:600 .74rem ui-monospace,monospace;color:#6b6890;}
+.th-pre{display:flex;gap:8px;flex-wrap:wrap;}
+.th-chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #e1ddf5;background:#fff;border-radius:50px;padding:6px 11px;font:700 .72rem 'Inter',sans-serif;cursor:pointer;}
+.th-chip i{width:14px;height:14px;border-radius:50%;display:inline-block;}
+.th-act{display:flex;gap:8px;flex-wrap:wrap;}
+
 /* Media */
 .md-sec{margin-bottom:22px;}
 .md-sec-h{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--text-muted);margin:0 2px 10px;}
@@ -2018,6 +2033,43 @@ a.site-banner[href]:active{transform:scale(.99);}
 .md-stat{font-size:.68rem;font-weight:700;color:#6556e0;min-height:0;}
 @media (max-width:480px){.md-grid{grid-template-columns:1fr;}}
 </style>
+<script>
+/* ── Tema warna website (dari Admin → Media). Menimpa warna ungu bawaan di seluruh stylesheet. ── */
+(function(){
+  var DEF = {accent:'#7c6cf0', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};
+  function h2r(h){ h = h.replace('#',''); return [0,2,4].map(function(i){ return parseInt(h.substr(i,2),16); }); }
+  function r2h(a){ return '#' + a.map(function(v){ v = Math.max(0, Math.min(255, Math.round(v))); return (v < 16 ? '0' : '') + v.toString(16); }).join(''); }
+  function mix(a,b,t){ return a.map(function(v,i){ return v + (b[i]-v)*t; }); }
+  var K = [0,0,0], W = [255,255,255];
+  function build(t){
+    var p = h2r(t.accent), q = h2r(t.accent2), m = {}, rg = {};
+    var map = {'#7c6cf0':p, '#6556e0':mix(p,K,.10), '#5443c7':mix(p,K,.27), '#4a3bc4':mix(p,K,.33), '#8b7cf6':mix(p,W,.12),
+      '#efecff':mix(p,W,.92), '#f6f5fd':mix(p,W,.96), '#f0eefb':mix(p,W,.93), '#e4e2f2':mix(p,W,.90), '#d3ccfa':mix(p,W,.78),
+      '#7fe3f5':q, '#eafaff':mix(q,W,.90)};
+    Object.keys(map).forEach(function(k){ m[k] = r2h(map[k]); });
+    if(t.text && t.text !== DEF.text) m['#15132a'] = t.text.toLowerCase();
+    rg['124,108,240'] = p; rg['84,67,199'] = mix(p,K,.27); rg['101,86,224'] = mix(p,K,.10); rg['139,124,246'] = mix(p,W,.12);
+    return {m:m, rg:rg};
+  }
+  window.applyTheme = function(t){
+    var els = document.querySelectorAll('style');
+    var use = null;
+    if(t && typeof t === 'object'){ var x = {}; Object.keys(DEF).forEach(function(k){ x[k] = /^#[0-9a-fA-F]{6}$/.test(t[k] || '') ? t[k].toLowerCase() : DEF[k]; }); if(JSON.stringify(x) !== JSON.stringify(DEF)) use = x; }
+    var B = use ? build(use) : null;
+    for(var i = 0; i < els.length; i++){
+      var el = els[i]; if(el.__o == null) el.__o = el.textContent;
+      if(!B){ if(el.textContent !== el.__o) el.textContent = el.__o; continue; }
+      var out = el.__o.replace(/#[0-9a-fA-F]{6}\b|rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g, function(s, a, b, c){
+        if(s.charAt(0) === '#'){ var k = s.toLowerCase(); return B.m[k] || s; }
+        var r = B.rg[a + ',' + b + ',' + c]; return r ? 'rgba(' + r.map(Math.round).join(',') : s;
+      });
+      if(use.bg !== DEF.bg) out = out.replace('--bg:#ffffff', '--bg:' + use.bg);
+      el.textContent = out;
+    }
+  };
+  try{ var c = JSON.parse(localStorage.getItem('meng_catalog_v1') || 'null'); if(c && c.theme) window.applyTheme(c.theme); }catch(e){}
+})();
+</script>
 </head>
 <body>
 <!-- Ikon buatan sendiri (menggantikan emoji) -->
@@ -3058,8 +3110,50 @@ function catBanner(){
   if(m.link){ el.href = m.link; el.target = '_blank'; el.rel = 'noopener'; } else { el.removeAttribute('href'); el.removeAttribute('target'); }
   el.hidden = false;
 }
+/* ── Musik website & musik banner promo ── */
+const _mus = {site:null, ban:null, off:false, unlocked:false, banVisible:false, io:null};
+try{ _mus.off = localStorage.getItem('dbx_music_off') === '1'; }catch(_){}
+const MUS_ON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
+const MUS_OFF = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M2 2l20 20"/></svg>';
+function musUpdate(){
+  const btn = document.getElementById('musicBtn');
+  if(btn){ btn.classList.toggle('off', _mus.off); btn.setAttribute('aria-label', _mus.off ? 'Nyalakan musik' : 'Matikan musik'); btn.innerHTML = _mus.off ? MUS_OFF : MUS_ON; }
+  const want = !_mus.off && _mus.unlocked && !document.hidden;
+  const banOn = !!(want && _mus.ban && _mus.banVisible);
+  const siteOn = !!(want && _mus.site && !banOn);
+  [['site', siteOn], ['ban', banOn]].forEach(([k, on]) => { const a = _mus[k]; if(!a) return; if(on){ const p = a.play(); if(p && p.catch) p.catch(() => {}); } else a.pause(); });
+}
+function musToggle(){
+  _mus.off = !_mus.off; _mus.unlocked = true;
+  try{ localStorage.setItem('dbx_music_off', _mus.off ? '1' : '0'); }catch(_){}
+  musUpdate();
+}
+function catMusic(){
+  const set = (slot, m) => {
+    const cur = _mus[slot];
+    if(m && m.kind === 'audio'){
+      if(!cur || cur.dataset.u !== m.url){ if(cur) cur.pause(); const a = new Audio(m.url); a.loop = true; a.volume = .5; a.preload = 'none'; a.dataset.u = m.url; _mus[slot] = a; }
+    } else if(cur){ cur.pause(); _mus[slot] = null; }
+  };
+  set('site', catMedia('site:musik')); set('ban', catMedia('site:musikbanner'));
+  const btn = document.getElementById('musicBtn'); if(btn) btn.hidden = !(_mus.site || _mus.ban);
+  const bn = document.getElementById('siteBanner');
+  if(!_mus.io && bn && window.IntersectionObserver){
+    _mus.io = new IntersectionObserver(es => { _mus.banVisible = es.some(e => e.isIntersecting && e.intersectionRatio >= .5); musUpdate(); }, {threshold:[0, .5, 1]});
+    _mus.io.observe(bn);
+  }
+  musUpdate();
+}
+/* Browser memblokir suara otomatis: musik mulai setelah sentuhan/klik pertama pengunjung */
+['pointerdown', 'keydown', 'touchend'].forEach(ev => window.addEventListener(ev, function f(){
+  if(_mus.unlocked) return; _mus.unlocked = true; musUpdate();
+}, {passive:true}));
+document.addEventListener('visibilitychange', musUpdate);
+
 function catalogApply(c){
-  CATALOG = {prices:(c && c.prices) || {}, media:(c && c.media) || {}, shop:shNorm(c && c.shop), updatedAt:(c && c.updatedAt) || 0};
+  CATALOG = {prices:(c && c.prices) || {}, media:(c && c.media) || {}, shop:shNorm(c && c.shop), theme:(c && c.theme) || null, updatedAt:(c && c.updatedAt) || 0};
+  try{ if(window.applyTheme) window.applyTheme(CATALOG.theme); }catch(e){ console.warn('tema', e); }
+  try{ catMusic(); }catch(e){ console.warn('musik', e); }
   try{ if(typeof applyCatalogPrices === 'function') applyCatalogPrices(); }catch(e){ console.warn('harga katalog', e); }
   try{ catSiteSlots(); catBanner(); }catch(e){ console.warn('media situs', e); }
   try{ renderPromos(); renderClouds(); renderApps(); }catch(_){}
@@ -7281,12 +7375,15 @@ let mdTarget = '';
 let mdStore = '';
 const MD_MAX = 4 * 1024 * 1024;
 const MD_SOFT = 600 * 1024;     // foto lebih besar dari ini dikompres otomatis ke WebP
-const MD_OK = ['image/png','image/jpeg','image/webp','image/avif','image/gif','video/mp4','video/webm'];
-const MD_KIND = {image:'FOTO', gif:'GIF', video:'VIDEO'};
+const MD_OK = ['image/png','image/jpeg','image/webp','image/avif','image/gif','video/mp4','video/webm','audio/mpeg','audio/mp4','audio/ogg','audio/wav'];
+const MD_KIND = {image:'FOTO', gif:'GIF', video:'VIDEO', audio:'MUSIK'};
 const mdBytes = n => n >= 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
 
 function mdSections(){
-  const secs = [{title:'Tampilan Situs', open:true, items:[
+  const secs = [{title:'Musik', open:true, items:[
+    {key:'site:musik', name:'Musik Website', desc:'Diputar di seluruh situs (loop). Mulai setelah pengunjung menyentuh layar; ada tombol 🎵 untuk mematikan.', def:''},
+    {key:'site:musikbanner', name:'Musik Banner Promo', desc:'Diputar saat banner promo terlihat di layar, menggantikan musik website sementara.', def:''}
+  ]}, {title:'Tampilan Situs', open:true, items:[
     {key:'site:banner', name:'Banner Promo', desc:'Tampil di atas daftar game. Bisa foto, GIF atau video + link.', def:'', banner:true},
     {key:'site:hero',   name:'Karakter Hero', desc:'Gambar di samping panel pesanan.', def:SLOT_DEF.hero},
     {key:'site:iklan',  name:'Visual Iklan', desc:'Gambar di bagian Tentang.', def:SLOT_DEF.iklan},
@@ -7302,6 +7399,7 @@ function mdSections(){
   return secs;
 }
 function mdPrev(m, def){
+  if(m && m.kind === 'audio') return `<div class="md-aud">🎵<audio controls preload="none" src="${escHtml(m.url)}"></audio></div>`;
   if(m && m.kind === 'video') return `<video src="${escHtml(m.url)}" autoplay muted loop playsinline preload="metadata"></video>`;
   const src = m ? m.url : def;
   return src ? `<img src="${escHtml(src)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'md-empty',textContent:'Kosong'}))">` : '<span class="md-empty">Kosong</span>';
@@ -7328,7 +7426,7 @@ function mdCardHtml(it){
 function mdRender(){
   const secs = mdSections();
   $('mdNote').innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg><div><b>Foto, GIF &amp; video</b><span>PNG · JPG · WebP · GIF · MP4 · WebM, maks 4&nbsp;MB per file. Foto besar dikompres otomatis. Tarik file ke kartu atau tekan <i>Upload</i>.${mdStore === 'kv' ? ' <em>Penyimpanan bawaan aktif: GIF/video besar butuh Vercel Blob (Storage → Blob), atau tempel Link.</em>' : ''}</span></div>`;
-  $('mdList').innerHTML = secs.map(s => s.pack
+  $('mdList').innerHTML = themeCardHtml() + secs.map(s => s.pack
     ? `<details class="pz-grp md-grp" data-g="m:${escHtml(s.title)}"${pzOpen.has('m:' + s.title) ? ' open' : ''} ontoggle="pzToggle(this)"><summary><span class="pz-gn">${escHtml(s.title)}</span><span class="pz-gc">${s.items.length} gambar</span></summary><div class="md-grid">${s.items.map(mdCardHtml).join('')}</div></details>`
     : `<div class="md-sec"><div class="md-sec-h">${escHtml(s.title)}</div><div class="md-grid">${s.items.map(mdCardHtml).join('')}</div></div>`).join('');
 }
@@ -7350,11 +7448,11 @@ function mdFileChosen(inp){ const f = inp.files && inp.files[0]; if(f && mdTarge
 function mdType(file){
   if(MD_OK.includes(file.type)) return file.type;
   const ext = (file.name.split('.').pop() || '').toLowerCase();
-  return {png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', webp:'image/webp', avif:'image/avif', gif:'image/gif', mp4:'video/mp4', webm:'video/webm'}[ext] || '';
+  return {png:'image/png', jpg:'image/jpeg', jpeg:'image/jpeg', webp:'image/webp', avif:'image/avif', gif:'image/gif', mp4:'video/mp4', webm:'video/webm', mp3:'audio/mpeg', m4a:'audio/mp4', ogg:'audio/ogg', oga:'audio/ogg', wav:'audio/wav'}[ext] || '';
 }
 /* Foto diperkecil & dikompres ke WebP supaya selalu muat; GIF/video diunggah apa adanya. */
 async function mdPrepare(file, type){
-  if(type === 'image/gif' || type.startsWith('video/')) return {blob:file, type};
+  if(type === 'image/gif' || type.startsWith('video/') || type.startsWith('audio/')) return {blob:file, type};
   let bmp;
   try{ bmp = await createImageBitmap(file); }catch(_){ if(file.size <= MD_MAX) return {blob:file, type}; throw new Error('Foto tidak bisa dibaca. Coba format PNG/JPG/WebP.'); }
   const big = Math.max(bmp.width, bmp.height) > 1800;
@@ -7398,11 +7496,11 @@ async function mdSaveEntry(key, entry){
 async function mdUpload(key, file){
   if(mdBusy[key]) return;
   const type = mdType(file);
-  if(!type){ toast('Format tidak didukung. Pakai PNG, JPG, WebP, GIF, MP4 atau WebM.', 4500); return; }
+  if(!type){ toast('Format tidak didukung. Pakai PNG, JPG, WebP, GIF, MP4, WebM (atau MP3, M4A, OGG, WAV untuk musik).', 4500); return; }
   mdProgress(key, 3, 'Menyiapkan…');
   try{
     const p = await mdPrepare(file, type);
-    if(p.blob.size > MD_MAX) throw new Error('File ' + mdBytes(p.blob.size) + ' terlalu besar (maks 4 MB). ' + (type.startsWith('video/') ? 'Kompres video atau tempel Link.' : 'Kecilkan file dulu.'));
+    if(p.blob.size > MD_MAX) throw new Error('File ' + mdBytes(p.blob.size) + ' terlalu besar (maks 4 MB). ' + (type.startsWith('video/') || type.startsWith('audio/') ? 'Kompres file atau tempel Link.' : 'Kecilkan file dulu.'));
     const note = p.blob !== file ? ' (dikompres ' + mdBytes(file.size) + ' → ' + mdBytes(p.blob.size) + ')' : '';
     mdProgress(key, 5, 'Mengunggah…' + note);
     const up = await mdSend(p.blob, p.type, pct => mdProgress(key, Math.max(5, Math.min(95, pct)), 'Mengunggah ' + pct + '%' + note));
@@ -7418,10 +7516,10 @@ async function mdUpload(key, file){
   }
 }
 async function mdLink(key){
-  const u = (prompt('Tempel link https:// untuk foto, GIF, atau video (MP4/WebM):') || '').trim();
+  const u = (prompt('Tempel link https:// untuk foto, GIF, video (MP4/WebM) atau musik (MP3/M4A/OGG/WAV):') || '').trim();
   if(!u) return;
   if(!/^https:\/\//i.test(u) || u.length > 600){ toast('Link harus diawali https:// (maks 600 karakter)', 4000); return; }
-  const kind = /\.(mp4|webm)(\?|#|$)/i.test(u) ? 'video' : /\.gif(\?|#|$)/i.test(u) ? 'gif' : 'image';
+  const kind = /\.(mp3|m4a|ogg|oga|wav|aac)(\?|#|$)/i.test(u) ? 'audio' : /\.(mp4|webm)(\?|#|$)/i.test(u) ? 'video' : /\.gif(\?|#|$)/i.test(u) ? 'gif' : 'image';
   mdProgress(key, 60, 'Menyimpan link…');
   try{
     const old = CATALOG.media[key] || {};
@@ -7443,6 +7541,36 @@ async function mdSaveMeta(key){
   if(link && !/^https?:\/\//i.test(link)){ toast('Link harus diawali http:// atau https://', 4000); return; }
   try{ await mdSaveEntry(key, {url:m.url, kind:m.kind, mime:m.mime || '', size:m.size || 0, caption, link}); toast('✓ Banner diperbarui', 2500); mdRender(); }
   catch(e){ toast(e.message, 4500); }
+}
+
+/* ── Warna website ── */
+const THEME_DEF = {accent:'#7c6cf0', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};
+const THEME_PRE = [['Ungu Es','#7c6cf0','#7fe3f5'],['Biru Laut','#2f7de1','#5ee0d0'],['Hijau','#16a34a','#a3e635'],['Merah','#e11d48','#fb923c'],['Oranye','#ea580c','#facc15'],['Pink','#d946ef','#f9a8d4'],['Abu Gelap','#374151','#f59e0b']];
+const THEME_LBL = {accent:'Warna utama (tombol, judul, aksen)', accent2:'Warna kedua (aksen es)', bg:'Warna latar halaman', text:'Warna teks'};
+let themeDraft = null;
+function themeCur(){ return Object.assign({}, THEME_DEF, themeDraft || CATALOG.theme || {}); }
+function themeCardHtml(){
+  const t = themeCur();
+  return `<div class="th-card"><h3 class="th-h">Warna Website</h3>
+    <div class="th-note">Ubah warna seluruh situs sesuka hati. Perubahan langsung terlihat sebagai pratinjau; tekan <b>Simpan warna</b> supaya dipakai pengunjung.</div>
+    <div class="th-pre">${THEME_PRE.map((p, i) => `<button type="button" class="th-chip" onclick="themePreset(${i})"><i style="background:linear-gradient(135deg,${p[1]},${p[2]})"></i>${p[0]}</button>`).join('')}</div>
+    ${Object.keys(THEME_DEF).map(k => `<label class="th-row"><span>${THEME_LBL[k]}</span><b class="th-hex" data-k="${k}">${t[k]}</b><input type="color" value="${t[k]}" oninput="themeSet('${k}', this.value)"></label>`).join('')}
+    <div class="th-act"><button type="button" class="md-b up" onclick="themeSave()">Simpan warna</button><button type="button" class="md-b" onclick="themeReset()">Kembalikan bawaan</button></div></div>`;
+}
+function themeSet(k, v){ themeDraft = Object.assign(themeCur(), {[k]: v}); window.applyTheme(themeDraft); const h = document.querySelector('.th-hex[data-k="' + k + '"]'); if(h) h.textContent = v; }
+function themePreset(i){ const p = THEME_PRE[i]; themeDraft = Object.assign(themeCur(), {accent:p[1], accent2:p[2]}); window.applyTheme(themeDraft); mdRender(); }
+function themeLum(h){ const c = [1, 3, 5].map(i => parseInt(h.substr(i, 2), 16) / 255).map(v => v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4)); return .2126 * c[0] + .7152 * c[1] + .0722 * c[2]; }
+async function themeSave(){
+  const t = themeCur(), a = themeLum(t.bg), b = themeLum(t.text), ratio = (Math.max(a, b) + .05) / (Math.min(a, b) + .05);
+  if(ratio < 3){ toast('Warna teks dan latar terlalu mirip, tulisan tidak terbaca. Pilih warna yang lebih kontras.', 5000); return; }
+  const isDef = Object.keys(THEME_DEF).every(k => t[k].toLowerCase() === THEME_DEF[k]);
+  try{ const d = await admApi('/api/catalog-save', {theme: isDef ? null : t}); themeDraft = null; catalogApply(d.catalog); mdRender(); toast('✓ Warna website disimpan', 3000); }
+  catch(e){ toast(e.message || 'Gagal menyimpan warna', 4500); }
+}
+async function themeReset(){
+  if(!confirm('Kembalikan semua warna ke bawaan?')) return;
+  try{ const d = await admApi('/api/catalog-save', {theme:null}); themeDraft = null; catalogApply(d.catalog); mdRender(); toast('Warna dikembalikan ke bawaan', 3000); }
+  catch(e){ toast(e.message || 'Gagal', 4500); }
 }
 
 /* ── TOP RANK DATA ───────────────────────────────────── */
@@ -7611,5 +7739,6 @@ try{Object.keys(localStorage).forEach(function(k){if(k==='animeku'||k.indexOf('a
   document.addEventListener('visibilitychange',function(){if(!document.hidden&&a.paused&&a.currentTime>0)a.play().catch(function(){})});
 })();
 </script>
+<button type="button" id="musicBtn" class="music-btn" hidden onclick="musToggle()"></button>
 </body>
 </html>
