@@ -1987,6 +1987,7 @@ a.site-banner[href]:active{transform:scale(.99);}
 .music-btn{position:fixed;left:14px;bottom:18px;z-index:850;width:46px;height:46px;border-radius:50%;border:1px solid var(--border-bright);background:var(--surface);color:var(--cyan-soft);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 26px -10px rgba(84,67,199,.55);}
 .music-btn.off{color:var(--text-faint);}
 .music-btn[hidden]{display:none;}
+.md-snd{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:700;color:#4b4775;} .md-snd input{width:18px;height:18px;accent-color:#6556e0;}
 .md-aud{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;height:100%;font-size:1.6rem;} .md-aud audio{width:92%;height:30px;}
 .th-card{background:#fff;border:1px solid #e6e4f5;border-radius:18px;padding:14px;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
 .th-h{font-size:.95rem;font-weight:800;margin:0;} .th-note{font-size:.72rem;color:#6b6890;line-height:1.5;}
@@ -3105,22 +3106,26 @@ function catSiteSlots(){
 function catBanner(){
   const el = document.getElementById('siteBanner'); if(!el) return;
   const m = catMedia('site:banner');
-  if(!m){ el.hidden = true; el.innerHTML = ''; el.removeAttribute('href'); return; }
+  if(!m){ el.hidden = true; el.innerHTML = ''; el.removeAttribute('href'); _mus.vid = null; musUpdate(); return; }
   el.innerHTML = mediaTag('site:banner', '', 'this.remove()') + (m.caption ? `<span class="sb-cap">${escHtml(m.caption)}</span>` : '');
   if(m.link){ el.href = m.link; el.target = '_blank'; el.rel = 'noopener'; } else { el.removeAttribute('href'); el.removeAttribute('target'); }
   el.hidden = false;
+  _mus.vid = (m.kind === 'video' && m.sound !== false) ? el.querySelector('video') : null;
+  musUpdate();
 }
 /* ── Musik website & musik banner promo ── */
-const _mus = {site:null, ban:null, off:false, unlocked:false, banVisible:false, io:null};
+const _mus = {site:null, ban:null, vid:null, off:false, unlocked:false, banVisible:false, io:null};
 try{ _mus.off = localStorage.getItem('dbx_music_off') === '1'; }catch(_){}
 const MUS_ON = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>';
 const MUS_OFF = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/><path d="M2 2l20 20"/></svg>';
 function musUpdate(){
   const btn = document.getElementById('musicBtn');
-  if(btn){ btn.classList.toggle('off', _mus.off); btn.setAttribute('aria-label', _mus.off ? 'Nyalakan musik' : 'Matikan musik'); btn.innerHTML = _mus.off ? MUS_OFF : MUS_ON; }
+  if(btn){ btn.hidden = !(_mus.site || _mus.ban || _mus.vid); btn.classList.toggle('off', _mus.off); btn.setAttribute('aria-label', _mus.off ? 'Nyalakan suara' : 'Matikan suara'); btn.innerHTML = _mus.off ? MUS_OFF : MUS_ON; }
   const want = !_mus.off && _mus.unlocked && !document.hidden;
-  const banOn = !!(want && _mus.ban && _mus.banVisible);
-  const siteOn = !!(want && _mus.site && !banOn);
+  const v = _mus.vid, vidOn = !!(want && v && _mus.banVisible);
+  const banOn = !!(want && _mus.ban && _mus.banVisible && !vidOn);
+  const siteOn = !!(want && _mus.site && !vidOn && !banOn);
+  if(v){ v.muted = !vidOn; if(v.paused){ const p = v.play(); if(p && p.catch) p.catch(() => {}); } }   // video banner: bersuara hanya saat terlihat & diizinkan
   [['site', siteOn], ['ban', banOn]].forEach(([k, on]) => { const a = _mus[k]; if(!a) return; if(on){ const p = a.play(); if(p && p.catch) p.catch(() => {}); } else a.pause(); });
 }
 function musToggle(){
@@ -3136,7 +3141,6 @@ function catMusic(){
     } else if(cur){ cur.pause(); _mus[slot] = null; }
   };
   set('site', catMedia('site:musik')); set('ban', catMedia('site:musikbanner'));
-  const btn = document.getElementById('musicBtn'); if(btn) btn.hidden = !(_mus.site || _mus.ban);
   const bn = document.getElementById('siteBanner');
   if(!_mus.io && bn && window.IntersectionObserver){
     _mus.io = new IntersectionObserver(es => { _mus.banVisible = es.some(e => e.isIntersecting && e.intersectionRatio >= .5); musUpdate(); }, {threshold:[0, .5, 1]});
@@ -7413,7 +7417,7 @@ function mdCardHtml(it){
       <b>${escHtml(it.name)}</b>
       <small>${it.desc ? escHtml(it.desc) : escHtml(sub)}</small>
       ${it.desc ? `<small class="md-sub">${escHtml(sub)}</small>` : ''}
-      ${it.banner && m ? `<div class="md-meta"><input type="text" maxlength="120" placeholder="Teks di banner (opsional)" value="${escHtml(m.caption || '')}" data-f="caption"><input type="url" maxlength="300" placeholder="Link saat banner diketuk (https://…)" value="${escHtml(m.link || '')}" data-f="link"><button type="button" class="md-b" onclick="mdSaveMeta('${it.key}')">Simpan teks & link</button></div>` : ''}
+      ${it.banner && m ? `<div class="md-meta"><input type="text" maxlength="120" placeholder="Teks di banner (opsional)" value="${escHtml(m.caption || '')}" data-f="caption"><input type="url" maxlength="300" placeholder="Link saat banner diketuk (https://…)" value="${escHtml(m.link || '')}" data-f="link">${m.kind === 'video' ? `<label class="md-snd"><input type="checkbox" data-f="sound" ${m.sound === false ? '' : 'checked'}> Putar video dengan suara</label>` : ''}<button type="button" class="md-b" onclick="mdSaveMeta('${it.key}')">Simpan teks & link</button></div>` : ''}
       <div class="md-act">
         <button type="button" class="md-b up" onclick="mdPick('${it.key}')">${m ? 'Ganti' : 'Upload'}</button>
         <button type="button" class="md-b" onclick="mdLink('${it.key}')">Link</button>
@@ -7507,7 +7511,7 @@ async function mdUpload(key, file){
     mdStore = up.store;
     mdProgress(key, 97, 'Menyimpan…');
     const old = CATALOG.media[key] || {};
-    await mdSaveEntry(key, {url:up.url, kind:up.kind, mime:up.mime, size:up.size, caption:old.caption || '', link:old.link || ''});
+    await mdSaveEntry(key, {url:up.url, kind:up.kind, mime:up.mime, size:up.size, caption:old.caption || '', link:old.link || '', sound:old.sound !== false});
     mdDone(key); mdRender();
     toast('✓ ' + (MD_KIND[up.kind] || 'Media') + ' berhasil dipasang', 3000);
   }catch(e){
@@ -7523,7 +7527,7 @@ async function mdLink(key){
   mdProgress(key, 60, 'Menyimpan link…');
   try{
     const old = CATALOG.media[key] || {};
-    await mdSaveEntry(key, {url:u, kind, mime:'', size:0, caption:old.caption || '', link:old.link || ''});
+    await mdSaveEntry(key, {url:u, kind, mime:'', size:0, caption:old.caption || '', link:old.link || '', sound:old.sound !== false});
     toast('✓ Link dipasang', 2500);
   }catch(e){ toast(e.message, 4500); }
   mdDone(key); mdRender();
@@ -7538,8 +7542,9 @@ async function mdRemove(key){
 async function mdSaveMeta(key){
   const c = mdCard(key), m = CATALOG.media[key]; if(!c || !m) return;
   const caption = c.querySelector('[data-f="caption"]').value.trim(), link = c.querySelector('[data-f="link"]').value.trim();
+  const sEl = c.querySelector('[data-f="sound"]'), sound = sEl ? sEl.checked : m.sound !== false;
   if(link && !/^https?:\/\//i.test(link)){ toast('Link harus diawali http:// atau https://', 4000); return; }
-  try{ await mdSaveEntry(key, {url:m.url, kind:m.kind, mime:m.mime || '', size:m.size || 0, caption, link}); toast('✓ Banner diperbarui', 2500); mdRender(); }
+  try{ await mdSaveEntry(key, {url:m.url, kind:m.kind, mime:m.mime || '', size:m.size || 0, caption, link, sound}); toast('✓ Banner diperbarui', 2500); mdRender(); }
   catch(e){ toast(e.message, 4500); }
 }
 
