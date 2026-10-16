@@ -12,7 +12,7 @@ const { MIME_KIND, kvPost } = require('./_catalog');
 
 const MAX_BYTES = 4 * 1024 * 1024;       // batas upload
 const MAX_KV_BYTES = 700 * 1024;         // batas cadangan Redis (limit request Upstash gratis 1 MB, base64 +33%)
-const EXT = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/avif': 'avif', 'image/gif': 'gif', 'video/mp4': 'mp4', 'video/webm': 'webm' };
+const EXT = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/avif': 'avif', 'image/gif': 'gif', 'video/mp4': 'mp4', 'video/webm': 'webm', 'audio/mpeg': 'mp3', 'audio/mp4': 'm4a', 'audio/ogg': 'ogg', 'audio/wav': 'wav' };
 
 // Cocokkan isi file dengan tipe yang diklaim (tolak file yang menyamar).
 function sniff(buf) {
@@ -23,8 +23,14 @@ function sniff(buf) {
   if (h.subarray(0, 4).toString('latin1') === 'GIF8') return 'image/gif';
   if (h.subarray(0, 4).toString('latin1') === 'RIFF' && h.subarray(8, 12).toString('latin1') === 'WEBP') return 'image/webp';
   if (h.subarray(4, 8).toString('latin1') === 'ftyp') {
+    const brand = buf.subarray(8, 12).toString('latin1');
+    if (/^M4[AB] $/.test(brand)) return 'audio/mp4';
     return /avif|avis/.test(buf.subarray(8, 16).toString('latin1')) ? 'image/avif' : 'video/mp4';
   }
+  // Audio: MP3 (ID3 / frame sync), OGG, WAV
+  if (h.subarray(0, 3).toString('latin1') === 'ID3' || (h[0] === 0xff && (h[1] & 0xe0) === 0xe0)) return 'audio/mpeg';
+  if (h.subarray(0, 4).toString('latin1') === 'OggS') return 'audio/ogg';
+  if (h.subarray(0, 4).toString('latin1') === 'RIFF' && h.subarray(8, 12).toString('latin1') === 'WAVE') return 'audio/wav';
   if (h[0] === 0x1a && h[1] === 0x45 && h[2] === 0xdf && h[3] === 0xa3) return 'video/webm';
   return null;
 }
@@ -57,7 +63,7 @@ module.exports = async function handler(req, res) {
     if (!buf.length) return res.status(400).json({ success: false, error: 'File kosong' });
 
     const mime = sniff(buf);
-    if (!mime || !MIME_KIND[mime]) return res.status(415).json({ success: false, error: 'Format tidak didukung. Pakai PNG, JPG, WebP, GIF, MP4 atau WebM.' });
+    if (!mime || !MIME_KIND[mime]) return res.status(415).json({ success: false, error: 'Format tidak didukung. Pakai PNG, JPG, WebP, GIF, MP4, WebM, MP3, M4A, OGG atau WAV.' });
     const kind = MIME_KIND[mime];
 
     const token = process.env.BLOB_READ_WRITE_TOKEN;
@@ -84,8 +90,8 @@ module.exports = async function handler(req, res) {
     if (buf.length > MAX_KV_BYTES) {
       return res.status(413).json({
         success: false,
-        error: kind === 'video'
-          ? 'Upload video perlu Vercel Blob. Aktifkan di Vercel → Storage → Create → Blob, hubungkan ke project, lalu Redeploy. (Atau tempel link video.)'
+        error: (kind === 'video' || kind === 'audio')
+          ? 'Upload ' + (kind === 'audio' ? 'musik' : 'video') + ' perlu Vercel Blob. Aktifkan di Vercel → Storage → Create → Blob, hubungkan ke project, lalu Redeploy. (Atau tempel link.)'
           : 'File ' + Math.round(buf.length / 1024) + ' KB terlalu besar untuk penyimpanan bawaan (maks 700 KB). Kecilkan file, atau aktifkan Vercel Blob (Storage → Create → Blob).'
       });
     }

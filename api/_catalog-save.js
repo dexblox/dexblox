@@ -5,10 +5,10 @@ const { isAdmin } = require('./_orders');
 const { rateLimit } = require('./_ratelimit');
 const {
   MAX_PRICE, PRICE_ID_RE, MEDIA_KEY_RE, SITE_SLOTS, loadCatalog, saveCatalog, validMediaUrl, deleteStoredMedia,
-  sanitizeShop, orphanMediaKeys, ShopError
+  sanitizeShop, sanitizeTheme, orphanMediaKeys, ShopError
 } = require('./_catalog');
 
-const KINDS = ['image', 'gif', 'video'];
+const KINDS = ['image', 'gif', 'video', 'audio'];
 const clip = (v, n) => String(v == null ? '' : v).slice(0, n);
 
 module.exports = async function handler(req, res) {
@@ -59,6 +59,8 @@ module.exports = async function handler(req, res) {
         cat.media[key] = next;
       }
     }
+
+    if ('theme' in body) cat.theme = sanitizeTheme(body.theme);   // null / kosong = kembali ke warna bawaan
 
     if (body.shop && typeof body.shop === 'object') {
       cat.shop = sanitizeShop(body.shop);
