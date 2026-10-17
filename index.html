@@ -2033,6 +2033,98 @@ a.site-banner[href]:active{transform:scale(.99);}
 .md-card.busy .md-act,.md-card.busy .md-meta{opacity:.45;pointer-events:none;}
 .md-stat{font-size:.68rem;font-weight:700;color:#6556e0;min-height:0;}
 @media (max-width:480px){.md-grid{grid-template-columns:1fr;}}
+
+/* ── CLOUD PHONE (Redfinger): halaman penuh ── */
+.cp-overlay{position:fixed;inset:0;z-index:2600;background:var(--bg);}
+.cp-sheet{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--bg);transform:translateY(100%);transition:transform .38s cubic-bezier(.22,1,.36,1);}
+.cp-top{flex-shrink:0;display:flex;align-items:center;gap:12px;padding:12px 18px;padding-top:calc(12px + env(safe-area-inset-top,0px));background:var(--bg);border-bottom:1px solid var(--border);}
+.cp-back{width:38px;height:38px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--surface);color:var(--text);border:1px solid var(--border);font-size:1.2rem;font-weight:700;transition:background .2s,transform .15s;}
+.cp-back:hover{background:var(--border);} .cp-back:active{transform:scale(.9);}
+.cp-hic{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;flex-shrink:0;color:var(--cyan-soft);background:linear-gradient(145deg,var(--cyan-deep),var(--ice-soft));border:1px solid var(--border-bright);}
+.cp-hic svg{width:22px;height:22px;}
+.cp-ht{flex:1;min-width:0;}
+.cp-t{font-weight:800;font-size:1.02rem;line-height:1.25;color:var(--text);}
+.cp-s{font-size:.76rem;font-weight:600;color:var(--text-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cp-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;}
+.cp-inner{max-width:640px;margin:0 auto;padding:18px 18px 40px;}
+.cp-steps{display:flex;align-items:center;justify-content:center;padding:0 0 18px;}
+.cp-intro{font-size:.84rem;line-height:1.6;color:var(--text-muted);margin:0 0 14px;}
+.cp-intro strong{color:var(--text);}
+.cp-wait{margin:16px 0 0;padding:12px 14px;text-align:center;font-size:.78rem;line-height:1.6;color:var(--text-muted);background:var(--bg-alt);border:1px solid var(--border);border-radius:14px;}
+.cp-wait strong{color:var(--text);}
+
+/* Apa itu RedFinger? */
+.cp-what{margin-bottom:22px;border:1.5px solid var(--border-bright);border-radius:18px;background:linear-gradient(135deg,var(--cyan-deep),var(--ice-soft));overflow:hidden;}
+.cp-what summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;-webkit-tap-highlight-color:transparent;}
+.cp-what summary::-webkit-details-marker{display:none;}
+.cp-q{width:34px;height:34px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;font-family:'Orbitron',sans-serif;font-weight:800;font-size:1rem;color:#fff;background:linear-gradient(135deg,#8b7cf6,#5443c7);box-shadow:0 8px 18px -8px rgba(84,67,199,.8);}
+.cp-wt{flex:1;min-width:0;display:flex;flex-direction:column;font-weight:800;font-size:.98rem;color:var(--text);}
+.cp-wt small{font-size:.72rem;font-weight:600;color:var(--text-muted);margin-top:1px;}
+.cp-chev{width:30px;height:30px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;background:var(--surface);border:1px solid var(--border-bright);color:var(--cyan-soft);transition:transform .3s;}
+.cp-chev svg{width:16px;height:16px;}
+.cp-what[open] .cp-chev{transform:rotate(180deg);}
+.cp-what[open] summary{border-bottom:1px solid var(--border-bright);}
+.cp-wbody{padding:16px 18px 20px;background:var(--surface);font-size:.86rem;line-height:1.65;color:var(--text-muted);animation:rbxRise .3s ease both;}
+.cp-wbody p{margin:0 0 10px;}
+.cp-wbody b{color:var(--text);}
+.cp-wbody h4{margin:18px 0 8px;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--cyan-soft);}
+.cp-wbody ul,.cp-wbody ol{margin:0;padding:0;list-style:none;display:grid;gap:8px;}
+.cp-wbody ul li{position:relative;padding-left:20px;}
+.cp-wbody ul li::before{content:"";position:absolute;left:3px;top:.55em;width:7px;height:7px;border-radius:50%;background:linear-gradient(135deg,#8b7cf6,#5443c7);}
+.cp-wbody ol{counter-reset:cp;}
+.cp-wbody ol li{counter-increment:cp;position:relative;padding-left:32px;}
+.cp-wbody ol li::before{content:counter(cp);position:absolute;left:0;top:0;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:#fff;background:linear-gradient(135deg,#8b7cf6,#5443c7);}
+
+
+/* Seri GenPlay + info server */
+.cp-vn{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding:12px 15px;border-radius:16px;background:linear-gradient(135deg,#ecfdf5,#d1fae5);border:1.5px solid #6ee7b7;}
+.cp-vn-flag{font-size:1.6rem;line-height:1;}
+.cp-vn b{display:block;font-size:.92rem;font-weight:800;color:#047857;}
+.cp-vn small{font-size:.72rem;font-weight:600;color:#065f46;}
+.cp-seri{display:flex;gap:8px;margin-bottom:14px;overflow-x:auto;}
+.cp-st{flex:1;min-width:0;padding:10px 8px;border-radius:12px;font-family:'Orbitron',sans-serif;font-weight:800;font-size:.8rem;white-space:nowrap;
+  background:var(--surface);color:var(--text-muted);border:1.5px solid var(--border);-webkit-tap-highlight-color:transparent;}
+.cp-st.on{background:linear-gradient(135deg,#10b981,#047857);color:#fff;border-color:transparent;}
+
+/* Paket */
+.cp-cap{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--text-faint);margin-bottom:10px;}
+.cp-grp{margin-bottom:18px;}
+.cp-gh{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.cp-gh::after{content:"";flex:1;height:1px;background:var(--border);}
+.cp-badge{font-family:'Orbitron',sans-serif;font-weight:800;font-size:.74rem;letter-spacing:.6px;color:#fff;padding:4px 11px;border-radius:8px;}
+.cp-badge.t-vip{background:linear-gradient(135deg,#8b7cf6,#5443c7);}
+.cp-badge.t-kvip{background:linear-gradient(135deg,#f6ad2e,#d97706);}
+.cp-badge.t-svip{background:linear-gradient(135deg,#f0625a,#c02626);}
+.cp-opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin-bottom:8px;padding:14px 16px;
+  background:var(--surface);border:1.5px solid var(--border);border-radius:16px;color:var(--text);
+  transition:border-color .18s,background .18s,box-shadow .18s,transform .12s;-webkit-tap-highlight-color:transparent;}
+.cp-opt:active{transform:scale(.985);}
+.cp-opt:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;}
+.cp-radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--border-bright);flex-shrink:0;display:grid;place-items:center;transition:border-color .18s,background .18s;}
+.cp-opt.sel{border-color:var(--cyan);background:var(--cyan-deep);box-shadow:0 0 0 3px rgba(124,108,240,.14);}
+.cp-opt.sel .cp-radio{border-color:var(--cyan);background:var(--cyan);}
+.cp-opt.sel .cp-radio::after{content:"";width:6px;height:6px;border-radius:50%;background:#fff;}
+.cp-od{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;}
+.cp-od b{font-size:.95rem;font-weight:800;display:flex;align-items:center;flex-wrap:wrap;}
+.cp-od small{font-size:.72rem;font-weight:600;color:var(--text-faint);}
+.cp-hemat{font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.3px;margin-left:8px;padding:2px 8px;border-radius:50px;background:#dcfce7;color:#15803d;}
+.cp-pr{font-family:'Inter',sans-serif;font-weight:700;font-size:.98rem;color:var(--cyan-soft);white-space:nowrap;}
+.cp-sum{display:none;margin-top:4px;padding:6px 16px;background:var(--bg-alt);border:1px solid var(--border);border-radius:16px;}
+.cp-sum.on{display:block;animation:rbxRise .3s ease both;}
+.cp-sr{display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-size:.82rem;color:var(--text-muted);}
+.cp-sr b{color:var(--text);font-weight:700;text-align:right;}
+.cp-sr.tot{margin-top:2px;padding-top:11px;border-top:1px dashed var(--border-bright);font-weight:800;color:var(--text);}
+.cp-sr.tot b{font-family:'Inter',sans-serif;font-size:1rem;color:var(--cyan-soft);}
+
+/* Bar bawah */
+.cp-foot{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px 20px;padding-bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  border-top:1px solid var(--border);background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 -12px 30px -22px rgba(84,67,199,.6);}
+.cp-fl{display:flex;flex-direction:column;min-width:0;}
+.cp-fl span{font-size:.78rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cp-fl strong{font-family:'Inter',sans-serif;font-weight:700;font-size:1.1rem;color:var(--cyan-soft);}
+.cp-foot .btn{padding:13px 24px;border-radius:14px;white-space:nowrap;}
+.cp-foot .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
+@media (prefers-reduced-motion:reduce){.cp-sheet{transition:none;}.cp-sum.on,.cp-wbody{animation:none;}.cp-chev{transition:none;}}
 </style>
 <script>
 /* ── Tema warna website (dari Admin → Media). Menimpa warna ungu bawaan di seluruh stylesheet. ── */
@@ -3312,13 +3404,14 @@ function renderPromos(){
 
 /* ============ TAB: GAME / CLOUD PHONE / APLIKASI ============ */
 const CLOUDS = [
-  {id:'rf', name:'Redfingger', img:'assets/redfinger.png'}
+  {id:'rf', name:'Redfingger', img:'assets/redfinger.png', brand:'rf'},
+  {id:'gp', name:'GenPlay', img:'assets/genplay.png', brand:'gp'}
 ];
 const CLOUDS_BASE = CLOUDS.slice(), PROMOS_BASE = PROMOS.slice();
 const CLOUD_ICON = `<svg viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.6 4.2 4.2 0 0 0 7 18Z"/></svg>`;
 function renderClouds(){
   document.getElementById('cloud-grid').innerHTML = CLOUDS.map(c => `
-    <button type="button" class="tg-item" onclick="tgCloudOpen(this${c.game ? ",'" + c.game + "'" : ''})" aria-label="Sewa ${escHtml(c.name)} Cloud Phone">
+    <button type="button" class="tg-item" onclick="tgCloudOpen(this,'${c.game || ''}','${c.brand || ''}')" aria-label="Sewa ${escHtml(c.name)} Cloud Phone">
       <span class="tg-img">
         <span class="tg-fb">${CLOUD_ICON}</span>
         ${mediaTag('game:'+c.id, c.img, "this.closest('.tg-item').classList.add('no-img');this.remove()")}
@@ -3326,10 +3419,10 @@ function renderClouds(){
       <span class="tg-name">${escHtml(c.name)}</span>
     </button>`).join('');
 }
-function tgCloudOpen(btn, gameKey){
+function tgCloudOpen(btn, gameKey, brand){
   btn.classList.remove('tg-pop'); void btn.offsetWidth; btn.classList.add('tg-pop');
   const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  setTimeout(gameKey ? () => openGameModal(gameKey) : openCloudPhoneModal, reduce ? 0 : 160);
+  setTimeout(gameKey ? () => openGameModal(gameKey) : () => openCloudPhoneModal(brand || 'rf'), reduce ? 0 : 160);
 }
 /* Aplikasi (produk jenis "app" dari Admin → Produk) */
 let APPS = [];
@@ -3450,6 +3543,8 @@ function rbxGo(id){
     const busy = document.getElementById('modalOverlay')?.classList.contains('open')
       || document.getElementById('jokiRedirectOverlay')?.classList.contains('active')
       || (document.getElementById('cpOverlay') && document.getElementById('cpOverlay').style.display === 'flex');
+    const cpOpen = document.getElementById('cpOverlay') && document.getElementById('cpOverlay').style.display === 'flex';
+    if(cpOpen && !document.getElementById('jokiRedirectOverlay')?.classList.contains('active')) { closeCPModal(); return; }
     if(!busy && document.getElementById('roblox-modal')?.classList.contains('active')) closeRobloxModal();
   });
 })();
@@ -4543,114 +4638,131 @@ renderApps();
 
 <!-- ============ Ported: Robux / Joki / Cloud Phone / Admin (from DexBlox) ============ -->
 <!-- ── CLOUD PHONE MODAL ──────────────────────────────────── -->
-<div id="cpOverlay" style="display:none;position:fixed;inset:0;z-index:998;background:rgba(15,23,42,0.6);backdrop-filter:blur(5px);align-items:flex-end;justify-content:center;" onclick="if(event.target===this)closeCPModal()">
-  <div style="background:#fff;width:100%;max-width:480px;border-radius:20px 20px 0 0;max-height:90vh;overflow-y:auto;transform:translateY(100%);transition:transform 0.3s cubic-bezier(.34,1.2,.64,1);" id="cpSheet">
-    <div style="width:36px;height:4px;background:#e2e8f0;border-radius:2px;margin:10px auto 0;"></div>
+<div id="cpOverlay" class="cp-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="cpTitle">
+  <div class="cp-sheet" id="cpSheet">
 
-    <!-- Header -->
-    <div style="background:linear-gradient(135deg,#0ea5e9,#38bdf8,#7dd3fc);padding:1.25rem 1.5rem;display:flex;align-items:center;justify-content:space-between;">
-      <div>
-        <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:1.05rem;color:#fff;" id="cpTitle">Redfingger Cloud Phone</div>
-        <div style="font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.8);margin-top:0.1rem;" id="cpSub">AFK game bebas masalah · Aktivasi via kode</div>
+    <!-- Bar atas -->
+    <div class="cp-top">
+      <button type="button" class="cp-back" onclick="closeCPModal()" aria-label="Kembali">←</button>
+      <span class="cp-hic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.6 4.2 4.2 0 0 0 7 18Z"/></svg></span>
+      <div class="cp-ht">
+        <div class="cp-t" id="cpTitle">Redfingger Cloud Phone</div>
+        <div class="cp-s" id="cpSub">AFK game bebas masalah · Aktivasi via kode</div>
       </div>
-      <button onclick="closeCPModal()" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.2);border:none;color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;"><svg class="ic" aria-hidden="true"><use href="#i-x"/></svg></button>
     </div>
 
-    <!-- Steps -->
-    <div style="display:flex;align-items:center;justify-content:center;padding:1rem 1.5rem 0;gap:0;" id="cpStepsBar">
-      <div class="step-dot"><div class="sdot active" id="cpSd1">1</div><div class="slbl active" id="cpSl1">Ringkasan</div></div>
-      <div class="step-line" id="cpLine1"></div>
-      <div class="step-dot"><div class="sdot" id="cpSd2">2</div><div class="slbl" id="cpSl2">Bayar</div></div>
-      <div class="step-line" id="cpLine2"></div>
-      <div class="step-dot"><div class="sdot" id="cpSd3">3</div><div class="slbl" id="cpSl3">Selesai</div></div>
-    </div>
+    <div class="cp-scroll" id="cpScroll">
+      <div class="cp-inner">
 
-    <div style="padding:1.1rem 1.5rem 2rem;">
-
-      <!-- STEP 1: Ringkasan -->
-      <div id="cpPanel1">
-        <div id="cpDesc" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;margin-bottom:1.25rem;line-height:1.6;">
-          <strong>Redfingger Cloud Phone</strong> — Sewa HP cloud untuk AFK game, topup otomatis, dan kebutuhan lainnya. Diakses via remote, tidak perlu HP fisik! Aktivasi VIP dikirim <strong>via kode</strong> setelah pembayaran dikonfirmasi.
+        <!-- Langkah -->
+        <div class="cp-steps" id="cpStepsBar">
+          <div class="step-dot"><div class="sdot active" id="cpSd1">1</div><div class="slbl active" id="cpSl1">Paket</div></div>
+          <div class="step-line" id="cpLine1"></div>
+          <div class="step-dot"><div class="sdot" id="cpSd2">2</div><div class="slbl" id="cpSl2">Bayar</div></div>
+          <div class="step-line" id="cpLine2"></div>
+          <div class="step-dot"><div class="sdot" id="cpSd3">3</div><div class="slbl" id="cpSl3">Selesai</div></div>
         </div>
 
-        <!-- Pilih Paket -->
-        <div style="font-size:0.72rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;">Pilih Paket VIP</div>
-        <div id="cpPaketList" style="display:flex;flex-direction:column;gap:0.6rem;margin-bottom:1.25rem;">
-          <div class="cp-paket-card" data-hari="7" data-harga="20000" onclick="cpSelectPaket(this)" style="cursor:pointer;background:var(--white);border:2px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;display:flex;align-items:center;gap:1rem;transition:all 0.15s;">
-            <div style="display:flex;align-items:center;"><svg width="1.8rem" height="1.8rem" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.5"><path d="M7 18h10.5a3.5 3.5 0 000-7 5.5 5.5 0 00-10.6-1.7A4 4 0 007 18z"/></svg></div>
-            <div style="flex:1;">
-              <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:0.95rem;color:var(--text);">VIP 7 Hari</div>
-              <div style="font-size:0.7rem;font-weight:600;color:var(--text-muted);margin-top:2px;">Redfingger Cloud Phone · AFK Game</div>
+        <!-- STEP 1: Pilih paket -->
+        <div id="cpPanel1">
+          <p class="cp-intro" id="cpDesc">Sewa HP Android cloud untuk AFK game dan kebutuhan lainnya. Kode aktivasi dikirim <strong>via WhatsApp</strong> setelah pembayaran dikonfirmasi.</p>
+
+          <details class="cp-what">
+            <summary>
+              <span class="cp-q">?</span>
+              <span class="cp-wt">Apa itu RedFinger?<small>Ketuk untuk baca penjelasan lengkap</small></span>
+              <span class="cp-chev" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+            </summary>
+            <div class="cp-wbody">
+              <p><b>RedFinger</b> adalah ponsel Android virtual yang berjalan di server cloud.</p>
+              <p>Kamu bisa menjalankan game, bot, dan aplikasi Android 24 jam nonstop, tanpa harus menyalakan HP fisik!</p>
+
+              <h4>Fungsi RedFinger</h4>
+              <ul>
+                <li><b>AFK Game 24 Jam</b> – biarkan farming jalan terus walau HP kamu mati.</li>
+                <li><b>Bot Otomatis</b> – jalankan script tanpa takut disconnect.</li>
+                <li><b>Multi Akun</b> – kelola beberapa akun sekaligus dengan mudah.</li>
+                <li><b>Tes Aplikasi Android</b> – cocok untuk developer &amp; tester.</li>
+                <li><b>Hemat Baterai &amp; Kuota</b> – semua proses berjalan di server RedFinger.</li>
+              </ul>
+
+              <h4>Cara Kerja</h4>
+              <ol>
+                <li>Login ke akun RedFinger</li>
+                <li>Pilih server (Hongkong / Singapura / dll)</li>
+                <li>Dapatkan HP Android virtual di cloud</li>
+                <li>Install &amp; jalankan aplikasi seperti HP biasa</li>
+                <li>Tutup aplikasi → HP cloud tetap aktif 24 jam!</li>
+              </ol>
+
+              <h4>Cocok untuk</h4>
+              <ul>
+                <li>Gamer AFK</li>
+                <li>Pengguna bot otomatis</li>
+                <li>Pengelola banyak akun</li>
+                <li>Developer &amp; tester aplikasi Android</li>
+                <li>Pengguna yang ingin aplikasi tetap berjalan 24 jam tanpa menyalakan HP fisik</li>
+              </ul>
             </div>
-            <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:1.05rem;color:var(--primary);">Rp 20.000</div>
+          </details>
+
+          <div class="cp-cap">Pilih Paket</div>
+          <div id="cpPaketList"></div>
+
+          <div class="cp-sum" id="cpRingkasan">
+            <div class="cp-sr"><span>Paket</span><b id="cpRPaket">—</b></div>
+            <div class="cp-sr"><span>Harga sewa</span><b id="cpRHarga">—</b></div>
+            <div class="cp-sr"><span>Biaya QRIS</span><b id="cpRFee">—</b></div>
+            <div class="cp-sr tot"><span>Total</span><b id="cpRTotal">—</b></div>
           </div>
-          <div class="cp-paket-card" data-hari="30" data-harga="62000" onclick="cpSelectPaket(this)" style="cursor:pointer;background:var(--white);border:2px solid var(--border);border-radius:14px;padding:0.9rem 1.1rem;display:flex;align-items:center;gap:1rem;transition:all 0.15s;position:relative;">
-            <span style="position:absolute;top:-9px;right:14px;background:linear-gradient(135deg,#6556e0,#5443c7);color:#fff;font-size:0.62rem;font-weight:800;padding:2px 9px;border-radius:50px;">Terhemat</span>
-            <div style="display:flex;align-items:center;"><svg width="1.8rem" height="1.8rem" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.5"><path d="M7 18h10.5a3.5 3.5 0 000-7 5.5 5.5 0 00-10.6-1.7A4 4 0 007 18z"/></svg></div>
-            <div style="flex:1;">
-              <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:0.95rem;color:var(--text);">VIP 30 Hari</div>
-              <div style="font-size:0.7rem;font-weight:600;color:var(--text-muted);margin-top:2px;">Redfingger Cloud Phone · AFK Game</div>
+        </div>
+
+        <!-- STEP 2: QRIS -->
+        <div id="cpPanel2" style="display:none;">
+          <div class="qris-order" style="margin-bottom:0.8rem;">
+            <div class="qrow"><span class="qk">Order ID</span><span class="qv" id="cpOrderIdShow" style="font-family:monospace;font-size:0.88rem;">—</span></div>
+          </div>
+          <div class="qris-box">
+            <div class="qris-lbl">Scan QRIS untuk Membayar</div>
+            <div class="qris-amount" id="cpQrisAmount">Rp 0</div>
+            <div class="qframe">
+              <img id="cpQrImg" src="" alt="QRIS" />
             </div>
-            <div style="font-family:'Inter',sans-serif;font-weight:800;font-size:1.05rem;color:var(--primary);">Rp 62.000</div>
+            <div class="qris-expire-row"><svg class="ic" aria-hidden="true"><use href="#i-timer"/></svg> Berlaku: <span class="qris-timer" id="cpTimer">14:59</span></div>
+            <div class="qris-methods">
+              <div class="qris-meth">GoPay</div><div class="qris-meth">OVO</div>
+              <div class="qris-meth">DANA</div><div class="qris-meth">ShopeePay</div>
+              <div class="qris-meth">m-BCA</div>
+            </div>
+          </div>
+          <div class="cp-wait">Menunggu pembayaran... status akan terverifikasi <strong>otomatis</strong> begitu pembayaran kamu diterima.</div>
+          <button class="mbtn" id="cpBtnPay" onclick="cpKonfirmBayar()">Cek Status Pembayaran</button>
+          <button class="mbtn-back" onclick="cpGoStep(1)">← Kembali</button>
+        </div>
+
+        <!-- STEP 3: Sukses -->
+        <div id="cpPanel3" style="display:none;">
+          <div class="success-wrap">
+            <div class="sico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
+            <div class="stit">Pembayaran Berhasil!</div>
+            <div class="ssub">Pesanan Cloud Phone kamu sedang diproses. Kode aktivasi akan dikirim admin via WhatsApp.</div>
+            <div class="sdet" id="cpSuccessDetail"></div>
+            <button class="mbtn" onclick="closeCPModal()" style="margin-top:0.5rem;">Selesai</button>
           </div>
         </div>
 
-        <!-- Ringkasan biaya -->
-        <div class="qris-order" id="cpRingkasan" style="display:none;">
-          <div class="qrow"><span class="qk">Paket</span><span class="qv" id="cpRPaket">—</span></div>
-          <div class="qrow"><span class="qk">Harga Sewa</span><span class="qv" id="cpRHarga">—</span></div>
-          <div class="qrow"><span class="qk">Biaya QRIS</span><span class="qv" style="color:var(--primary);" id="cpRFee">—</span></div>
-          <div class="qrow" style="border-top:1px solid var(--border);padding-top:0.4rem;margin-top:0.1rem;">
-            <span class="qk" style="font-weight:800;">Subtotal</span>
-            <span class="qv orn" style="font-size:1rem;" id="cpRTotal">—</span>
-          </div>
-        </div>
-
-        <button class="mbtn" id="cpBtnStep1" onclick="cpGoToPay()" style="margin-top:1rem;" disabled>Bayar Sekarang →</button>
       </div>
-
-      <!-- STEP 2: QRIS + Upload -->
-      <div id="cpPanel2" style="display:none;">
-        <!-- Order ID -->
-        <div class="qris-order" style="margin-bottom:0.8rem;">
-          <div class="qrow"><span class="qk">Order ID</span><span class="qv" id="cpOrderIdShow" style="font-family:monospace;font-size:0.88rem;">—</span></div>
-        </div>
-        <!-- QRIS box -->
-        <div class="qris-box">
-          <div class="qris-lbl">Scan QRIS untuk Membayar</div>
-          <div class="qris-amount" id="cpQrisAmount">Rp 0</div>
-          <div class="qframe">
-            <img id="cpQrImg" src="" alt="QRIS" />
-          </div>
-          <div class="qris-expire-row"><svg class="ic" aria-hidden="true"><use href="#i-timer"/></svg> Berlaku: <span class="qris-timer" id="cpTimer">14:59</span></div>
-          <div class="qris-methods">
-            <div class="qris-meth">GoPay</div><div class="qris-meth">OVO</div>
-            <div class="qris-meth">DANA</div><div class="qris-meth">ShopeePay</div>
-            <div class="qris-meth">m-BCA</div>
-          </div>
-        </div>
-
-        <!-- Info auto-cek -->
-        <div style="margin-top:1rem;background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:0.75rem;font-weight:600;color:#1e40af;line-height:1.55;text-align:center;">
-          Menunggu pembayaran... status akan terverifikasi <strong>otomatis</strong> begitu pembayaran kamu diterima.
-        </div>
-
-        <button class="mbtn" id="cpBtnPay" onclick="cpKonfirmBayar()">Cek Status Pembayaran</button>
-        <button class="mbtn-back" onclick="cpGoStep(1)">← Kembali</button>
-      </div>
-
-      <!-- STEP 3: Sukses -->
-      <div id="cpPanel3" style="display:none;">
-        <div class="success-wrap">
-          <div class="sico"><svg width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="#6556e0" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
-          <div class="stit">Pembayaran Berhasil!</div>
-          <div class="ssub">Pesanan Cloud Phone kamu sedang diproses. Kode aktivasi VIP akan dikirim admin via WhatsApp.</div>
-          <div class="sdet" id="cpSuccessDetail"></div>
-          <button class="mbtn" onclick="closeCPModal()" style="margin-top:0.5rem;">Selesai</button>
-        </div>
-      </div>
-
     </div>
+
+    <!-- Bar bawah (langkah 1) -->
+    <div class="cp-foot" id="cpFoot">
+      <div class="cp-fl">
+        <span id="cpFLbl">Belum pilih paket</span>
+        <strong id="cpFPrice">Rp0</strong>
+      </div>
+      <button class="btn btn-primary" id="cpBtnStep1" onclick="cpGoToPay()" disabled>Bayar Sekarang →</button>
+    </div>
+
   </div>
 </div>
 
@@ -5710,67 +5822,6 @@ async function handlePaymentSuccess() {
       '_Mohon segera diproses. Terima kasih!_'
     ].join('\n');
     window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
-  } else if (activeType === 'joki') {
-    // Joki: kirim konfirmasi ke WA
-    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
-    const waMsg = [
-      'Halo Min MENG STORE! Saya sudah bayar Joki Level Violence District.','',
-      `ID Pesanan: *${currentOid}*`,
-      `Username: *${uname}*`,
-      `Level: ${selectedPaket.lvl} Level`,
-      `Total: ${total}`,
-      `Profil: ${profileUrl}`,
-      `Waktu: ${new Date().toLocaleString('id-ID')}`,
-      '',
-      '_Mohon segera diproses ya min!_'
-    ].join('\n');
-    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
-  } else if (activeType === 'vu') {
-    // Via Username: kirim konfirmasi ke WA
-    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
-    const waMsg = [
-      'Halo Min MENG STORE! Saya sudah bayar Via Username.','',
-      `ID Pesanan: *${currentOid}*`,
-      `Username: *${uname}*`,
-      `Robux: ${selectedPaket.rbx}`,
-      `Total: ${total}`,
-      `Profil: ${profileUrl}`,
-      `Waktu: ${new Date().toLocaleString('id-ID')}`,
-      '',
-      '_Mohon segera diproses ya min!_'
-    ].join('\n');
-    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
-  } else if (activeType === 'follow') {
-    // Pengikut Roblox: kirim konfirmasi ke WA
-    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
-    const waMsg = [
-      'Halo Min MENG STORE! Saya sudah bayar Pengikut Roblox.','',
-      `ID Pesanan: *${currentOid}*`,
-      `Username: *${uname}*`,
-      `Jumlah Pengikut: ${selectedPaket.flw.toLocaleString('id-ID')}`,
-      `Total: ${total}`,
-      `Profil: ${profileUrl}`,
-      `Waktu: ${new Date().toLocaleString('id-ID')}`,
-      '',
-      '_Mohon segera diproses ya min!_'
-    ].join('\n');
-    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
-  } else {
-    // 5-7 Hari: kirim konfirmasi ke WA
-    const profileUrl = `https://www.roblox.com/users/profile?username=${encodeURIComponent(uname)}`;
-    const waMsg = [
-      'Halo Min MENG STORE! Saya sudah bayar.','',
-      `ID Pesanan: *${currentOid}*`,
-      `Username: *${uname}*`,
-      `Robux: ${selectedPaket.rbx}`,
-      selectedPaket.gp ? `Gamepass: #${selectedPaket.gp.toLocaleString('id-ID')}` : null,
-      `Total: ${total}`,
-      `Profil: ${profileUrl}`,
-      `Waktu: ${new Date().toLocaleString('id-ID')}`,
-      '',
-      '_Mohon segera diproses ya min!_'
-    ].filter(Boolean).join('\n');
-    window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
   }
 
   // Tampilkan sukses
@@ -5849,7 +5900,39 @@ function updateTimerDisplay() {
 }
 
 /* ── CLOUD PHONE MODAL ───────────────────────────────── */
-let CP_HARI   = 0;
+/* Harga bawaan Redfingger. ID harus sama dengan yang dikenali server pembayaran. */
+const CP_BASE = [
+  {id:'cp-vip-30',  tier:'VIP',  hari:30, harga:58000},
+  {id:'cp-vip-7',   tier:'VIP',  hari:7,  harga:19000},
+  {id:'cp-kvip-30', tier:'KVIP', hari:30, harga:98000},
+  {id:'cp-kvip-7',  tier:'KVIP', hari:7,  harga:33500},
+  {id:'cp-svip-7',  tier:'SVIP', hari:7,  harga:43500},
+  /* GenPlay: USD x Rp18.000 lalu dikurangi Rp10.000, dibulatkan ke Rp500 */
+  {id:'gp-845-7', brand:'GenPlay', tier:'S845', hari:7, harga:36000},
+  {id:'gp-845-15', brand:'GenPlay', tier:'S845', hari:15, harga:75000},
+  {id:'gp-845-30', brand:'GenPlay', tier:'S845', hari:30, harga:122000},
+  {id:'gp-845-90', brand:'GenPlay', tier:'S845', hari:90, harga:289500},
+  {id:'gp-845-180', brand:'GenPlay', tier:'S845', hari:180, harga:433000},
+  {id:'gp-845-360', brand:'GenPlay', tier:'S845', hari:360, harga:875500},
+  {id:'gp-855-7', brand:'GenPlay', tier:'S855', hari:7, harga:53000},
+  {id:'gp-855-15', brand:'GenPlay', tier:'S855', hari:15, harga:107000},
+  {id:'gp-855-30', brand:'GenPlay', tier:'S855', hari:30, harga:170000},
+  {id:'gp-855-90', brand:'GenPlay', tier:'S855', hari:90, harga:403500},
+  {id:'gp-855-180', brand:'GenPlay', tier:'S855', hari:180, harga:600500},
+  {id:'gp-855-360', brand:'GenPlay', tier:'S855', hari:360, harga:1187500},
+  {id:'gp-865-7', brand:'GenPlay', tier:'S865', hari:7, harga:68500},
+  {id:'gp-865-15', brand:'GenPlay', tier:'S865', hari:15, harga:136000},
+  {id:'gp-865-30', brand:'GenPlay', tier:'S865', hari:30, harga:213500},
+  {id:'gp-865-90', brand:'GenPlay', tier:'S865', hari:90, harga:505500},
+  {id:'gp-865-180', brand:'GenPlay', tier:'S865', hari:180, harga:757000},
+  {id:'gp-865-360', brand:'GenPlay', tier:'S865', hari:360, harga:1475500}
+];
+const CP_PAKET = CP_BASE.map(p => Object.assign({}, p));   // harga bisa ditimpa dari Admin → Harga
+const cpName = p => (p.brand ? p.brand + ' ' : '') + p.tier + ' ' + p.hari + ' Hari';
+const cpProd = () => (CP_SEL && CP_SEL.brand === 'GenPlay') ? 'GenPlay Cloud Phone' : 'Redfingger Cloud Phone';
+let CP_BRAND = 'rf', CP_SERI = 'S845';
+let CP_SEL    = null;
+const cpLabel = () => CP_SEL ? cpName(CP_SEL) : '';
 let CP_HARGA  = 0;
 let cpTxnId   = null;
 let CP_FEE    = 0;
@@ -5858,27 +5941,68 @@ let cpTimerInterval = null;
 let cpTimerSecs     = 899;
 let cpOid = '';
 
-function cpSelectPaket(el) {
-  document.querySelectorAll('.cp-paket-card').forEach(c => { c.style.borderColor = 'var(--border)'; c.style.background = 'var(--white)'; });
-  el.style.borderColor = 'var(--primary)'; el.style.background = 'var(--primary-light)';
-  CP_HARI  = parseInt(el.dataset.hari);
-  CP_HARGA = parseInt(el.dataset.harga);
+function cpRenderList() {
+  const box = $('cpPaketList'); if (!box) return;
+  const perDay = p => Math.round(p.harga / p.hari);
+  const optHtml = (list) => {
+    const best = list.length > 1 ? list.reduce((m, p) => perDay(p) < perDay(m) ? p : m) : null;
+    return list.map(p => `
+        <button type="button" class="cp-opt${CP_SEL && CP_SEL.id === p.id ? ' sel' : ''}" onclick="cpSelectPaket('${p.id}')" aria-pressed="${CP_SEL && CP_SEL.id === p.id ? 'true' : 'false'}">
+          <span class="cp-radio"></span>
+          <span class="cp-od"><b>${p.hari} Hari${best === p ? '<em class="cp-hemat">Hemat</em>' : ''}</b><small>≈ ${rp(perDay(p))} / hari</small></span>
+          <span class="cp-pr">${rp(p.harga)}</span>
+        </button>`).join('');
+  };
+  let body = '';
+  if (CP_BRAND === 'gp') {
+    const seris = [];
+    CP_PAKET.filter(p => p.brand === 'GenPlay').forEach(p => { if (!seris.includes(p.tier)) seris.push(p.tier); });
+    if (!seris.includes(CP_SERI)) CP_SERI = seris[0];
+    const list = CP_PAKET.filter(p => p.brand === 'GenPlay' && p.tier === CP_SERI).sort((a, b) => a.hari - b.hari);
+    body = `<div class="cp-seri">${seris.map(t => `<button type="button" class="cp-st${t === CP_SERI ? ' on' : ''}" onclick="cpSetSeri('${t}')">${t}${t !== 'S845' ? ' 🔥' : ''}</button>`).join('')}</div>
+      <div class="cp-grp">${optHtml(list)}</div>`;
+  } else {
+    const tiers = [];
+    CP_PAKET.filter(p => !p.brand).forEach(p => { if (!tiers.includes(p.tier)) tiers.push(p.tier); });
+    body = tiers.map(t => {
+      const list = CP_PAKET.filter(p => !p.brand && p.tier === t).sort((a, b) => b.hari - a.hari);
+      return `<div class="cp-grp">
+      <div class="cp-gh"><span class="cp-badge t-${t.toLowerCase()}">${t}</span></div>${optHtml(list)}
+    </div>`;
+    }).join('');
+  }
+  const note = CP_BRAND === 'gp'
+    ? `<div class="cp-vn"><span class="cp-vn-flag">🇻🇳</span><div><b>Server Vietnam</b><small>Cloud phone GenPlay khusus server Vietnam</small></div></div>` : '';
+  box.innerHTML = note + body;
+}
+function cpSetSeri(t)  { CP_SERI = t;  cpRenderList(); }
+
+function cpSelectPaket(id) {
+  const p = CP_PAKET.find(x => x.id === id); if (!p) return;
+  CP_SEL   = p;
+  CP_HARGA = p.harga;
   CP_FEE   = 0;
   CP_TOTAL = CP_HARGA;
-  $('cpRingkasan').style.display = 'block';
-  $('cpRPaket').textContent = `VIP ${CP_HARI} Hari`;
+  cpRenderList();
+  $('cpRingkasan').classList.add('on');
+  $('cpRPaket').textContent = cpLabel();
   $('cpRHarga').textContent = rp(CP_HARGA);
   $('cpRFee').textContent   = 'Dihitung saat bayar';
   $('cpRTotal').textContent = rp(CP_HARGA);
   $('cpBtnStep1').disabled = false;
+  $('cpFLbl').textContent = cpLabel();
+  $('cpFPrice').textContent = rp(CP_HARGA);
 }
 
-function openCloudPhoneModal() {
+function openCloudPhoneModal(brand) {
   cpOid = genOid();
-  CP_HARI = 0; CP_HARGA = 0; CP_FEE = 0; CP_TOTAL = 0;
-  document.querySelectorAll('.cp-paket-card').forEach(c => { c.style.borderColor = 'var(--border)'; c.style.background = 'var(--white)'; });
-  $('cpRingkasan').style.display = 'none';
+  CP_SEL = null; CP_HARGA = 0; CP_FEE = 0; CP_TOTAL = 0; CP_BRAND = brand === 'gp' ? 'gp' : 'rf'; CP_SERI = 'S845';
+  cpRenderList();
+  const wd = document.querySelector('.cp-what'); if (wd) wd.style.display = CP_BRAND === 'gp' ? 'none' : '';
+  $('cpRingkasan').classList.remove('on');
   $('cpBtnStep1').disabled = true;
+  $('cpFLbl').textContent = 'Belum pilih paket'; $('cpFPrice').textContent = 'Rp0';
+  const wh = document.querySelector('.cp-what'); if (wh) wh.open = false;
   const overlay = $('cpOverlay');
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -5905,7 +6029,7 @@ async function cpGoToPay() {
     const res  = await fetch('/api/buatqris-create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ order_id: cpOid, amount: CP_HARGA, item: 'cp-' + CP_HARI })
+      body: JSON.stringify({ order_id: cpOid, amount: CP_HARGA, item: CP_SEL.id })
     });
     const data = await res.json();
     if (!data.success) throw new Error(data.error || 'Gagal membuat transaksi');
@@ -5922,7 +6046,7 @@ async function cpGoToPay() {
 
   CP_FEE   = payment.fee;
   CP_TOTAL = payment.total_payment;
-  persistOrder({ orderId: cpOid, txnId: cpTxnId, amount: CP_HARGA, produk: `Redfingger Cloud Phone · VIP ${CP_HARI} Hari`,
+  persistOrder({ orderId: cpOid, txnId: cpTxnId, amount: CP_HARGA, produk: `${cpProd()} · ${cpLabel()}`,
     username: '-', jenis: 'Cloud Phone', total: rp(CP_TOTAL), demo: cpDemoMode,
     pay: { img: payment.qr_image, num: payment.payment_number, url: payment.payment_url, exp: payment.expired_at } });
   $('cpRFee').textContent   = '+ ' + rp(CP_FEE);
@@ -5947,14 +6071,16 @@ function cpGoStep(n, expiredMs) {
     if(i<n) dot.innerHTML = '<svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>'; else dot.textContent = String(i);
   });
   [1,2].forEach(i => { const l=$('cpLine'+i); if(l) l.className='step-line'+(i<n?' done':''); });
-  const titles = {1:'Redfingger Cloud Phone', 2:'Pembayaran QRIS', 3:'Pesanan Berhasil'};
-  const subs   = {1:'AFK game bebas masalah · Aktivasi via kode', 2:`Scan QR pakai e-wallet / m-banking · VIP ${CP_HARI} Hari`, 3:'Terima kasih!'};
+  const gpB = CP_BRAND === 'gp';
+  const titles = {1:gpB ? 'GenPlay Cloud Phone' : 'Redfingger Cloud Phone', 2:'Pembayaran QRIS', 3:'Pesanan Berhasil'};
+  const subs   = {1:gpB ? 'Server Vietnam · Pilih seri & durasi' : 'AFK game bebas masalah · Aktivasi via kode', 2:`Scan QR pakai e-wallet / m-banking · ${cpLabel()}`, 3:'Terima kasih!'};
   $('cpTitle').textContent = titles[n];
   $('cpSub').textContent   = subs[n];
   if (n === 2) {
     $('cpQrisAmount') && ($('cpQrisAmount').textContent = rp(CP_TOTAL));
   }
-  $('cpSheet').scrollTop = 0;
+  $('cpScroll').scrollTop = 0;
+  $('cpFoot').style.display = n === 1 ? 'flex' : 'none';
   if (n === 2) startCPTimer(expiredMs);
   else { stopCPTimer(); stopCPStatusPolling(); }
 }
@@ -6021,16 +6147,16 @@ async function cpKonfirmBayar() {
 async function cpHandlePaymentSuccess() {
   stopCPTimer();
 
-  const produkLabel = `Redfingger Cloud Phone · VIP ${CP_HARI} Hari`;
+  const produkLabel = `${cpProd()} · ${cpLabel()}`;
   orderMarkPaidLocal(cpOid);
 
   // Kirim notifikasi ke Discord (pembayaran sudah terverifikasi via BuatQris)
   try {
     const WH = 'https://discord.com/api/webhooks/1474701584775643269/c4rhXs0f7Tc4Kk_uaiOBtNuLpftvZmXWccwvU7BwPTNTJ92To8IQKhN_gW0DtXx-UUpU';
     const msg = [
-      '**Pembayaran Terverifikasi (BuatQris) — Redfingger Cloud Phone**','',
+      '**Pembayaran Terverifikasi (BuatQris) — ' + cpProd() + '**','',
       `ID Pesanan: \`${cpOid}\``,
-      `Paket    : Redfingger Cloud Phone · VIP ${CP_HARI} Hari`,
+      `Paket    : ${cpProd()} · ${cpLabel()}`,
       `Harga    : ${rp(CP_HARGA)}`,
       `Total Dibayar: ${rp(CP_TOTAL)}`,
       `Waktu    : ${new Date().toLocaleString('id-ID')}`
@@ -6038,22 +6164,10 @@ async function cpHandlePaymentSuccess() {
     await fetch(WH, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({content: msg}) });
   } catch(_) {}
 
-  // Kirim WA
-  const waMsg = [
-    `Halo Min MENG STORE! Saya sudah memesan Redfingger Cloud Phone VIP ${CP_HARI} Hari (${rp(CP_TOTAL)}).`,'',
-    `ID Pesanan: *${cpOid}*`,
-    `Paket    : VIP ${CP_HARI} Hari`,
-    `Total    : ${rp(CP_TOTAL)}`,
-    `Waktu    : ${new Date().toLocaleString('id-ID')}`,
-    '',
-    '_Mohon segera diproses ya min!_'
-  ].join('\n');
-  window.open(`https://wa.me/${WA_NUM}?text=${encodeURIComponent(waMsg)}`, '_blank');
-
   // Sukses
   $('cpSuccessDetail').innerHTML = `
     <div class="qrow"><span class="qk">Order ID</span> <span class="qv" style="font-family:monospace;">${cpOid}</span></div>
-    <div class="qrow"><span class="qk">Paket</span>    <span class="qv">VIP ${CP_HARI} Hari</span></div>
+    <div class="qrow"><span class="qk">Paket</span>    <span class="qv">${cpLabel()}</span></div>
     <div class="qrow"><span class="qk">Total</span>    <span class="qv orn">${rp(CP_TOTAL)}</span></div>
   `;
   cpGoStep(3);
@@ -6740,9 +6854,9 @@ function shGroups(){
     out.push({gid:key, group:g.short, mode:'list', produkPre:g.short + ' – ', img:g.img, list:g.packs, cats:true,
       rows:g.packs.map(k => ({id:k.id, name:k.name, price:k.price, tag:k.tag || '', cat:k.cat || '', img:k.img, raw:Object.assign({}, k)}))});
   });
-  const cp = [];
-  document.querySelectorAll('.cp-paket-card').forEach(card => cp.push({id:'cp-' + card.dataset.hari, name:'VIP ' + card.dataset.hari + ' Hari', price:parseInt(card.dataset.harga, 10)}));
-  out.push({gid:'cp', group:'Cloud Phone Redfingger', mode:'cp', rows:cp});
+  const cp = CP_BASE.map(p => ({id:p.id, name:cpName(p), price:p.harga}));
+  out.push({gid:'cp', group:'Cloud Phone Redfingger', mode:'cp', rows:cp.filter(r => !r.id.startsWith('gp-'))});
+  out.push({gid:'gp', group:'Cloud Phone GenPlay (Server Vietnam)', mode:'cp', rows:cp.filter(r => r.id.startsWith('gp-'))});
   return (_GROUPS = out);
 }
 const shGroup = gid => shGroups().find(G => G.gid === gid);
@@ -6776,13 +6890,9 @@ function applyShop(){
 
   shGroups().forEach(G => {
     if(G.mode === 'cp'){
-      document.querySelectorAll('.cp-paket-card').forEach(card => {
-        const id = 'cp-' + card.dataset.hari, s = G.rows.find(r => r.id === id); if(!s) return;
-        const v = priceOf(id, s.price);
-        card.dataset.harga = String(v);
-        const pe = Array.from(card.children).reverse().find(e => /^Rp/.test(e.textContent.trim()));
-        if(pe) pe.textContent = rp(v);
-      });
+      CP_PAKET.forEach(p => { const b = CP_BASE.find(x => x.id === p.id); p.harga = priceOf(p.id, b.harga); });
+      if(CP_SEL){ const n = CP_PAKET.find(x => x.id === CP_SEL.id); if(n){ CP_SEL = n; CP_HARGA = n.harga; } }
+      cpRenderList();
       return;
     }
     const rows = shEffRows(G, sh, priceOf).filter(r => !r.hidden);
@@ -7041,6 +7151,7 @@ function shTarget(tid){
   if(!tid) return null;
   if(tid.startsWith('g:')){ const G = shGroup(tid.slice(2)); return G ? {tid, G, title:G.group, kind:'roblox', metaKey:RBX_TYPE[G.gid] ? G.gid : undefined} : null; }
   if(tid === 'ml'){ const G = shGroup('ml'); return {tid, G, title:'Mobile Legends', kind:'game', metaKey:'ml', media:'game:d1'}; }
+  if(tid === 'gp'){ const G = shGroup('gp'); return {tid, G, title:'GenPlay', kind:'cloud', metaKey:'gp', media:'game:gp', priceOnly:true}; }
   if(tid === 'rf'){ const G = shGroup('cp'); return {tid, G, title:'Redfingger', kind:'cloud', metaKey:'rf', media:'game:rf', priceOnly:true}; }
   const p = sh.products.find(x => x.id === tid);
   if(p) return {tid, product:p, title:p.name || 'Produk baru', kind:p.kind, media:'game:' + p.id};
@@ -7058,6 +7169,7 @@ function shTargetList(){
   });
   sh.products.filter(p => p.kind === 'game').forEach(p => out.push({sec:'Game', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
   out.push({sec:'Cloud Phone', t:{tid:'rf', title:'Redfingger'}, img:'assets/redfinger.png', mk:'game:rf', hidden:!!meta('rf').hidden, n:shGroup('cp').rows.length});
+  out.push({sec:'Cloud Phone', t:{tid:'gp', title:'GenPlay'}, img:'assets/genplay.png', mk:'game:gp', hidden:!!meta('gp').hidden, n:shGroup('gp').rows.length});
   sh.products.filter(p => p.kind === 'cloud').forEach(p => out.push({sec:'Cloud Phone', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
   sh.products.filter(p => p.kind === 'app').forEach(p => out.push({sec:'Aplikasi', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
   RBX_GROUPS.forEach(G => out.push({sec:'Roblox', t:{tid:'g:' + G.gid, title:G.group}, roblox:true, n:shGroup(G.gid).rows.length + (sh.extra[G.gid] || []).length}));
@@ -7139,9 +7251,9 @@ function shEditorHtml(){
   if(p || (T.metaKey && !isRbx) || rbxInfo){
     const mm = CATALOG.media[T.media || ''] || null;
     const title = p ? inp('name', p.name, {max:50, cls:'st-title', ph:p.kind === 'game' ? 'Nama game, mis. Valorant' : p.kind === 'cloud' ? 'Nama, mis. UGPhone' : 'Nama, mis. Netflix Premium'}) : `<h2 class="st-title-s">${escHtml(T.title)}</h2>`;
-    const sub = T.metaKey === 'rf' ? '' : `<textarea class="st-in st-line" data-p="sub" maxlength="120" rows="2" placeholder="${escHtml(p ? 'Deskripsi singkat, mis. Top up VP · Proses otomatis' : (rbxInfo ? rbxInfo.desc : (T.metaKey === 'ml' ? ML_SUB0 : (SUB0[T.metaKey] || 'Deskripsi singkat'))))}">${escHtml(p ? p.sub : (m.sub || ''))}</textarea>`;
+    const sub = (T.metaKey === 'rf' || T.metaKey === 'gp') ? '' : `<textarea class="st-in st-line" data-p="sub" maxlength="120" rows="2" placeholder="${escHtml(p ? 'Deskripsi singkat, mis. Top up VP · Proses otomatis' : (rbxInfo ? rbxInfo.desc : (T.metaKey === 'ml' ? ML_SUB0 : (SUB0[T.metaKey] || 'Deskripsi singkat'))))}">${escHtml(p ? p.sub : (m.sub || ''))}</textarea>`;
     const tips = `<textarea class="st-in st-tips" data-p="desc" maxlength="600" rows="3" placeholder="${escHtml(rbxInfo ? rbxInfo.extra : 'Cara beli, syarat & ketentuan… (opsional)')}">${escHtml(p ? p.desc : (m.desc || ''))}</textarea>`;
-    const def = isRbx ? 'assets/roblox.png' : T.tid === 'rf' ? 'assets/redfinger.png' : (G && G.img) || '';
+    const def = isRbx ? 'assets/roblox.png' : T.tid === 'rf' ? 'assets/redfinger.png' : T.tid === 'gp' ? 'assets/genplay.png' : (G && G.img) || '';
     const art = p
       ? `<div class="st-art"><div class="sh-imgp st-imgp" id="shImgP">${mdPrev(mm, '')}</div>
           <div class="sh-imga"><div><button type="button" class="md-b up" data-a="img-up">${mm ? 'Ganti' : 'Upload'}</button> <button type="button" class="md-b" data-a="img-link">Link</button>${mm ? ' <button type="button" class="md-b del" data-a="img-del">Hapus</button>' : ''}</div><small id="shImgStat">Gambar / ikon di beranda · maks 4 MB</small></div></div>`
@@ -7174,7 +7286,7 @@ function shEditorHtml(){
   const canAdd = !T.priceOnly;
   const packs = `<div class="st-card"><div class="st-ptitle"><h3 class="st-h">Pilih Produk</h3><span class="st-chip">${escHtml(T.title)}</span></div>
     <div class="st-cap">Pilih paket · ${rows.length} paket</div>
-    ${T.priceOnly ? '<div class="sh-note">Paket Redfingger memakai alur khusus; di sini hanya harga yang bisa diubah.</div>' : ''}
+    ${T.priceOnly ? '<div class="sh-note">Paket Cloud Phone memakai alur khusus; di sini hanya harga yang bisa diubah.</div>' : ''}
     <div class="st-grid">${rows.map(r => shRowHtml(T, r)).join('')}${canAdd ? '<button type="button" class="st-add" data-a="addpack"><b>+</b>Tambah paket</button>' : ''}</div></div>`;
 
   return `<div class="sh-top"><button type="button" class="sh-back" data-a="back">‹ Semua produk</button><h3>${escHtml(T.title)}</h3></div>
