@@ -14,7 +14,7 @@ const BASE_PRICES = require('./_prices');
 
 const CATALOG_KEY = 'catalog:v1';
 const MAX_PRICE = 100000000;
-const SITE_SLOTS = ['hero', 'iklan', 'banner', 'logo', 'musik', 'musikbanner'];
+const SITE_SLOTS = ['hero', 'iklan', 'banner', 'logo', 'musik', 'musikbanner', 'gicard'];
 
 const PRICE_ID_RE = /^[A-Za-z0-9_.\-]{1,60}$/;
 const MEDIA_KEY_RE = /^(game|pack|site):[A-Za-z0-9_.\-]{1,60}$/;
