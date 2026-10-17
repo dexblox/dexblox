@@ -423,7 +423,10 @@
   .gmt-body ol{margin:0 0 18px;padding-left:22px;}
   .gmt-body li{margin-bottom:10px;padding-left:4px;}
   .gmt-body b{font-weight:800;color:#444;}
-  .gmt-body p{margin:0;}
+  .gmt-body p{margin:0 0 12px;}
+  .gmt-body ul{margin:0 0 16px;padding-left:20px;}
+  .gmt-body ul.sub{margin:8px 0 4px;}
+  .gmt-body li > p{margin:8px 0 0;}
 
   /* ===== tampilan ala marketplace (Genshin) ===== */
   #game-modal.gm-site .rbx-topbar{background:#fff;gap:12px;padding-bottom:10px;}
@@ -2585,7 +2588,7 @@ a.site-banner[href]:active{transform:scale(.99);}
         <h2 id="rbxInfoTitle">Robux Via Username</h2>
         <div class="gm-info-line"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1f8a63"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Tersedia di <b>Indonesia</b></div>
         <div class="gm-info-line" id="gmAutoLine"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z" fill="#f59f00"/></svg> <span id="rbxInfoDesc"></span></div>
-        <button type="button" class="gm-tips-btn" onclick="document.getElementById('rbxTips').classList.toggle('open')">Cara Beli &amp; Tips</button>
+        <button type="button" class="gm-tips-btn" onclick="rbxTipsOpen()">Cara Beli &amp; Tips</button>
       </div>
       <div class="gm-info-img rbx-art" id="rbxArt"><img class="ra-img" src="assets/roblox.png" alt="Roblox" onerror="this.remove()"><svg viewBox="0 0 64 64" width="64" height="64" aria-hidden="true"><defs><linearGradient id="rbxArtG" x1="8" y1="4" x2="56" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#fbeab0"/><stop offset=".5" stop-color="#e0b445"/><stop offset="1" stop-color="#8f6416"/></linearGradient></defs><polygon points="32,4 56,18 56,46 32,60 8,46 8,18" fill="url(#rbxArtG)" stroke="#fff3c4" stroke-width="2.5" stroke-linejoin="round"/><rect x="24" y="24" width="16" height="16" rx="3" fill="#3a2506"/></svg></div>
       <ol class="gm-tips" id="rbxTips">
@@ -4057,6 +4060,39 @@ function gmCatOf(k){ if(k.cat) return k.cat; return /pass|membership|pack\b/i.te
 function gmRegionObj(){ const g = GAMES[gmKey]; return (g && g.regions) ? (g.regions.find(r => r[0] === gmRegion) || g.regions[0]) : null; }
 function gmPrice(k){ const r = gmRegionObj(); return k ? Math.round(k.price * (r ? (r[2] || 1) : 1)) : 0; }
 function gmFmt(t){ return escHtml(t).replace(/\*\*([^*].*?)\*\*/g, '<b>$1</b>'); }
+function tipsSheet(html){
+  document.getElementById('gmtBody').innerHTML = html;
+  openModal('gm-tips-modal');
+}
+const RBX_VU_TIPS = `
+<p>Perlu diperhatikan Akun Roblox kamu <b>Wajib</b> memenuhi syarat untuk menerima Robux dari penjual berikut adalah syaratnya:</p>
+<ul>
+  <li><b>Umur akun harus Usia 18+:</b> Pengguna harus menyelesaikan Pemeriksaan usia</li>
+  <li><b>Jika umur akun kamu dibawah 18 tahun:</b> Pengguna harus memiliki akun yang tertaut dengan akun orang tua. Untuk membantu menjaga keamanan transfer, persetujuan orang tua atau wali diperlukan setiap kali pengguna yang lebih muda mengirim atau menerima Robux.
+    <p>Bagi pengguna di bawah usia 18 tahun, diperlukan konfirmasi tambahan dari akun orang tua yang terhubung:</p>
+    <p>1. Sebuah pemberitahuan “Minta izin orang tua” untuk memeriksa transfer ini akan muncul</p>
+    <p>2. Kemudian, akun orang tua yang terhubung harus menyetujui transfer yang tertunda</p>
+    <ul class="sub">
+      <li><b>Persetujuan Orang Tua:</b> Transfer diproses dan Robux akan dikirim</li>
+      <li><b>Penolakan Orang Tua:</b> Transfer langsung dibatalkan</li>
+    </ul>
+  </li>
+  <li>Kamu harus mengaktifkan <b>Authenticator</b></li>
+  <li><b>Akun kamu belum mencapai batas limit harian/bulanan:</b> transfer dibatasi hingga 500 Robux per hari dan 1.000 Robux per bulan. Jumlah ini dapat berubah. Pengguna yang mengaktifkan Verifikasi Dua Langkah dan memiliki reputasi baik akan memenuhi syarat untuk mendapatkan kenaikan batas transfer, yaitu 5.000 Robux per hari dan 10.000 Robux per bulan.</li>
+</ul>
+<ol>
+  <li>Pilih dagangan dengan nominal Robux yang tersedia.</li>
+  <li>Lakukan pembelian mengstore</li>
+  <li>Masukkan <b>Username akun Roblox</b> Kamu pada kolom pembelian</li>
+  <li>Lakukan pembayaran pesanan kamu</li>
+  <li>Tunggu hingga penjual mengirimkan pesanan Robux kamu</li>
+  <li>Setelah pesanan terkirim, pastikan jumlah Robux yang kamu terima sesuai dengan pesanan</li>
+  <li>Jika sudah sesuai klik tombol <b>Selesai</b> di mengstore untuk menyelesaikan pesanan kamu</li>
+</ol>`;
+function rbxTipsOpen(){
+  if(typeof activeType !== 'undefined' && activeType === 'vu') return tipsSheet(RBX_VU_TIPS);
+  document.getElementById('rbxTips').classList.toggle('open');
+}
 function gmTipsOpen(){
   const g = GAMES[gmKey];
   if(!g || !g.tips){ document.getElementById('gmTips').classList.toggle('open'); return; }
@@ -5167,12 +5203,12 @@ const QRIS_TAX  = 0.007; // 0.7%
 const qrisFee = harga => Math.ceil(harga * QRIS_TAX);
 const qrSrc = (payment, size) => payment.qr_image || ('https://api.qrserver.com/v1/create-qr-code/?size=' + size + 'x' + size + '&data=' + encodeURIComponent(payment.payment_number));
 const paketUsername = [
-  { rbx: 500,   harga: 80000 },
-  { rbx: 1000,  harga: 160000 },
-  { rbx: 1500,  harga: 240000 },
-  { rbx: 2000,  harga: 320000 },
-  { rbx: 5000,  harga: 800000 },
-  { rbx: 10000, harga: 1600000 }
+  { rbx: 500,   harga: 75000 },
+  { rbx: 1000,  harga: 150000 },
+  { rbx: 1500,  harga: 225000 },
+  { rbx: 2000,  harga: 300000 },
+  { rbx: 5000,  harga: 750000 },
+  { rbx: 10000, harga: 1500000 }
 ];
 
 const paketFollower = [
@@ -5367,7 +5403,7 @@ function jokiCloseRedirect() {
 }
 
 const RBX_INFO = {
-  vu:     {title:'Robux Via Username', desc:'Aman tanpa password! Mulai Rp 80.000 / 500 Robux.', art:'coin',  extra:'Akun wajib sudah ON verifikasi 2 langkah (2FA) dan verifikasi umur 18+.'},
+  vu:     {title:'Robux Via Username', desc:'Aman tanpa password! Mulai Rp 75.000 / 500 Robux.', art:'coin',  extra:'Akun wajib sudah ON verifikasi 2 langkah (2FA) dan verifikasi umur 18+.'},
   slow:   {title:'Robux 5-7 Hari',     desc:'Hemat dompet! Mulai Rp 60.000 / 400 Robux.', art:'coin',  extra:'Robux masuk dalam 5-7 hari kerja.'},
   follow: {title:'Pengikut Roblox',    desc:'Pengikut instan & aman. Mulai Rp 13.000 / 1.000 Pengikut.', art:'follow', extra:'Cukup username Roblox tujuan, tanpa password.'},
   fast:   {title:'Robux Via Login',    desc:'Robux langsung masuk lewat login akun.', art:'coin',  extra:'Data akun dikirim ke admin via WhatsApp.'}
