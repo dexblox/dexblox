@@ -3661,6 +3661,7 @@ function gmTabSwitch(innerId, tab, btn){
   const sc = el.closest('.rbx-scroll'); if(sc) sc.scrollTop = 0;
 }
 document.addEventListener('DOMContentLoaded', () => { if(!AKUN_LOCKED) document.querySelectorAll('.gm-tabs .is-locked-tab').forEach(b => b.classList.remove('is-locked-tab')); });
+function gmMediaUrl(k, def){ const m = k ? catMedia(k) : null; return (m && m.kind !== 'video' && m.kind !== 'audio') ? m.url : def; }
 function gmSiteTab(btn, name){
   if(name === 'Top Up') return gmTabSwitch('gmInner','topup',btn);
   if(name === 'Akun') return gmTabSwitch('gmInner','akun',btn);
@@ -3844,7 +3845,7 @@ const GAMES = {
   gi: {
     title:'Top Up Genshin Impact', short:'Genshin', sub:'Genesis Crystals · Welkin Moon · Event Bundle · Chronal Nexus', img:'assets/genshin.png',
     /* tampilan ala marketplace: ikon kotak di header (img) beda dengan gambar kartu di info (cardImg) */
-    siteStyle:true, headTitle:'Top up Genshin Impact', infoTitle:'Top Up', cardImg:'assets/genshin-card.png',
+    siteStyle:true, headTitle:'Top up Genshin Impact', infoTitle:'Top Up', cardImg:'assets/genshin-card.png', cardSlot:'gicard',
     info:{badge:'Bisa Diaktifkan di PC, Konsol, dan Mobile', rating:'4.9', reviews:'(33.041 Ulasan)'},
     tabs:['Top Up','Top Up Login','Akun','Joki'], ep:'/gi', jenis:'Top Up Genshin',
     idLabel:'UID', idRe:/^\d{9,10}$/, max:10, icon:'coin',
@@ -4117,7 +4118,7 @@ function openGameModal(key){
   gmTabReset('gmInner');
   renderAkun('gmAkunGrid', key);
   document.getElementById('gmInfoTitle').textContent = g.infoTitle || g.short;
-  const iImg = document.getElementById('gmInfoImg'); iImg.style.display = ''; iImg.src = g.cardImg || g.img; iImg.alt = g.short;
+  const iImg = document.getElementById('gmInfoImg'); iImg.style.display = ''; iImg.src = gmMediaUrl(g.cardSlot ? 'site:' + g.cardSlot : '', g.cardImg || g.img); iImg.alt = g.short;
   document.getElementById('game-modal').classList.toggle('gm-site', !!g.siteStyle);
   const bd = document.getElementById('gmBadge'); bd.hidden = !(g.info && g.info.badge); bd.textContent = g.info ? (g.info.badge || '') : '';
   document.getElementById('gmRate').hidden = !(g.info && g.info.rating);
@@ -4139,9 +4140,9 @@ function openGameModal(key){
   document.getElementById('gmTips').hidden = !!g.noCheck; document.getElementById('gmTipsAlt').hidden = !g.noCheck;
   lockPage(true);
   const img = document.getElementById('gmImg');
-  img.style.display = ''; img.src = g.img; img.alt = g.short;
+  img.style.display = ''; img.src = gmMediaUrl('game:' + key, g.img); img.alt = g.short;
   const sImg = document.getElementById('gmSideImg');
-  sImg.style.display = ''; sImg.src = g.img; sImg.alt = g.short;
+  sImg.style.display = ''; sImg.src = gmMediaUrl('game:' + key, g.img); sImg.alt = g.short;
   document.getElementById('gmSideTitle').textContent = g.short;
   document.getElementById('gmIdLbl').textContent = g.idLabel;
   const inp = document.getElementById('gmId');
@@ -7703,7 +7704,8 @@ function mdSections(){
     {key:'site:banner', name:'Banner Promo', desc:'Tampil di atas daftar game. Bisa foto, GIF atau video + link.', def:'', banner:true},
     {key:'site:hero',   name:'Karakter Hero', desc:'Gambar di samping panel pesanan.', def:SLOT_DEF.hero},
     {key:'site:iklan',  name:'Visual Iklan', desc:'Gambar di bagian Tentang.', def:SLOT_DEF.iklan},
-    {key:'site:logo',   name:'Logo', desc:'Logo di navbar & footer.', def:SLOT_DEF.logo}
+    {key:'site:logo',   name:'Logo', desc:'Logo di navbar & footer.', def:SLOT_DEF.logo},
+    {key:'site:gicard', name:'Kartu Genshin Impact', desc:'Gambar tegak di kartu info halaman Top Up Genshin (kanan atas).', def:'assets/genshin-card.png'}
   ]}, {title:'Ikon Game di Beranda', open:true, items:
     PROMOS.map(p => ({key:'game:' + p.id, name:p.name, def:p.img}))
       .concat(CLOUDS.map(c => ({key:'game:' + c.id, name:c.name + ' · Cloud Phone', def:c.img})))
