@@ -1854,6 +1854,8 @@ video.hero-char{pointer-events:none;}
 .site-banner .sb-cap{position:absolute;left:0;right:0;bottom:0;padding:26px 16px 12px;color:#fff;font-weight:800;font-size:.95rem;background:linear-gradient(to top,rgba(21,19,42,.72),transparent);}
 a.site-banner[href]{cursor:pointer;transition:transform .18s;}
 a.site-banner[href]:active{transform:scale(.99);}
+/* kartu ID game: tanpa foto, nama, status "Online…", dan judul langkah 1 (Roblox tidak terpengaruh) */
+.gm-side .gm-side-head,.gm-side .ml-step,.ml-step-id{display:none;}
 /* jarak kartu statistik → banner promo dirapatkan */
 .hero{padding-bottom:72px;}
 #promo{padding-top:56px;}
@@ -2951,7 +2953,7 @@ a.site-banner[href]:active{transform:scale(.99);}
         <div class="gm-tabs" role="tablist"><button class="on" onclick="gmTabSwitch('mlInner','topup',this)">Top Up</button><button class="is-locked-tab" onclick="gmTabSwitch('mlInner','akun',this)"><svg class="ic" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-right:5px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4.5" y="11" width="15" height="9.5" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg>Akun</button></div>
         <div class="gm-akun"><div class="akun-grid" id="mlAkunGrid"></div></div>
         <div class="gm-card">
-          <div class="ml-step"><i>1</i> Masukkan User ID</div>
+          <div class="ml-step ml-step-id"><i>1</i> Masukkan User ID</div>
           <div class="ml-ids">
             <input id="mlUserId" type="text" inputmode="numeric" maxlength="12" placeholder="User ID" autocomplete="off" oninput="mlOnIdInput()">
             <input id="mlZoneId" type="text" inputmode="numeric" maxlength="6" placeholder="Zone ID" autocomplete="off" oninput="mlOnIdInput()">
