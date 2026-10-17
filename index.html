@@ -2053,6 +2053,13 @@ a.site-banner[href]:active{transform:scale(.99);}
 .cp-wait{margin:16px 0 0;padding:12px 14px;text-align:center;font-size:.78rem;line-height:1.6;color:var(--text-muted);background:var(--bg-alt);border:1px solid var(--border);border-radius:14px;}
 .cp-wait strong{color:var(--text);}
 
+.cp-info{margin-top:0;margin-bottom:16px;}
+.cp-art{position:relative;display:grid;place-items:center;}
+.cp-art.rf{background:linear-gradient(160deg,#e5484d,#a61b2b);}
+.cp-art.gp{background:linear-gradient(160deg,#2f6fcf,#1d3f8f);}
+.cp-art svg{width:44px;height:44px;}
+.cp-art .ra-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+.cp-sheet.step1 .cp-hic,.cp-sheet.step1 .cp-ht,.cp-sheet.step1 #cpStepsBar{display:none;}
 /* Apa itu RedFinger? */
 .cp-what{margin-bottom:22px;border:1.5px solid var(--border-bright);border-radius:18px;background:linear-gradient(135deg,var(--cyan-deep),var(--ice-soft));overflow:hidden;}
 .cp-what summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 16px;-webkit-tap-highlight-color:transparent;}
@@ -2129,7 +2136,8 @@ a.site-banner[href]:active{transform:scale(.99);}
 <script>
 /* ── Tema warna website (dari Admin → Media). Menimpa warna ungu bawaan di seluruh stylesheet. ── */
 (function(){
-  var DEF = {accent:'#7c6cf0', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};
+  var BASE = {accent:'#7c6cf0', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};   /* warna asli di stylesheet */
+  var DEF  = {accent:'#ff0000', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};   /* tema bawaan: merah */
   function h2r(h){ h = h.replace('#',''); return [0,2,4].map(function(i){ return parseInt(h.substr(i,2),16); }); }
   function r2h(a){ return '#' + a.map(function(v){ v = Math.max(0, Math.min(255, Math.round(v))); return (v < 16 ? '0' : '') + v.toString(16); }).join(''); }
   function mix(a,b,t){ return a.map(function(v,i){ return v + (b[i]-v)*t; }); }
@@ -2140,14 +2148,16 @@ a.site-banner[href]:active{transform:scale(.99);}
       '#efecff':mix(p,W,.92), '#f6f5fd':mix(p,W,.96), '#f0eefb':mix(p,W,.93), '#e4e2f2':mix(p,W,.90), '#d3ccfa':mix(p,W,.78),
       '#7fe3f5':q, '#eafaff':mix(q,W,.90)};
     Object.keys(map).forEach(function(k){ m[k] = r2h(map[k]); });
-    if(t.text && t.text !== DEF.text) m['#15132a'] = t.text.toLowerCase();
+    if(t.text && t.text !== BASE.text) m['#15132a'] = t.text.toLowerCase();
     rg['124,108,240'] = p; rg['84,67,199'] = mix(p,K,.27); rg['101,86,224'] = mix(p,K,.10); rg['139,124,246'] = mix(p,W,.12);
     return {m:m, rg:rg};
   }
   window.applyTheme = function(t){
     var els = document.querySelectorAll('style');
     var use = null;
-    if(t && typeof t === 'object'){ var x = {}; Object.keys(DEF).forEach(function(k){ x[k] = /^#[0-9a-fA-F]{6}$/.test(t[k] || '') ? t[k].toLowerCase() : DEF[k]; }); if(JSON.stringify(x) !== JSON.stringify(DEF)) use = x; }
+    t = (t && typeof t === 'object') ? t : {};
+    var x = {}; Object.keys(DEF).forEach(function(k){ x[k] = /^#[0-9a-fA-F]{6}$/.test(t[k] || '') ? t[k].toLowerCase() : DEF[k]; });
+    if(JSON.stringify(x) !== JSON.stringify(BASE)) use = x;
     var B = use ? build(use) : null;
     for(var i = 0; i < els.length; i++){
       var el = els[i]; if(el.__o == null) el.__o = el.textContent;
@@ -2156,11 +2166,12 @@ a.site-banner[href]:active{transform:scale(.99);}
         if(s.charAt(0) === '#'){ var k = s.toLowerCase(); return B.m[k] || s; }
         var r = B.rg[a + ',' + b + ',' + c]; return r ? 'rgba(' + r.map(Math.round).join(',') : s;
       });
-      if(use.bg !== DEF.bg) out = out.replace('--bg:#ffffff', '--bg:' + use.bg);
+      if(use.bg !== BASE.bg) out = out.replace('--bg:#ffffff', '--bg:' + use.bg);
       el.textContent = out;
     }
   };
-  try{ var c = JSON.parse(localStorage.getItem('meng_catalog_v1') || 'null'); if(c && c.theme) window.applyTheme(c.theme); }catch(e){}
+  var _t = null; try{ var c = JSON.parse(localStorage.getItem('meng_catalog_v1') || 'null'); if(c && c.theme) _t = c.theme; }catch(e){}
+  window.applyTheme(_t);
 })();
 </script>
 </head>
@@ -4665,7 +4676,21 @@ renderApps();
 
         <!-- STEP 1: Pilih paket -->
         <div id="cpPanel1">
-          <p class="cp-intro" id="cpDesc">Sewa HP Android cloud untuk AFK game dan kebutuhan lainnya. Kode aktivasi dikirim <strong>via WhatsApp</strong> setelah pembayaran dikonfirmasi.</p>
+          <div class="gm-card gm-info cp-info">
+            <div class="gm-info-txt">
+              <h2 id="cpInfoTitle">Redfingger Cloud Phone</h2>
+              <div class="gm-info-line"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1f8a63"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg> Tersedia di <b>Indonesia</b></div>
+              <div class="gm-info-line"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z" fill="#f59f00"/></svg> <span id="cpInfoDesc"></span></div>
+              <button type="button" class="gm-tips-btn" onclick="document.getElementById('cpTips').classList.toggle('open')">Cara Beli &amp; Tips</button>
+            </div>
+            <div class="gm-info-img cp-art" id="cpArt"><img class="ra-img" id="cpArtImg" src="assets/redfinger.png" alt="" onerror="this.style.display='none'"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .6-7.95A6 6 0 0 0 6.1 9.6 4.2 4.2 0 0 0 7 18Z"/></svg></div>
+            <ol class="gm-tips" id="cpTips">
+              <li>Pilih seri &amp; durasi paket yang kamu mau.</li>
+              <li>Tekan <b>Bayar Sekarang</b> dan bayar via QRIS.</li>
+              <li id="cpTipsExtra">Kode aktivasi dikirim via WhatsApp setelah pembayaran dikonfirmasi.</li>
+              <li>Butuh bantuan? Hubungi admin 24/7.</li>
+            </ol>
+          </div>
 
           <details class="cp-what">
             <summary>
@@ -5994,10 +6019,27 @@ function cpSelectPaket(id) {
   $('cpFPrice').textContent = rp(CP_HARGA);
 }
 
+/* kartu info (judul, harga mulai, gambar) mengikuti brand & harga terbaru dari Admin */
+function cpRenderInfo() {
+  const gp = CP_BRAND === 'gp';
+  const list = CP_PAKET.filter(p => gp ? p.brand === 'GenPlay' : !p.brand);
+  if (!list.length) return;
+  const cheapest = list.reduce((m, p) => p.harga < m.harga ? p : m, list[0]);
+  $('cpInfoTitle').textContent = gp ? 'GenPlay Cloud Phone' : 'Redfingger Cloud Phone';
+  $('cpInfoDesc').textContent = (gp ? 'Server Vietnam, performa kencang! ' : 'AFK game 24 jam, aman tanpa password! ') + 'Mulai ' + rp(cheapest.harga) + ' / ' + cheapest.hari + ' Hari.';
+  $('cpTipsExtra').textContent = gp
+    ? 'Pilih seri (S845 / S855 / S865), lalu durasi sewa. Kode aktivasi dikirim via WhatsApp.'
+    : 'Kode aktivasi dikirim via WhatsApp setelah pembayaran dikonfirmasi.';
+  const art = $('cpArt'); art.classList.toggle('gp', gp); art.classList.toggle('rf', !gp);
+  const im = $('cpArtImg'); im.style.display = ''; im.src = gp ? 'assets/genplay.png' : 'assets/redfinger.png';
+  $('cpTips').classList.remove('open');
+}
+
 function openCloudPhoneModal(brand) {
   cpOid = genOid();
   CP_SEL = null; CP_HARGA = 0; CP_FEE = 0; CP_TOTAL = 0; CP_BRAND = brand === 'gp' ? 'gp' : 'rf'; CP_SERI = 'S845';
   cpRenderList();
+  cpRenderInfo();
   const wd = document.querySelector('.cp-what'); if (wd) wd.style.display = CP_BRAND === 'gp' ? 'none' : '';
   $('cpRingkasan').classList.remove('on');
   $('cpBtnStep1').disabled = true;
@@ -6061,6 +6103,7 @@ async function cpGoToPay() {
 
 function cpGoStep(n, expiredMs) {
   if (n === 2 && !CP_HARGA) return;
+  $('cpSheet').classList.toggle('step1', n === 1);
   $('cpPanel1').style.display = n === 1 ? 'block' : 'none';
   $('cpPanel2').style.display = n === 2 ? 'block' : 'none';
   $('cpPanel3').style.display = n === 3 ? 'block' : 'none';
@@ -7661,8 +7704,8 @@ async function mdSaveMeta(key){
 }
 
 /* ── Warna website ── */
-const THEME_DEF = {accent:'#7c6cf0', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};
-const THEME_PRE = [['Ungu Es','#7c6cf0','#7fe3f5'],['Biru Laut','#2f7de1','#5ee0d0'],['Hijau','#16a34a','#a3e635'],['Merah','#e11d48','#fb923c'],['Oranye','#ea580c','#facc15'],['Pink','#d946ef','#f9a8d4'],['Abu Gelap','#374151','#f59e0b']];
+const THEME_DEF = {accent:'#ff0000', accent2:'#7fe3f5', bg:'#ffffff', text:'#15132a'};
+const THEME_PRE = [['Ungu Es','#7c6cf0','#7fe3f5'],['Biru Laut','#2f7de1','#5ee0d0'],['Hijau','#16a34a','#a3e635'],['Merah','#ff0000','#7fe3f5'],['Oranye','#ea580c','#facc15'],['Pink','#d946ef','#f9a8d4'],['Abu Gelap','#374151','#f59e0b']];
 const THEME_LBL = {accent:'Warna utama (tombol, judul, aksen)', accent2:'Warna kedua (aksen es)', bg:'Warna latar halaman', text:'Warna teks'};
 let themeDraft = null;
 function themeCur(){ return Object.assign({}, THEME_DEF, themeDraft || CATALOG.theme || {}); }
