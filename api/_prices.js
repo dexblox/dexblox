@@ -196,4 +196,5 @@ module.exports = {
   "lad-6": { price: 719800, produk: "Love & Deepspace – 3280 Crystals + 720 Diamonds" },
   "lad-7": { price: 1530600, produk: "Love & Deepspace – 6480 Crystals + 1600 Diamonds" },
   "lad-8": { price: 269400, produk: "Love & Deepspace – Companionship Pack" },
+  "am-1y": { price: 5000, produk: "Alight Motion – Am Premium 1 Tahun" },
 };
