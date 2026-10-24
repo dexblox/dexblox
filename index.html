@@ -422,6 +422,9 @@
   .gm-tips{grid-column:1/-1;display:none;margin:4px 0 0;padding:12px 14px 12px 32px;background:#eef4ff;border-radius:10px;font-size:.84rem;line-height:1.55;color:var(--text);}
   .gm-tips.open{display:block;}
   .gm-h{font-size:1.1rem;font-weight:800;margin:0 0 14px;}
+  #game-modal.gm-solo .gm-products{display:none !important;}
+  #game-modal.gm-solo .gm-layout{display:block;max-width:520px;margin:0 auto;}
+  #game-modal.gm-solo .gm-layout .gm-side{position:static;margin-top:16px;}
   /* judul "Pilih Produk" / "Pilih Nominal" memakai font biasa (Inter) di semua halaman */
   h3.gm-h,.rbx-ptitle h3,h3.st-h,.ml-step{font-family:'Inter',sans-serif !important;}
   .gm-cats{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 14px;margin-bottom:6px;border-bottom:1px solid var(--border);}
@@ -4054,10 +4057,10 @@ const GAMES = {
     ]
   },
   am: {
-    app:true, noCheck:true,
+    app:true, noCheck:true, solo:true,
     title:'ALIGHT MOTION PREMIUM', short:'Alight Motion', infoTitle:'ALIGHT MOTION PREMIUM', sub:'Am Premium 1 Tahun', img:'assets/alight.png', jenis:'Aplikasi Alight Motion',
-    desc:'Note:\n- Akun Dari Seller\n- Support All Device\n- Full Garansi',
-    desc0:'Note:\n- Akun Dari Seller\n- Support All Device\n- Full Garansi',
+    desc:'Keanggotaan Berlangganan 1 Tahun\nManfaat:\n• Hapus Tanda Air\n• Paket Efek Keanggotaan\n• Berbagi Paket Proyek\n• Fitur Khusus Anggota yang Akan Datang\n• Easing Tingkat Lanjut\n• Objek Kamera\n• Induk Layer\n• Penyimpanan cloud (100GB)\n\nNote:\n- Akun Dari Seller\n- Support All Device\n- Full Garansi',
+    desc0:'Keanggotaan Berlangganan 1 Tahun\nManfaat:\n• Hapus Tanda Air\n• Paket Efek Keanggotaan\n• Berbagi Paket Proyek\n• Fitur Khusus Anggota yang Akan Datang\n• Easing Tingkat Lanjut\n• Objek Kamera\n• Induk Layer\n• Penyimpanan cloud (100GB)\n\nNote:\n- Akun Dari Seller\n- Support All Device\n- Full Garansi',
     idLabel:'Nomor WhatsApp', ph:'08xxxxxxxxxx', idRe:/^(\+?62|0)8\d{7,12}$/, max:15, icon:'card',
     packs:[
       {id:'am-1y', name:'Am Premium 1 Tahun', price:5000, cat:'Paket'}
@@ -4171,6 +4174,8 @@ function openGameModal(key){
   const g = GAMES[key]; if(!g) return;
   gmKey = key; gmSel = null; gmVerified = null; gmCat = null; gmRegion = g.regions ? g.regions[0][0] : null;
   if(g.regions) gmSel = g.packs.find(k => gmCatOf(k) === g.types[0]) || null;
+  if(g.solo) gmSel = g.packs[0] || null; // produk tunggal: tanpa pilihan produk
+  document.getElementById('game-modal').classList.toggle('gm-solo', !!g.solo);
   gmTabReset('gmInner');
   renderAkun('gmAkunGrid', key);
   document.getElementById('gmInfoTitle').textContent = g.infoTitle || g.short;
