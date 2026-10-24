@@ -4179,7 +4179,7 @@ function openGameModal(key){
   gmTabReset('gmInner');
   renderAkun('gmAkunGrid', key);
   document.getElementById('gmInfoTitle').textContent = g.infoTitle || g.short;
-  const iImg = document.getElementById('gmInfoImg'); iImg.style.display = ''; iImg.src = gmMediaUrl(g.cardSlot ? 'site:' + g.cardSlot : '', g.cardImg || g.img); iImg.alt = g.short;
+  const iImg = document.getElementById('gmInfoImg'); iImg.style.display = ''; iImg.src = gmMediaUrl(g.cardSlot ? 'site:' + g.cardSlot : (g.app ? 'game:' + key : ''), g.cardImg || g.img); iImg.alt = g.short;
   document.getElementById('game-modal').classList.toggle('gm-site', !!g.siteStyle);
   const bd = document.getElementById('gmBadge'); bd.hidden = !(g.info && g.info.badge); bd.textContent = g.info ? (g.info.badge || '') : '';
   document.getElementById('gmRate').hidden = !(g.info && g.info.rating);
