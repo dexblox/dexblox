@@ -422,6 +422,8 @@
   .gm-tips{grid-column:1/-1;display:none;margin:4px 0 0;padding:12px 14px 12px 32px;background:#eef4ff;border-radius:10px;font-size:.84rem;line-height:1.55;color:var(--text);}
   .gm-tips.open{display:block;}
   .gm-h{font-size:1.1rem;font-weight:800;margin:0 0 14px;}
+  /* judul "Pilih Produk" / "Pilih Nominal" memakai font biasa (Inter) di semua halaman */
+  h3.gm-h,.rbx-ptitle h3,h3.st-h,.ml-step{font-family:'Inter',sans-serif !important;}
   .gm-cats{display:flex;gap:10px;overflow-x:auto;padding:2px 2px 14px;margin-bottom:6px;border-bottom:1px solid var(--border);}
   .gm-cat{flex-shrink:0;padding:10px 18px;border-radius:12px;border:2px solid var(--border);background:#fff;color:var(--text-muted);font-weight:700;font-size:.9rem;cursor:pointer;}
   .gm-cat.active{border-color:#2f6fcf;color:#2f6fcf;background:#f4f8ff;}
@@ -3521,7 +3523,8 @@ function tgCloudOpen(btn, gameKey, brand){
   setTimeout(gameKey ? () => openGameModal(gameKey) : () => openCloudPhoneModal(brand || 'rf'), reduce ? 0 : 160);
 }
 /* Aplikasi (produk jenis "app" dari Admin → Produk) */
-let APPS = [];
+const APPS_BASE = [{id:'am', name:'Alight Motion', game:'am', img:'assets/alight.png'}];
+let APPS = APPS_BASE.slice();
 function renderApps(){
   const grid = document.getElementById('app-grid'), empty = document.getElementById('app-empty');
   if(!grid) return;
@@ -4049,6 +4052,16 @@ const GAMES = {
       {id:'lad-7', name:'6480 Crystals + 1600 Diamonds', price:1530600},
       {id:'lad-8', name:'Companionship Pack', price:269400}
     ]
+  },
+  am: {
+    app:true, noCheck:true,
+    title:'ALIGHT MOTION PREMIUM', short:'Alight Motion', infoTitle:'ALIGHT MOTION PREMIUM', sub:'Am Premium 1 Tahun', img:'assets/alight.png', jenis:'Aplikasi Alight Motion',
+    desc:'Note:\n- Akun Dari Seller\n- Support All Device\n- Full Garansi',
+    desc0:'Note:\n- Akun Dari Seller\n- Support All Device\n- Full Garansi',
+    idLabel:'Nomor WhatsApp', ph:'08xxxxxxxxxx', idRe:/^(\+?62|0)8\d{7,12}$/, max:15, icon:'card',
+    packs:[
+      {id:'am-1y', name:'Am Premium 1 Tahun', price:5000, cat:'Paket'}
+    ]
   }
 };
 let gmKey = null, gmSel = null, gmVerified = null, gmCat = null, gmRegion = null; // gmVerified = {uid, name}
@@ -4169,6 +4182,7 @@ function openGameModal(key){
   document.getElementById('gmAutoLine').hidden = !!(g.info && g.info.rating);
   const tabBar = document.querySelector('#gmInner .gm-tabs');
   if(tabBar.dataset.def === undefined) tabBar.dataset.def = tabBar.innerHTML;
+  tabBar.style.display = g.app ? 'none' : '';
   tabBar.classList.toggle('site', !!g.tabs);
   tabBar.innerHTML = g.tabs
     ? g.tabs.map((t,i) => `<button type="button"${i===0?' class="on"':''} onclick="gmSiteTab(this,'${escHtml(t)}')">${escHtml(t)}</button>`).join('')
@@ -4189,7 +4203,7 @@ function openGameModal(key){
   document.getElementById('gmSideTitle').textContent = g.short;
   document.getElementById('gmIdLbl').textContent = g.idLabel;
   const inp = document.getElementById('gmId');
-  inp.value = ''; inp.placeholder = g.idLabel; inp.maxLength = g.max;
+  inp.value = ''; inp.placeholder = g.ph || g.idLabel; inp.maxLength = g.max;
   inp.inputMode = g.text ? 'text' : 'numeric';
   const ids = document.getElementById('gmIds'), si = document.getElementById('gmSrv'), ss = document.getElementById('gmSrvSel');
   si.style.display = 'none'; ss.style.display = 'none';
@@ -7105,7 +7119,7 @@ function applyShop(){
   });
 
   // subjudul & deskripsi produk bawaan
-  Object.keys(GAMES).forEach(k => { const g = GAMES[k]; if(g.custom) return; const m = M[k] || {}; g.sub = m.sub || SUB0[k] || g.sub; g.desc = m.desc || ''; });
+  Object.keys(GAMES).forEach(k => { const g = GAMES[k]; if(g.custom) return; const m = M[k] || {}; g.sub = m.sub || SUB0[k] || g.sub; g.desc = m.desc || g.desc0 || ''; });
   const mm = M.ml || {}, mt = document.getElementById('mlSubTitle'), md = document.getElementById('mlDesc');
   if(mt) mt.textContent = mm.sub || ML_SUB0;
   if(md){ md.textContent = mm.desc || ''; md.hidden = !mm.desc; }
@@ -7122,12 +7136,12 @@ function applyShop(){
   PROMOS_BASE.forEach(p => { const key = p.modal === 'game' ? p.game : p.modal === 'ml' ? 'ml' : ''; if(key && M[key] && M[key].hidden) return; PROMOS.push(p); });
   CLOUDS.length = 0;
   CLOUDS_BASE.forEach(c => { if(M[c.id] && M[c.id].hidden) return; CLOUDS.push(c); });
-  APPS = [];
+  APPS = APPS_BASE.filter(a => !(M[a.game] && M[a.game].hidden));
   sh.products.forEach(p => {
     if(p.hidden || !p.packs.length) return;   // tanpa paket = belum siap dijual
     const m = catMedia('game:' + p.id), img = (m && m.kind !== 'video') ? m.url : SHOP_NOIMG;
     const isGame = p.kind === 'game';
-    GAMES[p.id] = {custom:true, noCheck:true, title:p.name, short:p.name, sub:p.sub || '', desc:p.desc || '', img,
+    GAMES[p.id] = {custom:true, noCheck:true, app:p.kind === 'app', title:p.name, short:p.name, sub:p.sub || '', desc:p.desc || '', img,
       jenis:(isGame ? 'Top Up ' : p.kind === 'cloud' ? 'Cloud Phone ' : 'Aplikasi ') + p.name,
       idLabel:p.idLabel, idRe:/^[\s\S]{2,80}$/, max:80, icon:isGame ? 'gem' : 'card', text:true,
       packs:p.packs.map(k => ({id:k.id, name:k.name, price:k.price, tag:k.tag || undefined, desc:k.desc || undefined, cat:isGame ? 'Top Up' : 'Paket'}))};
@@ -7344,14 +7358,14 @@ function shTarget(tid){
   const p = sh.products.find(x => x.id === tid);
   if(p) return {tid, product:p, title:p.name || 'Produk baru', kind:p.kind, media:'game:' + p.id};
   const G = shGroup(tid);
-  if(G && G.mode === 'list' && GAMES[tid]) { const pr = PROMOS_BASE.find(x => x.game === tid); return {tid, G, title:G.group, kind:'game', metaKey:tid, media:'game:' + (pr ? pr.id : tid)}; }
+  if(G && G.mode === 'list' && GAMES[tid]) { const pr = PROMOS_BASE.find(x => x.game === tid); return {tid, G, title:G.group, kind:GAMES[tid].app ? 'app' : 'game', metaKey:tid, media:'game:' + (pr ? pr.id : tid)}; }
   return null;
 }
 function shTargetList(){
   const sh = shEnsure(), out = [];
   const meta = k => sh.meta[k] || {};
   out.push({sec:'Game', t:{tid:'ml', title:'Mobile Legends'}, img:'assets/ml.png', mk:'game:d1', hidden:!!meta('ml').hidden, n:shGroup('ml').rows.length + (sh.extra.ml || []).length});
-  Object.keys(GAMES).filter(k => !GAMES[k].custom).forEach(k => {
+  Object.keys(GAMES).filter(k => !GAMES[k].custom && !GAMES[k].app).forEach(k => {
     const G = shGroup(k), pr = PROMOS_BASE.find(x => x.game === k);
     out.push({sec:'Game', t:{tid:k, title:G.group}, img:G.img, mk:'game:' + (pr ? pr.id : k), hidden:!!meta(k).hidden, n:G.rows.length + (sh.extra[k] || []).length});
   });
@@ -7359,6 +7373,7 @@ function shTargetList(){
   out.push({sec:'Cloud Phone', t:{tid:'rf', title:'Redfingger'}, img:'assets/redfinger.png', mk:'game:rf', hidden:!!meta('rf').hidden, n:shGroup('cp').rows.length});
   out.push({sec:'Cloud Phone', t:{tid:'gp', title:'GenPlay'}, img:'assets/genplay.png', mk:'game:gp', hidden:!!meta('gp').hidden, n:shGroup('gp').rows.length});
   sh.products.filter(p => p.kind === 'cloud').forEach(p => out.push({sec:'Cloud Phone', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
+  APPS_BASE.forEach(a => { const G = shGroup(a.game); out.push({sec:'Aplikasi', t:{tid:a.game, title:a.name}, img:a.img, mk:'game:' + a.id, hidden:!!meta(a.game).hidden, n:G.rows.length + (sh.extra[a.game] || []).length}); });
   sh.products.filter(p => p.kind === 'app').forEach(p => out.push({sec:'Aplikasi', t:{tid:p.id, title:p.name || 'Produk baru'}, mk:'game:' + p.id, hidden:p.hidden, custom:true, n:p.packs.length}));
   RBX_GROUPS.forEach(G => out.push({sec:'Roblox', t:{tid:'g:' + G.gid, title:G.group}, roblox:true, n:shGroup(G.gid).rows.length + (sh.extra[G.gid] || []).length}));
   return out;
@@ -7378,7 +7393,10 @@ function shTiles(tab){
   } else if(tab === 'cloud'){
     CLOUDS_BASE.forEach(c => out.push({tid:c.id, title:c.name, img:c.img, mk:'game:' + c.id, hidden:!!meta(c.id).hidden}));
     sh.products.filter(p => p.kind === 'cloud').forEach(p => out.push({tid:p.id, title:p.name || 'Produk baru', mk:'game:' + p.id, hidden:p.hidden, custom:true}));
-  } else sh.products.filter(p => p.kind === 'app').forEach(p => out.push({tid:p.id, title:p.name || 'Produk baru', mk:'game:' + p.id, hidden:p.hidden, custom:true}));
+  } else {
+    APPS_BASE.forEach(a => out.push({tid:a.game, title:a.name, img:a.img, mk:'game:' + a.id, hidden:!!meta(a.game).hidden}));
+    sh.products.filter(p => p.kind === 'app').forEach(p => out.push({tid:p.id, title:p.name || 'Produk baru', mk:'game:' + p.id, hidden:p.hidden, custom:true}));
+  }
   return out;
 }
 function shListHtml(){
