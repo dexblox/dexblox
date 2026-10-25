@@ -3,6 +3,7 @@
   "routes": [
     { "src": "/api/catalog-save", "dest": "/api/catalog.js" },
     { "src": "/api/media-upload", "dest": "/api/media.js" },
+    { "src": "/api/rekber", "dest": "/api/user.js?rk=1" },
     { "src": "/api/(.*)", "dest": "/api/$1.js" }
   ]
 }
