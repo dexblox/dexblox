@@ -2236,10 +2236,13 @@ a.site-banner[href]:active{transform:scale(.99);}
 @media (prefers-reduced-motion:reduce){.cp-sheet{transition:none;}.cp-sum.on,.cp-wbody{animation:none;}.cp-chev{transition:none;}}
 /* ═════════ REKBER / MIDDLEMAN (room chat ala WhatsApp) ═════════ */
 #rk-ov{position:fixed;top:0;left:0;right:0;width:100%;height:100vh;height:100dvh;z-index:12000;display:none;transform:none;margin:0;background:var(--bg-alt);font-family:'Inter',sans-serif;color:var(--text);}
-#rk-ov.on{display:flex;flex-direction:column;}
+#rk-ov.on{display:block;}
+#rk-ov:fullscreen{width:100vw !important;height:100vh !important;top:0 !important;}
+#rk-ov:-webkit-full-screen{width:100vw !important;height:100vh !important;top:0 !important;}
 #rk-ov *{box-sizing:border-box;}
 #rk-ov [hidden]{display:none !important;}
-.rk-shell{flex:1;min-height:0;display:flex;flex-direction:column;width:100%;height:100%;max-width:none;margin:0;background:var(--bg-alt);position:relative;overflow:hidden;}
+.rk-shell{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;margin:0;background:var(--bg-alt);overflow:hidden;}
+@media (max-width:480px){.rk-top{gap:8px;}.rk-ibtn{width:36px;height:36px;border-radius:12px;}.rk-ibtn svg{width:18px;height:18px;}.rk-feebtn{font-size:.72rem;}}
 /* layar lebar: tetap satu layar penuh, isi chat dirapikan di tengah supaya enak dibaca */
 @media (min-width:900px){
   .rk-top{padding-left:max(14px,calc((100% - 980px)/2));padding-right:max(14px,calc((100% - 980px)/2));}
@@ -3354,6 +3357,7 @@ textarea.rk-in{resize:none;min-height:76px;line-height:1.45;}
       <header class="rk-top">
         <div class="rk-shield"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
         <div class="rk-ttl"><b>Rekber Meng Store</b><small>Transaksi aman lewat middleman</small></div>
+        <button class="rk-ibtn" type="button" id="rkBtnFs" onclick="rkFsToggle()" aria-label="Layar penuh" title="Layar penuh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
         <button class="rk-ibtn" type="button" onclick="rkClose()" aria-label="Tutup"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
       </header>
       <div class="rk-scroll"><div class="rk-wrap">
@@ -4927,6 +4931,12 @@ function rkFeeClose(){ rkEl('rkFee').classList.remove('on'); }
 rkEl('rkAmount').addEventListener('input', () => { rkEl('rkFeeCreate').innerHTML = rkFeeCard(rkEl('rkAmount').value); });
 
 /* ── buka / tutup / pindah tampilan ── */
+function rkFsOn(){ return !!(document.fullscreenElement || document.webkitFullscreenElement); }
+function rkFsEnter(){ const el = rkEl('rk-ov'); const f = el.requestFullscreen || el.webkitRequestFullscreen; if(!f) return; try { const r = f.call(el, { navigationUI:'hide' }); if(r && r.catch) r.catch(() => {}); } catch(_) {} }
+function rkFsExit(){ try { if(rkFsOn()) (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch(_) {} }
+function rkFsToggle(){ rkFsOn() ? rkFsExit() : rkFsEnter(); }
+{ const el = rkEl('rk-ov'); if(!(el.requestFullscreen || el.webkitRequestFullscreen)) rkEl('rkBtnFs').hidden = true; }
+document.addEventListener('fullscreenchange', () => setTimeout(rkFit, 60)); document.addEventListener('webkitfullscreenchange', () => setTimeout(rkFit, 60));
 function rkFit(){ // layar penuh pas dengan area yang terlihat (termasuk saat keyboard muncul); abaikan saat dicubit-zoom
   const ov = rkEl('rk-ov'), vv = window.visualViewport, ok = vv && vv.scale <= 1.02;
   const h = ok ? vv.height : window.innerHeight;
@@ -4938,6 +4948,7 @@ window.addEventListener('resize', rkFit); window.addEventListener('orientationch
 if(window.visualViewport){ window.visualViewport.addEventListener('resize', () => { rkFit(); if(RK.view === 'chat' && rkNear()) rkToBottom(true); }); window.visualViewport.addEventListener('scroll', rkFit); }
 function rkOpen(code, admin){
   rkEl('rk-ov').classList.add('on'); lockPage(true); rkFit();
+  if(window.matchMedia && matchMedia('(pointer:coarse)').matches) rkFsEnter(); // di HP: sembunyikan bilah browser
   if(code && admin){ rkEnter(code, { admin:true }); return; }
   rkShow('home'); rkEl('rkFeeHome').innerHTML = rkFeeCard('');
   const hm = /^#rekber=([A-Za-z0-9-]+)/.exec(location.hash || '');
@@ -4947,7 +4958,7 @@ function rkClose(){
   rkStopPoll(); rkRecCancelSilent(); rkReleaseMedia();
   RK.view = 'home'; RK.code = ''; RK.token = '';
   const wasAdmin = RK.admin; RK.admin = false;
-  rkEl('rk-ov').classList.remove('on'); lockPage(false);
+  rkFsExit(); rkEl('rk-ov').classList.remove('on'); lockPage(false);
   if(wasAdmin && typeof rkAdmRender === 'function') rkAdmRender(true);
 }
 function rkShow(v){
@@ -5330,14 +5341,12 @@ async function rkShare(){
 async function rkAdmToggle(){
   if(!RK.admin || !RK.room) return;
   const open = RK.room.status === 'closed';
-  if(!confirm(open ? 'Buka room ini lagi?' : 'Tutup room ini? Pembeli & penjual tidak bisa mengirim pesan lagi.')) return;
   try { await rkApi({ a:'admin_close', code:RK.code, open }, true); rkToast(open ? 'Room dibuka lagi' : 'Room ditutup'); rkPollNow(); }
   catch(e){ rkToast(e.message, true); }
 }
 async function rkAdmPay(){
   if(!RK.admin || !RK.room) return;
   const to = !RK.room.paid;
-  if(!confirm(to ? 'Konfirmasi dana pembayaran SUDAH masuk ke admin?\nPembeli & penjual akan bisa saling kirim data.' : 'Kunci lagi room ini? Pembeli & penjual tidak bisa kirim data sampai dikonfirmasi lagi.')) return;
   try { await rkApi({ a:'admin_pay', code:RK.code, paid:to }, true); rkToast(to ? 'Dana dikonfirmasi — chat dibuka' : 'Room dikunci lagi'); rkPollNow(); }
   catch(e){ rkToast(e.message, true); }
 }
