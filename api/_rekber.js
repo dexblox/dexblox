@@ -3,7 +3,7 @@
 // supaya jumlah Serverless Function tetap 12 (batas paket Hobby).
 //
 //   POST /api/rekber  { a:'create' | 'join' | 'poll' | 'send' | 'my' , ... }      -> peserta (pakai token room)
-//   POST /api/rekber  { a:'admin_list' | 'admin_delete' | 'admin_close' }          -> admin (header x-admin-pass)
+//   POST /api/rekber  { a:'admin_list' | 'admin_delete' | 'admin_close' | 'admin_pay' }  -> admin (header x-admin-pass)
 //   GET  /api/rekber?m=<idMedia>&c=<kodeRoom>  (header x-rk-token / x-admin-pass)  -> file foto / voice
 //
 // Data di Redis:
@@ -92,7 +92,7 @@ function publicRoom(room) {
   const mem = (r) => (room.members[r] ? { name: room.members[r].name } : null);
   return {
     code: room.code, title: room.title, amount: room.amount, desc: room.desc,
-    status: room.status, createdAt: room.createdAt,
+    status: room.status, paid: !!room.paid, createdAt: room.createdAt,
     members: { buyer: mem('buyer'), seller: mem('seller') }
   };
 }
@@ -135,13 +135,13 @@ async function actCreate(req, res, b) {
   let code = '';
   for (let i = 0; i < 6 && !code; i++) {
     const c = newCode();
-    const room = { code: c, title, amount, desc, status: 'open', createdAt: Date.now(), creator: role, members: {} };
+    const room = { code: c, title, amount, desc, status: 'open', paid: false, createdAt: Date.now(), creator: role, members: {} };
     room.members[role] = { name, th: sha(token), at: Date.now() };
     const [ok] = await pipe([['SET', 'rk:room:' + c, JSON.stringify(room), 'NX', 'EX', TTL_SEC]]);
     if (ok === 'OK') code = c;
   }
   if (!code) return res.status(500).json({ success: false, error: 'Gagal membuat kode room, coba lagi.' });
-  await pushMsg(code, { k: 'sys', r: 'sys', x: `Room dibuat oleh ${name} (${role === 'buyer' ? 'Pembeli' : 'Penjual'}). Bagikan kode room ke ${role === 'buyer' ? 'penjual' : 'pembeli'} agar bisa masuk. Admin rekber ikut memantau room ini.` });
+  await pushMsg(code, { k: 'sys', r: 'sys', x: `Room dibuat oleh ${name} (${role === 'buyer' ? 'Pembeli' : 'Penjual'}). Bagikan kode room ke ${role === 'buyer' ? 'penjual' : 'pembeli'} agar bisa masuk. Alur: pembeli transfer ke admin → admin konfirmasi dana masuk → pembeli & penjual baru bisa saling kirim data. Admin ikut memantau room ini.` });
   const det = [`Judul: ${title}`, amount ? `Nominal: ${amount}` : '', desc ? `Detail: ${desc}` : ''].filter(Boolean).join('\n');
   await pushMsg(code, { k: 'info', r: 'sys', x: det });
   notifyDiscord(`🛡️ **Room Rekber baru** \`RK-${code}\`\nJudul: ${title}${amount ? '\nNominal: ' + amount : ''}\nDibuat oleh: ${name} (${role})`);
@@ -197,6 +197,10 @@ async function actSend(req, res, b) {
   if (Number(len) >= MAX_MSGS) return res.status(400).json({ success: false, error: 'Room ini sudah mencapai batas pesan.' });
 
   const kind = b.k === 'image' ? 'image' : b.k === 'voice' ? 'voice' : 'text';
+  // Dana harus masuk ke admin dulu. Sebelum dikonfirmasi: pembeli hanya boleh kirim foto (bukti transfer), penjual belum boleh kirim apa pun.
+  const proof = !room.paid && me.role === 'buyer' && kind === 'image';
+  if (me.role !== 'admin' && !room.paid && !proof)
+    return res.status(403).json({ success: false, locked: true, error: me.role === 'buyer' ? 'Transfer ke admin dulu. Kamu baru bisa kirim data setelah admin mengonfirmasi dana masuk (sementara hanya bisa kirim bukti transfer).' : 'Menunggu pembeli transfer ke admin. Chat dibuka setelah admin mengonfirmasi dana masuk.' });
   const msg = { k: kind, r: me.role, n: me.name };
   if (kind === 'text') {
     const x = cleanTxt(b.x, MAX_TEXT).trim();
@@ -210,6 +214,7 @@ async function actSend(req, res, b) {
     const mime = kind === 'image' ? sniffImage(buf) : sniffAudio(buf);
     if (!mime) return res.status(415).json({ success: false, error: kind === 'image' ? 'Format foto tidak didukung.' : 'Format suara tidak didukung.' });
     const [cnt] = await pipe([['INCR', 'rk:mc:' + code], ['EXPIRE', 'rk:mc:' + code, TTL_SEC]]);
+    if (proof && Number(cnt) > 3) return res.status(400).json({ success: false, error: 'Bukti transfer sudah terkirim. Tunggu admin mengonfirmasi ya.' });
     if (Number(cnt) > MAX_MEDIA_PER_ROOM) return res.status(400).json({ success: false, error: `Batas foto/suara per room tercapai (${MAX_MEDIA_PER_ROOM}). Lanjutkan lewat teks ya.` });
     const id = rid(12);
     await pipe([['SET', 'rk:m:' + id, JSON.stringify({ c: code, mime, b64 }), 'EX', MEDIA_TTL_SEC]]);
@@ -219,6 +224,7 @@ async function actSend(req, res, b) {
     if (cap && kind === 'image') msg.x = cap;
   }
   const i = await pushMsg(code, msg);
+  if (proof) notifyDiscord(`💸 \`RK-${code}\` — **${me.name}** mengirim bukti transfer. Cek room lalu konfirmasi dana masuk.`);
   return res.status(200).json({ success: true, i });
 }
 
@@ -250,7 +256,7 @@ async function actAdminList(req, res) {
     const s = jparse(raws[list.length + i]) || {};
     rooms.push({
       code: room.code, title: room.title, amount: room.amount, status: room.status, createdAt: room.createdAt,
-      buyer: room.members.buyer ? room.members.buyer.name : null, seller: room.members.seller ? room.members.seller.name : null,
+      paid: !!room.paid, buyer: room.members.buyer ? room.members.buyer.name : null, seller: room.members.seller ? room.members.seller.name : null,
       n: s.n || 0, t: s.t || room.createdAt, p: s.p || '', r: s.r || '', nm: s.nm || ''
     });
   });
@@ -265,6 +271,17 @@ async function actAdminDelete(req, res, b) {
   const media = (list || []).map(jparse).filter((m) => m && m.m).map((m) => ['DEL', 'rk:m:' + m.m]);
   await pipe([['DEL', 'rk:room:' + code], ['DEL', 'rk:msgs:' + code], ['DEL', 'rk:sum:' + code], ['DEL', 'rk:mc:' + code], ['ZREM', 'rk:index', code]].concat(media));
   return res.status(200).json({ success: true });
+}
+
+async function actAdminPay(req, res, b) {
+  const code = cleanCode(b.code);
+  const [raw] = await pipe([['GET', 'rk:room:' + code]]);
+  const room = jparse(raw);
+  if (!room) return res.status(404).json({ success: false, error: 'Room tidak ditemukan.' });
+  room.paid = !!b.paid; room.paidAt = room.paid ? Date.now() : 0;
+  await pipe([['SET', 'rk:room:' + code, JSON.stringify(room), 'EX', TTL_SEC]]);
+  await pushMsg(code, { k: 'sys', r: 'sys', x: room.paid ? 'Admin mengonfirmasi dana pembayaran sudah diterima. Pembeli & penjual sekarang bisa saling kirim data.' : 'Admin mengunci kembali room: menunggu konfirmasi pembayaran.' });
+  return res.status(200).json({ success: true, paid: room.paid });
 }
 
 async function actAdminClose(req, res, b) {
@@ -306,10 +323,11 @@ module.exports = async function rekberHandler(req, res) {
       case 'poll':   return await actPoll(req, res, b);
       case 'send':   return await actSend(req, res, b);
       case 'my':     return await actMy(req, res, b);
-      case 'admin_list': case 'admin_delete': case 'admin_close':
+      case 'admin_list': case 'admin_delete': case 'admin_close': case 'admin_pay':
         if (!isAdmin(req)) return res.status(401).json({ success: false, error: 'Password admin salah' });
         if (b.a === 'admin_list') return await actAdminList(req, res);
         if (b.a === 'admin_delete') return await actAdminDelete(req, res, b);
+        if (b.a === 'admin_pay') return await actAdminPay(req, res, b);
         return await actAdminClose(req, res, b);
       default: return res.status(400).json({ success: false, error: 'Aksi tidak dikenal' });
     }
