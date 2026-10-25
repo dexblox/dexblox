@@ -4947,7 +4947,6 @@ window.addEventListener('resize', rkFit); window.addEventListener('orientationch
 if(window.visualViewport){ window.visualViewport.addEventListener('resize', () => { rkFit(); if(RK.view === 'chat' && rkNear()) rkToBottom(true); }); window.visualViewport.addEventListener('scroll', rkFit); }
 function rkOpen(code, admin){
   rkEl('rk-ov').classList.add('on'); lockPage(true); rkFit();
-  if(window.matchMedia && matchMedia('(pointer:coarse)').matches) rkFsEnter(); // di HP: sembunyikan bilah browser
   if(code && admin){ rkEnter(code, { admin:true }); return; }
   rkShow('home'); rkEl('rkFeeHome').innerHTML = rkFeeCard('');
   const hm = /^#rekber=([A-Za-z0-9-]+)/.exec(location.hash || '');
