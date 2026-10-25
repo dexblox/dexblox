@@ -1,5 +1,7 @@
 // POST /api/user  { username }  ->  { userId, name }
 module.exports = async function handler(req, res) {
+  // /api/rekber (lihat vercel.json) digabung ke sini agar jumlah Serverless Function <= 12 (batas Hobby).
+  if ((req.query && req.query.rk) || /\/api\/rekber/.test(String(req.url || ''))) return require('./_rekber')(req, res);
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method tidak diizinkan' });
   try {
     const { username } = req.body || {};

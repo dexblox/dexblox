@@ -87,4 +87,7 @@ async function kvZrem(key, member) {
   return kvCommand(['zrem', key, member]);
 }
 
-module.exports = { kvUsage, kvPost, kvSet, kvGet, kvDel, kvZadd, kvZrem, kvZrangeRev };
+// Catat perintah yang dikirim lewat jalur lain (mis. pipeline rekber) ke penghitung pemakaian
+function kvTally(n) { _pending += (n || 0); flushTally(false).catch(() => {}); }
+
+module.exports = { kvTally, kvUsage, kvPost, kvSet, kvGet, kvDel, kvZadd, kvZrem, kvZrangeRev };
