@@ -1,6 +1,6 @@
 // GET/POST /api/order-list  (header x-admin-pass)  ->  { orders: [...], stats: {...} }
 const { kvGet, kvZrem, kvZrangeRev, kvUsage } = require('./_kv');
-const { isAdmin, refreshOrder } = require('./_orders');
+const { isAdmin, makeSession, refreshOrder } = require('./_orders');
 const { rateLimit } = require('./_ratelimit');
 
 module.exports = async function handler(req, res) {
@@ -40,7 +40,9 @@ module.exports = async function handler(req, res) {
         if ((o.paidAt || o.createdAt) >= startOfDay.getTime()) stats.revenueToday += Number(o.amount) || 0;
       }
     }
-    return res.status(200).json({ orders, stats });
+    const out = { orders, stats };
+    if (req.query && req.query.login) out.session = makeSession(); // login baru -> beri token sesi (30 hari)
+    return res.status(200).json(out);
   } catch (e) {
     console.error('order-list:', e);
     return res.status(500).json({ error: 'Gagal mengambil daftar pesanan: ' + String((e && e.message) || e).slice(0, 220) });

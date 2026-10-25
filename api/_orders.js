@@ -14,11 +14,31 @@ const EXPIRED_KEEP_MS = 7 * 24 * 60 * 60 * 1000; // riwayat "tidak jadi" dihapus
 const GATEWAY_CHECK_GAP_MS = 21 * 1000; // BuatQris: maks 1 cek / 20 detik per transaksi
 const API = 'https://api.buatqris.site';
 
+// Sesi admin: token bertanda tangan (HMAC dari ADMIN_PASS) supaya password mentah tidak perlu disimpan di browser.
+// Format: s1.<kedaluwarsa-ms>.<hmac-hex>. Mengganti ADMIN_PASS otomatis membatalkan semua sesi.
+const SESSION_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+function sessionSign(exp) {
+  return crypto.createHmac('sha256', String(process.env.ADMIN_PASS || '')).update('admin-session:' + exp).digest('hex');
+}
+function makeSession() {
+  const exp = Date.now() + SESSION_TTL_MS;
+  return 's1.' + exp + '.' + sessionSign(exp);
+}
+function checkSession(tok) {
+  const m = /^s1\.(\d{10,15})\.([a-f0-9]{64})$/.exec(String(tok || ''));
+  if (!m) return false;
+  const exp = Number(m[1]);
+  if (!(exp > Date.now())) return false;
+  const a = Buffer.from(m[2], 'hex'), b = Buffer.from(sessionSign(exp), 'hex');
+  return a.length === b.length && crypto.timingSafeEqual(a, b);
+}
+
 function isAdmin(req) {
   const expected = process.env.ADMIN_PASS;
   if (!expected) return false; // ADMIN_PASS belum diset -> tidak ada yang boleh masuk
   const body = (req.body && typeof req.body === 'object') ? req.body : {};
   const given = String(req.headers['x-admin-pass'] || body.pass || (req.query && req.query.pass) || '');
+  if (checkSession(given)) return true;
   const a = crypto.createHash('sha256').update(given).digest();
   const b = crypto.createHash('sha256').update(String(expected)).digest();
   return crypto.timingSafeEqual(a, b);
@@ -116,4 +136,4 @@ function publicOrder(r) {
 
 function clean(v, max) { return String(v == null ? '' : v).slice(0, max); }
 
-module.exports = { UNPAID_TTL_MS, EXPIRED_KEEP_MS, isAdmin, gatewayStatus, refreshOrder, removeOrder, publicOrder, clean };
+module.exports = { UNPAID_TTL_MS, EXPIRED_KEEP_MS, isAdmin, makeSession, gatewayStatus, refreshOrder, removeOrder, publicOrder, clean };
