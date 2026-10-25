@@ -2235,7 +2235,7 @@ a.site-banner[href]:active{transform:scale(.99);}
 .cp-foot .btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none;}
 @media (prefers-reduced-motion:reduce){.cp-sheet{transition:none;}.cp-sum.on,.cp-wbody{animation:none;}.cp-chev{transition:none;}}
 /* ═════════ REKBER / MIDDLEMAN (room chat ala WhatsApp) ═════════ */
-#rk-ov{position:fixed;inset:0;z-index:12000;display:none;background:var(--bg-alt);font-family:'Inter',sans-serif;color:var(--text);}
+#rk-ov{position:fixed;top:0;left:0;right:0;width:100%;height:100vh;height:100dvh;z-index:12000;display:none;transform:none;margin:0;background:var(--bg-alt);font-family:'Inter',sans-serif;color:var(--text);}
 #rk-ov.on{display:flex;flex-direction:column;}
 #rk-ov *{box-sizing:border-box;}
 #rk-ov [hidden]{display:none !important;}
@@ -2297,6 +2297,19 @@ a.site-banner[href]:active{transform:scale(.99);}
 .rk-tag{display:inline-flex;align-items:center;height:18px;padding:0 7px;border-radius:9px;font-size:.62rem;font-weight:800;letter-spacing:.03em;background:#ede9ff;color:var(--cyan-soft);flex:none;}
 .rk-tag.closed{background:#f1f1f5;color:#7a7894;}
 .rk-tag.new{background:#ef4444;color:#fff;}
+.rk-tag.wait{background:#fff1d6;color:#a35a00;}
+.rk-tag.paid{background:#dcf7e6;color:#127a3e;}
+.rk-paybar{flex:none;display:flex;align-items:center;gap:12px;padding:12px 14px calc(12px + env(safe-area-inset-bottom,0px));background:#fff8e8;border-top:1.5px solid #ffd58a;position:relative;z-index:2;}
+.rk-paybar .ic{flex:none;width:40px;height:40px;border-radius:14px;background:#ffe6b3;color:#a35a00;display:grid;place-items:center;}
+.rk-paybar .ic svg{width:21px;height:21px;}
+.rk-paybar .tx{flex:1;min-width:0;}
+.rk-paybar .tx b{display:block;font-size:.88rem;font-weight:900;color:#7a4a00;}
+.rk-paybar .tx span{display:block;font-size:.74rem;font-weight:600;color:#8a6420;line-height:1.45;margin-top:2px;}
+.rk-paybar button{flex:none;border:0;border-radius:14px;padding:11px 14px;font:800 .8rem 'Inter',sans-serif;color:#fff;background:linear-gradient(135deg,#f59e0b,#f97316);cursor:pointer;box-shadow:0 10px 20px -12px rgba(249,115,22,.9);}
+.rk-paybar button:active{transform:scale(.96);}
+.rk-paybar.ok{background:#effaf3;border-top-color:#a8e6c0;}
+.rk-paybar.ok .ic{background:#cdf3dc;color:#127a3e;}
+.rk-paybar.ok .tx b{color:#0d6431;}.rk-paybar.ok .tx span{color:#2f7a52;}
 .rk-x{width:26px;height:26px;border-radius:9px;border:0;background:transparent;color:var(--text-faint);cursor:pointer;display:grid;place-items:center;}
 .rk-x:hover{background:#f3f1fb;color:#e5484d;}
 .rk-x svg{width:14px;height:14px;}
@@ -3346,7 +3359,7 @@ textarea.rk-in{resize:none;min-height:76px;line-height:1.45;}
       <div class="rk-scroll"><div class="rk-wrap">
         <div class="rk-hero">
           <h2>Jual-beli lebih tenang</h2>
-          <p>Buat room, ajak lawan transaksi lewat kode, lalu ngobrol dan kirim bukti di satu tempat. Admin ikut memantau sebagai penengah.</p>
+          <p>Buat room, ajak lawan transaksi lewat kode. Dana ditahan admin dulu, baru data dikirim. Admin ikut memantau sebagai penengah.</p>
         </div>
         <div class="rk-cta">
           <button class="rk-btn main" type="button" onclick="rkShow('create')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Buat Room</button>
@@ -3357,9 +3370,9 @@ textarea.rk-in{resize:none;min-height:76px;line-height:1.45;}
         <div class="rk-sec">Cara kerja</div>
         <div class="rk-steps">
           <div class="rk-step"><i>1</i><div><b>Pembeli membuat room</b><span>Isi judul transaksi lalu dapatkan kode room, contoh <span class="rk-code">RK-7F3KQ9</span>.</span></div></div>
-          <div class="rk-step"><i>2</i><div><b>Bagikan kode ke penjual</b><span>Penjual masuk dengan kode itu. Satu room hanya untuk dua pihak.</span></div></div>
-          <div class="rk-step"><i>3</i><div><b>Chat, foto &amp; pesan suara</b><span>Sepakati barang, kirim bukti, dan bicara langsung di dalam room.</span></div></div>
-          <div class="rk-step"><i>4</i><div><b>Admin memantau</b><span>Admin Meng Store bisa melihat room dan ikut membantu bila ada masalah.</span></div></div>
+          <div class="rk-step"><i>2</i><div><b>Bagikan kode ke lawan transaksi</b><span>Pembeli atau penjual boleh membuat room. Satu room hanya untuk dua pihak.</span></div></div>
+          <div class="rk-step"><i>3</i><div><b>Pembeli transfer ke admin dulu</b><span>Kirim bukti transfer. Setelah admin mengonfirmasi dana masuk, barulah pembeli &amp; penjual bisa saling kirim data.</span></div></div>
+          <div class="rk-step"><i>4</i><div><b>Chat, foto &amp; pesan suara</b><span>Kirim data barang, lalu admin meneruskan dana ke penjual setelah transaksi selesai.</span></div></div>
         </div>
       </div></div>
     </section>
@@ -3409,6 +3422,7 @@ textarea.rk-in{resize:none;min-height:76px;line-height:1.45;}
         <div class="rk-ttl"><b id="rkCTitle">Room</b><small id="rkCSub"></small></div>
         <button class="rk-ibtn rk-feebtn" type="button" onclick="rkFeeOpen()" aria-label="Fee admin" title="Fee admin">Rp</button>
         <button class="rk-ibtn" type="button" id="rkBtnCopy" onclick="rkCopyCode()" aria-label="Salin kode" title="Salin kode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6a2 2 0 012-2h9"/></svg></button>
+        <button class="rk-ibtn" type="button" id="rkBtnPay" onclick="rkAdmPay()" aria-label="Konfirmasi dana masuk" title="Konfirmasi dana masuk" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button>
         <button class="rk-ibtn" type="button" id="rkBtnClose" onclick="rkAdmToggle()" aria-label="Tutup room" title="Tutup / buka room" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></button>
         <button class="rk-ibtn" type="button" id="rkBtnDel" onclick="rkAdmDelete()" aria-label="Hapus room" title="Hapus room" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"/></svg></button>
       </header>
@@ -3416,6 +3430,11 @@ textarea.rk-in{resize:none;min-height:76px;line-height:1.45;}
       <div class="rk-chatbg">
         <div class="rk-msgs" id="rkMsgs"></div>
         <button class="rk-newbtn" id="rkNew" type="button" onclick="rkToBottom(true)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>Pesan baru</button>
+      </div>
+      <div class="rk-paybar" id="rkPayBar" hidden>
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2.5"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
+        <div class="tx"><b id="rkPayT"></b><span id="rkPayD"></span></div>
+        <button type="button" id="rkPayBtn" hidden></button>
       </div>
       <div class="rk-closed" id="rkClosedBar" hidden>Room ini sudah ditutup — transaksi selesai.</div>
       <div class="rk-comp" id="rkComp">
@@ -4908,8 +4927,17 @@ function rkFeeClose(){ rkEl('rkFee').classList.remove('on'); }
 rkEl('rkAmount').addEventListener('input', () => { rkEl('rkFeeCreate').innerHTML = rkFeeCard(rkEl('rkAmount').value); });
 
 /* ── buka / tutup / pindah tampilan ── */
+function rkFit(){ // layar penuh pas dengan area yang terlihat (termasuk saat keyboard muncul); abaikan saat dicubit-zoom
+  const ov = rkEl('rk-ov'), vv = window.visualViewport, ok = vv && vv.scale <= 1.02;
+  const h = ok ? vv.height : window.innerHeight;
+  if(h) ov.style.height = Math.round(h) + 'px';
+  ov.style.top = ok ? Math.round(vv.offsetTop) + 'px' : '0px';
+}
+if(document.body && rkEl('rk-ov').parentNode !== document.body) document.body.appendChild(rkEl('rk-ov'));
+window.addEventListener('resize', rkFit); window.addEventListener('orientationchange', rkFit);
+if(window.visualViewport){ window.visualViewport.addEventListener('resize', () => { rkFit(); if(RK.view === 'chat' && rkNear()) rkToBottom(true); }); window.visualViewport.addEventListener('scroll', rkFit); }
 function rkOpen(code, admin){
-  rkEl('rk-ov').classList.add('on'); lockPage(true);
+  rkEl('rk-ov').classList.add('on'); lockPage(true); rkFit();
   if(code && admin){ rkEnter(code, { admin:true }); return; }
   rkShow('home'); rkEl('rkFeeHome').innerHTML = rkFeeCard('');
   const hm = /^#rekber=([A-Za-z0-9-]+)/.exec(location.hash || '');
@@ -5000,8 +5028,8 @@ function rkEnter(code, o){
   Object.assign(RK, { code, token:o.token || '', admin:!!o.admin, me:'', room:null, after:0, fails:0, unread:0, lastAct:Date.now(), lastSender:'', lastDay:'' });
   rkEl('rkMsgs').innerHTML = ''; rkEl('rkNew').classList.remove('on');
   rkEl('rkCTitle').textContent = 'Memuat room...'; rkEl('rkCSub').textContent = rkCodeFmt(code);
-  rkEl('rkBtnClose').hidden = !RK.admin; rkEl('rkBtnDel').hidden = !RK.admin;
-  rkEl('rkWait').hidden = true; rkEl('rkClosedBar').hidden = true; rkEl('rkComp').style.display = '';
+  rkEl('rkBtnClose').hidden = !RK.admin; rkEl('rkBtnDel').hidden = !RK.admin; rkEl('rkBtnPay').hidden = !RK.admin;
+  rkEl('rkWait').hidden = true; rkEl('rkClosedBar').hidden = true; rkEl('rkPayBar').hidden = true; rkEl('rkComp').style.display = '';
   rkEl('rkInp').value = ''; rkComposerSync();
   if(!rkEl('rk-ov').classList.contains('on')){ rkEl('rk-ov').classList.add('on'); lockPage(true); }
   rkShow('chat');
@@ -5054,7 +5082,33 @@ function rkHead(){
     rkEl('rkWaitTxt').innerHTML = 'Menunggu ' + (!s ? 'penjual' : 'pembeli') + ' bergabung · kode <b class="rk-code">' + rkCodeFmt(escHtml(r.code)) + '</b>';
   } else wait.hidden = true;
   rkEl('rkClosedBar').hidden = open;
-  rkEl('rkComp').style.display = (!open && !RK.admin) ? 'none' : '';
+  // Dana harus masuk ke admin dulu: sebelum dikonfirmasi pembeli & penjual tidak bisa kirim data
+  const locked = !RK.admin && open && !r.paid;
+  rkEl('rkComp').style.display = (locked || (!open && !RK.admin)) ? 'none' : '';
+  const pb = rkEl('rkPayBar'), pbtn = rkEl('rkPayBtn');
+  pb.classList.remove('ok'); pbtn.hidden = true; pbtn.onclick = null;
+  if(open && !r.paid){
+    pb.hidden = false;
+    if(RK.admin){
+      rkEl('rkPayT').textContent = 'Belum ada konfirmasi pembayaran';
+      rkEl('rkPayD').textContent = 'Kirim detail pembayaran (QRIS / rekening) ke pembeli di chat ini. Setelah dana masuk, tekan Konfirmasi agar pembeli & penjual bisa kirim data.';
+      pbtn.textContent = 'Konfirmasi dana masuk'; pbtn.hidden = false; pbtn.onclick = rkAdmPay;
+    } else if(RK.me === 'buyer'){
+      rkEl('rkPayT').textContent = 'Transfer ke admin dulu';
+      rkEl('rkPayD').textContent = 'Admin akan mengirim detail pembayaran (QRIS / rekening) di chat ini. Setelah transfer, kirim bukti transfer. Chat & kirim data dibuka setelah admin mengonfirmasi dana masuk.';
+      pbtn.textContent = 'Kirim bukti transfer'; pbtn.hidden = false; pbtn.onclick = () => rkEl('rkFile').click();
+    } else {
+      rkEl('rkPayT').textContent = 'Menunggu pembeli transfer ke admin';
+      rkEl('rkPayD').textContent = 'Chat & kirim data dibuka setelah admin mengonfirmasi dana pembayaran sudah masuk.';
+    }
+  } else if(open && r.paid && RK.admin){
+    pb.hidden = false; pb.classList.add('ok');
+    rkEl('rkPayT').textContent = 'Dana sudah dikonfirmasi';
+    rkEl('rkPayD').textContent = 'Pembeli & penjual bisa saling kirim data. Setelah transaksi selesai, teruskan dana ke penjual lalu tutup room.';
+  } else pb.hidden = true;
+  const pbt = rkEl('rkBtnPay'); pbt.hidden = !RK.admin || !open;
+  pbt.title = r.paid ? 'Dana sudah dikonfirmasi — ketuk untuk kunci lagi' : 'Konfirmasi dana masuk';
+  pbt.setAttribute('aria-label', pbt.title); pbt.style.background = r.paid ? 'rgba(80,220,140,.45)' : '';
   const t = rkEl('rkBtnClose'); t.title = open ? 'Tutup room (selesai)' : 'Buka room lagi'; t.setAttribute('aria-label', t.title);
   if(RK.token || RK.admin){
     const saved = rkRooms().find(x => x.c === r.code);
@@ -5096,7 +5150,7 @@ function rkAppend(m){
   row.className = 'rk-row ' + (mine ? 'me' : 'them') + (m.r === 'admin' ? ' adm' : '');
   const key = m.r + '|' + (m.n || '');
   let who = '';
-  if(!mine && key !== RK.lastSender) who = '<div class="rk-who r-' + m.r + '">' + escHtml(m.n || RK_LBL[m.r]) + (m.r === 'admin' ? '<span class="rk-tag">ADMIN</span>' : ' · ' + (RK_LBL[m.r] || '')) + '</div>';
+  if(!mine && key !== RK.lastSender) who = '<div class="rk-who r-' + m.r + '">' + escHtml(m.n || RK_LBL[m.r]) + (m.r === 'admin' ? '<span class="rk-tag">REKBER</span>' : ' · ' + (RK_LBL[m.r] || '')) + '</div>';
   RK.lastSender = key;
   const meta = '<span class="rk-meta">' + rkTime(m.t) + '</span>';
   let body = '';
@@ -5280,6 +5334,13 @@ async function rkAdmToggle(){
   try { await rkApi({ a:'admin_close', code:RK.code, open }, true); rkToast(open ? 'Room dibuka lagi' : 'Room ditutup'); rkPollNow(); }
   catch(e){ rkToast(e.message, true); }
 }
+async function rkAdmPay(){
+  if(!RK.admin || !RK.room) return;
+  const to = !RK.room.paid;
+  if(!confirm(to ? 'Konfirmasi dana pembayaran SUDAH masuk ke admin?\nPembeli & penjual akan bisa saling kirim data.' : 'Kunci lagi room ini? Pembeli & penjual tidak bisa kirim data sampai dikonfirmasi lagi.')) return;
+  try { await rkApi({ a:'admin_pay', code:RK.code, paid:to }, true); rkToast(to ? 'Dana dikonfirmasi — chat dibuka' : 'Room dikunci lagi'); rkPollNow(); }
+  catch(e){ rkToast(e.message, true); }
+}
 async function rkAdmDelete(){
   if(!RK.admin) return;
   if(!confirm('Hapus room ' + rkCodeFmt(RK.code) + ' beserta semua pesan, foto & suara? Tidak bisa dibatalkan.')) return;
@@ -5313,7 +5374,7 @@ async function rkAdmRender(quiet){
       const un = rkAdmUnread(r);
       const who = (r.buyer || '—') + ' ↔ ' + (r.seller || 'menunggu penjual');
       return '<button type="button" class="rkadm-item' + (un ? ' unread' : '') + '" data-c="' + escHtml(r.code) + '"><div class="rk-ava"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6l8-3z"/></svg></div>'
-        + '<div class="mid"><b><span>' + escHtml(r.title) + '</span>' + (r.status === 'closed' ? '<span class="rk-tag closed">Selesai</span>' : '') + (un ? '<span class="rk-tag new">BARU</span>' : '') + '</b>'
+        + '<div class="mid"><b><span>' + escHtml(r.title) + '</span>' + (r.status === 'closed' ? '<span class="rk-tag closed">Selesai</span>' : (r.paid ? '<span class="rk-tag paid">Dana diterima</span>' : '<span class="rk-tag wait">Belum bayar</span>')) + (un ? '<span class="rk-tag new">BARU</span>' : '') + '</b>'
         + '<small><span class="rk-code">' + rkCodeFmt(escHtml(r.code)) + '</span> · ' + escHtml(who) + (r.amount ? ' · ' + escHtml(r.amount) : '') + '</small>'
         + '<small>' + (r.p ? escHtml((r.nm ? r.nm + ': ' : '') + r.p) : 'Belum ada pesan') + '</small></div>'
         + '<div class="end"><span>' + rkAgo(r.t) + '</span><span>' + r.n + ' pesan</span></div></button>';
