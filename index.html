@@ -1903,6 +1903,23 @@ a.site-banner[href]:active{transform:scale(.99);}
 .adm-pane[hidden]{display:none;}
 .adm-logout{background:#fff;border:1px solid #e6e4f5;padding:9px 13px;border-radius:12px;font:700 .72rem 'Inter',sans-serif;cursor:pointer;color:var(--text-muted);flex-shrink:0;}
 @media (max-width:420px){.adm-tab span{display:none;}.adm-tab svg{width:18px;height:18px;}}
+
+/* admin: menu tab jadi titik tiga (dropdown) */
+.adm-cur{flex:1;min-width:0;display:flex;align-items:center;gap:9px;font:800 1rem 'Inter',sans-serif;color:#4a3bc4;}
+.adm-cur svg{width:20px;height:20px;flex-shrink:0;}
+.adm-cur span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.adm-menuwrap{position:relative;flex-shrink:0;}
+.adm-dots{position:relative;width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid #e6e4f5;display:grid;place-items:center;cursor:pointer;color:#4b4873;}
+.adm-dots[aria-expanded="true"]{background:#ecebf8;}
+.adm-dots svg{width:20px;height:20px;}
+.adm-menuwrap:has(.adm-tabs i:not(:empty)) .adm-dots::after{content:"";position:absolute;top:7px;right:8px;width:9px;height:9px;border-radius:50%;background:#ef4444;border:2px solid #fff;}
+.adm-tabs{display:none;position:absolute;top:calc(100% + 8px);right:0;z-index:40;flex:none;flex-direction:column;gap:2px;width:220px;max-width:calc(100vw - 32px);padding:6px;background:#fff;border:1px solid #ececf5;border-radius:18px;box-shadow:0 24px 48px -16px rgba(40,30,110,.35);}
+.adm-tabs.open{display:flex;}
+.adm-tabs .adm-tab{flex:none;justify-content:flex-start;padding:12px;font-size:.88rem;}
+.adm-tabs .adm-tab span{display:inline;}
+.adm-tabs .adm-tab svg{width:18px;height:18px;}
+.adm-tabs .adm-tab i{margin-left:auto;}
+.adm-tabs .adm-tab.on{background:#efecff;box-shadow:none;}
 .adm-note{display:flex;gap:10px;align-items:flex-start;background:linear-gradient(135deg,#f4f2ff,#fbf9ff);border:1px solid #e3defb;border-radius:16px;padding:12px 14px;margin-bottom:14px;font-size:.76rem;line-height:1.55;color:#4b4873;}
 .adm-note b{display:block;color:#4a3bc4;font-size:.82rem;margin-bottom:1px;}
 .adm-note span{display:block;}
@@ -4873,6 +4890,7 @@ async function rkApi(body, admin){
   if(admin) h['x-admin-pass'] = admPassVal;
   const r = await fetch('/api/rekber', { method:'POST', headers:h, body:JSON.stringify(body) });
   const d = await r.json().catch(() => ({}));
+  if(admin && r.status === 401 && admLoggedIn){ doAdminLogout(); }
   if(!r.ok || !d.success){ const e = new Error(d.error || ('Gagal (HTTP ' + r.status + ')')); e.status = r.status; throw e; }
   return d;
 }
@@ -5913,12 +5931,16 @@ renderApps();
       <!-- Tools: setelah login -->
       <div id="adminTools">
         <div class="adm-head-row">
-          <div class="adm-tabs" role="tablist" aria-label="Menu admin">
+          <div class="adm-cur" id="admCur"></div>
+          <div class="adm-menuwrap">
+          <button type="button" class="adm-dots" id="admDots" onclick="admMenuToggle(event)" aria-haspopup="true" aria-expanded="false" aria-label="Menu admin"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
+          <div class="adm-tabs" id="admTabs" role="tablist" aria-label="Menu admin">
             <button type="button" class="adm-tab on" data-t="orders" role="tab" onclick="admSetTab('orders')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg><span>Pesanan</span><i id="admTabCnt"></i></button>
             <button type="button" class="adm-tab" data-t="price" role="tab" onclick="admSetTab('price')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L2 12V2h10l8.6 8.6a2 2 0 010 2.8z"/><circle cx="7" cy="7" r="1.2"/></svg><span>Harga</span></button>
             <button type="button" class="adm-tab" data-t="shop" role="tab" onclick="admSetTab('shop')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg><span>Produk</span></button>
             <button type="button" class="adm-tab" data-t="media" role="tab" onclick="admSetTab('media')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="9" r="1.6"/><path d="M21 16l-5-5L5 21"/></svg><span>Media</span></button>
             <button type="button" class="adm-tab" data-t="rekber" role="tab" onclick="admSetTab('rekber')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8.2-8 9-4.8-.8-8-4.5-8-9V6l8-3z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span>Rekber</span><i id="admRkBadge"></i></button>
+          </div>
           </div>
           <button type="button" class="adm-logout" onclick="doAdminLogout()">Logout</button>
         </div>
@@ -7601,6 +7623,8 @@ let admPassVal = '';   // password hanya di memori, divalidasi server
 const WH_CONF    = 'https://discord.com/api/webhooks/1475771186964332595/8_cbT64G8_-LcZLgUCN0UiRJWrXQnAbkua1_NE06kNbpax8yUQsc-6uZnOeK2THmiLU7';
 let admAvUrl = '';
 let admLoggedIn = false;
+const ADM_LS = 'dbx_adm_sess';   // token sesi admin (bukan password) — dihapus saat Logout
+try { const _t = localStorage.getItem(ADM_LS); if(_t){ admPassVal = _t; admLoggedIn = true; } } catch(_) {}
 const orders = [];
 
 /* ── OPEN / CLOSE ────────────────────────────────────── */
@@ -7626,11 +7650,12 @@ async function doAdminLogin() {
   if (!v) return;
   $('admPassErr').textContent = 'Memeriksa...';
   try {
-    const r = await fetch('/api/order-list', { headers: { 'x-admin-pass': v } });
+    const r = await fetch('/api/order-list?login=1', { headers: { 'x-admin-pass': v } });
     if (r.status === 401) { $('admPassErr').textContent = 'Password salah!'; $('admPass').value = ''; $('admPass').focus(); return; }
     const d = await r.json().catch(() => ({}));
     if (!r.ok) { $('admPassErr').textContent = d.error || 'Server bermasalah, cek konfigurasi KV.'; return; }
-    admPassVal = v; admLoggedIn = true; admLastPaid = -1;
+    admPassVal = d.session || v; admLoggedIn = true; admLastPaid = -1;
+    if (d.session) { try { localStorage.setItem(ADM_LS, d.session); } catch(_) {} }
     $('admPassErr').textContent = '';
     $('adminGate').style.display = 'none';
     $('adminTools').classList.add('vis');
@@ -7674,6 +7699,7 @@ function stopAdmAuto()  { if (_admAuto) { clearInterval(_admAuto); _admAuto = nu
 function doAdminLogout() {
   if(typeof rkClose === 'function' && RK.admin) rkClose();
   admLoggedIn = false; admPassVal = ''; stopAdmAuto(); rkAdmRooms = []; rkAdmBadge();
+  try { localStorage.removeItem(ADM_LS); } catch(_) {}
   orders.length = 0;
   $('adminTools').classList.remove('vis');
   $('adminGate').style.display = 'block';
@@ -8090,8 +8116,13 @@ function catalogInit(){ shGroups(); catalogLoad(); }
 
 /* ── ADMIN: tab ───────────────────────────────────────── */
 let admTab = 'orders';
+function admMenuClose(){ const m = $('admTabs'), b = $('admDots'); if(m) m.classList.remove('open'); if(b) b.setAttribute('aria-expanded','false'); }
+function admMenuToggle(e){ if(e) e.stopPropagation(); const m = $('admTabs'), b = $('admDots'); const on = !m.classList.contains('open'); m.classList.toggle('open', on); b.setAttribute('aria-expanded', on ? 'true' : 'false'); }
+document.addEventListener('click', e => { if(!e.target.closest('.adm-menuwrap')) admMenuClose(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape') admMenuClose(); });
 function admSetTab(t){
-  admTab = t;
+  admTab = t; admMenuClose();
+  { const btn = document.querySelector('.adm-tab[data-t="' + t + '"]'), cur = $('admCur'); if(btn && cur){ const sv = btn.querySelector('svg'), sp = btn.querySelector('span'); cur.innerHTML = (sv ? sv.outerHTML : '') + '<span>' + (sp ? sp.textContent : '') + '</span>'; } }
   document.querySelectorAll('.adm-tab').forEach(b => b.classList.toggle('on', b.dataset.t === t));
   [['orders','admPaneOrders'],['price','admPanePrice'],['shop','admPaneShop'],['media','admPaneMedia'],['rekber','admPaneRekber']].forEach(([k,id]) => { $(id).hidden = (k !== t); });
   if(t === 'price') pzRender();
@@ -8099,6 +8130,7 @@ function admSetTab(t){
   if(t === 'media') mdRender();
   if(t === 'rekber') rkAdmRender(false);
 }
+admSetTab('orders');
 function admCatReset(){ pzDraft = {}; pzQuery = ''; mdBusy = {}; shDraft = null; shView = null; shQuery = ''; admSetTab('orders'); }
 
 /* Panggilan API admin (JSON) */
